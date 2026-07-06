@@ -1,0 +1,22 @@
+{
+  "name": "wall_breach",
+  "description": "A localized hole punched through an outer wall — blocks removed, rubble at base",
+  "anchor_surface": "outer_wall",
+  "footprint": "3x3",
+  "requires_clear_above": false,
+  "min_clear_height": 0,
+  "destructive": true,
+  "tags": ["collapse", "structural"],
+  "blocks": [
+    {"offset": [ 0,  0, 0], "block": "minecraft:air", "probability": 1.0},
+    {"offset": [ 0,  1, 0], "block": "minecraft:air", "probability": 1.0},
+    {"offset": [ 1,  0, 0], "block": "minecraft:air", "probability": 0.65},
+    {"offset": [-1,  0, 0], "block": "minecraft:air", "probability": 0.65},
+    {"offset": [ 1,  1, 0], "block": "minecraft:air", "probability": 0.40},
+    {"offset": [-1,  1, 0], "block": "minecraft:air", "probability": 0.40},
+    {"offset": [ 0, -1, 0], "block": "minecraft:cobblestone", "probability": 0.85, "preserve_existing": true},
+    {"offset": [ 1, -1, 0], "block": "minecraft:gravel",      "probability": 0.60, "preserve_existing": true},
+    {"offset": [-1, -1, 0], "block": "minecraft:gravel",      "probability": 0.60, "preserve_existing": true},
+    {"offset": [ 0, -2, 0], "block": "minecraft:cobblestone", "probability": 0.40, "preserve_existing": true}
+  ]
+}

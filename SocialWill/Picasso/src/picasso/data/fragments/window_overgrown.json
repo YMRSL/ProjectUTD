@@ -1,0 +1,20 @@
+{
+  "name": "window_overgrown",
+  "description": "Broken window filled with vines and leaf growth — nature entering through glass gaps",
+  "anchor_surface": "outer_wall",
+  "footprint": "3x3",
+  "requires_clear_above": false,
+  "min_clear_height": 0,
+  "destructive": true,
+  "tags": ["vegetation", "structural"],
+  "match_hint": "glass_pane",
+  "blocks": [
+    {"offset": [ 0,  0, 0], "block": "minecraft:air",         "probability": 1.0},
+    {"offset": [ 0,  1, 0], "block": "minecraft:air",         "probability": 0.8},
+    {"offset": [ 0,  0, 0], "block": "minecraft:vine",        "probability": 0.7},
+    {"offset": [ 0,  1, 0], "block": "minecraft:oak_leaves",  "probability": 0.5},
+    {"offset": [ 0, -1, 0], "block": "minecraft:vine",        "probability": 0.4},
+    {"offset": [ 1,  0, 0], "block": "minecraft:vine",        "probability": 0.3},
+    {"offset": [-1,  0, 0], "block": "minecraft:vine",        "probability": 0.3}
+  ]
+}

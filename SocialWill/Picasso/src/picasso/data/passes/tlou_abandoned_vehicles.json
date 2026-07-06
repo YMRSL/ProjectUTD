@@ -1,0 +1,13 @@
+{
+  "name": "tlou_abandoned_vehicles",
+  "type": "fragment_pass",
+  "description": "Place abandoned wrecked vehicles on streets and roads. Uses DD discard series (pre-modeled wrecks).",
+  "version": "1.0",
+  "fragments": ["abandoned_car_sedan", "abandoned_car_van", "abandoned_car_jeep"],
+  "anchor_surface": "floor",
+  "density": 0.04,
+  "noise": {"scale": 0.10, "threshold": 0.60},
+  "min_spacing": 8,
+  "space_filter": "exterior",
+  "only_safe_anchor_blocks": true
+}

@@ -1,0 +1,22 @@
+{
+  "name": "vine_anchor",
+  "description": "A vine tendril growing down an outer wall face — single column with organic branching",
+  "anchor_surface": "outer_wall",
+  "footprint": "2x1",
+  "requires_clear_above": false,
+  "min_clear_height": 0,
+  "destructive": false,
+  "tags": ["vegetation", "wall"],
+  "blocks": [
+    {"offset": [0, 0, 0], "block": "minecraft:vine", "probability": 1.0},
+    {"offset": [0,-1, 0], "block": "minecraft:vine", "probability": 0.85},
+    {"offset": [0,-2, 0], "block": "minecraft:vine", "probability": 0.70},
+    {"offset": [0,-3, 0], "block": "minecraft:vine", "probability": 0.55},
+    {"offset": [0,-4, 0], "block": "minecraft:vine", "probability": 0.40},
+    {"offset": [0,-5, 0], "block": "minecraft:vine", "probability": 0.28},
+    {"offset": [1,-1, 0], "block": "minecraft:vine", "probability": 0.25},
+    {"offset": [1,-2, 0], "block": "minecraft:vine", "probability": 0.20},
+    {"offset": [0, 0, 0], "block": "minecraft:oak_leaves", "probability": 0.30},
+    {"offset": [0,-1, 0], "block": "minecraft:oak_leaves", "probability": 0.20}
+  ]
+}

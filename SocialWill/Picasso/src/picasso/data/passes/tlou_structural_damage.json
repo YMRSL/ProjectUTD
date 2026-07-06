@@ -1,0 +1,47 @@
+{
+  "name": "tlou_structural_damage",
+  "description": "Simulate partial building collapse: remove edge blocks, replace corners with rubble, add debris piles.",
+  "version": "1.0",
+  "targets": ["outer_wall", "rooftop"],
+  "only_safe_blocks": true,
+  "rules": [
+    {
+      "match": {
+        "surface": "outer_wall",
+        "adjacent_air": true,
+        "y_min": 70
+      },
+      "action": "remove",
+      "weight": 0.12,
+      "noise": {"scale": 0.12, "threshold": 0.72}
+    },
+    {
+      "match": {
+        "surface": "rooftop",
+        "adjacent_air": true
+      },
+      "action": "replace",
+      "replace_with": [
+        {"block": "minecraft:air",       "weight": 0.55},
+        {"block": "minecraft:cobblestone","weight": 0.25},
+        {"block": "minecraft:gravel",    "weight": 0.20}
+      ],
+      "weight": 0.25,
+      "noise": {"scale": 0.11, "threshold": 0.65}
+    },
+    {
+      "match": {
+        "surface": "floor",
+        "block": ["minecraft:stone_bricks", "minecraft:cobblestone", "minecraft:smooth_stone"]
+      },
+      "action": "replace",
+      "replace_with": [
+        {"block": "minecraft:gravel",    "weight": 0.40},
+        {"block": "minecraft:cobblestone","weight": 0.35},
+        {"block": "minecraft:coarse_dirt","weight": 0.25}
+      ],
+      "weight": 0.15,
+      "noise": {"scale": 0.08, "threshold": 0.68}
+    }
+  ]
+}

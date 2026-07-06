@@ -1,0 +1,135 @@
+{
+  "version": "1.0",
+  "description": "Known structure type fingerprints for Structure Assembler classification. Each entry defines material and spatial signatures that, when matched, boost confidence for that sub_type.",
+  "fingerprints": [
+    {
+      "sub_type": "residential_building",
+      "parent_type": "building",
+      "signals": {
+        "dominant_materials_include": ["oak_planks", "spruce_planks", "birch_planks", "stone_bricks", "glass_pane"],
+        "interior_pattern_density": {"beds": ">0", "furnace": ">0", "crafting_table": ">0"},
+        "height_range": {"min": 5, "max": 20},
+        "footprint_area": {"min": 50, "max": 600},
+        "floor_count_estimate": {"min": 1, "max": 4}
+      },
+      "confidence_boost": 0.25
+    },
+    {
+      "sub_type": "industrial_building",
+      "parent_type": "building",
+      "signals": {
+        "dominant_materials_include": ["iron_bars", "iron_block", "chain", "smooth_stone", "black_concrete"],
+        "height_range": {"min": 8, "max": 40},
+        "footprint_area": {"min": 200, "max": 5000},
+        "special_blocks_present": ["hopper", "dispenser", "dropper", "piston"]
+      },
+      "confidence_boost": 0.30
+    },
+    {
+      "sub_type": "stadium",
+      "parent_type": "building",
+      "signals": {
+        "enclosed_volume": {"min": 2000},
+        "footprint_aspect_ratio": {"max": 1.8},
+        "footprint_area": {"min": 2000},
+        "height_range": {"min": 15},
+        "hollow_core_fraction": {"min": 0.4},
+        "tiered_profile": true
+      },
+      "confidence_boost": 0.40
+    },
+    {
+      "sub_type": "cemetery",
+      "parent_type": "building",
+      "signals": {
+        "dominant_materials_include": ["stone_slab", "stone_brick_slab", "granite_slab", "flower_pot"],
+        "pattern_regularity": {"min": 0.6},
+        "height_range": {"max": 4},
+        "footprint_area": {"min": 200},
+        "special_blocks_present": ["flower_pot", "oak_fence"]
+      },
+      "confidence_boost": 0.45
+    },
+    {
+      "sub_type": "amusement_park",
+      "parent_type": "building",
+      "signals": {
+        "special_blocks_present": ["powered_rail", "activator_rail", "detector_rail"],
+        "rail_elevation_variance": {"min": 5},
+        "footprint_area": {"min": 500},
+        "height_range": {"min": 8},
+        "structure_count_within_bounds": {"min": 3}
+      },
+      "confidence_boost": 0.35
+    },
+    {
+      "sub_type": "subway_system",
+      "parent_type": "underground_space",
+      "signals": {
+        "underground_linear_segments": {"min": 1},
+        "special_blocks_present": ["powered_rail", "rail"],
+        "tunnel_width": {"min": 3, "max": 8},
+        "platform_sections_present": true,
+        "y_range": {"max_y": 40}
+      },
+      "confidence_boost": 0.50
+    },
+    {
+      "sub_type": "elevated_highway",
+      "parent_type": "bridge",
+      "signals": {
+        "platform_y_above_ground": {"min": 8},
+        "support_column_count": {"min": 2},
+        "platform_width": {"min": 5, "max": 20},
+        "platform_length": {"min": 30},
+        "dominant_materials_include": ["smooth_stone", "stone_slab", "concrete", "iron_bars"]
+      },
+      "confidence_boost": 0.40
+    },
+    {
+      "sub_type": "cruise_ship",
+      "parent_type": "ship",
+      "signals": {
+        "footprint_area": {"min": 1000},
+        "footprint_eccentricity": {"min": 0.75},
+        "height_range": {"min": 10},
+        "dominant_materials_include": ["white_concrete", "white_terracotta", "iron_block", "glass"],
+        "on_water_fraction": {"min": 0.7}
+      },
+      "confidence_boost": 0.45
+    },
+    {
+      "sub_type": "railway",
+      "parent_type": "ground_rail",
+      "signals": {
+        "special_blocks_present": ["rail", "powered_rail", "detector_rail"],
+        "linear_pca_explained_variance": {"min": 0.85},
+        "y_at_ground": true,
+        "track_length": {"min": 20}
+      },
+      "confidence_boost": 0.55
+    },
+    {
+      "sub_type": "beach",
+      "parent_type": "flat_unknown",
+      "signals": {
+        "dominant_materials_include": ["sand", "gravel"],
+        "adjacent_to_water": true,
+        "height_gradient_towards_water": true,
+        "footprint_area": {"min": 300}
+      },
+      "confidence_boost": 0.50
+    },
+    {
+      "sub_type": "plaza",
+      "parent_type": "road",
+      "signals": {
+        "dominant_materials_include": ["smooth_stone", "polished_andesite", "polished_granite", "stone_bricks"],
+        "footprint_aspect_ratio": {"max": 2.0},
+        "footprint_area": {"min": 200},
+        "height_range": {"max": 3}
+      },
+      "confidence_boost": 0.30
+    }
+  ]
+}

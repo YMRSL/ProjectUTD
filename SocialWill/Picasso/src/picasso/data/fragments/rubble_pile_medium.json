@@ -1,0 +1,25 @@
+{
+  "name": "rubble_pile_medium",
+  "description": "A medium pile of mixed stone debris — larger scatter, more visible",
+  "anchor_surface": "floor",
+  "footprint": "3x3",
+  "requires_clear_above": true,
+  "min_clear_height": 2,
+  "destructive": false,
+  "tags": ["debris", "ground"],
+  "blocks": [
+    {"offset": [ 0, 0,  0], "block": "minecraft:cobblestone",  "probability": 1.0},
+    {"offset": [ 1, 0,  0], "block": "minecraft:gravel",        "probability": 0.9},
+    {"offset": [-1, 0,  0], "block": "minecraft:cobblestone",   "probability": 0.9},
+    {"offset": [ 0, 0,  1], "block": "minecraft:gravel",        "probability": 0.8},
+    {"offset": [ 0, 0, -1], "block": "minecraft:stone",         "probability": 0.7},
+    {"offset": [ 1, 0,  1], "block": "minecraft:gravel",        "probability": 0.6},
+    {"offset": [-1, 0,  1], "block": "minecraft:cobblestone",   "probability": 0.5},
+    {"offset": [ 1, 0, -1], "block": "minecraft:stone",         "probability": 0.5},
+    {"offset": [ 0, 1,  0], "block": "minecraft:cobblestone",   "probability": 0.6},
+    {"offset": [ 1, 1,  0], "block": "minecraft:gravel",        "probability": 0.4},
+    {"offset": [-1, 1,  0], "block": "minecraft:gravel",        "probability": 0.35},
+    {"offset": [ 0, 1,  1], "block": "minecraft:cobblestone",   "probability": 0.3},
+    {"offset": [ 0, 2,  0], "block": "minecraft:cobblestone",   "probability": 0.15}
+  ]
+}

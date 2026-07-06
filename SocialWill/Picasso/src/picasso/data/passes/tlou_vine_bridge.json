@@ -1,0 +1,33 @@
+{
+  "name": "tlou_vine_bridge",
+  "description": "Place vines in air columns between building faces to create cross-building vine connections.",
+  "version": "1.0",
+  "targets": ["outer_wall"],
+  "only_safe_blocks": false,
+  "rules": [
+    {
+      "match": {
+        "surface": "outer_wall",
+        "adjacent_air": true,
+        "y_min": 68
+      },
+      "action": "place_adjacent",
+      "place_block": "minecraft:vine",
+      "direction": "air_side",
+      "weight": 0.25,
+      "noise": {"scale": 0.06, "threshold": 0.60}
+    },
+    {
+      "match": {
+        "surface": "outer_wall",
+        "adjacent_air": true,
+        "y_min": 72
+      },
+      "action": "place_adjacent",
+      "place_block": "minecraft:oak_leaves",
+      "direction": "air_side",
+      "weight": 0.10,
+      "noise": {"scale": 0.09, "threshold": 0.72}
+    }
+  ]
+}

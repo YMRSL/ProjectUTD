@@ -1,0 +1,44 @@
+{
+  "name": "tlou_material_hints",
+  "description": "Very light material texture variation — auxiliary only, max 15% surface coverage. Adds subtle aged texture without repainting walls.",
+  "version": "1.0",
+  "targets": ["outer_wall", "floor", "rooftop"],
+  "only_safe_blocks": true,
+  "rules": [
+    {
+      "match": {
+        "block": ["minecraft:stone_bricks"],
+        "surface": "outer_wall"
+      },
+      "action": "replace",
+      "replace_with": [
+        {"block": "minecraft:cracked_stone_bricks", "weight": 0.6},
+        {"block": "minecraft:mossy_stone_bricks",   "weight": 0.4}
+      ],
+      "weight": 0.12,
+      "noise": {"scale": 0.09, "threshold": 0.70}
+    },
+    {
+      "match": {
+        "block": ["minecraft:white_concrete", "minecraft:gray_concrete"],
+        "surface": ["outer_wall", "floor"]
+      },
+      "action": "replace",
+      "replace_with": [
+        {"block": "minecraft:smooth_stone",  "weight": 0.5},
+        {"block": "minecraft:cobblestone",   "weight": 0.5}
+      ],
+      "weight": 0.10,
+      "noise": {"scale": 0.10, "threshold": 0.72}
+    },
+    {
+      "match": {
+        "block": ["minecraft:glass_pane", "minecraft:white_stained_glass_pane"],
+        "surface": "outer_wall"
+      },
+      "action": "remove",
+      "weight": 0.08,
+      "noise": {"scale": 0.12, "threshold": 0.75}
+    }
+  ]
+}

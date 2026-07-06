@@ -1,0 +1,6 @@
+{
+  "name": "abandoned_car",
+  "description": "DEPRECATED — use abandoned_car_sedan / abandoned_car_van / abandoned_car_jeep instead. This file is kept as a reference stub.",
+  "deprecated": true,
+  "replaces_with": ["abandoned_car_sedan", "abandoned_car_van", "abandoned_car_jeep"]
+}

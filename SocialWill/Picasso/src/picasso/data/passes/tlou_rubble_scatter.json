@@ -1,0 +1,13 @@
+{
+  "name": "tlou_rubble_scatter",
+  "type": "fragment_pass",
+  "description": "Scatter rubble piles across floors and indoor surfaces.",
+  "version": "1.0",
+  "fragments": ["rubble_pile_small", "rubble_pile_medium"],
+  "anchor_surface": "floor",
+  "density": 0.06,
+  "noise": {"scale": 0.07, "threshold": 0.50},
+  "min_spacing": 4,
+  "space_filter": null,
+  "only_safe_anchor_blocks": true
+}

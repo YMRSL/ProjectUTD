@@ -1,0 +1,38 @@
+{
+  "name": "tlou_furniture_modreplace",
+  "type": "pattern_replace",
+  "description": "Replace vanilla furniture combos with Doomsday Decoration equivalents. IDs verified against doomsday_decoration_semantic.json 2026-07-05.",
+  "version": "1.1",
+  "mappings": [
+    {
+      "pattern": "chair",
+      "dd_block": "doomsday_decoration:chair",
+      "note": "通用椅子，室内办公/住宅"
+    },
+    {
+      "pattern": "table",
+      "dd_block": "doomsday_decoration:table",
+      "note": "普通桌子，住宅/厨房/办公室"
+    },
+    {
+      "pattern": "desk",
+      "dd_block": "doomsday_decoration:desk",
+      "note": "书桌，办公室/学校，大件"
+    },
+    {
+      "pattern": "computer_desk",
+      "dd_block": "doomsday_decoration:officepartitiondesk",
+      "note": "办公隔断桌，最接近电脑桌的DD物品，办公室语境"
+    },
+    {
+      "pattern": "shelf",
+      "dd_block": "doomsday_decoration:shelf_2",
+      "note": "坍塌的货架，TLOU风格用倒塌变体而非正常货架"
+    },
+    {
+      "pattern": "bed_frame",
+      "dd_block": "doomsday_decoration:bed",
+      "note": "废弃的床，破旧床架与床垫"
+    }
+  ]
+}

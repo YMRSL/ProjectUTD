@@ -1,0 +1,19 @@
+{
+  "name": "rubble_pile_small",
+  "description": "A small scattering of stone debris on a flat surface",
+  "anchor_surface": "floor",
+  "footprint": "2x2",
+  "requires_clear_above": true,
+  "min_clear_height": 2,
+  "destructive": false,
+  "tags": ["debris", "ground"],
+  "blocks": [
+    {"offset": [ 0, 0, 0], "block": "minecraft:cobblestone",  "probability": 1.0},
+    {"offset": [ 1, 0, 0], "block": "minecraft:gravel",        "probability": 0.8},
+    {"offset": [-1, 0, 0], "block": "minecraft:gravel",        "probability": 0.7},
+    {"offset": [ 0, 0, 1], "block": "minecraft:cobblestone",   "probability": 0.6},
+    {"offset": [ 1, 0, 1], "block": "minecraft:stone",         "probability": 0.4},
+    {"offset": [ 0, 1, 0], "block": "minecraft:cobblestone",   "probability": 0.35},
+    {"offset": [ 1, 1, 0], "block": "minecraft:gravel",        "probability": 0.2}
+  ]
+}

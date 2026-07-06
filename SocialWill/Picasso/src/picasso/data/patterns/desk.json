@@ -1,0 +1,22 @@
+{
+  "name": "desk",
+  "description": "Two bookshelves side by side with a slab on top — office desk",
+  "anchor": [0, 0, 0],
+  "blocks": [
+    {
+      "offset": [0, 0, 0],
+      "match": {"name": "bookshelf"}
+    },
+    {
+      "offset": [1, 0, 0],
+      "match": {"name": "bookshelf"}
+    },
+    {
+      "offset": [0, 1, 0],
+      "match": {"name_contains": "slab"}
+    }
+  ],
+  "dd_replacement": "doomsday:office_desk",
+  "replacement_anchor_offset": [0, 0, 0],
+  "clear_offsets": [[1, 0, 0], [0, 1, 0]]
+}

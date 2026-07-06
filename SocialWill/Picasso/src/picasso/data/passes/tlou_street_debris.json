@@ -1,0 +1,46 @@
+{
+  "name": "tlou_street_debris",
+  "description": "Scatter rubble, gravel, and debris across streets and outdoor floors. Light pass — dense debris on roads.",
+  "version": "1.0",
+  "targets": ["floor"],
+  "only_safe_blocks": true,
+  "rules": [
+    {
+      "match": {
+        "surface": "floor",
+        "block": ["minecraft:smooth_stone", "minecraft:polished_andesite", "minecraft:gray_concrete"]
+      },
+      "action": "replace",
+      "replace_with": [
+        {"block": "minecraft:cobblestone",  "weight": 0.30},
+        {"block": "minecraft:gravel",       "weight": 0.35},
+        {"block": "minecraft:coarse_dirt",  "weight": 0.20},
+        {"block": "minecraft:smooth_stone", "weight": 0.15}
+      ],
+      "weight": 0.40,
+      "noise": {"scale": 0.07, "threshold": 0.45}
+    },
+    {
+      "match": {
+        "surface": "floor",
+        "adjacent_air": true
+      },
+      "action": "place_adjacent",
+      "place_block": "minecraft:dead_bush",
+      "direction": "above",
+      "weight": 0.06,
+      "noise": {"scale": 0.12, "threshold": 0.70}
+    },
+    {
+      "match": {
+        "surface": "floor",
+        "adjacent_air": true
+      },
+      "action": "place_adjacent",
+      "place_block": "minecraft:cobweb",
+      "direction": "above",
+      "weight": 0.03,
+      "noise": {"scale": 0.15, "threshold": 0.80}
+    }
+  ]
+}

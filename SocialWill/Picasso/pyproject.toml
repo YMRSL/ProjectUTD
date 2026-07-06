@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "picasso"
+version = "0.1.0"
+description = "Impressionist World Stylization MCP Server for Minecraft — SocialWill World Layer"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=1.0.0",
+    "amulet-core>=1.0.0",
+    "pydantic>=2.0.0",
+    "numpy>=1.26.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+perlin = ["noise==1.2.2"]
+
+[project.scripts]
+picasso = "picasso.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/picasso"]
+
+[tool.hatch.metadata]
+allow-direct-references = true

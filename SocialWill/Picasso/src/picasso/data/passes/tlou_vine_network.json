@@ -1,0 +1,13 @@
+{
+  "name": "tlou_vine_network",
+  "type": "fragment_pass",
+  "description": "Place vine tendril anchors on outer wall faces — building-to-building vine coverage.",
+  "version": "1.0",
+  "fragments": ["vine_anchor"],
+  "anchor_surface": "outer_wall",
+  "density": 0.18,
+  "noise": {"scale": 0.06, "threshold": 0.45},
+  "min_spacing": 2,
+  "space_filter": "exterior",
+  "only_safe_anchor_blocks": false
+}

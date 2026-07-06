@@ -1,0 +1,68 @@
+{
+  "name": "tlou_complete",
+  "description": "Full The Last of Us stylization bundle — apply to an entire urban area. Fragment-first approach: structural composition changes are primary, material hints are auxiliary.",
+  "version": "1.0",
+  "default_seed": 42,
+  "entries": [
+    {
+      "structure_type": "building",
+      "description": "Urban buildings — exterior decay + interior fragment scatter + furniture replacement",
+      "passes": [
+        {"name": "tlou_material_hints",      "intensity": 0.5, "space_filter": "exterior"},
+        {"name": "tlou_window_breach",        "intensity": 0.7, "space_filter": "exterior"},
+        {"name": "tlou_wall_collapse",        "intensity": 0.25},
+        {"name": "tlou_vine_network",         "intensity": 0.9, "space_filter": "exterior"},
+        {"name": "tlou_roof_tree_growth",     "intensity": 0.6, "space_filter": "exterior"},
+        {"name": "tlou_rubble_scatter",       "intensity": 0.5, "space_filter": "interior"},
+        {"name": "tlou_floor_root_crack",     "intensity": 0.35,"space_filter": "interior"},
+        {"name": "tlou_furniture_modreplace", "intensity": 1.0, "space_filter": "interior"}
+      ]
+    },
+    {
+      "structure_type": "road",
+      "description": "Streets and plazas — vehicle debris + rubble scatter + light material hints",
+      "passes": [
+        {"name": "tlou_material_hints",    "intensity": 0.15},
+        {"name": "tlou_rubble_scatter",    "intensity": 0.8},
+        {"name": "tlou_abandoned_vehicles","intensity": 0.4}
+      ]
+    },
+    {
+      "structure_type": "plaza",
+      "description": "Open plazas — heavier debris, less vehicles",
+      "passes": [
+        {"name": "tlou_material_hints",  "intensity": 0.15},
+        {"name": "tlou_rubble_scatter",  "intensity": 0.7},
+        {"name": "tlou_vine_network",    "intensity": 0.4}
+      ]
+    },
+    {
+      "structure_type": "ship",
+      "description": "Ships and watercraft — heavy decay, some vegetation",
+      "passes": [
+        {"name": "tlou_material_hints",  "intensity": 0.6},
+        {"name": "tlou_rubble_scatter",  "intensity": 0.5},
+        {"name": "tlou_vine_network",    "intensity": 0.5},
+        {"name": "tlou_wall_collapse",   "intensity": 0.3}
+      ]
+    },
+    {
+      "structure_type": "subway_system",
+      "description": "Underground tunnels and platforms — rubble heavy, no vegetation (no sunlight)",
+      "passes": [
+        {"name": "tlou_material_hints",    "intensity": 0.25},
+        {"name": "tlou_rubble_scatter",    "intensity": 0.9},
+        {"name": "tlou_furniture_modreplace","intensity": 1.0}
+      ]
+    },
+    {
+      "structure_type": "elevated_rail",
+      "description": "Elevated bridges and overpasses — structural fragments, light debris",
+      "passes": [
+        {"name": "tlou_material_hints",    "intensity": 0.3},
+        {"name": "tlou_rubble_scatter",    "intensity": 0.4},
+        {"name": "tlou_wall_collapse",     "intensity": 0.2}
+      ]
+    }
+  ]
+}

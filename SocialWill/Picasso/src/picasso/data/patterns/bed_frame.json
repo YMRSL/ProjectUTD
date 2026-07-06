@@ -1,0 +1,14 @@
+{
+  "name": "bed_frame",
+  "description": "Any vanilla bed block — replace with DD metal bed",
+  "anchor": [0, 0, 0],
+  "blocks": [
+    {
+      "offset": [0, 0, 0],
+      "match": {"name_contains": "_bed"}
+    }
+  ],
+  "dd_replacement": "doomsday:metal_bed",
+  "replacement_anchor_offset": [0, 0, 0],
+  "clear_offsets": []
+}
