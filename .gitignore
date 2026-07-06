@@ -100,3 +100,8 @@ UntilWeDieOriginal/
 地图管理/
 待删除或整改升级的mod/
 _inspect_sable_tmp/
+
+# Third-party/upstream source snapshots. Track local forks separately after review.
+Code/SuperbWarfare-superbwarfare/
+Code/WorldEdit-version-7.2.x/
+Code/WorldEditCUI-Arch-master/
