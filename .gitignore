@@ -1,0 +1,102 @@
+# ProjectUTD repository hygiene
+
+# OS / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.tmp
+*.bak
+
+# Logs and crash reports
+*.log
+Log*.txt
+latest.log
+debug.log
+crash-*.txt
+crash-reports/
+logs/
+错误报告集/
+**/_codex_extract*/
+**/错误报告-*.zip
+
+# Java / Gradle / Maven build output
+.gradle/
+build/
+out/
+target/
+bin/
+*.class
+
+# Python build/cache output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+dist/
+*.egg-info/
+
+# Minecraft launchers and local runtime files
+PCL/
+**/PCL/
+.minecraft/
+**/.minecraft/
+versions/
+libraries/
+natives/
+Plain Craft Launcher*.exe
+Release *.exe
+启动游戏！.exe
+*.dll
+*.exe
+
+# Generated inspection/decompile/download workspaces
+_inspect*/
+**/_inspect*/
+**/_jar_extract/
+**/_src_download/
+**/decompiled/
+**/_batches/
+**/_sample_in.json
+**/_sample_out.json
+
+# Large packaged artifacts and archives
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.mrpack
+*.jar
+!**/gradle/wrapper/gradle-wrapper.jar
+
+# Minecraft binary/world formats
+*.mca
+*.mcr
+*.dat
+*.dat_old
+*.nbt
+*.schem
+*.schematic
+*.world
+
+# Office/media/design binaries. Move intentional shared assets to Git LFS.
+*.docx
+*.xlsx
+*.pptx
+*.psd
+*.aseprite
+*.mp3
+*.mp4
+*.wav
+
+# Large project areas to review before importing into Git
+UntilWeDieOriginal/
+地图管理/
+待删除或整改升级的mod/
+_inspect_sable_tmp/
