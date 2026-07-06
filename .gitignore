@@ -6,6 +6,10 @@ Thumbs.db
 Desktop.ini
 .idea/
 .vscode/
+.settings/
+*.iml
+.classpath
+.project
 *.swp
 *.tmp
 *.bak
@@ -28,6 +32,8 @@ build/
 out/
 target/
 bin/
+run/
+runs/
 *.class
 
 # Python build/cache output
@@ -60,8 +66,11 @@ _inspect*/
 **/_inspect*/
 **/_jar_extract/
 **/_src_download/
+**/_backups/
+**/_tools/
 **/decompiled/
 **/_batches/
+**/_fpepack_tmp*/
 **/_sample_in.json
 **/_sample_out.json
 
@@ -80,7 +89,6 @@ _inspect*/
 *.mcr
 *.dat
 *.dat_old
-*.nbt
 *.schem
 *.schematic
 *.world
@@ -105,3 +113,9 @@ _inspect_sable_tmp/
 Code/SuperbWarfare-superbwarfare/
 Code/WorldEdit-version-7.2.x/
 Code/WorldEditCUI-Arch-master/
+
+# Embedded upstream Git repositories. Import as submodules or separate forks only after review.
+UtilWeDie-Neo-1.21.1/ModsSourceCode/Lexiconfig-1.20.x-ref/
+UtilWeDie-Neo-1.21.1/ModsSourceCode/Sculk-Horde/
+UtilWeDie-Neo-1.21.1/ModsSourceCode/SimpleRadio-1.20.1-ref/
+UtilWeDie-Neo-1.21.1/ModsSourceCode/tacz_unidict_upstream/
