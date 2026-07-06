@@ -1,0 +1,77 @@
+════════════════════════════════════════════════════════════════════
+ Sculk Horde 1.21.1 迁移 —— 运行期测试清单 (2026-06-27)
+ 原则: "编译过≠运行对"。下面按"迁移改动最多 = bug 风险最高"排序。
+ 建议创造模式 + /gamerule 关掉夜晚刷怪干扰, 用怪物蛋/给物品逐项验。
+════════════════════════════════════════════════════════════════════
+
+──────────────── P0 高风险 (本次迁移直接改过, 最该先测) ────────────────
+
+[1] 怪物蛋 / 实体生成 + 渲染  ★最高优先
+    · 把创造物品栏 "Sculk Horde" 标签页里所有怪物蛋逐个右键生成一遍, 看:
+      ① 能不能刷出来(刚修了末影人/孢子生成器/虚体尸; 顺带修了蜜蜂收割者)
+      ② 模型/贴图正常(GeckoLib 4.8 迁移; 注意有没有变黑/隐身/贴图错乱)
+      ③ 发光层正常(ConfigurableGlowLayer; 幽匿生物该发的光要发)
+    · 重点盯: 幽匿末影人 / 孢子生成器 / 幽匿虚体尸 / 蜜蜂收割者+授粉者 /
+      天使收割者(boss) / 愤怒魔像 / 各种元素法阵+灵魂弹幕(SoulFire/Ice/Poison/Breeze) /
+      Zoltraak / 范围效果云(AreaEffectCloud)。
+    · ⚠生成原版蜜蜂确认没被连累报错(BeeHarvester 那个 bug 会污染原版 Bee)。
+
+[2] 工具 & 武器 (构造器 createAttributes + NBT→组件 全重写)
+    · Diascite/Ferriscite 的 镐/斧/锹/锄: 攻击力/攻速/耐久 数值对不对(创造给一把看 tooltip)。
+    · Ferriscite 工具的"挖得越多越快": 连续挖矿, 速度应递增(NBT 计数器已迁 CUSTOM_DATA, 重点验数据存读)。
+      退出重进世界后, 工具的计数应保留(存档读写验证)。
+    · 幽匿清扫剑(SculkSweeper): 右键放刺攻击 + 不可附魔回退/不可修补。
+    · 净化之刃(BladeOfPurity): 攻击幽匿生物给净化效果 + 范围净化。
+    · 感染净化器(InfestationPurifier): 右键放净化光球 + 发射器(Dispenser)里能弹出。
+
+[3] 成就触发器 (刚改成 DeferredRegister 注册)
+    · 触发各成就看弹不弹: 灵魂收割台收割 / 幽匿节点生成 / 启动幽匿大군(古代节点) /
+      击败幽匿大军 / 给大군贡献物品(ContributeTrigger)。/advancement 命令也可查。
+
+[4] 灵魂收割台 (SoulHarvester) —— 容器 + 能力(Capability) + 配方
+    · 放置→右键开 GUI(菜单系统迁移)。
+    · 放材料进去能不能按配方收割(SoulHarvestingRecipe 改了 MapCodec)。
+    · 漏斗/对着它的容器能不能自动抽取物品(RegisterCapabilitiesEvent 注册的 ItemHandler 能力)。
+    · JEI 里搜"灵魂收割"能不能看到配方。
+
+[5] enable_gpu_compatibility_mode 开关 (本次崩溃的根因, 重点回归)
+    · 默认(false): 幽匿生物有发光层。
+    · 配置或 /sculkhorde config 设 true + 重启: 幽匿生物发光层消失(给 AMD/Mac 用)。
+    · 两种都别再崩 / 卡 Mojang 屏(这正是之前的崩点, 务必回归)。
+
+──────────────── P1 重要 (改动较多 / 核心玩法) ────────────────
+
+[6] 状态效果 (MobEffect 全面 Holder 化)
+    · 幽匿感染 / 诱导(Lure) / 病变囊肿(DiseasedCysts) / 净化(Purity) / 腐蚀(Corroded) 能正常施加+表现。
+    · 幽匿迷雾(SculkFog)/病变大气(DiseasedAtmosphere): 进入相应环境时屏幕雾效正常(SculkFogRenderer, 仅游戏内)。
+
+[7] 方块实体行为 (save/load + VibrationSystem/GameEventListener 迁移)
+    · 幽匿召唤者 / 古代节点 / 巢穴(BroodNest): 能感知振动(走动/放方块)并反应。
+    · 退出重进世界, 这些方块实体的状态(节点进度等)要保留(saveAdditional/loadAdditional 验证)。
+    · 尖刺方块(Spike)踩上去给感染效果。
+
+[8] 结构生成 + 唱片 (worldgen + RecordItem→jukebox 迁移)
+    · 新建世界/找新区块, 幽匿墓(Sculk Tomb)结构能不能生成(/locate 或探索)。
+    · 两张唱片(deep_green / blind_and_alone): 放唱片机能不能播放 + 比较器输出。
+
+[9] 酿造 (迁到 RegisterBrewingRecipesEvent)
+    · 用对应材料酿 腐蚀药水(Corroded Potion) 能不能成。
+
+[10] 大军核心系统 (gravemind / 感染蔓延 / 突袭)
+    · 触发古代节点→幽匿大군启动, gravemind 进化阶段推进(immature/mature)。
+    · 方块感染蔓延正常(infestation cursor)。
+    · 幽匿突袭(raid)能触发。
+    · ⚠注意: 自定义生成类别没了→sculk 生物现在算"怪物"生成桶, 留意刷怪上限是否受影响。
+
+──────────────── P2 兜底 (出问题概率低, 有空再看) ────────────────
+
+[11] 净化食物(BreadOfPurity 等)吃了给净化效果。
+[12] 净化之眼(EyeOfPurity)/净化瓶(PurificationFlask) 投掷物 + 发射器弹射。
+[13] 实验性标签页内容(开发用方块/物品)。
+[14] 防御方块: 结构起源方块(StructureOrigin)等上面刷不出怪(isValidSpawn 谓词迁移)。
+[15] 联动: deeperdarker 兼容(若装) / 各"target_xxx_entities"配置对其它感染 mod 的索敌。
+
+──────────────── 测出问题怎么办 ────────────────
+· 崩溃: 把 crash-reports/ 最新的 fml/client txt 发我。
+· 不崩但功能不对(刷不出/不渲染/效果不触发): 把 logs/latest.log 发我, 我按报错定位。
+· 注意区分: Axiom 缺字体那类是别的 mod 的连带现象, 只要 sculkhorde 不再崩它一般也好。

@@ -1,0 +1,411 @@
+════════════════════════════════════════════════════════════════════
+ ProjectUTD 迁移任务交接 (1.20.1 Forge → 1.21.1 NeoForge)
+ 最后整理: 2026-06-24
+════════════════════════════════════════════════════════════════════
+
+【环境 / 原则】
+· 整合包根 = D:\MC\ProjectUTD\UtilWeDie-Neo-1.21.1\.minecraft\versions\1.21.1-NeoForge_21.1.233\
+  (mods/ config/ kubejs/ 都在这)
+· 移植工程根 = ModsSourceCode\<mod>\neoforge-1.21.1\ (每 mod 一工程; JDK21 钉死; 多 clone tacz_unidict/crusty_chunks 的 gradle)
+· 1.20.1 原包(找源 jar)= D:\MC\ProjectUTD\UntilWeDieOriginal\.minecraft\versions\1.20.1-Forge_47.4.6\mods\
+· 原则: 从原理改对, 不取巧 / 删 / 禁用 / 绕过
+· 相关 memory: utd-migration-status(总进度) / utd-modssourcecode-root / utd-doomsday-patch-and-recipe-layer /
+  utd-ws7-sona-scope / cnpc-script-behavior / cnpc-gecko-procedural-npc
+
+════════ 【6-28 路线图拍板】迁移收口 = 下面剩的 + 渲染问题(D); 联动(E/L1-L6)转交他人; 争取7月开工 SocialWill ════════
+· 迁移收口剩: #7 kjs封jar(最后做) / #8 DD增强(待用户给上下文) / Flashback回放崩溃根治
+· 【6-29 已完成】#5一人称tacz工作台不渲染✅(HMI RenderHelper对RenderShape!=MODEL的BER块回落vanilla物品渲染BEWLR)
+  渲染朝北✅根治(FPE食物+daffa火光): 1.21第一人称modelView=完整相机视图矩阵,FPE的poseStack.identity()清掉了实现屏幕锁定的逆矩阵→世界锁定;
+    修=identity后乘RenderSystem.getModelViewMatrix().invert()(用实际矩阵,非Camera.rotation()); 火光同理打tacz MuzzleFlashRender mixin重定向私有立即buffer+endBatch。详见memory fpe-firstperson-worldlock-modelview
+  FPE副手动画✅(副手右键放置时触发食物put_away+重draw,仿TaCZ) / 掉落物✅(食物走ItemPhysic vanillaRendered白名单;
+    枪打doomsday ItemPhysicGunLayFlatMixin:XP/YP旋转抵消+ZP固定90°放平+借XP槽放每枪随机Y朝向+抬升1/16+EntityGunShadowMixin去枪阴影)
+  工作台合成系统改造✅(配方/医疗/分类全收口)
+  【6-30路线: 先DD增强#8(需用户给上下文) → 再Flashback崩溃根治(大工程,建议独立session) → 最后kjs封jar#7】
+· 联动 L1-L6 (MM↔BlockZ格子/防毒面具↔感染/启动优化/sculkhorde+真菌重写/SDDL光源/手电筒耐久) → 用户后续转交他人, 不在本轮收口。
+
+════════════════════ 待办 (用户 6-24 拍板顺序) ════════════════════
+ #  任务                         状态              详见
+ 1  modern-mayhem 迁移           ✅完成(用户6-28确认): 迁移+运行期修复+IR红外照明+管线优化+第三人称同步+黑暗配置+夜视仪残留已了  §1
+ 2  sculkhorde 迁移              ✅完成(6-28): 迁移+全部运行期修复+收尾(唱片/lang13键/perimeter占位); 深层玩法重写另立联动L4  §2
+ 3  tacz_unidict 弹壳联动         ✅完成(6-28),待开枪验收  §3
+ 4  配方层收尾                   ✅完成(6-28): 960注册/0失败, 跳过全是DROP的mod; 补crusty燃烧手雷  §4
+ 5  第一人称 tacz 工作台不渲染     ⬜未开工 (有假设)   §5
+ 6  UTD 掉落层迁移               ✅完成(6-28): 358表(280箱+78子)+7脚本; name→value/set_custom_data/过滤缺失/pity保留  §6
+ 7  kjs 脚本/数据封进 jar         ⬜未开工 (配方层全好后) -
+ 8  DD 增强收尾                  ⬜未开工            §8
+ 9  彻查迁移缺漏 (最终审计)        ✅完成(6-28): mod ID比对227→188, 74缺失全有交代, 零遗漏(详见memory utd-migration-audit)  -
+
+────────────────────────────────────────────────────────────────────
+§1  modern-mayhem  【6-24 开工, 进行中, 多 session】
+────────────────────────────────────────────────────────────────────
+· 无 1.21.1 官方版(官网最新 1.1.5 仅 1.20.1)→自己 port。modId=mm, 作者 TKG112,
+  180 类(119 反编译 java), 手写(非 MCreator), SRG 混淆, 依赖 curios+geckolib+tacz。
+· 14 个 mixin 全注入 1.21 大改的渲染内核: 夜视 NVG = hack LightTexture/DimensionEffects/
+  PostChain 后处理/GameRenderer/HandRenderer + TaCZ 枪 HUD/AbstractGunItem/ModernKineticGunScriptAPI。
+· 工程: ModsSourceCode/modern-mayhem/neoforge-1.21.1/ (克隆 tacz_unidict: libs 全 deps + mixin moddev)。
+  脚本 D:/ModDevelop/_mm_*.py; 原 jar=D:/ModDevelop/_mm.jar; 反编译=D:/ModDevelop/_mm_decomp。
+· 已做: CFR 反编译→自建 SRG→Mojang 字典(复用 SI 管线 404tok 0 漏)→脚手架+依赖+mm.mixins.json
+  (defaultRequire:0 非致命)+mods.toml(curios/geckolib/tacz required)→机械转换(扩展 import map:
+  ForgeConfigSpec→ModConfigSpec/ModList/RenderLevelStageEvent 等)→GeckoLib 3→4 包重映射
+  (core.animation→animation, core.animatable→animatable, core.object.PlayState→animation.PlayState,
+  core.keyframe→animation.keyframe, CoreGeoBone→cache.object.GeoBone)→stub 2 个 compat
+  (ar=acceleratedrendering / oculus=iris: 删 Impl 改 facade 为 no-op, 夜视不做着色器优化但功能在)。
+  编译 707→328 错。【2026-06-25 session: 328→92 错, 完成约 72%】
+· 已完成 (本 session, 236 错清零):
+  ① 网络层全重写 ✓ SimpleChannel→CustomPacketPayload (9 packet 用 StreamCodec.unit/IPayloadContext,
+     PacketsRegistryMM 用 PayloadRegistrar.playToServer, 11 发送点→PacketDistributor.sendToServer,
+     PacketBase 删除); 主类构造器 (IEventBus,ModContainer)+registerConfig 迁 ModContainer, FMLJavaModLoadingContext 删除。
+  ② NBT 存储 ✓ 新建 util/ItemNBTUtil (getOrCreateTag/getTag/setTag 走 DataComponents.CUSTOM_DATA, 注意返回副本要 setTag 回写);
+     serializeNBT/deserializeNBT 全加 HolderLookup.Provider (provider 多取自 level/player.level().registryAccess())。
+  ③ 菜单系统 ✓ openScreen→player.openMenu, buf 全 RegistryFriendlyByteBuf, readItem/writeItemStack→ItemStack.OPTIONAL_STREAM_CODEC,
+     GUIRegistryMM 用 IMenuTypeExtension+DeferredHolder, ScreenRegistryMM 改 RegisterMenuScreensEvent(MOD总线)。
+  ④ Curios 1.21.1 API ✓ getCuriosInventory 返回 Optional(去 .resolve()), getAttributeModifiers 签名 UUID→ResourceLocation
+     +返回 Multimap<Holder<Attribute>,..> + new AttributeModifier(id.withSuffix(),v,Operation.ADD_VALUE);
+     CuriosUtil AtomicReference<Object>→<ItemStack>; 5个rig+Kneepad+Visor+NVG/TVG护目镜全过; COTI 夹片改 DataComponentRegistryMM.COTI_CONTENTS(DataComponentType<ItemStack>)。
+  ⑤ GeckoLib 4.x ✓ renderToBuffer 8参(rgba float)→5参(packed int 0xFFFFFFFF); actuallyRender/renderRecursively 末尾4float→1int colour;
+     getTextureLocation 去 (GeoAnimatable) cast; RenderUtils→RenderUtil; 8个 curio 渲染器+NVGFirstPersonRenderer 全过。
+  ⑥ 着色器/事件 ✓ RenderNVGShader/RenderTVGShader/RenderNVGFirstPerson (DeltaTracker: RenderHandEvent.getPartialTick()=float
+     vs RenderLevelStageEvent=DeltaTracker.getGameTimeDeltaPartialTick(false); MC.getFrameTime()→MC.getTimer()....);
+     TickEvent.Phase→Post 事件 (OutlineSetup/OutlineThermal); forge 事件包→neoforge (ItemInteraction/SafeFall/AttributeAttacher);
+     appendHoverText(Level)→(Item.TooltipContext); isAddedToWorld→isAddedToLevel; isEdible→has(DataComponents.FOOD);
+     BlockRegistryMM/BlockEntityRegistryMM RegistryObject→DeferredHolder<Block,T>; AnimUtils color bug 修。
+· 【2026-06-25 全部完成: 329→0 错, build 出 mm-1.1.4-1.21.1.jar, 已部署整合包 mods/】
+  A. ✓ 枪械弹药 mixin (TaCZ联动: 装备战术背心rig→换弹自动抽TaCZ弹药): AbstractGunItem/ModernKinetic/GunAnimationState/GunHudOverlay
+     全过; 注入点 canReload/findAndExtractInventoryAmmo 在 TaCZ1.1.8 没漂移; NBT 读 rig 用 ItemNBTUtil+provider(shooter/player.level().registryAccess())。
+  A2.✓ NVG渲染 mixin: DimensionEffects/GameRenderer (setReturnValue去(Object)cast, (X)this→(X)(Object)this, renderLevel签名→DeltaTracker)。
+  A3.✓【6-26 Iris光影兼容重实现】原 Oculus 兼容被 stub 后, 开光影夜视整个透明/无pass分离。重实现:
+     iris 加 compileOnly; OculusCompatImpl 用真 Iris API —— IrisApi.getInstance().isShaderPackInUse()/isRenderingShadowPass()(稳定 api.v0),
+     solid/translucent pass 直接查 HandRenderer.INSTANCE.isActive()/isRenderingSolid()(不再需要旧版设字段的 HandRendererMixin),
+     endBatch 走 FullyBufferedMultiBufferSource; facade OculusCompat 判 modid "oculus"→"iris", isTranslucentHandPass 字段→方法;
+     RenderNVGFirstPerson/OutlineRenderer/主类的 isLoaded("oculus")→"iris"。另: 第一人称 NVG 姿态 new PoseStack()→event.getPoseStack()(锁相机空间, 修"卡脑袋上方不随视角")。
+     ⚠ visor 在 translucent pass 渲染依赖 Iris 真做 translucent hand pass(isAnyHandTranslucent), 若 visor 仍不显示可能需补 HandRenderer mixin 强制; NVG(solid)不受影响。
+  B. ✓ OutlineRenderer: BufferBuilder→ByteBufferBuilder (MultiBufferSource.immediate收ByteBufferBuilder), getFrameTime→getTimer()。
+  C. ✓ DuffelBag: 存储改 DataComponents.BUNDLE_CONTENTS, 自定义size容量逻辑在List<ItemStack>上重实现(绕过静态方法缺provider);
+     BundleTooltip(BundleContents); ItemStack.of→parse; playerWillDestroy→返回BlockState; BlockEntity save/load→saveAdditional/loadAdditional+Provider。
+  D. ✓ 护甲: ArmorMaterial→record(defense EnumMap/Holder<SoundEvent>equip/List<Layer>/toughness/knockback)+properties.durability();
+     getMaterial().getName()→getConfig().getName(); 动态护甲属性用 NeoForge per-stack getDefaultAttributeModifiers(ItemStack)返回
+     ItemAttributeModifiers(按耐久%缩放, 开关ENABLE_DYNAMIC_ARMOR_STATS); ArmorProperties equipSound→Holder<SoundEvent>;
+     CustomArmorRenderer getModelName→getSkin().model()==PlayerSkin.Model.SLIM。
+  关键新增文件: util/ItemNBTUtil.java(CUSTOM_DATA承载旧NBT tag), registry/DataComponentRegistryMM.java(COTI_CONTENTS组件)。
+  ⚠运行期待验收(编译过≠运行对): 见 modern-mayhem-测试清单.txt。
+    高风险点: ①mixin注入是否真命中(defaultRequire:0会静默跳过) ②动态护甲属性数值 ③DuffelBag容量/塞取 ④NVG着色器/夜视渲染 ⑤菜单开关(openMenu+RegisterMenuScreensEvent)。
+· 【6-26~27 运行期收口 + IR新功能 + 管线优化, 全部完成部署】:
+  运行期修复: EVENT_BUS空register/双consumer.accept(10文件)/BackpackScreen renderBg递归StackOverflow/
+    Curios tag目录items→item单数化(穿不上)/packet StreamCodec.unit→of(EncoderException)/NVG第一人称姿态/
+    弹挂供弹中文tooltip/datapack瞬时ZipException(jar无损,重启即消)。
+  IR红外照明(新功能, 走整合包SDDL): 玩家发"前方锥光"——分档(单PVS7/双PVS14/四GPNVG, 范围36/48/60可调,
+    四镜头按L主动开关,单双常开);客观世界光+viewer-gate(只有戴开机夜视的客户端看得见,别人戴夜视也看见你);
+    末影螨当测试实体(/summon endermite, IrBlockSddlCompat实体光handler)。关键坑:
+    强制luminance>15撑大锥光半径会让SDDL EntityRenderer.getBlockLightLevel把实体渲染光照顶溢出→开IR玩家
+    隐身(不开光影)/过亮(开光影)→EntityRenderLightClampMixin在HEAD对IR玩家返回原版光照根治。
+  夜视管线优化(掉帧100→22根因=6趟PostChain×Iris反馈缓冲): 砍成2趟(删autogain/autogating两套GPU反馈pass),
+    auto-gain改CPU按玩家光照级别算(顺带修Iris下auto-gain黑屏); 保留镜片遮罩/噪点/各夜视仪不同颜色;
+    夜视整体亮度×nvgBrightnessScale(默认0.7可配)。
+  第三人称: NVG shader触发从onRenderHand(仅一人称)扩到AFTER_LEVEL(两视角都渲染); 开关同步从"第一人称模型
+    动画关键帧"改为tick兜底(NvgOnFace≠NvgCheck且非一人称→立即同步通电), 修"三人称关夜视不生效/切回补播动画";
+    三人称镜片遮罩按nvgThirdPersonMaskScale(0.85)缩放+外圈纯黑填充。
+  新增可配置: ClientConfig 的 ir*/nvgBrightnessScale/nvgThirdPersonMaskScale (在 modern-mayhem-client.toml)。
+  ⚠配置坑(非mm bug): Configured(游戏内设置GUI)会用快照覆写toml→改文件要么游戏内Configured统一改、要么别开那界面。
+  IR/夜视代码: client/light/ir/* + server/mixin/sdl/* + client/event/RenderNVGShader + client/compat/sddl/IrBlockSddlCompat。
+
+────────────────────────────────────────────────────────────────────
+§2  sculkhorde  【6-27 编译+构建+部署完成, 待运行期验收】
+────────────────────────────────────────────────────────────────────
+· Sculk-Horde(TeamPeril), 开源·官方 Mojmap 映射(无需反编译/SRG), 556 java 类。无 1.21.1 上游→自 port。
+  工程: ModsSourceCode/sculkhorde/neoforge-1.21.1/ (build.gradle 仿 mm; geckolib+jei flat-file compileOnly)。
+  gradle.properties: modid=sculkhorde, neo 21.1.222, parchment 2024.11.17, mod_version 0.11.3-1.21.1。
+· 移植速查表(给 agent 用的统一规范): ModsSourceCode/sculkhorde/PORT_CHEATSHEET.md。
+· 流程: clone 1.20 分支→脚本批量(Forge→NeoForge 包名/ForgeConfigSpec→ModConfigSpec/ResourceLocation/GeckoLib 包)
+  →baseline 2915 错→4 agent 并行分包(core/item+effect/block+be/entity/misc, 速查表+各自报错清单; 3 个 agent 中途撞额度
+  但改动已落盘, 叠加后剩 151)→本人逐条收尾 151→0。
+· 关键 1.21 改动(从原理改, 非取巧):
+  ① 注册 RegistryObject→DeferredHolder<元素类型,T>; ForgeRegistries.X→Registries.Y; ForgeSpawnEggItem→DeferredSpawnEggItem。
+  ② 主类构造器(IEventBus,ModContainer); GeckoLib.initialize() 删(4.x 自注册); 酿造迁 RegisterBrewingRecipesEvent;
+     SpawnPlacements.register 迁 RegisterSpawnPlacementsEvent; MenuScreens.register 迁 RegisterMenuScreensEvent。
+  ③ 工具/剑构造器 XxxItem(Tier,Properties)+Properties.attributes(XxxItem.createAttributes(...)); .defaultDurability 删。
+  ④ Ferriscite 工具 NBT 计数器→DataComponents.CUSTOM_DATA(读 copyTag+写回 set); appendHoverText(Level)→(Item.TooltipContext)。
+  ⑤ MobEffect/Potion Holder 化(传 holder 不 .get()); IForgeItem/IForgeBlock 删 implements(NeoForge 自带)。
+  ⑥ BlockEntity save/load+HolderLookup.Provider; GameEventListener.Holder→.Provider; 能力 IItemHandler→neoforge.items
+     +删 LazyOptional/getCapability override+RegisterCapabilitiesEvent(SoulHarvester 已注册)。
+  ⑦ SoulHarvestingRecipe/StructureType/StructureProcessor 改 MapCodec; JigsawPlacement.addPieces 补 1.21 三参
+     (PoolAliasLookup.EMPTY / pools.DimensionPadding.ZERO / templatesystem.LiquidSettings); setKeepLiquids→setLiquidSettings。
+  ⑧ 唱片 RecordItem 删→普通 Item+jukeboxPlayable, 新建 data/sculkhorde/jukebox_song/{deep_green,blind_and_alone}.json。
+  ⑨ MobCategory.create 没了(NeoForge 删 IExtensibleEnum)→自定义 SCULK_HORDE_CATEGORY 改用 vanilla MONSTER(沦为怪物生成桶)。
+     【⚠行为变更点: sculk 生物从独立生成上限 70 变成计入原版怪物上限; 若要独立桶需别的方案】
+  ⑩ canCreatureSpawn(IForgeBlock 钩子没了)→Properties.isValidSpawn((s,l,p,et)->false) 4参谓词。
+     NeoForgeMod.ENTITY_GRAVITY→vanilla Attributes.GRAVITY; ColorParticleOption.getColor()没了→FastColor 按 RGBA 打包。
+· 产出: build SUCCESSFUL, sculkhorde-0.11.3-1.21.1.jar(15.5MB), 已部署 mods/。
+  静态验收: zip 完好/mods.toml 正确/4 mixin 全编入+mixins.sculkhorde.json(去 refmap)/jukebox_song 数据包在。
+· ⚠运行期待验收(编译过≠运行对): 启动整合包看 ① mod 是否加载无 crash ② 4 mixin 是否真命中(defaultRequire:0 静默跳过)
+  ③ 自定义结构/方块/生物注册 ④ 唱片可放可播 ⑤ SoulHarvester 容器能力 ⑥ MONSTER 类别下生成是否合理。
+· 【6-27 运行期修复①】首次启动 FML 崩: "ModEntities has no @SubscribeEvent methods, but register was called anyway"
+  @SculkHorde.java:78 —— 原 Forge 的 `bus.register(ModEntities.class)` 在 NeoForge 非法(严格校验注册的类必须有
+  @SubscribeEvent)。该行冗余(DeferredRegister 已由上一行 ModEntities.register(bus) 注册; 实体属性在
+  util/ModEventSubscriber.entityAttributes 注册)→删除。已重构建重部署。
+  日志旁证: 4 mixin 配置正常加载, StructureProcessorAccessor+BiomeSpecialEffectsMixin 已确认注入✓。
+· 【6-27 运行期修复②】构造期 register(类) 同类问题复发: ModCreativeModeTab/ModWorldEvents 带 @EventBusSubscriber
+  但无 @SubscribeEvent 方法 → NeoForge AutomaticEventSubscriber 注册时抛异常。删两者的 @EventBusSubscriber 注解
+  (标签页走 DeferredRegister+displayItems; ModWorldEvents 是空类)。全工程已扫: 仅这两个+ModEntities, 其余 4 个
+  @EventBusSubscriber 类都有 @SubscribeEvent, 主类 bus.register(this) 也有 registerCapabilities, 合法。
+· 【6-27 运行期修复③ —— 画面冻结/全黑的真凶】症状: 不崩但卡 Mojang 红屏画面不刷新, 菜单按钮能点/有音效, 放大全黑。
+  根因(日志最深 Caused by): "IllegalStateException: Cannot get config value before config is loaded"
+  @ElementalBreezeMagicCircleRenderer.<init> → 所有 ~25 个 GeoEntityRenderer 构造器里读
+  ModConfig.SERVER.enable_gpu_compatibility_mode.get() 决定是否加发光层。NeoForge 1.21 渲染器在(很早的)资源重载阶段
+  构造, 此时 SERVER 配置尚未加载(客户端要进世界才载)→抛异常→模型烘焙失败→**整个 ModLoader 进损坏态**→
+  后续客户端 setup 事件(Veil 着色器编译/TextureAtlasStitched/资源重载收尾)全被 "Cowardly refusing to send event
+  ...to a broken mod state" 跳过→渲染管线没初始化→画面冻结。Axiom 缺字体也是这连锁反应的连带现象。
+  修法(从原理): 新建 client/renderer/layer/ConfigurableGlowLayer(继承 AutoGlowingGeoLayer), 构造器恒添加它,
+  把配置读取推迟到 render()(届时配置已加载, isLoaded 兜底), 既不崩又仍尊重 gpu 兼容开关 + ConfigCommand 不受影响。
+  25 个激活渲染器的 "if(!gpu){addRenderLayer(new AutoGlowingGeoLayer)}" → "addRenderLayer(new ConfigurableGlowLayer<>())"。
+  【教训: Forge1.20.1 容忍"配置未加载时读返回默认", NeoForge1.21 严格抛异常; 渲染器/客户端早期构造里别直接读
+   ModConfigSpec.get(), 要么推迟到使用时+isLoaded()兜底, 要么放 CLIENT 配置。其它迁移 mod 留意同款。】
+· 【6-27 运行期修复④】"Registry is already frozen (minecraft:trigger_type / sculkhorde:..._trigger)"
+  @ModEventSubscriber.afterCommonSetup —— 7 个自定义成就触发器原用 CriteriaTriggers.register 在 FMLCommonSetupEvent
+  注册。1.21 起 trigger_type 是正式注册表, common setup 时已冻结。新建 core/ModTriggers(DeferredRegister ->
+  Registries.TRIGGER_TYPE), 以 ()->XxxTrigger.INSTANCE 注册既有单例(各处 .INSTANCE 引用不变), 在 SculkHorde 构造器
+  挂 mod 总线; 清空 afterCommonSetup。已确认无其它冻结注册表写入(Dispenser registerBehavior 写可变 map 非注册表)。
+  【教训: 1.21 自定义 CriterionTrigger 须走 DeferredRegister(Registries.TRIGGER_TYPE)在注册阶段, 不能 common setup 时 register。】
+· 【6-27 运行期修复⑤ 游戏可进后】幽匿末影人/孢子生成器 怪物蛋刷不出。根因=复制粘贴通病: SynchedEntityData.defineId(X.class)
+  的 X 写成了别的实体类→污染该类 ID 空间。1.21 严格: SporeSpewer/PhantomCorpse 错挂 SculkEndermanEntity.class→
+  末影人报"has not defined synched data value 23"+这俩自己 defineSynchedData 抛异常。全实体扫出 4 处(还含
+  BeeHarvester 错挂 Bee.class 会连累原版蜜蜂、AreaEffectCloud 错挂原版 AreaEffectCloud), 全改回各自的类。
+  【教训: defineId 的 Class 参数必须是声明该 accessor 的实体自身类; 移植时全 grep defineId(X.class) 核对 X==文件类。】
+· 【6-27 运行期修复⑥】NoClassDefFoundError/ClassNotFoundException: SquadLogicGoal @SculkMiteEntity.goalSelectorPayload
+  (Spore 嚎叫者召唤幽匿螨触发)。类源码存在、javap 验证有效、确在 jar 内, 但 ModuleClassLoader 加载失败。
+  线索: jar 内 class 时间戳混合(多数 13:30, SquadLogicGoal/Despawn* 为 15:52)=增量编译不一致, 旧增量类
+  链接时引用了已变更签名 → 包装成 CNFE。解法: gradlew clean build 全量重编译, jar 内全部 16:30 统一。
+  【教训: 多次增量 build 后若出现"类在 jar 里却 CNFE/NoClassDef", 先 clean build 排除增量不一致, 再深究链接。】
+· 【6-27 运行期修复⑦ = 感染不蔓延的同根因】崩 "Invalid block entity infested_log_block_entity ... got infested_compost_mass"
+  @BlockEntity.validateBlockState。根因: 所有感染标记方块(7个block类: Tag/Fence/FenceGate/Pillar/Slab/Stair/Wall,
+  对应几百个变体)共用 InfestedTagBlockEntity, 其构造器固定传 INFESTED_LOG_BLOCK_ENTITY 类型(valid 仅 INFESTED_LOG)。
+  1.21 BlockEntity.validateBlockState 严格校验→除 INFESTED_LOG 外全崩。感染系统(孢子生成器/古代节点结构)扩散时把
+  方块转感染变体挂 BE 即触发→崩 + 感染中断。修法: ModBlockEntities 用 collectTagInfestedBlocks() 动态收集所有
+  ITagInfestedBlock 方块作为该类型有效方块(覆盖全变体, 新增自动含)。同时解决用户报的"孢子生成器/大脑不感染周围"。
+  【教训: 1.21 多方块共用一个 BlockEntity 时, 其 BlockEntityType.Builder.of 须列全所有承载方块, 否则 validateBlockState 崩。】
+· 【6-27 运行期修复⑧ 大根因: data 文件夹未单数化】用户测出: 清道夫剑/净化剑对幽匿生物无反应 + 成就不触发。
+  根因: agent 只迁了 Java, data/ 资源文件夹仍是 1.20.1 复数命名, 1.21 全部单数化 → 未加载:
+  · tags/entity_types→tags/entity_type (sculk_entity 标签没载 → isSculkLivingEntity 全 false → 两剑识别不了幽匿生物)
+  · advancements→advancement (成就没载 → 触发器触发了也无成就接收)
+  · loot_tables→loot_table, recipes→recipe, structures→structure, tags/blocks→tags/block
+  · 三个命名空间(sculkhorde/minecraft/forge)都改; forge 命名空间→neoforge (biome_modifier type forge:add_spawns→
+    neoforge:add_spawns + 去掉非法 category 字段; relocation_not_supported 标签挪 neoforge:)
+  · 配方 JSON 还是 1.20 格式 → Python 批量转 160 个: ingredient {"item":X}→"X", result/output item→id,
+    stonecutting result 字符串+count→{id,count}。loot table 已是 1.21 兼容(无 set_nbt)不动。
+  已重构建部署, jar 内 data 结构验证为单数。
+  【教训: 移植 mod 必查 data/ 资源文件夹单数化(advancement/loot_table/recipe/structure/tags.*) + recipe JSON 1.21 格式
+   (ingredient 裸字符串/result.id) + forge 命名空间→neoforge/c。这是纯 Java agent 最容易整体漏掉的一层。】
+· 【待查】幽匿部落不召唤怪物攻击感染净化器(用户报, 可能还有类似的)。非数据问题: HitSquad 系统 target 是玩家;
+  净化器是否被沙库怪 targetSelector 当目标需深查 AI 行为逻辑。待单独排查。
+· 【6-27 修复⑨ 成就+配方格式精修】用户报成就仍不触发: 1.21 criterion 缺 "conditions" 字段 → criterion 实例没注册成
+  监听器 → 触发器触发了没人接收。给 7 个成就的 criterion 补 "conditions": {}。
+  配方: 上一轮我把 ingredient {"item":X}→裸字符串"X"是错的(1.21.1 ingredient 仍须 {"item":X} 对象, 裸字符串报
+  "Failed to parse either. First: Not a json array")→已 revert 回对象; result/output 的 item→id 保留(那才是真改动)。
+  【教训: 1.21.1 配方 ingredient 仍是 {"item":X}/{"tag":X} 对象不变; 只有 result(ItemStack) 改 id。别动 ingredient。】
+· 【用户测试反馈 待查清单】(游戏可玩, 以下为运行期功能 bug):
+  - 【成就真因 6-27】用户诊断: /advancement grant 命令能赋予(数据加载ok)但进度界面看不到+不弹toast=display解析失败。
+    根因: 成就 display.icon 用 1.20 的 {"item":X}, 1.21 成就图标是 ItemStack 须 {"id":X}(item→id, 同配方 result 坑)→
+    图标解析失败→display 失效→成就能赋予但无图标=不显示不提示。已修全 16 个图标 item→id。另根成就 location_check
+    的 "structure"→"structures"(1.21 LocationPredicate 复数 HolderSet)。
+  - 【清道夫之刃/净化之刃 平衡调整 6-27 按用户方案】清道夫: 创造放技能不掉耐久; 生存按召唤尖刺数掉耐久(留1点不打坏);
+    技能改成"未耗尽即可放"(原是必须满耐久); 击杀幽匿生物 -REPAIR(2)耐久。净化之刃: 原每命中给周围每个幽匿生物各生成
+    一个净化游标(30s)→群体砍卡爆。改成 10s 冷却, 冷却就绪命中幽匿生物只生成 1 个游标(存活10s, CUSTOM_DATA 存
+    lastPurifyTime), 击杀幽匿生物回耐久。REPAIR/CD 可调。
+  - 【6-27 查清】部落不召唤怪物 = 大概率非bug: 召唤需"附近有有效目标", 而 EntityAlgorithms.isEntityUntargetable
+    把 创造/旁观模式玩家 判为不可锁定(合理设计)→创造模式测召唤者检测不到威胁→不召唤。需生存模式(或放村民/敌对怪)测。
+    召唤还需 SculkAccumulatedMass>0 + gravemind 审批 + 人口未满。3000方块(MassInfectinator): 整条链路追完
+    (BaseEntityBlock.getTicker✓ → gravemind.serverTick调cursorSystem.serverTick✓ → tickPerformanceExemptCursors每tick✓ →
+    createPerformanceExemptSurfaceInfestorVirtualCursor 创建后 addPerformanceExemptVirtualCursor 注册✓ → InfectionTree
+    探测/感染游标状态机完整✓), 用同一套正常感染(用户确认ok)的机制, 代码层面正确无迁移bug。用户报的"warning"未在日志找到,
+    待用户给具体 warning 文字 + 生存模式重测。
+  - 幽匿3000方块(DevMassInfectinator)不大规模扩散感染→待查
+  - 唱片(deep_green/blind_and_alone)创造栏没找到→待查注册/显示
+  - 实验性物品部分缺中文名→lang 文件缺键
+  - perimeter_ward_emitter/relay 两物品紫黑=上游本就无 model/贴图(实验性方块, 非迁移bug; 可补占位)
+  - 【新症状】FPE 第一人称食用动画 + 部分枪包(不止daffa)枪口火光 被锁定朝北、不跟随摄像头。已排除"broken mod
+    state 级联"(本次日志 count=0, sculkhorde 加载干净)。GeckoLib "Unable to parse animation animation.i_*" 是 tacz
+    枪包动画(独立)。北向锁定根因待查: FPE/tacz 第一人称跟随动画的旋转来源被某加载步骤影响, 需单独细查。
+· 【待办 非sculkhorde】daffas_arsenal(diffa)枪包: 第一人称开火枪口火光偏移到画面左上方; 默认 tacz 枪包正常。
+  → tacz 枪包 muzzle flash 显示配置问题(diffa 居多), 与 sculkhorde 无关; 待单独排查 daffas 枪包 display/muzzle 配置。
+· 迁好后配方层 sculkhorde 相关跳过会自动恢复(见 §4)。
+· agent 报的待复核点(已随收尾验证编译, 运行期留意): advancement criterion codec / GameEventListener.Provider 命名 /
+  SoulHarvestingRecipe codec / VibrationSystem 签名。
+
+────────────────────────────────────────────────────────────────────
+§3  tacz_unidict 弹壳联动  【未开工; crusty_chunks 已迁好, 依赖已满足】
+────────────────────────────────────────────────────────────────────
+· 功能: 装了 crusty_chunks 则开枪掉对应 Warium 弹壳 (用户魔改版 1.5.0 有, 上游 2.0.1 无)。
+· crusty_chunks 的 casing 物品(small/medium/large/shotgun_casing)已就位, 直接用。
+· (其余 unidict 遗留: 轮盘 gun_data 内容 / tud$onShoot 注入精调 → 用户拍板【不做】。)
+· 【6-28 完成】反编译 1.5.0-YMRFixed(vineflower, jar在原包mods/)定位原逻辑: EventHandler.onGunFire(GunFireEvent)→
+  CompatGunHelper.getAmmoClassForTaczGun→WariumCompatHelper.getCasingForAmmoClass→spawnCasingToRight。
+  弹壳ID=crusty_chunks:{small,medium,large,shotgun}_casing; 映射 tud通用弹 pistol→small/rifle→medium/sniper→large/shot→shotgun。
+  移植: 新建 compat/WariumCasingCompat.java(纯ResourceLocation字符串引crusty物品,无新编译依赖; 用AmmoManager.getAmmo取
+  枪当前通用弹id映射弹壳; spawnCasingToRight 1.20.1 SRG→1.21.1 Mojmap全转: getLookAngle/cross/normalize/position/
+  getBbHeight/setPickUpDelay/setDeltaMovement/addFreshEntity)。在 event/EventHandler 加 onGunFire(GunFireEvent)监听
+  (与已工作的EntityHurtByGunEvent同走NeoForge游戏总线@EventBusSubscriber; 仅服务端; 要crusty_chunks+tacz加载)。
+  TaCZ1.21.1 GunFireEvent确认: extends net.neoforged.bus.api.Event, getShooter()/getGunItemStack()/getLogicalSide()。
+  范围只做弹壳(Warium弹匣那套不做)。clean构建✓部署12:51。【待开枪验收: 装通用弹的tacz枪开火→射手右侧抛出对应弹壳】
+· 【6-28 弹壳细化(用户加2小功能)】按枪型分类抛壳, WariumCasingCompat加Category{NORMAL,BOLT_ACTION,REVOLVER}:
+  - 枪型判定靠 TaCZ GunData(TimelessAPI取): 栓动=getBolt()==MANUAL_ACTION且弹药类是步枪/狙击(泵动霰弹也MANUAL_ACTION
+    但属霰弹类故排除); 左轮=getBolt()==OPEN_BOLT且手枪弹且getAmmoAmount()<=12(半自动手枪/SMG全CLOSED_BOLT, 干净区分;
+    实测默认包rhino357/taurus500/943=open_bolt容量5-8, mp5/p90/deagle/glock=closed_bolt)。
+  - 栓动步枪/狙击: 开火后延迟1秒(20tick)抛1弹壳, 用 server.tell(new TickTask(getTickCount()+20, ...))调度, lambda里
+    校验shooter.isAlive()+仍在ServerLevel。
+  - 左轮: 开火不抛, 把弹壳类型+次数存进枪CUSTOM_DATA(NBT TudCasingCount/TudCasingId; 不依赖当前弹药, 因空枪换弹时
+    getAmmo可能返回null); 换弹时(GunReloadEvent有getEntity射手, GunFinishReloadEvent没有故用前者)读存储值一次性抛出
+    全部弹壳并清零(上限REVOLVER_EJECT_CAP=24防异常)。
+  - 普通枪: 开火立即抛(原行为)。clean构建✓部署13:37。【待验收: 左轮连开数枪→换弹瞬间右侧弹出等量弹壳; 栓动枪开火→约1秒后弹壳】
+· 【6-28 栓动延迟bug修复】用户报: 左轮完美但栓动(kar98/mosin/awm等)无延迟抛壳。诊断: 左轮栓动同走categorize()(都靠
+  getBolt())→左轮工作证明检测正确; 实测kar98k/mosin9130/ai_awp均manual_action+sniper类→确应判BOLT_ACTION。唯一区别=
+  栓动走scheduleDelayedEject的 server.tell(new TickTask(getTickCount()+20)) → 根因: MC的MinecraftServer任务队列是FIFO
+  (ReentrantBlockableEventLoop.pollTask peek队头, shouldRun=task.getTick()<=tickCount), 未来tick的TickTask卡在队头不
+  按时执行→栓动延迟抛壳从不触发。修法(从原理): 弃用server.tell, 改自管理队列 PENDING_EJECTS(List<PendingEject{shooter,
+  casing,ticksLeft}>), 在 EventHandler.onServerTick(ServerTickEvent.Post)每tick调tickPendingEjects()逐个--ticksLeft,
+  归0时校验shooter.isAlive()+ServerLevel后spawnCasingToRight。clean构建✓部署14:29。【教训: MC里做"延迟N tick执行"别用
+  server.tell未来tick(FIFO队列卡队头), 要么自管理tick队列, 要么用level的TimerQueue/schedule。】
+  【待验收: 栓动枪(kar98/mosin/awm)开火→约1秒后右侧弹壳】
+· 【6-28 霰弹枪细分(用户加)】霰弹枪(tud:shot)按机构归到已有两套行为: 泵动→栓动那套(延迟1秒); 双管/单发断折→左轮那套
+  (留膛换弹抛)。判定(都SHOT弹药类, 靠bolt+容量): 断折=cap<=2(BREAK_ACTION_MAX_CAPACITY; 实测db_long/db_short=open_bolt
+  cap2, 泵动m870/spas_12=manual_action cap5, 全自动aa12=open_bolt cap8, 半自动m1014=closed_bolt cap6 → cap<=2干净分出断折);
+  泵动=cap>2且manual_action; 其余(半自/全自)→普通立即。categorize()加SHOT分支(cap<=2→REVOLVER, 否则manual_action→
+  BOLT_ACTION)。复用现有REVOLVER(留膛存NBT换弹抛)/BOLT_ACTION(延迟队列)两套逻辑, 弹壳类型=shotgun_casing。
+  注: 验证发现daffas的makten_single其实是45acp开膛SMG(cap30)非单管霰弹, 正好验证左轮cap<=12守卫排除了开膛大容量SMG。
+  clean构建✓部署14:35。【待验收: 泵动霰弹开火→1秒后弹壳; 双管连开2发→换弹抛2壳】
+
+────────────────────────────────────────────────────────────────────
+§4  配方层收尾  【未开工】
+────────────────────────────────────────────────────────────────────
+· 引擎 = kubejs/server_scripts/utd_recipes.js (读 startup_scripts/utd_recipe_data.js)。
+· 现状: SI(437)+crusty_chunks(184) 已迁好→原 651 跳过应大幅恢复, 重启 /reload 看现在还剩多少。
+· 53 个 create 残留错误收尾。locks/the_ravenous/ropebridge 引用是 DROP 的, 跳过正常。
+· 【6-28 收尾完成】查 6-28 14:42 的 latest.log 引擎汇总: "registered from 51 shaped/26 shapeless/883 custom;
+  skipped 29(missing items), failed 0" —— 960注册/0失败, create那53个错早没了(883 custom全注册)。跳过30项逐条核实:
+  locks系列(10物品×多配方≈26)/ropebridge(2)/the_ravenous(1) 全是主动DROP的mod→跳过正确; 唯一异常=
+  crusty_chunks:incendiary_grenade(燃烧手雷): crusty已迁但漏了这物品(grenade/smoke_grenade/incendiary_bottle都在,
+  独缺它兄弟)。补移植: CrustyChunksItems加 INCENDIARY_GRENADE=registerSimpleItem+ALL列表; model(item/generated layer0
+  incendiarygrenade)+从原Warium1.2.6 jar复制贴图incendiarygrenade.png+en_us lang。clean构建✓部署14:53。
+  补后剩余跳过全是DROP的mod(locks/ropebridge/the_ravenous)=正确。引擎(itemExists预校验+graceful skip)健壮无需改。
+  【配方层=DONE。下一步§7 kjs封jar可开工(把kubejs脚本/数据封进只读资源,免散落)。】
+
+────────────────────────────────────────────────────────────────────
+§5  第一人称 tacz 工作台不渲染  【未开工; 用户给了假设】
+────────────────────────────────────────────────────────────────────
+· 现象: 第三人称正常, 第一人称手持 tacz 工作台不渲染。
+· 用户假设: HMI(第一人称 mod)取消了原版渲染, 自己为兼容 mod 默认去拿 mod 的【图标】做第一人称动画
+  优化兼容; 但 tacz 工作台【只有模型没有图标】→ HMI 拿出来是空的 → 不渲染。按此方向排查。
+
+────────────────────────────────────────────────────────────────────
+§6  UTD 掉落层迁移  【未开工; 配方层的孪生兄弟, 同款套路, 纯差部署】
+────────────────────────────────────────────────────────────────────
+· bundle 里 280 张 loot table (kubejs/data/doomsday_functionality/loot_tables/chests/) + 6 个 loot 脚本
+  (utd_loot_registry/families/balance/tables/pity/utils) 从未部署 → 书桌/箱子只有 mod 默认稀疏掉落。
+· 要做: ① 命名空间 doomsday_functionality→doomsday_decoration (新版方块查新命名空间)
+        ② 文件夹 loot_tables→loot_table (1.21 单数)
+        ③ 表内物品 item→id + 缺失物品容错
+        ④ 脚本 KubeJS 6→2101
+  覆盖到 data/doomsday_decoration/loot_table/chests/ 自动盖默认表; jar 不动(书桌分流 mixin 已就绪)。机制已验证。
+· 【6-28 完成】架构: utd_loot_tables.js="静态JSON表启用,运行时覆盖禁用"→掉落层=纯静态JSON(280箱子表+78子表@kubejs:utd/...),
+  脚本里只有 pity(PlayerEvents.chestOpened保底)是活跃运行时hook。迁移(Python一次性, 已清理): 358表全转——①文件夹
+  loot_tables→loot_table单数 ②命名空间doomsday_functionality→doomsday_decoration(箱子表) ③【1.21关键】minecraft:loot_table
+  条目 name→value(1316处, lategamegolems实证) ④set_nbt→set_custom_data(783处, 根NBT→custom_data, TaCZ枪/FPE数据照读)
+  ⑤过滤缺失物品条目(84个, backstabreforged/kuayue/locks/lrtactical/ropebridge/the_ravenous全DROP; 余全已加载)。
+  0空池0断引用(78子表/61引用全解析)。脚本KubeJS6→2101: registry/families/registry_data/balance_data(各1.2万行)零API照搬;
+  utils.js仅改带nbt的Item.of(→id[minecraft:custom_data=snbt]); pity.js照搬(ChestKubeEvent在2101有getBlock/getPlayer/getEntity)。
+  静态表独立于脚本→加脚本零风险(脚本报错静态掉落不受影响)。
+  【教训: 1.21 loot table两大改: minecraft:loot_table引用 name→value; set_nbt删→set_custom_data。item条目仍用name。文件夹单数化。】
+  【待验收: 开doomsday箱→掉落丰富(非默认稀疏); /reload无脚本报错; 连开多箱pity保底生效】
+
+────────────────────────────────────────────────────────────────────
+§8  DD 增强收尾 (Doomsday Decoration)  【6-30 任务1 碰撞箱=完成部署待验收 / 任务2 语义表格=进行中】
+────────────────────────────────────────────────────────────────────
+· 用户拍板: 迁移最后剩3任务 = ①DD增强(碰撞箱+语义表格) ②Flashback崩溃根治(另session) ③kjs封jar(最后)。
+  ("Flashback字体"是旧记错, 实为回放崩溃。)
+
+· 【任务1 超1格碰撞箱 = 真·多格实心障碍, 6-30完成部署待游戏内验收】
+  根因: 数据驱动重生成时丢了原MCreator每块手写的VoxelShape(getShape m_5940_), 1143块全统一1×1×1(PORT_REPORT §7缺口1)。
+  事实勘查: 606块原有自定义shape(全是DecoBlock型/无楼梯等); 形态=每朝向switch + Shapes.or组合盒。
+    overhang分布: 328块≤1格(纯缩小,无跨格), 278块超格(footprint最大3×3×3, 最大overhang正好16px=1格)。
+    DD无worldgen结构; 大车辆原本就手工拆成多个单格方块相邻摆放(ambulance_1/2/3, *_jeep_1/2 前/后)。
+  引擎核实: Shapes.box对超[0,16]坐标走create→findBits=-1→ArrayVoxelShape, 完全支持(参考tacz枪械工作台=床式2-part多方块,
+    证明1.21引擎接受>1格; 但本批是手工拆分单格件故不用part机制, 用还原shape+碰撞mixin补悬挑)。
+  实现(从原理):
+    ① extract_shapes.py: 反编译类→提取每块getShape的box字面量(switch各case+Shapes.or并集)→doomsday_decoration_shapes.json(打进jar)。
+    ② DecoShapeStore(静态, 按Block实例存shape+overhang; shape不能进构造器=simpleCodec需(Properties)ctor, 故post-construction apply)。
+    ③ 4个DecoBlock子类 override getShape/getCollisionShape(还原)+getVisualShape空(对齐原mod)+implements DecoShaped标记。
+    ④ EntityCollisionMixin: MixinExtras @ModifyReturnValue 包 Entity.collectColliders(碰撞收集唯一汇点, 主碰撞+台阶+所有
+       collideBoundingBox调用方共用), 扫描查询AABB外扩1格环内的超格DecoShaped方块, 把其完整cell-local shape追加进碰撞列表
+       →伸进空邻格的悬挑也真正挡人=真·多格实心。跳过内层格(vanilla已覆盖,不重复)。MAX_OVERHANG=1.0。
+       mixin配置=doomsday_decoration.mixins.json + mods.toml [[mixins]]; MixinExtras走compileOnly(NeoForge运行时自带,不打包)。
+  clean构建✓ 部署20:56 (mods/doomsday_decoration-1.1.3-neoforge-1.21.1.jar, 6.65MB)。
+  【待游戏内验收: ①车辆(jeep/ambulance/truck)整车实心不可穿, 含车身外缘悬挑 ②细长/矮装饰碰撞框收回贴合模型
+    ③高件(冰箱/街机/空调2格高)顶部可正常站立 ④放置/破坏/选择框正常 ⑤启动看mixin verbose日志确认EntityCollisionMixin注入命中。】
+
+· 【任务2 语义表格 = JSON+逐块LLM丰富, 6-30完成】给SocialWill地图编辑AI用。产物=
+  ModsSourceCode\DoomsdayDecoration\doomsday_decoration_semantic.json (1143块, 含_meta说明)。
+  流程: build_semantic_base.py建基表(中文名取自en_us.json已全中文/创造栏/footprint推算/facing)→切16批×72块→
+  16个subagent并行逐块丰富(同一受控schema)→合并校验(0缺漏0多余, 仅1处category/function混淆已修)。
+  每块字段: id/name_zh/tab/type/facing/waterlogged/footprint/oversized + category(16受控大类)/tags/desc(一句话)/
+  surface(地面墙面桌面天花任意)/context(场景)/function(装饰容器光源障碍功能性)。
+  分类分布: 建筑构件478/载具162/废墟杂物110/容器储物59/电子设备47/家具39/招牌标识39/军事防御36/门窗36/
+  灯光照明33/工业管线33/家电22/医疗18/杂项15/厨卫14/植被自然2。
+  脚本/中间产物都在DoomsdayDecoration\(extract_shapes.py/build_semantic_base.py/shapes.json/semantic_base.json/_batches\)。
+  【DD增强#8 = 两子任务工程全部完成。任务1碰撞箱待用户游戏内验收; 任务2语义JSON可直接交付SocialWill(位置待用户定/可拷入SocialWill项目)。】
+
+════════════════════ 待重测 (已修, 复发再说) ════════════════════
+· Flashback 回放打开必崩  ❌【用户报: 还崩】做过精确手术(切 createpropulsion 引用已删方块
+  propeller 的孤儿 loot)但没根治; 还有"源码容错"兜底方案备而未用。诊断文档:
+  ModsSourceCode/_diagnosis_Flashback_replay_crash.md
+· IV(Immersive Vehicles)平地驾驶变黑  ✅已修(config 关 Better Darkness darknessLevel=80, 留 .bak)。
+  诊断: ModsSourceCode/_diagnosis_IV_darkness.md
+· HandheldMoon 动态光改挂 SDDL  ✅完成(LDL→SodiumDynamicLights, jar 已构建)。
+  报告: ModsSourceCode/HandheldMoon-PORT_REPORT.md
+
+════════════════════ 已完成 ════════════════════
+· 早期批量迁移 + DDF 分离修复 + SearchCarefully 断线修复 + 资源包 + 遗漏检查
+· Fungal 整条线 (CNPC 脚本复刻 4 怪 infected/sporer/volatile/lurker; AI 大改; FungalLureManager 枪声吸引)
+· daffas_arsenal 19 把枪 tacz 1.21.1 Lua 迁移
+· Sona 本体 5 系统(感染/受伤/腐烂/锈蚀/循声) / ZSK 工具包 / Mobreaker→CNPC / vehicleload
+· utd_doomsday_patch (原创 mod, 17 文件全 port, 10 mixin 注入成功, 部署)
+· tacz_unidict 2.0.1 (上游 Scarasol 全量, 57 文件 port, 部署, 游戏内初验: 通用弹能打√/弹壳动画√/不崩√)
+  运行期风险点(若需 rework): ModernKineticGunScriptAPIMixin 的 tud$onShoot 注入点在 TaCZ1.21.1 移位
+  →defaultRequire:0 非致命跳过; 轮盘缺数据驱动 gun_data(用户拍板不做)。
+· survival_instinct (666 类反编译→自建 SRG 字典→全功能 port, 部署+验收 OK)
+  覆盖: 护甲/武器/工具/食物/医疗/容器/网络/夜视; 二三轮修复: 3D 护甲贴图(ArmorMaterial.Layer)/夜视全屏/
+  BlockZ 联动(datapack 胸甲给格子)/背包限槽(BagItemHandler)/莫洛托夫投掷(getUseDuration 2 参×26 物品)/
+  KubeJS 3 错(古旧工作台 forge:partial_nbt)
+· crusty_chunks (Warium items-only, 22 物品, 部署)
+· FPE firstpersonfoodeating (用户自己的 mod): 使用动画只认自己命名空间 + 第一人称吃东西转视角偏移修复
+  (删 FoodFirstPersonGeoRenderer 的 mulPose(camera.rotation())→吃原生屏幕空间帧)
+· 配方层 (KubeJS, 651→现 SI+crusty 迁好应大幅恢复; create:crushing 弹药回收 forge:partial_nbt→neoforge:components)
+
+════════════════════ 已确认 DROP (别花时间) ════════════════════
+· B 类(配方引用但不要): locks / the_ravenous / ropebridge
+· C 类(~45 个主动 DROP 内容 mod): doday / gundb / taczjs / taczxgunlightsaddon / sentrymechanicalarm /
+  dyairdrop / backstabreforged / regrowth / fallingtrees / crafttakestime / pomkotsmechs(+ext) /
+  maid_*(女仆×4) / riautomobility / attackablecreatetrain 等
+· 范围见 memory utd-ws7-sona-scope: 能 CNPC 脚本复刻就不移植
+
+════════ 【6-28 sculkhorde 接续点 + 范围调整】 ════════
+· 【用户拍板 6-28】幽匿部落(含真菌部分功能)后期都要重写/集成, 现阶段很多功能要重修 → 深层 horde 行为调试(召唤/感染
+  扩散调优/AI)不再深究, 不值得花时间。迁移核心目标(sculkhorde 跑在 1.21.1)已达成: 加载干净/物品/两剑/成就/配方/data 都通。
+· 【已定位-均非迁移bug, 且要重写故不修】"不感染/不召唤/3000无效" 真因 = Horde State: DEFEATED(用户用纯洁之心击败了部落,
+  DEFEATED 时 tickVirtualCursors/召唤审批 early-return)。复活: /shd reset + 重新触发远古节点。"扩散慢"=Perf Mode 卡 Low
+  (TPS掉过要5min高TPS爬回); disable_auto_performance_system=true 强制满速。infection_speed_multiplier 是除数(10=更快)。
+· 【本轮已做的工具/修复】① statusall 增强[感染诊断]行(豁免游标/TPS/感染倍率/感染开关/性能禁用)②/shd 是dev命令组(op2):
+  infest_chunk/debug/reset ③Configured 已禁用(.jar.disabled,可逆,它快照覆写外部config且无开关)④sculkhorde 配置已汉化
+  (ModConfig注释\uXXXX中文+build UTF-8; 让中文显示删存档 serverconfig/sculkhorde-server.toml 重生成)⑤MM配置值未被覆写。
+· 【立规矩】每次部署必 clean 全量构建(增量2次致 SquadLogicGoal/EntityChunkLoadRequest "类在jar却CNFE")。
+· 【sculkhorde 真正剩余的小尾巴(非紧急)】唱片创造栏找不到 / 实验性物品缺中文名(lang) / perimeter_ward紫黑(上游无贴图,
+  可补占位) / FPE+部分tacz枪口火光锁定朝北(渲染独立问题,与sculkhorde无关)。这些是 polish, 等核心重写思路定了再说。
+
+════════ 【6-28 sculkhorde 收尾完成 → 彻底收口】 ════════
+· 唱片: 排查发现资源(模型/贴图/jukebox_song数据包)全齐且已在displayItems, 是旧构建问题→本次clean构建后出现;
+  顺手补"正在播放"歌曲描述键+唱片名汉化(深绿音乐唱片/盲目与孤独音乐唱片)。
+· lang: 补13键 —— 9真缺(腐蚀/幽匿穿刺死亡信息/魂石钟鸣/活体蛛网方块/幽匿收割天使之魂+功能+传说tooltip)
+  + 2 ward块名 + 2唱片歌名; en_us顺带补2 ward英文名。zh唱片名英文→中文。
+· perimeter_ward: 根因不止缺贴图——现存blockstate错名(perimeter_infestation_ward_relay_block对不上注册名
+  perimeter_ward_relay_block)且两块都带FACING、emitter全无资源。补: 两块完整blockstate(覆盖四朝向)+方块模型
+  +物品模型, 占位贴图emitter用infestation_ward_block/relay用sculk_node, 删错名孤儿, 补两块中英文名(边界守卫发射器/中继器)。
+· clean构建✓部署11:49(versions/1.21.1-NeoForge_21.1.233/mods/); jar内新资源+lang键已验证。
+· 深层玩法重写(性能优化/蜂群逻辑API化/可选合一)已记入 联动待办.txt L4; 新增 L5(SDDL火把灯笼玩家光源×2)、
+  L6(HandheldOnMoon手电筒光照×1.5+600耐久系统,盈月填装)。【sculkhorde 迁移任务到此彻底收口】

@@ -1,0 +1,85 @@
+════════════════════════════════════════════════════════════════════
+ MM 联动待办 (下一阶段 · 一口气落实)   建档 2026-06-26
+ 主任务进度见: 迁移最后所剩任务.txt   |   验收清单: modern-mayhem-测试清单.txt
+════════════════════════════════════════════════════════════════════
+
+【L1. MM ↔ BlockZ(DayZ) 格子公平性联动】★用户优先
+· 现状: MM 已被 BlockZ 的 DayZ 库存界面联动(界面里能看到 "Modern Mayhem" 分类)。两者都走 Curios,
+  MM 占 back/body/facewear/head/knees/earwear; BlockZ 占 head/back/body/vest/belt/chest/feet + 自有 DayZ 库存。
+· 问题: MM 物品的格子(背包/战术背心给的储物格数)和 BlockZ 物品的格子在【公平性/平衡】上不合理
+  (MM 背心动辄给大量格子 vs BlockZ 自身的容量曲线)。
+· 要做: 公平性调整 —— 统一/重定 MM 背包&rig 在 DayZ 体系下的容量, 使两套装备的"格子收益"对等。
+  落点参考: BlockZ 有 compat/CuriosIntegration、BlockZDataComponents、NestedStorageItemHandler 可挂;
+  MM 容量来自各 GenericBackpackItem 的 getInventoryLines()×getInventoryColumns() + RigStorageProperties/BackpackStorageProperties 配置。
+  方案候选: ①统一走 BlockZ 的 NestedStorageItemHandler 重定容量 ②或加一个 compat 层按 BlockZ 平衡表换算 MM 容量。
+· 待用户给"公平"的具体标准(每类装备应给几格)再定数值。
+
+【L2. MM 防毒面具 ↔ spore / sculkhorde / ZSK 气体&感染联动 + 平衡】★用户优先
+· MM 防毒面具 = mm:gp5_gas_mask (HeadGearItems, head 槽, type==5; 有 GAS_MASK_INCOMPATIBLE 头盔互斥判定)。
+· 要做: 戴 GP5 防毒面具时, 对下列"气体/感染"伤害&效果提供防护(或减免):
+  - spore (孢子/真菌 mod): 孢子气体/感染相关效果
+  - sculkhorde (幽匿): 相关气体/感染(注: sculkhorde 还未迁, 见主任务 §2, 联动需等它迁好)
+  - ZSK: 各种气体感染相关物品/效果
+· 机制落点: 监听上述 mod 的感染/气体施加效果的事件(或 MobEffect 施加), 若玩家 head 槽有 gp5_gas_mask 则取消/减免。
+  需逐个查这三个 mod 怎么施加感染(MobEffect? 自定义伤害? tick 检测?), 再决定 hook 点。
+· 平衡: 防护不是 100% 无敌 —— 给耐久消耗/时限/部分减免, 用户后续给具体平衡参数。
+
+【L3. 游戏启动时间优化】★用户要求 (2026-06-26 加)
+· 现状: 游戏启动特别特别慢, 需专项排查与优化。是整包级问题, 不限 mm。
+· 排查方向: 看启动日志各阶段耗时(mod 构造/注册/数据包/资源重载/mixin 应用);
+  疑点: mixin 多的 mod、大材质/资源、KubeJS 脚本编译、重复 reload、modernfix 配置是否开全。
+· 候选手段: 调优 modernfix 延迟加载; 查有无 mod 在 setup 做重活; JVM 堆/GC 参数;
+  关掉无用调试日志(注意 mm 的 build.gradle 里 forge.logging.markers=REGISTRIES + logLevel DEBUG 仅 dev 用,
+  整合包发布版不该带这类调试开销 —— 但那是 runs 配置, 不进 jar, 需确认整合包启动参数没带类似 debug)。
+
+【L4. sculkhorde + 真菌(fungal) 功能重写/集成】★用户拍板 (2026-06-28 加)
+· 背景: 两 mod 已迁好(跑在 1.21.1, 是干净基线), 但用户决定后期重写整合, 不沿用其原生玩法。
+  现阶段迁移版只作"能跑的底子", 不在原生行为上做深度调试(昨天"不感染/不召唤"已查明是部落 DEFEATED 状态+性能Low节流, 非bug)。
+· 核心任务一: 【优化整体性能】
+  - sculkhorde 自带 AutoPerformanceSystem(core/AutoPerformanceSystem.java): 按实测TPS在 Low/Medium/High 间切,
+    Low 时狠节流游标(getCursorsToTickPerTick/getDelayBetweenCursorTicks/getMaxNodesActive)。开局 Medium, 要持续~5min高TPS才爬High,
+    频繁重启/加载掉TPS就卡 Low → 感染巨慢。disable_auto_performance_system=true 可强制满速但治标。
+  - 游标系统(cursorSystem): 实体游标/虚拟游标/性能豁免虚拟游标(节点/大脑/3000用)。感染靠游标逐方块推进, 是性能大头。
+  - 重写时: 评估游标模型是否值得保留, 还是换更轻的感染推进(批量/区块级/异步)。整包级启动慢另见 L3。
+· 核心任务二: 【去掉/默认禁用两 mod 自带的"蜂群(hive/swarm/gravemind自主)"逻辑, 改为可外部调用的事件API】
+  - 现状: 感染扩散、生成怪物(召唤者/population)、生成结构(节点/巢/3000)、突袭(raid)都由 Gravemind 自主驱动
+    (core/gravemind/*, EventSystem, RaidHandler, PopulationHandler 等), 玩家几乎不可控。
+  - 目标: 把这四类能力抽成【对外 API/事件】, 默认关闭自带自主蜂群决策, 让外部(我们的世界层/编剧/SocialWill 兵棋)按需调用:
+    ① 感染方块(infestBlock/infestArea/infestChunk — 已有 /shd infest_chunk 可参考其调用链)
+    ② 生成怪物(spawn unit by type/at pos — 参考 PopulationHandler/召唤者审批链)
+    ③ 生成结构(node/nest/3000 结构生成 — 参考 sculk node 触发链)
+    ④ 突袭逻辑(raid 触发/编排 — 参考 RaidHandler)
+  - 形态: 提供稳定的 Java API + (可选)KubeJS 绑定/自定义事件, 供外部 mod/脚本驱动。自带 AI 用配置默认禁用(不删, 保留可开)。
+· 可选: 【两 mod 合一】sculkhorde 与 fungal 合并为单 mod, 便于统一接口/管理/性能预算(真菌强依赖关系见 memory)。
+  合并前先理清两者注册/数据/资源命名空间冲突与共享部分。
+· 依赖与顺序: 此重写在迁移大盘收口后做; 与 L2(防毒面具↔感染防护)联动 — API 化后 L2 的 hook 点会更干净(直接调防护事件)。
+
+【L5. SDDL 动态光源 — 玩家自身光源半径×2】★用户要求 (2026-06-28 加)
+· 模组: SDDL(动态光源)。范围: 当玩家手持/携带【火把】和【灯笼】时, 玩家自身散发的动态光源半径【翻两倍(×2)】。
+· 注意: 是"玩家自身散发"的动态光(手持发光物时跟随玩家的光), 不是放置后的火把/灯笼方块光。
+· 落点待查: SDDL 里火把/灯笼对应的发光等级(light level)配置或硬编码值; 翻倍可能是改配置项或 mixin/数据驱动。
+  先确认 SDDL 是否有现成配置暴露每种物品的光照半径; 没有则需 hook 其动态光源计算。
+
+【L6. HandheldOnMoon 手电筒 — 光照×1.5 + 耐久系统】★用户要求 (2026-06-28 加)
+· 模组: handheldonmoon。两部分:
+· ① 光照范围: 手电筒光线距离扩大【1.5 倍】。
+· ② 新增手电筒耐久系统:
+  - 耐久上限 = 600。
+  - 开启(右键发光)瞬间消耗 1 点耐久。
+  - 开着状态下每秒额外消耗 1 点耐久。
+  - 耐久归 0 时: 手电筒【不损毁】(物品保留), 但无法右键发光; 若当前正开着则【自动关闭发光】。
+  - 充能/填装: 用【盈月】(item) 右键物品栏中"空耐久"的手电筒进行填装以恢复耐久。
+· 待确认(实现前问用户): 「盈月」的确切物品ID/来源 mod; 填装是一次填满600还是按数量/比例; 是否要耐久条HUD显示;
+  原 handheldonmoon 是否本就有耐久/电池机制(若有则改造其值, 若无则新建组件)。
+
+【L7. 机械动力(Create)附属盘点 + 物理列车关注】★用户要求 (2026-06-29 加)
+· ① 检查【新蒸程】整合包 vs 当前 UTD 包里的【机械动力(Create)】, 列出 UTD 缺哪些 Create 附属(addon) mod, 评估是否补。
+· ② 持续关注【物理机械动力列车】(物理化的 Create 列车 mod)的发布情况, 出了就评估接入。
+· (用户提醒事项, 非紧急; 待用户给"新蒸程"整合包的确切来源/mod清单以便对比。)
+
+【备注】
+· 两项都依赖"用户给平衡数值"才能定稿; 先把机制管线搭好, 数值留配置项。
+· sculkhorde 联动(L2 一部分)要等 sculkhorde 迁好(主任务 §2)。
+· COTI 用法(非联动, 仅记录): clip-on thermal imager = mm:coti, 是 PVS-14/PVS-7 的【夹装热成像附件】,
+  不是独立穿戴物; 在物品栏里把 coti 和 PVS-14/PVS-7 右键叠一起即安装, 之后用 COTI 键(默认右方向键)切热成像。
+  能装的: black/tan/green_pvs14 + black_pvs7。GPNVG/VISOR 不能装。
