@@ -1,0 +1,77 @@
+// Gradle构建配置文件
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1' // 用于打包依赖
+    id 'application' // 用于指定主类
+}
+
+repositories {
+    // Maven中央仓库
+    mavenCentral()
+    // Spigot仓库
+    maven {
+        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    // EngineHub仓库，用于WorldEdit依赖
+    maven {
+        url 'https://maven.enginehub.org/repo/'
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    // 添加WorldEdit Bukkit依赖，用于支持Bukkit版本的WorldEdit
+    compileOnly 'com.sk89q.worldedit:worldedit-bukkit:7.2.0'
+    // 添加WorldEdit Core核心依赖，用于基础功能
+    compileOnly 'com.sk89q.worldedit:worldedit-core:7.2.0'
+}
+
+group = 'com.projectutd'
+version = '1.0-SNAPSHOT'
+description = 'ItemsRefresh - A Minecraft plugin for refreshing items in containers within selected areas'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+application {
+    mainClass = 'com.projectutd.itemsrefresh.ItemsRefreshPlugin'
+}
+
+// 配置shadow插件，用于创建可运行的JAR文件
+shadowJar {
+    archiveClassifier.set('') // 移除默认的"all"后缀
+    // 保留原有的清单文件
+    mergeServiceFiles()
+    relocate 'com.google', 'com.projectutd.itemsrefresh.libs.google'
+    relocate 'org.apache', 'com.projectutd.itemsrefresh.libs.apache'
+}
+
+// 禁用可能导致依赖问题的分发任务
+distZip.enabled = false
+distTar.enabled = false
+startScripts.enabled = false
+startShadowScripts.enabled = false
+shadowDistZip.enabled = false
+shadowDistTar.enabled = false
+
+// 配置构建任务
+build {
+    dependsOn shadowJar
+}
+
+// 清理任务
+clean {
+    delete rootProject.buildDir
+}
+
+// 配置资源处理
+processResources {
+    duplicatesStrategy = 'INCLUDE'
+    expand(
+        'name': project.name,
+        'version': project.version,
+        'description': project.description
+    )
+}

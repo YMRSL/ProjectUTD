@@ -1,0 +1,49 @@
+# ItemsRefresh 插件配置文件
+# 请根据需要调整以下设置
+
+# 随机刻触发频率
+# 每游戏刻有1/[random-tick-frequency]概率对单个容器触发随机刻
+# 数值越小频率越高（范围：1-10000）
+random-tick-frequency: 2000
+
+# 最大选区范围（单位：方块）
+# 超过这个范围的选区将被视为无效
+max-selection-size: 1000000
+
+# 允许的容器类型
+# 只有在此列表中的容器类型才会被检测和刷新
+allowed-containers:
+  - "CHEST"
+  - "BARREL"
+  - "ITEM_FRAME"
+
+# 粒子效果设置
+particle-effect:
+  # 是否启用容器标记粒子效果
+  enabled: true
+  # 粒子类型
+  type: "VILLAGER_HAPPY"
+  # 粒子数量
+  count: 5
+  # 粒子扩散范围
+  offset-x: 0.2
+  offset-y: 0.2
+  offset-z: 0.2
+  # 粒子速度
+  speed: 0.1
+
+# 日志设置
+logging:
+  # 是否启用刷新日志
+  enabled: true
+  # 日志文件大小上限（单位：KB）
+  max-file-size: 1024
+  # 保留的日志文件数量
+  max-files: 5
+
+# 数据存储设置
+data-storage:
+  # 自动保存间隔（单位：分钟）
+  auto-save-interval: 5
+  # 是否压缩数据文件
+  compress-data: true

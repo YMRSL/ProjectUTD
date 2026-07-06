@@ -1,0 +1,2 @@
+// Gradle设置文件
+rootProject.name = 'ItemsRefresh'

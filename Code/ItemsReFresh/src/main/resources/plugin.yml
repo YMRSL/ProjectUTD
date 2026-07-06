@@ -1,0 +1,31 @@
+name: ItemsRefresh
+version: 1.0
+main: com.projectutd.itemsrefresh.ItemsRefreshPlugin
+description: A plugin for refreshing items in containers within selected areas
+authors: [ProjectUTD]
+website: https://github.com/projectutd/ItemsRefresh
+api-version: 1.17
+load: POSTWORLD
+
+commands:
+  area:
+    description: Main command for ItemsRefresh plugin
+    usage: /<command> [select/container/refresh/log/data] [subcommand] [args...]
+    aliases: [arefresh, itemrefresh]
+
+permissions:
+  area.refresh.admin:
+    description: Allows full access to the plugin
+    default: op
+  area.refresh.edit:
+    description: Allows editing the refresh GUI
+    default: false
+  area.container.select:
+    description: Allows selecting containers
+    default: false
+  area.refresh.log.view:
+    description: Allows viewing refresh logs
+    default: false
+  area.refresh.data.manage:
+    description: Allows managing data backups
+    default: false
