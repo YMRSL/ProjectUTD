@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/a_light_switch",
+  "textures": {
+    "all": "doomsday_decoration:block/a_light_switch",
+    "particle": "doomsday_decoration:block/a_light_switch",
+    "0": "doomsday_decoration:block/a_light_switch"
+  },
+  "render_type": "cutout_mipped"
+}

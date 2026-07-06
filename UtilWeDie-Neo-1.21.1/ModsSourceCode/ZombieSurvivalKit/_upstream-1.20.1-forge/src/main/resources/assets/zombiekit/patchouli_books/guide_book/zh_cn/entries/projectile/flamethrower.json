@@ -1,0 +1,37 @@
+{
+  "name": "喷火器",
+  "icon": "zombiekit:flamethrower",
+  "category": "zombiekit:projectile",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "zombiekit:flamethrower",
+      "text": "欢迎来到进阶课程！燃烧瓶虽然好用，但它的威力终究只是短暂的。如果你的动手能力足够强，那我们可以制作一些更具创意的武器。恭喜你，你已经不再是一个普通的BBQ爱好者，而是成为了米其林级别的烤肉大师。而且，只需一点小改动，燃烧瓶的燃料就能为喷火器提供源源不断的火力支持。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:flamethrower",
+      "text": "现在，让我们把这个末世烧成灰吧！丧尸将再也无法成为你的阻碍，至少在燃料耗尽之前。当然，只有真正的勇士才配得上这样的武器，因为一旦你拿起它，你将成为队伍前进时的尖锐矛头，撤退时的最后防线。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:fuel_canister",
+      "text": " "
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(o)(这里有一段笔记：)$()$(br)$(#a97b1d)“以酒精为主要成分的燃料虽然便宜且易得，但由于温度较低，其造成的杀伤力十分有限。要制造出真正的军用级燃料并非易事，但在我的实验中，我成功找到了两种相对简单稳定的配方。第一种配方利用了粘液球的黏性和强氧化性，使燃料可以附着在目标上，并且在水中仍能保持燃烧，同时改良了燃料的主要成分，显著提升了燃烧温度和持续时间；第二种配方则利用了灵魂沙的特殊性质。尽管灵魂沙的应用"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:napalm_fuel_canister",
+      "text": "$(#a97b1d)由于其展现出的特殊性质而引发了大量的争议和反对声音，但简单的实验结果表明，这种物质在燃烧时能释放出极高的温度，接近军用级燃料，足以迅速碳化生物组织，造成极为可观的杀伤效果。”"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:high_temperature_fuel_canister",
+      "text": " "
+    }
+  ]
+}

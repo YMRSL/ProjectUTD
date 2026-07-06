@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 3 ",
+    "212",
+    " 4 "
+  ],
+  "key": {
+    "1": {
+      "item": "zombiekit:improved_extend_weighted_grip"
+    },
+    "2": {
+      "item": "minecraft:shulker_shell"
+    },
+    "3": {
+      "item": "minecraft:goat_horn"
+    },
+    "4": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "zombiekit:advanced_extend_weighted_grip"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/pole",
+  "textures": {
+    "all": "doomsday_decoration:block/pole",
+    "particle": "doomsday_decoration:block/pole",
+    "0": "doomsday_decoration:block/pole"
+  },
+  "render_type": "solid"
+}

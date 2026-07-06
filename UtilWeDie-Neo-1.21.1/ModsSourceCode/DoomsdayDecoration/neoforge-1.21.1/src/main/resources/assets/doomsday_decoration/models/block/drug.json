@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/drug",
+  "textures": {
+    "all": "doomsday_decoration:block/drug",
+    "particle": "doomsday_decoration:block/drug",
+    "0": "doomsday_decoration:block/drug"
+  },
+  "render_type": "cutout_mipped"
+}

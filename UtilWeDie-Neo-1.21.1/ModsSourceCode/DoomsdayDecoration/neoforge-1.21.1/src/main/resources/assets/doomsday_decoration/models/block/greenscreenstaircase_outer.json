@@ -1,0 +1,9 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "doomsday_decoration:block/green_screen",
+    "top": "doomsday_decoration:block/green_screen",
+    "side": "doomsday_decoration:block/green_screen"
+  },
+  "render_type": "solid"
+}

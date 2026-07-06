@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/empty_test_tube_rack",
+  "textures": {
+    "all": "doomsday_decoration:block/empty_test_tube_rack",
+    "particle": "doomsday_decoration:block/empty_test_tube_rack",
+    "0": "doomsday_decoration:block/empty_test_tube_rack"
+  },
+  "render_type": "cutout_mipped"
+}

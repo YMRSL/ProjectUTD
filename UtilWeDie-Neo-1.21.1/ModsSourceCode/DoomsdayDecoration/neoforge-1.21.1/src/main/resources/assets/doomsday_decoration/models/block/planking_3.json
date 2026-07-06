@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "doomsday_decoration:block/planking3",
+    "particle": "doomsday_decoration:block/planking3"
+  },
+  "render_type": "solid"
+}

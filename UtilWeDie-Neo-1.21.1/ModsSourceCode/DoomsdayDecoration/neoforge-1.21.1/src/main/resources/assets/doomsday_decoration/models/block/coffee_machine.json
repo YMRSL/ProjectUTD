@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/coffee_machine",
+  "textures": {
+    "all": "doomsday_decoration:block/coffee_machine",
+    "particle": "doomsday_decoration:block/coffee_machine",
+    "0": "doomsday_decoration:block/coffee_machine"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "doomsday_decoration:block/floor_tiles",
+    "top": "doomsday_decoration:block/floor_tiles",
+    "side": "doomsday_decoration:block/floor_tiles"
+  },
+  "render_type": "solid"
+}

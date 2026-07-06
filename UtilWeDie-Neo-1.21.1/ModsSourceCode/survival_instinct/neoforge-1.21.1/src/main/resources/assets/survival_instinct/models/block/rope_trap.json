@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/rope_trap",
+  "textures": {
+    "all": "minecraft:block/oak_planks",
+    "particle": "minecraft:block/oak_planks",
+    "0": "survival_instinct:block/rope_trap"
+  },
+  "render_type": "cutout"
+}

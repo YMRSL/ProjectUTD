@@ -1,0 +1,94 @@
+plugins {
+    id 'multiloader-loader'
+    alias(libs.plugins.loom)
+
+    id 'publish-fabric'
+}
+
+apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main/repository-publishers/codinglitch.gradle'
+
+dependencies {
+    minecraft(libs.fabric.minecraft)
+
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.minecraft.get()}:${libs.versions.parchment.mappings.get()}@zip")
+    }
+
+    modImplementation libs.bundles.fabric.modImpl
+
+    modCompileOnly(libs.fabric.computercraft.api)
+    modCompileOnly(libs.fabric.sablecompanion)
+
+    modCompileOnly(libs.fabric.voicechat)
+    modCompileOnly(libs.fabric.voicechatinteraction)
+
+    modLocalRuntime libs.bundles.fabric.environment
+}
+
+fabricApi {
+    configureDataGeneration() {
+        setOutputDirectory(project(":fabric").file("src/main/generated"))
+    }
+}
+
+loom {
+    def aw = project(":common").file("src/main/resources/${mod_id}.accesswidener")
+    if (aw.exists()) {
+        accessWidenerPath.set(aw)
+    }
+
+    runs {
+        client {
+            client()
+            setConfigName("Fabric Client")
+            runDir("runs/client")
+            ideConfigGenerated(true)
+            source sourceSets.development
+        }
+        server {
+            server()
+            setConfigName("Fabric Server")
+            runDir("runs/server")
+            ideConfigGenerated(true)
+            source sourceSets.development
+        }
+        gameTest {
+            server()
+            setConfigName("Fabric Game Test")
+            vmArg "-Dfabric-api.gametest=1"
+            runDir("runs/gametest")
+            ideConfigGenerated(true)
+            source sourceSets.development
+        }
+    }
+}
+
+// Implement mcgradleconventions loader attribute
+def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
+['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements', 'includeInternal', 'modCompileClasspath'].each { variant ->
+    configurations.named("$variant") {
+        attributes {
+            attribute(loaderAttribute, 'fabric')
+        }
+    }
+}
+sourceSets.configureEach {
+    [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant->
+        configurations.named("$variant") {
+            attributes {
+                attribute(loaderAttribute, 'fabric')
+            }
+        }
+    }
+}
+loom.remapConfigurations.configureEach {
+    configurations.named(it.name) {
+        attributes {
+            attribute(loaderAttribute, 'fabric')
+        }
+    }
+}
+
+substituteResources.dependsOn compileDatagenJava, processDatagenResources
+datagenClasses.finalizedBy substituteResources

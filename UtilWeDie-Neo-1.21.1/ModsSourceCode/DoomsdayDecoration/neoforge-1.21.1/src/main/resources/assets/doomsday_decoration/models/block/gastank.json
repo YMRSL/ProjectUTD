@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/gas_tank",
+  "textures": {
+    "all": "doomsday_decoration:block/gas_tank",
+    "particle": "doomsday_decoration:block/gas_tank",
+    "0": "doomsday_decoration:block/gas_tank"
+  },
+  "render_type": "cutout_mipped"
+}

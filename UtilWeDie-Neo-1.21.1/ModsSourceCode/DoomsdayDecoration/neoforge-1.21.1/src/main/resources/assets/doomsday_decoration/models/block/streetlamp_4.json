@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/street_lamp4",
+  "textures": {
+    "all": "doomsday_decoration:block/street_lamp4",
+    "particle": "doomsday_decoration:block/street_lamp4",
+    "0": "doomsday_decoration:block/street_lamp4"
+  },
+  "render_type": "cutout_mipped"
+}

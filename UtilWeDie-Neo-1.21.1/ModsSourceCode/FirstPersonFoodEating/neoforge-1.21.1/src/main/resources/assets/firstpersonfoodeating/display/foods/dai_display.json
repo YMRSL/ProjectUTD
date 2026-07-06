@@ -1,0 +1,9 @@
+{
+    "item":  "firstpersonfoodeating:dai",
+    "geo":  "firstpersonfoodeating:i_dai_a",
+    "geo_visible_root":  "i_dai",
+    "texture":  "firstpersonfoodeating:item/i_dai_a",
+    "animation":  "firstpersonfoodeating:i_dai_a",
+    "state_machine":  "firstpersonfoodeating:default_food_state_machine",
+    "use_sound":  "firstpersonfoodeating:dai.dai_use1"
+}

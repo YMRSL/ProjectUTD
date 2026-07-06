@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/office_partition_desk4",
+  "textures": {
+    "all": "doomsday_decoration:block/office_partition_desk4",
+    "particle": "doomsday_decoration:block/office_partition_desk4",
+    "2": "doomsday_decoration:block/office_partition_desk4"
+  },
+  "render_type": "cutout_mipped"
+}

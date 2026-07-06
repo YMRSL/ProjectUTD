@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/electric_fist",
+  "textures": {
+    "0": "survival_instinct:block/electric_fist",
+    "particle": "survival_instinct:item/energy_storage_battery"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_side_tall",
+  "textures": {
+    "wall": "doomsday_decoration:block/pink_and_white_ceramic_tiles",
+    "particle": "doomsday_decoration:block/pink_and_white_ceramic_tiles"
+  },
+  "render_type": "solid"
+}

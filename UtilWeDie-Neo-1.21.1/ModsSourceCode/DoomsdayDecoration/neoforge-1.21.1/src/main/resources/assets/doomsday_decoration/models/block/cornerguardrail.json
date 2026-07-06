@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/corner_guardrail",
+  "textures": {
+    "all": "doomsday_decoration:block/corner_guardrail",
+    "particle": "doomsday_decoration:block/corner_guardrail",
+    "0": "doomsday_decoration:block/corner_guardrail"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,60 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = 'Fabric'
+                    url = uri("https://maven.fabricmc.net")
+                }
+            }
+            filter {
+                includeGroup("net.fabricmc")
+                includeGroup("net.fabricmc.unpick")
+                includeGroup("fabric-loom")
+            }
+        }
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = 'Sponge Snapshots'
+                    url = uri("https://repo.spongepowered.org/repository/maven-public")
+                }
+            }
+            filter {
+                includeGroupAndSubgroups("org.spongepowered")
+            }
+        }
+        maven {
+            name = "NeoForged"
+            url = 'https://maven.neoforged.net/releases'
+            content {
+                includeGroup "net.neoforged"
+            }
+        }
+    }
+}
+
+plugins {
+    // gradle 9 requires foojay >= 1.0.0
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            // adding these ranges dependent on the properties
+            version("minecraft_range_interval", "[${minecraft_min},${minecraft_max}]")
+            version("minecraft_range_builder", ">=${minecraft_min} <=${minecraft_max}")
+        }
+    }
+}
+
+// This should match the folder name of the project, or else IDEA may complain (see https://youtrack.jetbrains.com/issue/IDEA-317606)
+rootProject.name = 'SimpleRadio-1.21.1'
+include("common")
+include("fabric")
+include("neoforge")
+include("api")
+

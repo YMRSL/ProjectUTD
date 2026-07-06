@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/male_toilet_signs",
+  "textures": {
+    "all": "doomsday_decoration:block/male_toilet_signs",
+    "particle": "doomsday_decoration:block/male_toilet_signs",
+    "1": "doomsday_decoration:block/male_toilet_signs"
+  },
+  "render_type": "cutout_mipped"
+}

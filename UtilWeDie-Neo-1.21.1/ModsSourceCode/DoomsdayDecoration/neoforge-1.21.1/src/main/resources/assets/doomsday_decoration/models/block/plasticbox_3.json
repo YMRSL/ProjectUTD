@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/plastic_box3",
+  "textures": {
+    "all": "doomsday_decoration:block/plastic_box3",
+    "particle": "doomsday_decoration:block/plastic_box3",
+    "3": "doomsday_decoration:block/plastic_box3"
+  },
+  "render_type": "translucent"
+}

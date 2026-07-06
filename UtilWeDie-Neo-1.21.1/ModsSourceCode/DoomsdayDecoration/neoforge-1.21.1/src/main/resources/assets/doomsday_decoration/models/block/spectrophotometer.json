@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/spectrophotometer",
+  "textures": {
+    "all": "doomsday_decoration:block/spectrophotometer",
+    "particle": "doomsday_decoration:block/spectrophotometer",
+    "0": "doomsday_decoration:block/spectrophotometer"
+  },
+  "render_type": "cutout_mipped"
+}

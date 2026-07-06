@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/electric_box",
+  "textures": {
+    "all": "doomsday_decoration:block/electric_box",
+    "particle": "doomsday_decoration:block/electric_box",
+    "0": "doomsday_decoration:block/electric_box"
+  },
+  "render_type": "cutout_mipped"
+}

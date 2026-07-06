@@ -1,0 +1,43 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.107'
+}
+
+version = '1.5.0-neoforge-1.21.1'
+group = 'com.scarasol.sona'
+base { archivesName = 'sona' }
+
+java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+
+repositories {
+    maven { url = 'https://maven.aliyun.com/repository/public' }
+    mavenCentral()
+    flatDir { dir 'libs' }
+}
+
+neoForge {
+    version = '21.1.233'
+    // Parchment is optional; skipped to avoid extra downloads.
+    validateAccessTransformers = true
+    runs {
+        client { client() }
+    }
+    mods {
+        sona { sourceSet sourceSets.main }
+    }
+}
+
+dependencies {
+    // Third-party mods used by the sound-aggro mixins / geckolib infection layer.
+    // compileOnly because these are provided at runtime by the modpack.
+    compileOnly files('libs/geckolib-neoforge-1.21.1-4.8.4.jar')
+    compileOnly files('libs/superbwarfare-0.8.9-final-mc1.21.1-9b5284f4.jar')
+    compileOnly files('libs/tacz-neoforge-1.21.1-1.1.8-hotfix-r1.jar')
+
+    // MixinExtras is bundled with NeoForge at runtime; expose its annotation processor
+    // + compile classes for @WrapOperation / @ModifyExpressionValue etc. if used.
+    compileOnly 'io.github.llamalad7:mixinextras-common:0.4.1'
+    annotationProcessor 'io.github.llamalad7:mixinextras-common:0.4.1'
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }

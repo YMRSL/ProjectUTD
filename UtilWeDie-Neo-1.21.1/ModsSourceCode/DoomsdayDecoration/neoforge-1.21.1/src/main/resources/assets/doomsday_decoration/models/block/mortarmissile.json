@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/mortar_missile",
+  "textures": {
+    "all": "doomsday_decoration:block/mortar_missile",
+    "particle": "doomsday_decoration:block/mortar_missile",
+    "0": "doomsday_decoration:block/mortar_missile"
+  },
+  "render_type": "cutout_mipped"
+}

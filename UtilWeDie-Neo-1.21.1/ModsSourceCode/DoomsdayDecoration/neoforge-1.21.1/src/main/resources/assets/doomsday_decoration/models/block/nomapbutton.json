@@ -1,0 +1,7 @@
+{
+  "parent": "block/button",
+  "textures": {
+    "texture": "doomsday_decoration:block/no_map"
+  },
+  "render_type": "solid"
+}

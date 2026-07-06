@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "zombiekit:blueprint_of_landmine"
+  },
+  "base": {
+    "item": "zombiekit:landmine"
+  },
+  "addition": {
+    "item": "zombiekit:potion_jar"
+  },
+  "result": {
+    "item": "zombiekit:chemical_landmine"
+  }
+}

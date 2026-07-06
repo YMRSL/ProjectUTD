@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "doomsday_decoration:block/frontkhakisedan"
+    },
+    "facing=east": {
+      "model": "doomsday_decoration:block/frontkhakisedan",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "doomsday_decoration:block/frontkhakisedan",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "doomsday_decoration:block/frontkhakisedan",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "doomsday_decoration:block/x-shaped_ceramic_tile",
+    "top": "doomsday_decoration:block/x-shaped_ceramic_tile",
+    "side": "doomsday_decoration:block/x-shaped_ceramic_tile"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,9 @@
+{
+    "item":  "firstpersonfoodeating:bang",
+    "geo":  "firstpersonfoodeating:i_bang_a",
+    "geo_visible_root":  "ep_bang",
+    "texture":  "firstpersonfoodeating:item/i_bang_a",
+    "animation":  "firstpersonfoodeating:i_bang_d",
+    "state_machine":  "firstpersonfoodeating:default_food_state_machine",
+    "use_sound":  "firstpersonfoodeating:bang.bang_use1"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "zombiekit:blueprint_of_dye"
+  },
+  "base": {
+    "tag": "forge:tactical_leggings"
+  },
+  "addition": {
+    "item": "zombiekit:forest_camouflage_dye"
+  },
+  "result": {
+    "item": "zombiekit:forest_tactical_leggings"
+  }
+}

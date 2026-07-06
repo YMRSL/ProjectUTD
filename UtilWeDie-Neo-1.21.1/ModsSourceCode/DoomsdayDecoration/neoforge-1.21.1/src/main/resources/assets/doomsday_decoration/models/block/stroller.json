@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/stroller",
+  "textures": {
+    "all": "doomsday_decoration:block/stroller",
+    "particle": "doomsday_decoration:block/stroller",
+    "0": "doomsday_decoration:block/stroller"
+  },
+  "render_type": "cutout_mipped"
+}

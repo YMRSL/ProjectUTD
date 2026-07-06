@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/microscope",
+  "textures": {
+    "all": "doomsday_decoration:block/microscope",
+    "particle": "doomsday_decoration:block/microscope",
+    "0": "doomsday_decoration:block/microscope"
+  },
+  "render_type": "cutout_mipped"
+}

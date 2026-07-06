@@ -1,0 +1,104 @@
+package net.tkg.ModernMayhem.server.util;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.tkg.ModernMayhem.server.item.generic.GenericBackpackItem;
+import net.tkg.ModernMayhem.server.item.generic.GenericSpecialGogglesItem;
+import top.theillusivec4.curios.api.CuriosApi;
+
+public class CuriosUtil {
+    public static boolean hasNVGEquipped(Player player) {
+        AtomicBoolean result = new AtomicBoolean(false);
+        CuriosApi.getCuriosInventory((LivingEntity)player).ifPresent(curiosInventory -> curiosInventory.getStacksHandler("facewear").ifPresent(facewearSlot -> {
+            ItemStack facewearItem = facewearSlot.getStacks().getStackInSlot(0);
+            if (facewearItem.getItem() instanceof GenericSpecialGogglesItem) {
+                result.set(true);
+            }
+        }));
+        return result.get();
+    }
+
+    public static boolean hasBackpackEquipped(Player player) {
+        AtomicBoolean result = new AtomicBoolean(false);
+        CuriosApi.getCuriosInventory((LivingEntity)player).ifPresent(curiosInventory -> curiosInventory.getStacksHandler("back").ifPresent(facewearSlot -> {
+            ItemStack backItem = facewearSlot.getStacks().getStackInSlot(0);
+            if (backItem.getItem() instanceof GenericBackpackItem) {
+                result.set(true);
+            }
+        }));
+        return result.get();
+    }
+
+    public static boolean hasRigEquipped(Player player) {
+        AtomicBoolean result = new AtomicBoolean(false);
+        CuriosApi.getCuriosInventory((LivingEntity)player).ifPresent(curiosInventory -> curiosInventory.getStacksHandler("body").ifPresent(facewearSlot -> {
+            ItemStack chestItem = facewearSlot.getStacks().getStackInSlot(0);
+            if (chestItem.getItem() instanceof GenericBackpackItem) {
+                result.set(true);
+            }
+        }));
+        return result.get();
+    }
+
+    public static ItemStack getFaceWearItem(Player player) {
+        AtomicReference<ItemStack> facewearItem = new AtomicReference<ItemStack>(null);
+        CuriosApi.getCuriosInventory((LivingEntity)player).ifPresent(curiosInventory -> curiosInventory.getStacksHandler("facewear").ifPresent(facewearSlot -> facewearItem.set(facewearSlot.getStacks().getStackInSlot(0))));
+        return facewearItem.get();
+    }
+
+    public static ItemStack getBackpackItem(Player player) {
+        AtomicReference<ItemStack> backpackItem = new AtomicReference<ItemStack>(null);
+        CuriosApi.getCuriosInventory((LivingEntity)player).ifPresent(curiosInventory -> curiosInventory.getStacksHandler("back").ifPresent(backpackSlot -> {
+            for (int i = 0; i < backpackSlot.getStacks().getSlots(); ++i) {
+                ItemStack stack = backpackSlot.getStacks().getStackInSlot(i);
+                if (!(stack.getItem() instanceof GenericBackpackItem)) continue;
+                backpackItem.set(backpackSlot.getStacks().getStackInSlot(i));
+                break;
+            }
+        }));
+        return backpackItem.get();
+    }
+
+    public static ItemStack getRigItem(Player player) {
+        AtomicReference<ItemStack> rigItem = new AtomicReference<ItemStack>(null);
+        CuriosApi.getCuriosInventory((LivingEntity)player).ifPresent(curiosInventory -> curiosInventory.getStacksHandler("body").ifPresent(rigSlot -> {
+            for (int i = 0; i < rigSlot.getStacks().getSlots(); ++i) {
+                ItemStack stack = rigSlot.getStacks().getStackInSlot(i);
+                if (!(stack.getItem() instanceof GenericBackpackItem)) continue;
+                rigItem.set(rigSlot.getStacks().getStackInSlot(i));
+                break;
+            }
+        }));
+        return rigItem.get();
+    }
+
+    public static int getBackpackSlotID(Player player) {
+        AtomicReference<Integer> backpackSlotID = new AtomicReference<Integer>(-1);
+        CuriosApi.getCuriosInventory((LivingEntity)player).ifPresent(curiosInventory -> curiosInventory.getStacksHandler("back").ifPresent(backpackSlot -> {
+            for (int i = 0; i < backpackSlot.getStacks().getSlots(); ++i) {
+                ItemStack stack = backpackSlot.getStacks().getStackInSlot(i);
+                if (!(stack.getItem() instanceof GenericBackpackItem)) continue;
+                backpackSlotID.set(i);
+                break;
+            }
+        }));
+        return backpackSlotID.get();
+    }
+
+    public static int getRigSlotID(Player player) {
+        AtomicReference<Integer> rigSlotID = new AtomicReference<Integer>(-1);
+        CuriosApi.getCuriosInventory((LivingEntity)player).ifPresent(curiosInventory -> curiosInventory.getStacksHandler("body").ifPresent(rigSlot -> {
+            for (int i = 0; i < rigSlot.getStacks().getSlots(); ++i) {
+                ItemStack stack = rigSlot.getStacks().getStackInSlot(i);
+                if (!(stack.getItem() instanceof GenericBackpackItem)) continue;
+                rigSlotID.set(i);
+                break;
+            }
+        }));
+        return rigSlotID.get();
+    }
+}
+

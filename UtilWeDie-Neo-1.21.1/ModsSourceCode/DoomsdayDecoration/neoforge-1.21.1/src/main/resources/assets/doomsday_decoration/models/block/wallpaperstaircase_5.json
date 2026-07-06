@@ -1,0 +1,9 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "doomsday_decoration:block/wallpaper5",
+    "top": "doomsday_decoration:block/wallpaper5",
+    "side": "doomsday_decoration:block/wallpaper5"
+  },
+  "render_type": "solid"
+}

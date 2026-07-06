@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/gallon_of_water",
+  "textures": {
+    "0": "survival_instinct:block/gallon_of_water",
+    "particle": "survival_instinct:item/gallon_of_waterpng"
+  }
+}

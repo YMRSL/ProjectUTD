@@ -1,0 +1,9 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "doomsday_decoration:block/pebble",
+    "top": "doomsday_decoration:block/pebble",
+    "side": "doomsday_decoration:block/pebble"
+  },
+  "render_type": "solid"
+}

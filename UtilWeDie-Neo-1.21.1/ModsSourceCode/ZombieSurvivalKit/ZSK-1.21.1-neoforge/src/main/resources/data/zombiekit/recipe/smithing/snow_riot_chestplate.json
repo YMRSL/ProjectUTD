@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "zombiekit:blueprint_of_riot"
+  },
+  "base": {
+    "item": "zombiekit:snow_tactical_chestplate"
+  },
+  "addition": {
+    "item": "zombiekit:bulletproof_insert"
+  },
+  "result": {
+    "item": "zombiekit:snow_riot_chestplate"
+  }
+}

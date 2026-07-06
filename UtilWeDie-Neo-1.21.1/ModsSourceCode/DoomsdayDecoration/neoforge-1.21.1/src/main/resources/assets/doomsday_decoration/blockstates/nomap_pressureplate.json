@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "doomsday_decoration:block/nomap_pressureplate"
+    },
+    "powered=true": {
+      "model": "doomsday_decoration:block/nomap_pressureplate_down"
+    }
+  }
+}

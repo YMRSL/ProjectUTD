@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/sofa",
+  "textures": {
+    "all": "doomsday_decoration:block/sofa",
+    "particle": "doomsday_decoration:block/sofa",
+    "0": "doomsday_decoration:block/sofa"
+  },
+  "render_type": "cutout_mipped"
+}

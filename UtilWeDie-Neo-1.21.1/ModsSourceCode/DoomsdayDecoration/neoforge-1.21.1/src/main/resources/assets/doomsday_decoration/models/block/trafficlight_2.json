@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/traffic_light2",
+  "textures": {
+    "all": "doomsday_decoration:block/traffic_light2",
+    "particle": "doomsday_decoration:block/traffic_light2",
+    "1": "doomsday_decoration:block/traffic_light2"
+  },
+  "render_type": "cutout_mipped"
+}

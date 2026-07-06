@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/corner_wire_mesh",
+  "textures": {
+    "all": "doomsday_decoration:block/corner_wire_mesh",
+    "particle": "doomsday_decoration:block/corner_wire_mesh",
+    "0": "doomsday_decoration:block/corner_wire_mesh"
+  },
+  "render_type": "translucent"
+}

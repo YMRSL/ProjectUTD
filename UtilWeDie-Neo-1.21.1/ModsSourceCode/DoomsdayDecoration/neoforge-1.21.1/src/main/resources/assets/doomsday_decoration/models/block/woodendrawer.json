@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/wooden_drawer",
+  "textures": {
+    "all": "doomsday_decoration:block/wooden_drawer",
+    "particle": "doomsday_decoration:block/wooden_drawer",
+    "1": "doomsday_decoration:block/wooden_drawer"
+  },
+  "render_type": "cutout"
+}

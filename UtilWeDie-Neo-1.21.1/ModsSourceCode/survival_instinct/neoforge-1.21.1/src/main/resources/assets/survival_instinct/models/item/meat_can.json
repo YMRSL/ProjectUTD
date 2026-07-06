@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/meat_can",
+  "textures": {
+    "1": "survival_instinct:block/meat_can",
+    "particle": "minecraft:item/cooked_beef"
+  }
+}

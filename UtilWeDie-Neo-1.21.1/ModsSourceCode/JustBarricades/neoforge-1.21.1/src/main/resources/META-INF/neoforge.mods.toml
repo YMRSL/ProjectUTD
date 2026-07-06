@@ -1,0 +1,25 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/Tejty/Just_Barricades/issues"
+
+[[mods]]
+modId = "just_barricades"
+version = "1.0.0-neoforge-1.21.1"
+displayName = "Just Barricades"
+authors = "Tejty"
+description = '''Adds simple repairable barricades that zombies break layer by layer. Unofficial NeoForge 1.21.1 port (ProjectUTD WS-7).'''
+
+[[dependencies.just_barricades]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.just_barricades]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"

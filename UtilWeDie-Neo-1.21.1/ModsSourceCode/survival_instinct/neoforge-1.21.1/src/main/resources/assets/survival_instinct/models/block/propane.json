@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/propane",
+  "textures": {
+    "all": "survival_instinct:block/iron_block",
+    "particle": "survival_instinct:block/iron_block",
+    "0": "survival_instinct:block/propane"
+  },
+  "render_type": "cutout_mipped"
+}

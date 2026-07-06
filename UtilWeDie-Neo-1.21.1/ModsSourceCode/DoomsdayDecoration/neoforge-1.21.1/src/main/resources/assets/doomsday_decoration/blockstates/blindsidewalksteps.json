@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/blindsidewalksteps"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/blindsidewalksteps_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/blindsidewalksteps_full"
+    }
+  }
+}

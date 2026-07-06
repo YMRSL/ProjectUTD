@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/kettle",
+  "textures": {
+    "all": "doomsday_decoration:block/kettle",
+    "particle": "doomsday_decoration:block/kettle",
+    "0": "doomsday_decoration:block/kettle"
+  },
+  "render_type": "cutout_mipped"
+}

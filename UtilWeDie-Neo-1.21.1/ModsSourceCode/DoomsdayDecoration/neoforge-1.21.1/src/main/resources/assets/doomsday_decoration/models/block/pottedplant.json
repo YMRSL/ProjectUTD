@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/potted_plant",
+  "textures": {
+    "all": "doomsday_decoration:block/potted_plant",
+    "particle": "doomsday_decoration:block/potted_plant",
+    "3": "doomsday_decoration:block/potted_plant"
+  },
+  "render_type": "cutout_mipped"
+}

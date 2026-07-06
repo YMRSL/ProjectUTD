@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/chalk",
+  "textures": {
+    "all": "doomsday_decoration:block/chalk",
+    "particle": "doomsday_decoration:block/chalk",
+    "1": "doomsday_decoration:block/chalk"
+  },
+  "render_type": "cutout_mipped"
+}

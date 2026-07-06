@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "crusty_chunks:item/emptymachinegunbox"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "crusty_chunks:machine_gun_box_ammo": 1
+      },
+      "model": "crusty_chunks:item/machine_gun_box_0"
+    }
+  ]
+}

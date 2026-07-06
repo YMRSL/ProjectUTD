@@ -1,0 +1,9 @@
+{
+  "item": "firstpersonfoodeating:guan",
+  "geo": "firstpersonfoodeating:i_guan_b",
+  "geo_visible_root": "ep_guan",
+  "texture": "firstpersonfoodeating:item/10de74fc97b21a454f25b97e7558e993",
+  "animation": "firstpersonfoodeating:i_guan_b",
+  "state_machine": "firstpersonfoodeating:default_food_state_machine",
+  "use_sound": "firstpersonfoodeating:guan.item_drinkcan_02_drink"
+}

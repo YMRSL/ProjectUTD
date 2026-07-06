@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/classroom_desk",
+  "textures": {
+    "all": "doomsday_decoration:block/classroom_desk",
+    "particle": "doomsday_decoration:block/classroom_desk",
+    "0": "doomsday_decoration:block/classroom_desk"
+  },
+  "render_type": "cutout_mipped"
+}

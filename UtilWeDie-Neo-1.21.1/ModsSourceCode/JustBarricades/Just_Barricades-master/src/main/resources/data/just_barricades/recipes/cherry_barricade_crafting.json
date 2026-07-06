@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:cherry_slab"
+    }
+  },
+  "result": {
+    "item": "just_barricades:cherry_barricade",
+    "count": 4
+  }
+}

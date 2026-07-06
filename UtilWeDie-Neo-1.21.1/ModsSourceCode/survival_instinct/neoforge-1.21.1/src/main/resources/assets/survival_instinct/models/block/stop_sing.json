@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/stop_sing",
+  "textures": {
+    "all": "survival_instinct:block/stop_sing_shield",
+    "particle": "survival_instinct:block/stop_sing_shield",
+    "0": "survival_instinct:block/stop_sing"
+  },
+  "render_type": "solid"
+}

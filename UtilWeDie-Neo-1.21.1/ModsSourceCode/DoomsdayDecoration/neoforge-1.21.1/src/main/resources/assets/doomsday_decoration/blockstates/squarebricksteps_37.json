@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/squarebricksteps_37"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/squarebricksteps_37_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/squarebricksteps_37_full"
+    }
+  }
+}

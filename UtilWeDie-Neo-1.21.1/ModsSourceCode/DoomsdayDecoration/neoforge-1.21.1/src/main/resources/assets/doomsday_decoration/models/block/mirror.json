@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/mirror",
+  "textures": {
+    "all": "doomsday_decoration:block/mirror",
+    "particle": "doomsday_decoration:block/mirror",
+    "0": "doomsday_decoration:block/mirror"
+  },
+  "render_type": "cutout_mipped"
+}

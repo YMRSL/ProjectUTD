@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/left_escalator",
+  "textures": {
+    "all": "doomsday_decoration:block/left_escalator",
+    "particle": "doomsday_decoration:block/left_escalator",
+    "0": "doomsday_decoration:block/left_escalator"
+  },
+  "render_type": "cutout_mipped"
+}

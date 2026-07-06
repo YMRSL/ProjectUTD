@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/t_water_pipe1",
+  "textures": {
+    "all": "doomsday_decoration:block/t_water_pipe1",
+    "particle": "doomsday_decoration:block/t_water_pipe1",
+    "0": "doomsday_decoration:block/t_water_pipe1"
+  },
+  "render_type": "cutout_mipped"
+}

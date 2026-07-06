@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "doomsday_decoration:block/wallpaper3",
+    "up": "doomsday_decoration:block/wallpaper",
+    "north": "doomsday_decoration:block/wallpaper2",
+    "east": "doomsday_decoration:block/wallpaper2",
+    "south": "doomsday_decoration:block/wallpaper2",
+    "west": "doomsday_decoration:block/wallpaper2",
+    "particle": "doomsday_decoration:block/wallpaper3"
+  },
+  "render_type": "solid"
+}

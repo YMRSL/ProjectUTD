@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "zombiekit:item/improved_light_weighted_grip"
+  }
+}

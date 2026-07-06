@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/blackboard9",
+  "textures": {
+    "all": "doomsday_decoration:block/blackboard9",
+    "particle": "doomsday_decoration:block/blackboard9",
+    "1": "doomsday_decoration:block/blackboard9"
+  },
+  "render_type": "cutout_mipped"
+}

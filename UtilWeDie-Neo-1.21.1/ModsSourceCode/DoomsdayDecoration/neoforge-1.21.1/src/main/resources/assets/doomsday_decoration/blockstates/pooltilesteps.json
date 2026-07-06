@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/pooltilesteps"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/pooltilesteps_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/pooltilesteps_full"
+    }
+  }
+}

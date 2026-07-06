@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/water_dispenser",
+  "textures": {
+    "all": "doomsday_decoration:block/water_dispenser",
+    "particle": "doomsday_decoration:block/water_dispenser",
+    "0": "doomsday_decoration:block/water_dispenser"
+  },
+  "render_type": "cutout_mipped"
+}

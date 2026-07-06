@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "zombiekit:blueprint_of_riot"
+  },
+  "base": {
+    "item": "zombiekit:forest_tactical_leggings"
+  },
+  "addition": {
+    "item": "zombiekit:bulletproof_insert"
+  },
+  "result": {
+    "item": "zombiekit:forest_riot_leggings"
+  }
+}

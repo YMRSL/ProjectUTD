@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/old_tv3",
+  "textures": {
+    "all": "doomsday_decoration:block/old_tv3",
+    "particle": "doomsday_decoration:block/old_tv3",
+    "0": "doomsday_decoration:block/old_tv3"
+  },
+  "render_type": "cutout_mipped"
+}

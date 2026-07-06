@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/guardrail",
+  "textures": {
+    "all": "doomsday_decoration:block/guardrail",
+    "particle": "doomsday_decoration:block/guardrail",
+    "0": "doomsday_decoration:block/guardrail"
+  },
+  "render_type": "cutout_mipped"
+}

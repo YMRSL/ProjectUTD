@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "222",
+    "212",
+    "232"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:egg"
+    },
+    "2": {
+      "item": "minecraft:wheat"
+    },
+    "3": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "result": {
+    "item": "zombiekit:compressed_biscuit",
+    "count": 2
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/morphine_injector",
+  "textures": {
+    "0": "survival_instinct:block/morphine_injector",
+    "particle": "survival_instinct:item/morphine_syringe"
+  }
+}

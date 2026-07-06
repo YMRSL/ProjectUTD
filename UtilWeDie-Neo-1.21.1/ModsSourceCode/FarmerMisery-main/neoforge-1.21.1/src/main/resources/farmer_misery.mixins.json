@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "club.someoneice.cockroach.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ItemBottleMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

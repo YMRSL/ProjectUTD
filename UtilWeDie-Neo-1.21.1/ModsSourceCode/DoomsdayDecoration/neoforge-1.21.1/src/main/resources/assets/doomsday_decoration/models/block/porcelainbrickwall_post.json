@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_post",
+  "textures": {
+    "wall": "doomsday_decoration:block/floor_tiles",
+    "particle": "doomsday_decoration:block/floor_tiles"
+  },
+  "render_type": "solid"
+}

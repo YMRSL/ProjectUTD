@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/forklift",
+  "textures": {
+    "all": "doomsday_decoration:block/forklift",
+    "particle": "doomsday_decoration:block/forklift",
+    "0": "doomsday_decoration:block/forklift"
+  },
+  "render_type": "cutout_mipped"
+}

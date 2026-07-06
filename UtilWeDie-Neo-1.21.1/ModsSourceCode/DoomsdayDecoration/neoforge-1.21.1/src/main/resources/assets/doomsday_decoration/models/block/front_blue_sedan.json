@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/blue_car1",
+  "textures": {
+    "all": "doomsday_decoration:block/blue_car1",
+    "particle": "doomsday_decoration:block/blue_car1",
+    "1": "doomsday_decoration:block/blue_car1"
+  },
+  "render_type": "cutout_mipped"
+}

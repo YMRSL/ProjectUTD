@@ -1,0 +1,13 @@
+{
+  "type": "farmersdelight:cooking_pot",
+  "experience": 1.0,
+  "ingredients": [
+    {
+      "item": "farmer_misery:bottled_roach"
+    }
+  ],
+  "result": {
+    "id": "farmer_misery:juicy_roast_roach",
+    "count": 1
+  }
+}

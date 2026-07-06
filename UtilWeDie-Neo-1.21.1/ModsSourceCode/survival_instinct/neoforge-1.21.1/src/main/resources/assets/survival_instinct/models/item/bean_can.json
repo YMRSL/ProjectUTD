@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/bean_can",
+  "textures": {
+    "0": "survival_instinct:block/bean_can",
+    "particle": "minecraft:item/beetroot_seeds"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "pools": [
+    {
+      "name": "zombiekit:blueprint",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "zombiekit:blueprint_of_dye",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ],
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "name": "zombiekit:blueprint_of_steel",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ],
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "name": "zombiekit:blueprint_of_riot",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ],
+          "weight": 15
+        },
+        {
+          "type": "item",
+          "name": "zombiekit:blueprint_of_landmine",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ],
+          "weight": 15
+        },
+        {
+          "type": "item",
+          "name": "zombiekit:blueprint_of_drone",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ],
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "zombiekit:blueprint_of_heavy_machine_gun",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ],
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "zombiekit:blueprint_of_mortar",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ],
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "zombiekit:shooting_parameters_table",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 1
+            }
+          ],
+          "weight": 15
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "mixinsquared",
+  "version": "${version}",
+  "name": "MixinSquared",
+  "description": "Mixin library for mixin'ing into other mod's mixins",
+  "authors": [
+    "Bawnorton"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Bawnorton/MixinSquared",
+    "sources": "https://github.com/Bawnorton/MixinSquared"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "mixins": [
+    "mixinsquared.fabric.init.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.11"
+  },
+  "custom": {
+    "modmenu": {
+      "badges": [
+        "library"
+      ]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/dummy_model",
+  "textures": {
+    "all": "doomsday_decoration:block/dummy_model",
+    "particle": "doomsday_decoration:block/dummy_model",
+    "0": "doomsday_decoration:block/dummy_model"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/wooden_pallets",
+  "textures": {
+    "all": "doomsday_decoration:block/wooden_pallets",
+    "particle": "doomsday_decoration:block/wooden_pallets",
+    "0": "doomsday_decoration:block/wooden_pallets"
+  },
+  "render_type": "translucent"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/cork_board",
+  "textures": {
+    "all": "doomsday_decoration:block/cork_board",
+    "particle": "doomsday_decoration:block/cork_board",
+    "0": "doomsday_decoration:block/cork_board"
+  },
+  "render_type": "cutout_mipped"
+}

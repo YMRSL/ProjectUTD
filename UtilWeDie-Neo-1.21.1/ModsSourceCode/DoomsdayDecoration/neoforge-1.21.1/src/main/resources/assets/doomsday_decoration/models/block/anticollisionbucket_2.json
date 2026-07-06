@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/anti-collision_bucket1_2_-_fu_ben_",
+  "textures": {
+    "all": "doomsday_decoration:block/anti-collision_bucket2",
+    "particle": "doomsday_decoration:block/anti-collision_bucket2",
+    "0": "doomsday_decoration:block/anti-collision_bucket2"
+  },
+  "render_type": "cutout"
+}

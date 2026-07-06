@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/trash__bag",
+  "textures": {
+    "all": "doomsday_decoration:block/trash__bag",
+    "particle": "doomsday_decoration:block/trash__bag",
+    "0": "doomsday_decoration:block/trash__bag"
+  },
+  "render_type": "cutout_mipped"
+}

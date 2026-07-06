@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/trash_can",
+  "textures": {
+    "all": "survival_instinct:block/stellium_raw_op",
+    "particle": "survival_instinct:block/stellium_raw_op",
+    "0": "survival_instinct:block/trash_can"
+  },
+  "render_type": "cutout"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/monster_energetic",
+  "textures": {
+    "3": "survival_instinct:block/monster_energetic",
+    "particle": "survival_instinct:item/monster_can"
+  }
+}

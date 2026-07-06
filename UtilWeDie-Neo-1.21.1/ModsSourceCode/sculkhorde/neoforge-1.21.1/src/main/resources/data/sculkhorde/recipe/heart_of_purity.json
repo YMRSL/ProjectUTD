@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ESE",
+    "SHS",
+    "ESE"
+  ],
+  "key": {
+    "H": {
+      "item": "sculkhorde:heart_of_the_horde"
+    },
+    "S": {
+      "item": "sculkhorde:pure_souls"
+    },
+    "E": {
+      "item": "sculkhorde:essence_of_purity"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "sculkhorde:heart_of_purity"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "zombiekit:canned_bread",
+      "required": false
+    },
+    {
+      "id": "zombiekit:compressed_biscuit",
+      "required": false
+    },
+    {
+      "id": "zombiekit:canned_beans",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "zombiekit:canned_beef_hotpot",
+      "required": false
+    },
+    {
+      "id": "zombiekit:canned_tomatoes",
+      "required": false
+    }
+  ]
+}

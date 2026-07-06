@@ -1,0 +1,57 @@
+{
+  "variants": {
+    "face=floor,facing=north": {
+      "model": "doomsday_decoration:block/cornerventilationduct"
+    },
+    "face=floor,facing=east": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "y": 90
+    },
+    "face=floor,facing=south": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "y": 180
+    },
+    "face=floor,facing=west": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "y": 270
+    },
+    "face=wall,facing=north": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "x": 90
+    },
+    "face=wall,facing=east": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "x": 90,
+      "y": 90
+    },
+    "face=wall,facing=south": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "x": 90,
+      "y": 180
+    },
+    "face=wall,facing=west": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "x": 90,
+      "y": 270
+    },
+    "face=ceiling,facing=north": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "x": 180,
+      "y": 180
+    },
+    "face=ceiling,facing=east": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "x": 180,
+      "y": 270
+    },
+    "face=ceiling,facing=south": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "x": 180
+    },
+    "face=ceiling,facing=west": {
+      "model": "doomsday_decoration:block/cornerventilationduct",
+      "x": 180,
+      "y": 90
+    }
+  }
+}

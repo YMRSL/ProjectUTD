@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/corner_iron_mesh",
+  "textures": {
+    "all": "doomsday_decoration:block/corner_iron_mesh",
+    "particle": "doomsday_decoration:block/corner_iron_mesh",
+    "0": "doomsday_decoration:block/corner_iron_mesh"
+  },
+  "render_type": "cutout_mipped"
+}

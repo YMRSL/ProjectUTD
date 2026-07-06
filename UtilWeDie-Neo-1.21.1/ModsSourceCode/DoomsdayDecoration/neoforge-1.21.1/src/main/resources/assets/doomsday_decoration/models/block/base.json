@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/base",
+  "textures": {
+    "all": "doomsday_decoration:block/base",
+    "particle": "doomsday_decoration:block/base",
+    "0": "doomsday_decoration:block/base"
+  },
+  "render_type": "solid"
+}

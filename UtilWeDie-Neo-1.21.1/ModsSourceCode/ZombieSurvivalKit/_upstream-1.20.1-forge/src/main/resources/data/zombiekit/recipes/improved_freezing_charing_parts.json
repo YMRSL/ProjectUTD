@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "212",
+    "343",
+    " 5 "
+  ],
+  "key": {
+    "1": {
+      "item": "zombiekit:battery"
+    },
+    "2": {
+      "item": "zombiekit:quartz_sand"
+    },
+    "3": {
+      "item": "minecraft:powder_snow_bucket"
+    },
+    "4": {
+      "item": "zombiekit:primary_freezing_charging_parts"
+    },
+    "5": {
+      "item": "minecraft:crying_obsidian"
+    }
+  },
+  "result": {
+    "item": "zombiekit:improved_freezing_charging_parts"
+  }
+}

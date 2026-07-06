@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/stretcher",
+  "textures": {
+    "all": "doomsday_decoration:block/stretcher",
+    "particle": "doomsday_decoration:block/stretcher",
+    "0": "doomsday_decoration:block/stretcher"
+  },
+  "render_type": "cutout_mipped"
+}

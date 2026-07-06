@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/fluorescent_lamp1",
+  "textures": {
+    "all": "doomsday_decoration:block/fluorescent_lamp1",
+    "particle": "doomsday_decoration:block/fluorescent_lamp1",
+    "0": "doomsday_decoration:block/fluorescent_lamp1"
+  },
+  "render_type": "cutout_mipped"
+}

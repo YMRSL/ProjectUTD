@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/road_sign_pole",
+  "textures": {
+    "all": "doomsday_decoration:block/road_sign_pole",
+    "particle": "doomsday_decoration:block/road_sign_pole",
+    "0": "doomsday_decoration:block/road_sign_pole"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/damage_door8.2",
+  "textures": {
+    "all": "doomsday_decoration:block/damage_door8.2",
+    "particle": "doomsday_decoration:block/damage_door8.2",
+    "2": "doomsday_decoration:block/damage_door8.2"
+  },
+  "render_type": "cutout_mipped"
+}

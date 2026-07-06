@@ -1,0 +1,16 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.ymrsl.vehicleload.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "vehicleload.refmap.json",
+  "mixins": [
+    "SableEntityRotationExemptMixin"
+  ],
+  "client": [
+    "SableSeatTurretModelFixMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

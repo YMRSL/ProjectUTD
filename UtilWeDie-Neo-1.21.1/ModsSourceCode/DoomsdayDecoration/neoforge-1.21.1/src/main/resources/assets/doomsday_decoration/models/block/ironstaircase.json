@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/iron_staircase",
+  "textures": {
+    "all": "doomsday_decoration:block/iron_staircase",
+    "particle": "doomsday_decoration:block/iron_staircase",
+    "0": "doomsday_decoration:block/iron_staircase"
+  },
+  "render_type": "cutout_mipped"
+}

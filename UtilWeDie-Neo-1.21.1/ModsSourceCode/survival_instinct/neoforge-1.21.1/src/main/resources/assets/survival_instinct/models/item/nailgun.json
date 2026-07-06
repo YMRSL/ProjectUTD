@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/nailgun",
+  "textures": {
+    "0": "survival_instinct:block/nailgun",
+    "particle": "survival_instinct:item/nails_box"
+  }
+}

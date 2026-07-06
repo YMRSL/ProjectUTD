@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/monitor",
+  "textures": {
+    "all": "doomsday_decoration:block/monitor",
+    "particle": "doomsday_decoration:block/monitor",
+    "0": "doomsday_decoration:block/monitor"
+  },
+  "render_type": "cutout_mipped"
+}

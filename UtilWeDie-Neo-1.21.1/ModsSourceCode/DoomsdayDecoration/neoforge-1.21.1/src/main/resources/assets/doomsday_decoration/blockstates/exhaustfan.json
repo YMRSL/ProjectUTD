@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "doomsday_decoration:block/exhaustfan",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "doomsday_decoration:block/exhaustfan"
+    },
+    "axis=z": {
+      "model": "doomsday_decoration:block/exhaustfan",
+      "x": 90
+    }
+  }
+}

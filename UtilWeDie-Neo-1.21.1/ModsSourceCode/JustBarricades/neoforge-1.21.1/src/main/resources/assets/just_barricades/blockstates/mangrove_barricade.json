@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "facing=north,health=3": {
+      "model": "just_barricades:block/mangrove_barricade3"
+    },
+    "facing=east,health=3": {
+      "model": "just_barricades:block/mangrove_barricade3",
+      "y": 90
+    },
+    "facing=south,health=3": {
+      "model": "just_barricades:block/mangrove_barricade3",
+      "y": 180
+    },
+    "facing=west,health=3": {
+      "model": "just_barricades:block/mangrove_barricade3",
+      "y": 270
+    },
+    "facing=north,health=2": {
+      "model": "just_barricades:block/mangrove_barricade2"
+    },
+    "facing=east,health=2": {
+      "model": "just_barricades:block/mangrove_barricade2",
+      "y": 90
+    },
+    "facing=south,health=2": {
+      "model": "just_barricades:block/mangrove_barricade2",
+      "y": 180
+    },
+    "facing=west,health=2": {
+      "model": "just_barricades:block/mangrove_barricade2",
+      "y": 270
+    },
+    "facing=north,health=1": {
+      "model": "just_barricades:block/mangrove_barricade1"
+    },
+    "facing=east,health=1": {
+      "model": "just_barricades:block/mangrove_barricade1",
+      "y": 90
+    },
+    "facing=south,health=1": {
+      "model": "just_barricades:block/mangrove_barricade1",
+      "y": 180
+    },
+    "facing=west,health=1": {
+      "model": "just_barricades:block/mangrove_barricade1",
+      "y": 270
+    },
+    "health=0": {
+      "model": "just_barricades:block/mangrove_barricade0"
+    }
+  }
+}

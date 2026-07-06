@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/glassware",
+  "textures": {
+    "all": "doomsday_decoration:block/glassware",
+    "particle": "doomsday_decoration:block/glassware",
+    "3": "doomsday_decoration:block/glassware"
+  },
+  "render_type": "translucent"
+}

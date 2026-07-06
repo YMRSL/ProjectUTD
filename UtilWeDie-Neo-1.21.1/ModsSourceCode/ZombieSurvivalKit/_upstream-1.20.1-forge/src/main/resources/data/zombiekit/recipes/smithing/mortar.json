@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "zombiekit:blueprint_of_mortar"
+  },
+  "base": {
+    "item": "zombiekit:mortar_components"
+  },
+  "addition": {
+    "item": "minecraft:lever"
+  },
+  "result": {
+    "item": "zombiekit:mortar_summon"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/motorcycle",
+  "textures": {
+    "all": "doomsday_decoration:block/motorcycle",
+    "particle": "doomsday_decoration:block/motorcycle",
+    "0": "doomsday_decoration:block/motorcycle"
+  },
+  "render_type": "cutout_mipped"
+}

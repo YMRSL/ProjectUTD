@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/manhole_cover",
+  "textures": {
+    "all": "doomsday_decoration:block/manhole_cover",
+    "particle": "doomsday_decoration:block/manhole_cover",
+    "1": "doomsday_decoration:block/manhole_cover"
+  },
+  "render_type": "cutout_mipped"
+}

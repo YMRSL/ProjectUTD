@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "zombiekit:blueprint_of_heavy_machine_gun"
+  },
+  "base": {
+    "item": "zombiekit:machine_gun_components"
+  },
+  "addition": {
+    "tag": "minecraft:planks"
+  },
+  "result": {
+    "item": "zombiekit:heavy_machine_gun_summon"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/table",
+  "textures": {
+    "all": "doomsday_decoration:block/table",
+    "particle": "doomsday_decoration:block/table",
+    "0": "doomsday_decoration:block/table"
+  },
+  "render_type": "translucent"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/arcade_game2",
+  "textures": {
+    "all": "doomsday_decoration:block/arcade_game2",
+    "particle": "doomsday_decoration:block/arcade_game2",
+    "1": "doomsday_decoration:block/arcade_game2"
+  },
+  "render_type": "cutout_mipped"
+}

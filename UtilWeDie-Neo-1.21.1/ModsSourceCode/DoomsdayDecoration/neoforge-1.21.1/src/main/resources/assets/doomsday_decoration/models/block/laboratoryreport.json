@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/laboratory_report",
+  "textures": {
+    "all": "doomsday_decoration:block/laboratory_report",
+    "particle": "doomsday_decoration:block/laboratory_report",
+    "0": "doomsday_decoration:block/laboratory_report"
+  },
+  "render_type": "cutout_mipped"
+}

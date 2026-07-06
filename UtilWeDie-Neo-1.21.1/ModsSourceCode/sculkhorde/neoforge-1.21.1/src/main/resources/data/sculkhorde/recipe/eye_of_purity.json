@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "EHE",
+    " E "
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:ender_eye"
+    },
+    "E": {
+      "item": "sculkhorde:essence_of_purity"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "sculkhorde:eye_of_purity"
+  }
+}

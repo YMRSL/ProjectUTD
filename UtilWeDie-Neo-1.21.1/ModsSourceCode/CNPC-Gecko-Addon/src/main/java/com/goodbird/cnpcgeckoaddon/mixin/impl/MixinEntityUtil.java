@@ -1,0 +1,65 @@
+package com.goodbird.cnpcgeckoaddon.mixin.impl;
+
+import com.goodbird.cnpcgeckoaddon.entity.EntityCustomModel;
+import com.goodbird.cnpcgeckoaddon.mixin.IDataDisplay;
+import com.goodbird.cnpcgeckoaddon.utils.NpcTextureUtils;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import noppes.npcs.client.EntityUtil;
+import noppes.npcs.entity.EntityNPCInterface;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+
+@Mixin(EntityUtil.class)
+public class MixinEntityUtil {
+
+    @Inject(method = "Copy", at = @At("TAIL"), remap = false)
+    private static void copy(LivingEntity copied, LivingEntity entity, CallbackInfo ci) {
+        if (entity instanceof EntityCustomModel && copied instanceof EntityNPCInterface) {
+            EntityCustomModel modelEntity = (EntityCustomModel) entity;
+            EntityNPCInterface npc = (EntityNPCInterface) copied;
+            npc.noCulling = true;
+            IDataDisplay display = (IDataDisplay) npc.display;
+            modelEntity.textureResLoc = NpcTextureUtils.getNpcTexture((EntityNPCInterface) copied);
+            modelEntity.modelResLoc = ResourceLocation.parse(display.getCustomModelData().getModel());
+            modelEntity.animResLoc = ResourceLocation.parse(display.getCustomModelData().getAnimFile());
+            modelEntity.idleAnim = display.getCustomModelData().getIdleAnim();
+            modelEntity.walkAnim = display.getCustomModelData().getWalkAnim();
+            modelEntity.attackAnim = display.getCustomModelData().getAttackAnim();
+            modelEntity.hurtAnim = display.getCustomModelData().getHurtAnim();
+            modelEntity.deathAnim = display.getCustomModelData().getDeathAnim();
+            modelEntity.size = npc.display.getSize();
+            // Red tint is produced by GeckoLib's GeoEntityRenderer.getPackedOverlay, which reds the
+            // model whenever (hurtTime > 0 || deathTime > 0). So the two red sources are wired here:
+            //   - deathTime: ALWAYS copied -> death always tints red (and also drives the death anim
+            //     state machine; never gate this on the hurt-tint toggle or dying NPCs lose their
+            //     death effect entirely).
+            //   - hurtTime: copied only when the per-NPC "Enable Hurt Tint" toggle is on -> red flash
+            //     on every hit. Defaults to on (see CustomModelData.hurtTintEnabled).
+            // These are independent of the death *animation*: tint = color overlay, death anim = pose.
+            modelEntity.deathTime = npc.deathTime;
+            if(display.getCustomModelData().isHurtTintEnabled()){
+                modelEntity.hurtTime = npc.hurtTime;
+            } else {
+                modelEntity.hurtTime = 0;
+            }
+            if(npc.inventory.getLeftHand()!=null) {
+                modelEntity.leftHeldItem = npc.inventory.getLeftHand().getMCItemStack();
+            }
+            modelEntity.headBoneName = display.getCustomModelData().getHeadBoneName();
+            AnimatableManager animationData = modelEntity.getAnimatableInstanceCache().getManagerForId(modelEntity.getUUID().hashCode());
+            for(Object obj : animationData.getAnimationControllers().values()){
+                AnimationController controller = (AnimationController) obj;
+                controller.transitionLength(display.getCustomModelData().getTransitionLengthTicks());
+            }
+            if(display.getCustomModelData().getHeight()!=modelEntity.getBbHeight() || display.getCustomModelData().getWidth() != modelEntity.getBbWidth()){
+                modelEntity.setSize(display.getCustomModelData().getWidth(), display.getCustomModelData().getHeight());
+                npc.refreshDimensions();
+            }
+        }
+    }
+}

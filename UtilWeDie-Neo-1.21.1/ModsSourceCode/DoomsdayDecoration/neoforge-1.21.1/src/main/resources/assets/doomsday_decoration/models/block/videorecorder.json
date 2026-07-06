@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/video_recorder",
+  "textures": {
+    "all": "doomsday_decoration:block/video_recorder",
+    "particle": "doomsday_decoration:block/video_recorder",
+    "0": "doomsday_decoration:block/video_recorder"
+  },
+  "render_type": "cutout_mipped"
+}

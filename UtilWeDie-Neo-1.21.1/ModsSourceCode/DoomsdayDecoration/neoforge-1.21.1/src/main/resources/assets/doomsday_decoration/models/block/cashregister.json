@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/cash_register",
+  "textures": {
+    "all": "doomsday_decoration:block/cash_register",
+    "particle": "doomsday_decoration:block/cash_register",
+    "0": "doomsday_decoration:block/cash_register"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "sculkhorde:block/perimeter_ward_emitter_block" },
+    "facing=east":  { "model": "sculkhorde:block/perimeter_ward_emitter_block" },
+    "facing=south": { "model": "sculkhorde:block/perimeter_ward_emitter_block" },
+    "facing=west":  { "model": "sculkhorde:block/perimeter_ward_emitter_block" }
+  }
+}

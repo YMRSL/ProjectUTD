@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/mower",
+  "textures": {
+    "all": "doomsday_decoration:block/mower",
+    "particle": "doomsday_decoration:block/mower",
+    "2": "doomsday_decoration:block/mower"
+  },
+  "render_type": "cutout_mipped"
+}

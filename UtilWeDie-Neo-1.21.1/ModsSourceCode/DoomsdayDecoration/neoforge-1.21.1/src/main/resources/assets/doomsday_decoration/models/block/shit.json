@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/shit",
+  "textures": {
+    "all": "doomsday_decoration:block/shit",
+    "particle": "doomsday_decoration:block/shit",
+    "0": "doomsday_decoration:block/shit"
+  },
+  "render_type": "cutout_mipped"
+}

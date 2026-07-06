@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "232",
+    "545"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:copper_ingot"
+    },
+    "2": {
+      "item": "zombiekit:rubber"
+    },
+    "3": {
+      "item": "minecraft:piston"
+    },
+    "4": {
+      "item": "minecraft:ice"
+    },
+    "5": {
+      "item": "minecraft:snow_block"
+    }
+  },
+  "result": {
+    "item": "zombiekit:primary_freezing_charging_parts"
+  }
+}

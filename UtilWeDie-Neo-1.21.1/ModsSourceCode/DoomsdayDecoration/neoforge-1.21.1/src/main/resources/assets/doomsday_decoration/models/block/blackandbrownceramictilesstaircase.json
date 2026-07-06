@@ -1,0 +1,9 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "doomsday_decoration:block/blue_brown_ceramic_tiles",
+    "top": "doomsday_decoration:block/blue_brown_ceramic_tiles",
+    "side": "doomsday_decoration:block/blue_brown_ceramic_tiles"
+  },
+  "render_type": "solid"
+}

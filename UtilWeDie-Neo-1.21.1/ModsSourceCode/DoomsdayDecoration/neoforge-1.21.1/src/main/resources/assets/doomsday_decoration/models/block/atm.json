@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/atm",
+  "textures": {
+    "all": "doomsday_decoration:block/atm",
+    "particle": "doomsday_decoration:block/atm",
+    "0": "doomsday_decoration:block/atm"
+  },
+  "render_type": "cutout_mipped"
+}

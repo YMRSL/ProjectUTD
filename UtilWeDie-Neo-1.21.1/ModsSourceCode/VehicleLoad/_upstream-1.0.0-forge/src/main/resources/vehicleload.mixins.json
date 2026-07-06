@@ -1,0 +1,9 @@
+{
+  "required": false,
+  "package": "com.ymrsl.vehicleload.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "vehicleload.refmap.json",
+  "client": [
+    "SuperbVehicleModelMixin"
+  ]
+}

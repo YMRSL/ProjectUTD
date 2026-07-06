@@ -1,0 +1,71 @@
+package com.scarasol.zombiekit.item.weapon.parts;
+
+import com.scarasol.sona.init.SonaMobEffects;
+import com.scarasol.zombiekit.config.CommonConfig;
+import com.scarasol.zombiekit.init.ZombieKitDamageTypes;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+
+public class BurningChargingParts extends ChargingParts{
+
+    private final double range = 5;
+
+    public BurningChargingParts(Properties properties, int partsLevel) {
+        super(properties, partsLevel);
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack itemstack, Level world, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
+        super.appendHoverText(itemstack, world, list, flag);
+        list.add(Component.translatable("item.zombiekit.general_parts.description"));
+        list.add(Component.translatable("item.zombiekit.burning_charging_parts.description_" + (getPartsLevel() + 1)));
+    }
+
+    @Override
+    public void partsEffect(LivingEntity target, LivingEntity attacker, float damage) {
+        float actualDamage;
+        float lostHealth = target.getMaxHealth() - target.getHealth();
+        int amplifier = (target.hasEffect(SonaMobEffects.IGNITION.get())) ? target.getEffect(SonaMobEffects.IGNITION.get()).getAmplifier() : -1;
+        int duration = 120;
+        int partsLevel = getPartsLevel();
+        if (partsLevel == 0) {
+            amplifier = Math.min(amplifier + 1, 2);
+            actualDamage = damage * 0.98f + lostHealth * 0.084f * Math.max(1 + damage * 0.04f, 2.5f);
+        } else if (partsLevel == 1) {
+            amplifier = Math.min(amplifier + 2, 2);
+            actualDamage = damage * 1.19f + lostHealth * 0.126f * Math.max(1 + damage * 0.04f, 2.5f);
+        } else {
+            amplifier = Math.min(amplifier + 3, 2);
+            actualDamage = damage * 1.4f + lostHealth * 0.168f * Math.max(1 + damage * 0.04f, 2.5f);
+        }
+        target.addEffect(new MobEffectInstance(SonaMobEffects.IGNITION.get(), duration, amplifier, false, false));
+        target.hurt(getDamageSource(attacker.level(), attacker), (float) (actualDamage * CommonConfig.DAMAGE_COEFFICIENT.get()));
+        if (target.level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(ParticleTypes.FLAME, target.getX(), target.getY(0.5D), target.getZ(), 30, 0.2, 0.2, 0.2, 0.1);
+            serverLevel.sendParticles(ParticleTypes.LAVA, target.getX(), target.getY(0.5D), target.getZ(), 10, 0.2, 0.2, 0.2, 0.1);
+        }
+    }
+
+    public DamageSource getDamageSource(Level level, LivingEntity attacker) {
+        return ZombieKitDamageTypes.damageSource(level.registryAccess(), DamageTypes.IN_FIRE, attacker);
+    }
+
+    @Override
+    public double getRange() {
+        return this.range;
+    }
+}

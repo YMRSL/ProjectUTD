@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/ceiling_fan",
+  "textures": {
+    "all": "doomsday_decoration:block/ceiling_fan",
+    "particle": "doomsday_decoration:block/ceiling_fan",
+    "0": "doomsday_decoration:block/ceiling_fan"
+  },
+  "render_type": "cutout_mipped"
+}

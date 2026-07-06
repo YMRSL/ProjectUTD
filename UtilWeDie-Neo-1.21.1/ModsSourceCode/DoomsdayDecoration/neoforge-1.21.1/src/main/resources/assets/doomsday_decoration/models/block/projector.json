@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/projector",
+  "textures": {
+    "all": "doomsday_decoration:block/projector",
+    "particle": "doomsday_decoration:block/projector",
+    "0": "doomsday_decoration:block/projector"
+  },
+  "render_type": "cutout_mipped"
+}

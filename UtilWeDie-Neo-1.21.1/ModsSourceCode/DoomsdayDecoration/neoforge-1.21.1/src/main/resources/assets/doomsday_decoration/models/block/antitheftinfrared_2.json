@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/anti_theft_infrared2",
+  "textures": {
+    "all": "doomsday_decoration:block/anti_theft_infrared2",
+    "particle": "doomsday_decoration:block/anti_theft_infrared2",
+    "0": "doomsday_decoration:block/anti_theft_infrared2"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/potato_chips",
+  "textures": {
+    "1": "survival_instinct:block/potato_chips",
+    "particle": "survival_instinct:item/potato_chip"
+  }
+}

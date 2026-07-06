@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 3 ",
+    "212",
+    " 2 "
+  ],
+  "key": {
+    "1": {
+      "item": "zombiekit:primary_extend_weighted_grip"
+    },
+    "2": {
+      "item": "zombiekit:special_steel_sheet"
+    },
+    "3": {
+      "item": "minecraft:rabbit_hide"
+    }
+  },
+  "result": {
+    "item": "zombiekit:improved_extend_weighted_grip"
+  }
+}

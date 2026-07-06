@@ -1,0 +1,27 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+
+[[mods]]
+modId = "inodesfix"
+version = "1.0.0-neoforge-1.21.1"
+displayName = "Inodes Fix"
+authors = "ProjectUTD"
+description = '''Lightweight compatibility patch. Guards PathPackResources.getNamespaces against the NeoForge lazy-init "inodes is null" NullPointerException during resource reloads, so a single misbehaving pack no longer crashes the whole reload (ProjectUTD WS-7).'''
+
+[[mixins]]
+config = "inodesfix.mixins.json"
+
+[[dependencies.inodesfix]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.inodesfix]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"

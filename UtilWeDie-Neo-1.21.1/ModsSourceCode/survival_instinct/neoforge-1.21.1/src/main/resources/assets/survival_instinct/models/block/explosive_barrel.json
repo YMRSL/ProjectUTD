@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/barrel",
+  "textures": {
+    "all": "survival_instinct:block/barrel_op",
+    "particle": "survival_instinct:block/barrel_op",
+    "0": "survival_instinct:block/explosive_barrel"
+  },
+  "render_type": "solid"
+}

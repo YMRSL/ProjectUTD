@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/ambulance3",
+  "textures": {
+    "all": "doomsday_decoration:block/ambulance3",
+    "particle": "doomsday_decoration:block/ambulance3",
+    "0": "doomsday_decoration:block/ambulance3"
+  },
+  "render_type": "cutout_mipped"
+}

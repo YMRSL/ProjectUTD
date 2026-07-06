@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/bucket",
+  "textures": {
+    "all": "doomsday_decoration:block/bucket",
+    "particle": "doomsday_decoration:block/bucket",
+    "0": "doomsday_decoration:block/bucket"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/cash_register",
+  "textures": {
+    "all": "survival_instinct:block/cash_op",
+    "particle": "survival_instinct:block/cash_op",
+    "0": "survival_instinct:block/cash_register"
+  },
+  "render_type": "cutout_mipped"
+}

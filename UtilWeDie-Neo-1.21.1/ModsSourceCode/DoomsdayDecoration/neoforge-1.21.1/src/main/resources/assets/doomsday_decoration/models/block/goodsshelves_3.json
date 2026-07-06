@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/goods_shelves3",
+  "textures": {
+    "all": "doomsday_decoration:block/goods_shelves3",
+    "particle": "doomsday_decoration:block/goods_shelves3",
+    "1": "doomsday_decoration:block/goods_shelves3"
+  },
+  "render_type": "cutout_mipped"
+}

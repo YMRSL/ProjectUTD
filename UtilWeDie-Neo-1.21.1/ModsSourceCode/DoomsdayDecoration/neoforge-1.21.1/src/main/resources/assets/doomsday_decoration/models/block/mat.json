@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/mat",
+  "textures": {
+    "all": "doomsday_decoration:block/mat",
+    "particle": "doomsday_decoration:block/mat",
+    "0": "doomsday_decoration:block/mat"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/beaker",
+  "textures": {
+    "all": "doomsday_decoration:block/beaker",
+    "particle": "doomsday_decoration:block/beaker",
+    "0": "doomsday_decoration:block/beaker"
+  },
+  "render_type": "translucent"
+}

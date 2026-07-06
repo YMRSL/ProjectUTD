@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/homemade_mine",
+  "textures": {
+    "all": "survival_instinct:block/stellium_raw_op",
+    "particle": "survival_instinct:block/stellium_raw_op",
+    "0": "survival_instinct:block/homemade_mine"
+  },
+  "render_type": "solid"
+}

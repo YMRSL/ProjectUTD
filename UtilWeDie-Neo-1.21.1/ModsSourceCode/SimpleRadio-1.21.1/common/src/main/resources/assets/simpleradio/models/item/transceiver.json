@@ -1,0 +1,32 @@
+{
+  "parent": "simpleradio:item/transceiver/transceiver_in_hand",
+  "overrides": [
+    {
+      "predicate": {
+        "simpleradio:using": 1
+      },
+      "model": "simpleradio:item/transceiver/using_transceiver_in_hand"
+    }, {
+      "predicate": {
+        "simpleradio:speaking": 1
+      },
+      "model": "simpleradio:item/transceiver/glowing_transceiver_in_hand"
+    }, {
+      "predicate": {
+        "simpleradio:using": 1,
+        "simpleradio:speaking": 1
+      },
+      "model": "simpleradio:item/transceiver/using_glowing_transceiver_in_hand"
+    }
+  ],
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [ 0, -30, 0 ],
+      "translation": [ 5, 1, -4 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, -30, 0 ],
+      "translation": [ 5, 1, -4 ]
+    }
+  }
+}

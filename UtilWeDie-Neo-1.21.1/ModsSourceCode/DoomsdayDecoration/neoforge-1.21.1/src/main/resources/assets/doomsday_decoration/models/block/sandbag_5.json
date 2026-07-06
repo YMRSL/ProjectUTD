@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/sandbag5",
+  "textures": {
+    "all": "doomsday_decoration:block/sandbag5",
+    "particle": "doomsday_decoration:block/sandbag5",
+    "0": "doomsday_decoration:block/sandbag5"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/ironsheetsteps_1"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/ironsheetsteps_1_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/ironsheetsteps_1_full"
+    }
+  }
+}

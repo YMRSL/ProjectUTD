@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "111",
+    "101",
+    "111"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:paper"
+    },
+    "0": {
+      "item": "zombiekit:blueprint_of_heavy_machine_gun"
+    }
+  },
+  "result": {
+    "item": "zombiekit:blueprint_of_heavy_machine_gun",
+    "count": 9
+  }
+}

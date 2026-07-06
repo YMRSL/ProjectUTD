@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/exhaust_fan",
+  "textures": {
+    "all": "doomsday_decoration:block/exhaust_fan",
+    "particle": "doomsday_decoration:block/exhaust_fan",
+    "1": "doomsday_decoration:block/exhaust_fan"
+  },
+  "render_type": "cutout_mipped"
+}

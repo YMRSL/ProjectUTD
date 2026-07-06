@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "zombiekit:chocolate",
+      "required": false
+    },
+    {
+      "id": "zombiekit:canned_yellow_peach",
+      "required": false
+    }
+  ]
+}

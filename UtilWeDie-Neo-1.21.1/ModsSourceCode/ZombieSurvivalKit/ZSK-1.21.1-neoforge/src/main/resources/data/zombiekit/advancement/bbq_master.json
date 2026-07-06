@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "zombiekit:flamethrower"
+    },
+    "title": {
+      "translate": "advancements.bbq_master.title"
+    },
+    "description": {
+      "translate": "advancements.bbq_master.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "saw": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "zombiekit:flamethrower"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "zombiekit:zombie_kit"
+}

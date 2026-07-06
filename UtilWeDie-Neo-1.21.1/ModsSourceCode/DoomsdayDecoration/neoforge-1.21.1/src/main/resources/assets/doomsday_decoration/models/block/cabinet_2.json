@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/cabinet2",
+  "textures": {
+    "all": "doomsday_decoration:block/cabinet2",
+    "particle": "doomsday_decoration:block/cabinet2",
+    "2": "doomsday_decoration:block/cabinet2"
+  },
+  "render_type": "cutout_mipped"
+}

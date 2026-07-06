@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 2 ",
+    "313",
+    " 2 "
+  ],
+  "key": {
+    "1": {
+      "item": "zombiekit:alcohol"
+    },
+    "2": {
+      "item": "minecraft:iron_ingot"
+    },
+    "3": {
+      "item": "minecraft:gunpowder"
+    }
+  },
+  "result": {
+    "item": "zombiekit:fuel_canister"
+  }
+}

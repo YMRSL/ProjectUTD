@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/isolation_barrier1",
+  "textures": {
+    "all": "doomsday_decoration:block/isolation_barrier1",
+    "particle": "doomsday_decoration:block/isolation_barrier1",
+    "0": "doomsday_decoration:block/isolation_barrier1"
+  },
+  "render_type": "cutout_mipped"
+}

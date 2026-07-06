@@ -1,0 +1,177 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+base {
+    archivesName = "${mod_id}-${project.name}"
+    version = "${libs.versions.minecraft.asProvider().get()}-${version}"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+
+    withSourcesJar()
+    withJavadocJar()
+}
+
+void exclusiveGroup(MavenArtifactRepository repo, String... groups) {
+    repositories.exclusiveContent {
+        forRepository { repo }
+        filter {
+            for (final def g in groups) includeGroup g
+        }
+    }
+}
+void exclusiveGroup(String uri, String... groups) {
+    exclusiveGroup(repositories.maven { url = uri }, groups)
+}
+
+void exclusiveRegex(String uri, String... regexes) {
+    repositories.exclusiveContent {
+        forRepository { repositories.maven { url = uri } }
+        filter {
+            for (final def regex in regexes) includeGroupByRegex regex
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+
+    maven { url "https://modmaven.dev" }
+
+    exclusiveGroup(maven {
+        url "https://maven.pkg.github.com/MrCrayfish/Maven"
+        credentials {
+            username = "CodinGlitch"
+            password = project.property("github_token")
+        }
+    }, "com.mrcrayfish")
+
+    exclusiveRegex("https://maven.codinglitch.com/repository/releases", "com\\.codinglitch.*") // Lexiconfig, Vibrative Voice
+
+    exclusiveGroup("https://maven.nucleoid.xyz", "eu.pb4") // Polymer
+    //exclusiveGroup("https://maven.terraformersmc.com/", "") // ModMenu
+    exclusiveGroup("https://maven.maxhenkel.de/repository/public", "de.maxhenkel.voicechat") // SVC
+    exclusiveGroup("https://maven.blamejared.com", "mezz.jei") // JEI
+    exclusiveGroup("https://maven.squiddev.cc", "cc.tweaked") // CC: Tweaked
+    exclusiveGroup("https://maven.createmod.net", "net.createmod.ponder", "com.simibubi.create") // Create
+    exclusiveGroup("https://maven.tterrag.com", "com.tterrag.registrate") // Registrate
+    exclusiveRegex("https://maven.valkyrienskies.org", "org\\.valkyrienskies.*") // Valkyrien Skies
+    exclusiveRegex("https://maven.ryanhcode.dev/releases", "dev\\.ryanhcode.*") // Sable
+
+    maven { url "https://api.modrinth.com/maven" }
+    maven { url "https://cursemaven.com" }
+
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'Sponge'
+                url = 'https://repo.spongepowered.org/repository/maven-public'
+            }
+        }
+        filter { includeGroupAndSubgroups('org.spongepowered') }
+    }
+    exclusiveContent {
+        forRepositories(
+                maven {
+                    name = 'ParchmentMC'
+                    url = 'https://maven.parchmentmc.org/'
+                },
+                maven {
+                    name = "NeoForge"
+                    url = 'https://maven.neoforged.net/releases'
+                }
+        )
+        filter { includeGroup('org.parchmentmc.data') }
+    }
+}
+
+// Declare capabilities on the outgoing configurations.
+// Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
+['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
+    configurations."$variant".outgoing {
+        capability("$group:${base.archivesName.get()}:$version")
+        capability("$group:$mod_id-${project.name}-${libs.versions.minecraft.asProvider().get()}:$version")
+        capability("$group:$mod_id-${project.name}:$version")
+        capability("$group:$mod_id:$version")
+    }
+    publishing.publications.configureEach {
+        suppressPomMetadataWarningsFor(variant)
+    }
+}
+
+configurations {
+    apiJava { canBeResolved = true }
+    apiResources { canBeResolved = true }
+}
+
+dependencies {
+    // --- Common --- \\
+
+    implementation(project(':api'))
+    apiJava(project(path: ':api', configuration: 'apiJava'))
+
+    api(libs.voicechat.api)
+    api(libs.lexiconfig.api)
+
+    compileOnly(libs.vibrativevoice.api)
+    compileOnly(libs.computercraft.core)
+//    compileOnly(libs.valkyrienskies.api)
+}
+
+sourcesJar {
+    from(rootProject.file("LICENSE")) {
+        rename { "${it}_${mod_name}" }
+    }
+}
+
+jar {
+    from(rootProject.file("LICENSE")) {
+        rename { "${it}_${mod_name}" }
+    }
+
+    manifest {
+        attributes([
+                'Specification-Title'   : mod_name,
+                'Specification-Vendor'  : mod_author,
+                'Specification-Version' : project.jar.archiveVersion,
+                'Implementation-Title'  : project.name,
+                'Implementation-Version': project.jar.archiveVersion,
+                'Implementation-Vendor' : mod_author,
+                'Built-On-Minecraft'    : libs.versions.minecraft.asProvider().get()
+        ])
+    }
+}
+
+processResources {
+    def expandProps = [
+            "version"                       : version,
+            "group"                         : project.group, //Else we target the task's group.
+            "mod_name"                      : mod_name,
+            "mod_author"                    : mod_author,
+            "mod_id"                        : mod_id,
+            "license"                       : license,
+            "description"                   : project.description,
+            "credits"                       : credits,
+
+            "minecraft_version"             : libs.versions.minecraft.asProvider().get(),
+            "minecraft_range_interval"      : libs.versions.minecraft.range.interval.get(),
+            "minecraft_range_builder"       : libs.versions.minecraft.range.builder.get(),
+            "fabric_version"                : libs.versions.fabric.api.get(),
+            "fabric_loader_version"         : libs.versions.fabric.loader.get(),
+            "neoforge_version"              : libs.versions.neoforge.asProvider().get(),
+            "neoforge_version_range"        : libs.versions.neoforge.range.get(),
+
+            "voicechat_api_version"         : libs.versions.voicechat.api.get(),
+            "voicechat_version"             : libs.versions.voicechat.asProvider().get(),
+    ]
+
+    filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
+        expand expandProps
+    }
+    inputs.properties(expandProps)
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

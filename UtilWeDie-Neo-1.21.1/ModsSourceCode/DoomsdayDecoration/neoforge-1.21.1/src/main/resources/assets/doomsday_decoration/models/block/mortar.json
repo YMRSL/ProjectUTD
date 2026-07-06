@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/mortar",
+  "textures": {
+    "all": "doomsday_decoration:block/mortar",
+    "particle": "doomsday_decoration:block/mortar",
+    "1": "doomsday_decoration:block/mortar"
+  },
+  "render_type": "cutout_mipped"
+}

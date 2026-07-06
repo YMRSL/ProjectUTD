@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "doomsday_decoration:block/shit"
+    },
+    "facing=east": {
+      "model": "doomsday_decoration:block/shit",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "doomsday_decoration:block/shit",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "doomsday_decoration:block/shit",
+      "y": 270
+    }
+  }
+}

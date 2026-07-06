@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "doomsday_decoration:block/planking0",
+    "up": "doomsday_decoration:block/planking0",
+    "north": "doomsday_decoration:block/planking0",
+    "east": "doomsday_decoration:block/planking0",
+    "south": "doomsday_decoration:block/wallpaper",
+    "west": "doomsday_decoration:block/planking0",
+    "particle": "doomsday_decoration:block/planking0"
+  },
+  "render_type": "solid"
+}

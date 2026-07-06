@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/classroom_chairs",
+  "textures": {
+    "all": "doomsday_decoration:block/classroom_chairs",
+    "particle": "doomsday_decoration:block/classroom_chairs",
+    "1": "doomsday_decoration:block/classroom_chairs"
+  },
+  "render_type": "cutout_mipped"
+}

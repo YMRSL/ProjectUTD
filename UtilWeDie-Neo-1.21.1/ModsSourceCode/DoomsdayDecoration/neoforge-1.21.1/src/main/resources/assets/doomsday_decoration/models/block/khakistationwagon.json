@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/khaki_station_wagon",
+  "textures": {
+    "all": "doomsday_decoration:block/khaki_station_wagon",
+    "particle": "doomsday_decoration:block/khaki_station_wagon",
+    "0": "doomsday_decoration:block/khaki_station_wagon"
+  },
+  "render_type": "cutout_mipped"
+}

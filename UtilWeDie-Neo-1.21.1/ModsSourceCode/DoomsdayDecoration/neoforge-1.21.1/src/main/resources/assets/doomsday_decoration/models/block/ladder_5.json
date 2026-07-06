@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/ladder5",
+  "textures": {
+    "all": "doomsday_decoration:block/ladder5",
+    "particle": "doomsday_decoration:block/ladder5",
+    "0": "doomsday_decoration:block/ladder5"
+  },
+  "render_type": "cutout_mipped"
+}

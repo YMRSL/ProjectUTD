@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "zombiekit:exo_helmet",
+    "zombiekit:exo_chestplate",
+    "zombiekit:exo_leggings",
+    "zombiekit:exo_boots"
+  ]
+}

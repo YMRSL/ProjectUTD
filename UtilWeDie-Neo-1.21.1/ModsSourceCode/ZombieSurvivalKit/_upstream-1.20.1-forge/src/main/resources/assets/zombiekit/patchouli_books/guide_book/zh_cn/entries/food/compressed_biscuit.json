@@ -1,0 +1,26 @@
+{
+  "name": "压缩饼干",
+  "icon": "zombiekit:compressed_biscuit",
+  "category": "zombiekit:food",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "zombiekit:compressed_biscuit",
+      "text": "幸存者们围坐在篝火旁，吃着热腾腾的炖菜和烤肉，喝着啤酒，放声高歌——看起来是不是还挺有生活情调？醒醒吧！这可是在末世，有罐头吃就得感谢上帝！从东北地区沦陷开始，罐头就早早卖断货了。所以，现在你家里所有的食物，可能就是你未来的全部口粮。不过不用慌，还是有办法挽救的。"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:compressed_biscuit",
+      "text": "我们需要的是最轻便、最耐饿的食物——毫无疑问，那就是压缩饼干。小麦，这就是制作压缩饼干所需的全部材料，当然，如果你条件足够也可以加入鸡蛋和糖来提升口味和营养。不仅能耐饿，这种纯粹的粮食还能很好地"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "抗潮湿和腐败，这才是合格的“末世硬汉食品”。即使你准备了足够的食物，我还是建议你备一些压缩饼干，毕竟食物总有吃完的一天，何况你不能保证每一餐都能在庇护所里吃到。而且它们轻便不需加热，放在兜里，饿了就能啃上一块。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": " "
+    }
+  ]
+}

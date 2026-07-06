@@ -1,0 +1,9 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "doomsday_decoration:block/iron_sheet1",
+    "top": "doomsday_decoration:block/iron_sheet1",
+    "side": "doomsday_decoration:block/iron_sheet1"
+  },
+  "render_type": "solid"
+}

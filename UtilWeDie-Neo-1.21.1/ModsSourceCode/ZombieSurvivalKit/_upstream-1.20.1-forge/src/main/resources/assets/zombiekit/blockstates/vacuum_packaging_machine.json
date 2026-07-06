@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "zombiekit:block/vacuum_packaging_machine"
+    },
+    "facing=east": {
+      "model": "zombiekit:block/vacuum_packaging_machine",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "zombiekit:block/vacuum_packaging_machine",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "zombiekit:block/vacuum_packaging_machine",
+      "y": 270
+    }
+  }
+}

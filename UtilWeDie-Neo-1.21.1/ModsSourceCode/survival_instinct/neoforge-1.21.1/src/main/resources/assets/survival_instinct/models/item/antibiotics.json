@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/antibiotics",
+  "textures": {
+    "0": "survival_instinct:block/antibiotics",
+    "particle": "survival_instinct:item/antibiotic"
+  }
+}

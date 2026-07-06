@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/error_carpet",
+  "textures": {
+    "all": "doomsday_decoration:block/error",
+    "particle": "doomsday_decoration:block/error",
+    "0": "doomsday_decoration:block/error"
+  },
+  "render_type": "solid"
+}

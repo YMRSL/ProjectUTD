@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "doomsday_decoration:block/tventilationduct"
+    },
+    "facing=east": {
+      "model": "doomsday_decoration:block/tventilationduct",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "doomsday_decoration:block/tventilationduct",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "doomsday_decoration:block/tventilationduct",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "doomsday_decoration:block/tventilationduct",
+      "x": 270
+    },
+    "facing=down": {
+      "model": "doomsday_decoration:block/tventilationduct",
+      "x": 90
+    }
+  }
+}

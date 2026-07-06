@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "doomsday_decoration:block/marble2",
+    "particle": "doomsday_decoration:block/marble2"
+  },
+  "render_type": "solid"
+}

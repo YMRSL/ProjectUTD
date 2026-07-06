@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "doomsday_decoration:block/bus_stop_board"
+    },
+    "facing=east": {
+      "model": "doomsday_decoration:block/bus_stop_board",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "doomsday_decoration:block/bus_stop_board",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "doomsday_decoration:block/bus_stop_board",
+      "y": 270
+    }
+  }
+}

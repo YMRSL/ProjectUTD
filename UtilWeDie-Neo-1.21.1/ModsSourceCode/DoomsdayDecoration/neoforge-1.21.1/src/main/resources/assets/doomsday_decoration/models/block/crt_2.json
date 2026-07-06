@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/crt2",
+  "textures": {
+    "all": "doomsday_decoration:block/crt2",
+    "particle": "doomsday_decoration:block/crt2",
+    "2": "doomsday_decoration:block/crt2"
+  },
+  "render_type": "cutout_mipped"
+}

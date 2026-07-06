@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/fridge2",
+  "textures": {
+    "all": "doomsday_decoration:block/fridge2",
+    "particle": "doomsday_decoration:block/fridge2",
+    "1": "doomsday_decoration:block/fridge2"
+  },
+  "render_type": "cutout_mipped"
+}

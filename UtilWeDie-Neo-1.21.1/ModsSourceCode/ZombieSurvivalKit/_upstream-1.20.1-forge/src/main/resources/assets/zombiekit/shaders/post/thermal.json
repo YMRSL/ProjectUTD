@@ -1,0 +1,30 @@
+{
+  "targets": [
+    "swap",
+    "thermal_buffer",
+    "thermal_entity_buffer"
+  ],
+  "passes": [
+    {
+      "name": "zombiekit:thermal",
+      "intarget": "minecraft:main",
+      "outtarget": "swap",
+      "auxtargets": [
+        {
+          "name": "ThermalSampler",
+          "id": "thermal_buffer"
+        },
+        {
+          "name": "ThermalEntitySampler",
+          "id": "thermal_entity_buffer"
+        }
+      ]
+    },
+    {
+      "name": "blit",
+      "intarget": "swap",
+      "outtarget": "minecraft:main"
+    }
+  ]
+}
+

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/police_car3",
+  "textures": {
+    "all": "doomsday_decoration:block/police_car3",
+    "particle": "doomsday_decoration:block/police_car3",
+    "1": "doomsday_decoration:block/police_car3"
+  },
+  "render_type": "cutout_mipped"
+}

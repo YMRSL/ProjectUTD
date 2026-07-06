@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/caution_wet_floor",
+  "textures": {
+    "all": "doomsday_decoration:block/caution_wet_floor",
+    "particle": "doomsday_decoration:block/caution_wet_floor",
+    "1": "doomsday_decoration:block/caution_wet_floor"
+  },
+  "render_type": "cutout_mipped"
+}

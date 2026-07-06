@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/weapon_rack3",
+  "textures": {
+    "all": "doomsday_decoration:block/weapon_rack3",
+    "particle": "doomsday_decoration:block/weapon_rack3",
+    "1": "doomsday_decoration:block/weapon_rack3"
+  },
+  "render_type": "cutout_mipped"
+}

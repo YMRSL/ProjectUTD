@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/spotlight2",
+  "textures": {
+    "all": "doomsday_decoration:block/spotlight2",
+    "particle": "doomsday_decoration:block/spotlight2",
+    "0": "doomsday_decoration:block/spotlight2"
+  },
+  "render_type": "cutout_mipped"
+}

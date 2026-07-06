@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/cod_can",
+  "textures": {
+    "0": "survival_instinct:block/cod_can",
+    "particle": "survival_instinct:item/cod"
+  }
+}

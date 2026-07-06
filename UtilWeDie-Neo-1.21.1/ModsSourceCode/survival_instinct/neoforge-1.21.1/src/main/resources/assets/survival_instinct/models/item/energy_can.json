@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/soda_energetic",
+  "textures": {
+    "3": "survival_instinct:block/soda_energetic",
+    "particle": "survival_instinct:item/energy_can"
+  }
+}

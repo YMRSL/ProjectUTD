@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/the_ball_of_domination",
+  "textures": {
+    "all": "doomsday_decoration:block/the_ball_of_domination",
+    "particle": "doomsday_decoration:block/the_ball_of_domination",
+    "0": "doomsday_decoration:block/the_ball_of_domination"
+  },
+  "render_type": "translucent"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/wash_basin",
+  "textures": {
+    "all": "doomsday_decoration:block/wash_basin",
+    "particle": "doomsday_decoration:block/wash_basin",
+    "0": "doomsday_decoration:block/wash_basin"
+  },
+  "render_type": "cutout_mipped"
+}

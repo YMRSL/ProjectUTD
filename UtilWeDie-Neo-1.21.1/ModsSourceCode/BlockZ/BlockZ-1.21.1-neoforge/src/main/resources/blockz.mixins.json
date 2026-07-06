@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.yitianys.BlockZ.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "blockz.refmap.json",
+  "mixins": [
+    "MixinSlot",
+    "MixinAbstractGunItem",
+    "MixinLivingEntityReload",
+    "MixinLivingEntityShoot",
+    "MixinLocalPlayerReload",
+    "MixinModernKineticGunScriptAPI"
+  ],
+  "client": [
+    "client.MixinAbstractContainerScreen"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

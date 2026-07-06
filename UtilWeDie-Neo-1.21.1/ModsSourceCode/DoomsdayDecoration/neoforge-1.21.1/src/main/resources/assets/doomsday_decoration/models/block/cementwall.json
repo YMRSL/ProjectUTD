@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_side",
+  "textures": {
+    "wall": "doomsday_decoration:block/cement",
+    "particle": "doomsday_decoration:block/cement"
+  },
+  "render_type": "solid"
+}

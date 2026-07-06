@@ -1,0 +1,7 @@
+{
+  "parent": "block/pressure_plate_up",
+  "textures": {
+    "texture": "doomsday_decoration:block/no_map"
+  },
+  "render_type": "solid"
+}

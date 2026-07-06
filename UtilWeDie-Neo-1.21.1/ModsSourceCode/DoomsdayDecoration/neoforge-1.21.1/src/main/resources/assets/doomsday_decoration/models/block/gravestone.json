@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/gravestone",
+  "textures": {
+    "all": "doomsday_decoration:block/gravestone",
+    "particle": "doomsday_decoration:block/gravestone",
+    "0": "doomsday_decoration:block/gravestone"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/vending_machine2",
+  "textures": {
+    "all": "doomsday_decoration:block/vending_machine2",
+    "particle": "doomsday_decoration:block/vending_machine2",
+    "0": "doomsday_decoration:block/vending_machine2"
+  },
+  "render_type": "cutout_mipped"
+}

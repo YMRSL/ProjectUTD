@@ -1,0 +1,7 @@
+{
+  "parent": "block/template_fence_gate",
+  "textures": {
+    "texture": "doomsday_decoration:block/error"
+  },
+  "render_type": "solid"
+}

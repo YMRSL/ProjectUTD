@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/adrenaline_syringe",
+  "textures": {
+    "0": "survival_instinct:block/adrenaline_syringe",
+    "particle": "survival_instinct:item/adrenaline_syringe"
+  }
+}

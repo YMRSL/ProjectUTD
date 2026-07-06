@@ -1,0 +1,8 @@
+{
+  "parent": "doomsday_decoration:custom/peace",
+  "textures": {
+    "0": "doomsday_decoration:block/peace",
+    "missing": "doomsday_decoration:block/peace",
+    "particle": "doomsday_decoration:item/peace"
+  }
+}

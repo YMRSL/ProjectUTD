@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/phone",
+  "textures": {
+    "all": "doomsday_decoration:block/phone",
+    "particle": "doomsday_decoration:block/phone",
+    "0": "doomsday_decoration:block/phone"
+  },
+  "render_type": "cutout_mipped"
+}

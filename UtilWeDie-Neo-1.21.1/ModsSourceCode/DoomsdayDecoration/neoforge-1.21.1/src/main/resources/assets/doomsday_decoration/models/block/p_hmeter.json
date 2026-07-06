@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/ph_meter",
+  "textures": {
+    "all": "doomsday_decoration:block/ph_meter",
+    "particle": "doomsday_decoration:block/ph_meter",
+    "0": "doomsday_decoration:block/ph_meter"
+  },
+  "render_type": "cutout_mipped"
+}

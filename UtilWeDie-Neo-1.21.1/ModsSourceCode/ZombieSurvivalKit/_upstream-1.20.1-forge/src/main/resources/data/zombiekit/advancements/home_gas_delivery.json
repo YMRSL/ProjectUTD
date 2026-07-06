@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "zombiekit:mortar_summon"
+    },
+    "title": {
+      "translate": "advancements.home_gas_delivery.title"
+    },
+    "description": {
+      "translate": "advancements.home_gas_delivery.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "holy_light": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "zombiekit:mortar_summon"
+          ]
+        }
+      }
+    }
+  },
+  "parent": "zombiekit:zombie_kit"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/huzai",
+  "textures": {
+    "all": "doomsday_decoration:block/huzai",
+    "particle": "doomsday_decoration:block/huzai",
+    "0": "doomsday_decoration:block/huzai"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/shopping_cart",
+  "textures": {
+    "all": "doomsday_decoration:block/shopping_cart",
+    "particle": "doomsday_decoration:block/shopping_cart",
+    "0": "doomsday_decoration:block/shopping_cart"
+  },
+  "render_type": "cutout_mipped"
+}

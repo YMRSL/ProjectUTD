@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/a_crate",
+  "textures": {
+    "all": "doomsday_decoration:block/a_crate",
+    "particle": "doomsday_decoration:block/a_crate",
+    "2": "doomsday_decoration:block/a_crate"
+  },
+  "render_type": "solid"
+}

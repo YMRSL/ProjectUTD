@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "doomsday_decoration:blocks/nomapdoor",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:nomapdoor",
+          "conditions": [
+            {
+              "block": "doomsday_decoration:nomapdoor",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

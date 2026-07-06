@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/iron_netting",
+  "textures": {
+    "all": "doomsday_decoration:block/iron_netting",
+    "particle": "doomsday_decoration:block/iron_netting",
+    "0": "doomsday_decoration:block/iron_netting"
+  },
+  "render_type": "translucent"
+}

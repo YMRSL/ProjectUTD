@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/t_ventilation_duct",
+  "textures": {
+    "all": "doomsday_decoration:block/t_ventilation_duct",
+    "particle": "doomsday_decoration:block/t_ventilation_duct",
+    "0": "doomsday_decoration:block/t_ventilation_duct"
+  },
+  "render_type": "cutout_mipped"
+}

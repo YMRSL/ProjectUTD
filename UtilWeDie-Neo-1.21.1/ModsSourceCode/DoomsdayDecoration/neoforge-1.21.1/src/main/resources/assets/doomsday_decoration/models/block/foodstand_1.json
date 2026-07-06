@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/food_stand1",
+  "textures": {
+    "all": "doomsday_decoration:block/food_stand1",
+    "particle": "doomsday_decoration:block/food_stand1",
+    "0": "doomsday_decoration:block/food_stand1"
+  },
+  "render_type": "cutout_mipped"
+}

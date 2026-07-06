@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/microwave_oven",
+  "textures": {
+    "all": "doomsday_decoration:block/microwave_oven",
+    "particle": "doomsday_decoration:block/microwave_oven",
+    "0": "doomsday_decoration:block/microwave_oven"
+  },
+  "render_type": "translucent"
+}

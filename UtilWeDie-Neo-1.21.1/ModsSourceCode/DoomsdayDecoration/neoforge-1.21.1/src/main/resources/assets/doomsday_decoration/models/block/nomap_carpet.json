@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/no_map_carpet",
+  "textures": {
+    "all": "doomsday_decoration:block/no_map",
+    "particle": "doomsday_decoration:block/no_map",
+    "0": "doomsday_decoration:block/no_map"
+  },
+  "render_type": "solid"
+}

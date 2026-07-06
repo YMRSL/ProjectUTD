@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "doomsday_decoration:block/brick_wall",
+    "particle": "doomsday_decoration:block/brick_wall"
+  },
+  "render_type": "solid"
+}

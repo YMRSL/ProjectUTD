@@ -1,0 +1,7 @@
+{
+  "parent": "zombiekit:custom/flamethrower",
+  "textures": {
+    "particle": "zombiekit:item/flamethrower_item",
+    "0": "zombiekit:item/flamethrower"
+  }
+}

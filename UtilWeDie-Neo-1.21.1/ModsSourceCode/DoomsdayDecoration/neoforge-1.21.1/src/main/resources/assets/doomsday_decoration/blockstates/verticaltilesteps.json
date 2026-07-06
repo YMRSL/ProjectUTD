@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/verticaltilesteps"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/verticaltilesteps_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/verticaltilesteps_full"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/electric_oven",
+  "textures": {
+    "all": "doomsday_decoration:block/electric_oven",
+    "particle": "doomsday_decoration:block/electric_oven",
+    "0": "doomsday_decoration:block/electric_oven"
+  },
+  "render_type": "cutout"
+}

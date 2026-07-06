@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/fixed_generator",
+  "textures": {
+    "all": "doomsday_decoration:block/fixed_generator",
+    "particle": "doomsday_decoration:block/fixed_generator",
+    "1": "doomsday_decoration:block/fixed_generator"
+  },
+  "render_type": "cutout_mipped"
+}

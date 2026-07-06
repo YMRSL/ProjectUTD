@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/corner_lamp_post",
+  "textures": {
+    "all": "doomsday_decoration:block/corner_lamp_post",
+    "particle": "doomsday_decoration:block/corner_lamp_post",
+    "1": "doomsday_decoration:block/corner_lamp_post"
+  },
+  "render_type": "solid"
+}

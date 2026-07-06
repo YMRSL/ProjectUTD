@@ -1,0 +1,24 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "ARR"
+
+[[mods]]
+modId = "doomsday_decoration"
+version = "1.1.3-neoforge-1.21.1"
+displayName = "Doomsday Decoration"
+authors = "Original mod author; NeoForge 1.21.1 port by ProjectUTD WS-7"
+description = '''Apocalypse / doomsday themed decoration blocks. Unofficial data-driven NeoForge 1.21.1 port of the MCreator Forge 1.20.1 mod.'''
+
+[[dependencies.doomsday_decoration]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.doomsday_decoration]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"

@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_side",
+  "textures": {
+    "wall": "doomsday_decoration:block/alert_block",
+    "particle": "doomsday_decoration:block/alert_block"
+  },
+  "render_type": "solid"
+}

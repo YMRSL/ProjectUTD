@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/white_station_wagon",
+  "textures": {
+    "all": "doomsday_decoration:block/white_station_wagon",
+    "particle": "doomsday_decoration:block/white_station_wagon",
+    "1": "doomsday_decoration:block/white_station_wagon"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,541 @@
+﻿{
+    "jia.use3":  {
+                     "sounds":  [
+                                    {
+                                        "name":  "firstpersonfoodeating:ep_gun/jia/use3"
+                                    }
+                                ]
+                 },
+    "jia.use2":  {
+                     "sounds":  [
+                                    {
+                                        "name":  "firstpersonfoodeating:ep_gun/jia/use2"
+                                    }
+                                ]
+                 },
+    "jia.use1":  {
+                     "sounds":  [
+                                    {
+                                        "name":  "firstpersonfoodeating:ep_gun/jia/use1"
+                                    }
+                                ]
+                 },
+    "jia.put_away1":  {
+                          "sounds":  [
+                                         {
+                                             "name":  "firstpersonfoodeating:ep_gun/jia/put_away1"
+                                         }
+                                     ]
+                      },
+    "jia.inspect1":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/jia/inspect1"
+                                        }
+                                    ]
+                     },
+    "jia.draw2":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "firstpersonfoodeating:ep_gun/jia/draw2"
+                                     }
+                                 ]
+                  },
+    "jia.draw1":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "firstpersonfoodeating:ep_gun/jia/draw1"
+                                     }
+                                 ]
+                  },
+    "jijiubao.jijiubao_use4":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "firstpersonfoodeating:ep_gun/jijiubao/jijiubao_use4"
+                                                  }
+                                              ]
+                               },
+    "jijiubao.jijiubao_use3":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "firstpersonfoodeating:ep_gun/jijiubao/jijiubao_use3"
+                                                  }
+                                              ]
+                               },
+    "jijiubao.jijiubao_use2":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "firstpersonfoodeating:ep_gun/jijiubao/jijiubao_use2"
+                                                  }
+                                              ]
+                               },
+    "jijiubao.jijiubao_use1":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "firstpersonfoodeating:ep_gun/jijiubao/jijiubao_use1"
+                                                  }
+                                              ]
+                               },
+    "jijiubao.jijiubao_draw":  {
+                                   "sounds":  [
+                                                  {
+                                                      "name":  "firstpersonfoodeating:ep_gun/jijiubao/jijiubao_draw"
+                                                  }
+                                              ]
+                               },
+    "he.he_use3":  {
+                       "sounds":  [
+                                      {
+                                          "name":  "firstpersonfoodeating:ep_gun/he/he_use3"
+                                      }
+                                  ]
+                   },
+    "he.he_use2":  {
+                       "sounds":  [
+                                      {
+                                          "name":  "firstpersonfoodeating:ep_gun/he/he_use2"
+                                      }
+                                  ]
+                   },
+    "he.he_use1":  {
+                       "sounds":  [
+                                      {
+                                          "name":  "firstpersonfoodeating:ep_gun/he/he_use1"
+                                      }
+                                  ]
+                   },
+    "he.he_put_away":  {
+                           "sounds":  [
+                                          {
+                                              "name":  "firstpersonfoodeating:ep_gun/he/he_put_away"
+                                          }
+                                      ]
+                       },
+    "he.he_inspect1":  {
+                           "sounds":  [
+                                          {
+                                              "name":  "firstpersonfoodeating:ep_gun/he/he_inspect1"
+                                          }
+                                      ]
+                       },
+    "he.he_draw":  {
+                       "sounds":  [
+                                      {
+                                          "name":  "firstpersonfoodeating:ep_gun/he/he_draw"
+                                      }
+                                  ]
+                   },
+    "bang.bang_use5":  {
+                           "sounds":  [
+                                          {
+                                              "name":  "firstpersonfoodeating:ep_gun/bang/bang_use5"
+                                          }
+                                      ]
+                       },
+    "bang.bang_use4":  {
+                           "sounds":  [
+                                          {
+                                              "name":  "firstpersonfoodeating:ep_gun/bang/bang_use4"
+                                          }
+                                      ]
+                       },
+    "bang.bang_use3":  {
+                           "sounds":  [
+                                          {
+                                              "name":  "firstpersonfoodeating:ep_gun/bang/bang_use3"
+                                          }
+                                      ]
+                       },
+    "bang.bang_use2":  {
+                           "sounds":  [
+                                          {
+                                              "name":  "firstpersonfoodeating:ep_gun/bang/bang_use2"
+                                          }
+                                      ]
+                       },
+    "bang.bang_use1":  {
+                           "sounds":  [
+                                          {
+                                              "name":  "firstpersonfoodeating:ep_gun/bang/bang_use1"
+                                          }
+                                      ]
+                       },
+    "bang.bang_put_away":  {
+                               "sounds":  [
+                                              {
+                                                  "name":  "firstpersonfoodeating:ep_gun/bang/bang_put_away"
+                                              }
+                                          ]
+                           },
+    "bang.bang_draw":  {
+                           "sounds":  [
+                                          {
+                                              "name":  "firstpersonfoodeating:ep_gun/bang/bang_draw"
+                                          }
+                                      ]
+                       },
+    "dai.dai_use4":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/dai/dai_use4"
+                                        }
+                                    ]
+                     },
+    "dai.dai_use3":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/dai/dai_use3"
+                                        }
+                                    ]
+                     },
+    "dai.dai_use2":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/dai/dai_use2"
+                                        }
+                                    ]
+                     },
+    "dai.dai_use1":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/dai/dai_use1"
+                                        }
+                                    ]
+                     },
+    "dai.dai_put_away":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "firstpersonfoodeating:ep_gun/dai/dai_put_away"
+                                            }
+                                        ]
+                         },
+    "dai.dai_draw":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/dai/dai_draw"
+                                        }
+                                    ]
+                     },
+    "bengdai.item_bandage_04_end":  {
+                                        "sounds":  [
+                                                       {
+                                                           "name":  "firstpersonfoodeating:ep_gun/bengdai/item_bandage_04_end"
+                                                       }
+                                                   ]
+                                    },
+    "bengdai.item_bandage_03_use":  {
+                                        "sounds":  [
+                                                       {
+                                                           "name":  "firstpersonfoodeating:ep_gun/bengdai/item_bandage_03_use"
+                                                       }
+                                                   ]
+                                    },
+    "bengdai.item_bandage_02_bandagetake":  {
+                                                "sounds":  [
+                                                               {
+                                                                   "name":  "firstpersonfoodeating:ep_gun/bengdai/item_bandage_02_bandagetake"
+                                                               }
+                                                           ]
+                                            },
+    "bengdai.item_bandage_01_open":  {
+                                         "sounds":  [
+                                                        {
+                                                            "name":  "firstpersonfoodeating:ep_gun/bengdai/item_bandage_01_open"
+                                                        }
+                                                    ]
+                                     },
+    "bengdai.item_bandage_00_draw":  {
+                                         "sounds":  [
+                                                        {
+                                                            "name":  "firstpersonfoodeating:ep_gun/bengdai/item_bandage_00_draw"
+                                                        }
+                                                    ]
+                                     },
+    "ping.ping_inspect":  {
+                              "sounds":  [
+                                             {
+                                                 "name":  "firstpersonfoodeating:ep_gun/ping/ping_inspect"
+                                             }
+                                         ]
+                          },
+    "ping.item_tetrapakwcap_05_putaway":  {
+                                              "sounds":  [
+                                                             {
+                                                                 "name":  "firstpersonfoodeating:ep_gun/ping/item_tetrapakwcap_05_putaway"
+                                                             }
+                                                         ]
+                                          },
+    "ping.item_tetrapakwcap_03_drink":  {
+                                            "sounds":  [
+                                                           {
+                                                               "name":  "firstpersonfoodeating:ep_gun/ping/item_tetrapakwcap_03_drink"
+                                                           }
+                                                       ]
+                                        },
+    "ping.item_tetrapakwcap_02_open":  {
+                                           "sounds":  [
+                                                          {
+                                                              "name":  "firstpersonfoodeating:ep_gun/ping/item_tetrapakwcap_02_open"
+                                                          }
+                                                      ]
+                                       },
+    "ping.item_tetrapakwcap_01_open":  {
+                                           "sounds":  [
+                                                          {
+                                                              "name":  "firstpersonfoodeating:ep_gun/ping/item_tetrapakwcap_01_open"
+                                                          }
+                                                      ]
+                                       },
+    "ping.item_tetrapakwcap_00_draw":  {
+                                           "sounds":  [
+                                                          {
+                                                              "name":  "firstpersonfoodeating:ep_gun/ping/item_tetrapakwcap_00_draw"
+                                                          }
+                                                      ]
+                                       },
+    "guan.guan_use_eat":  {
+                              "sounds":  [
+                                             {
+                                                 "name":  "firstpersonfoodeating:ep_gun/guan/guan_use_eat"
+                                             }
+                                         ]
+                          },
+    "guan.guan_yao":  {
+                          "sounds":  [
+                                         {
+                                             "name":  "firstpersonfoodeating:ep_gun/guan/guan_yao"
+                                         }
+                                     ]
+                      },
+    "guan.item_drinkcan_03_putaway":  {
+                                          "sounds":  [
+                                                         {
+                                                             "name":  "firstpersonfoodeating:ep_gun/guan/item_drinkcan_03_putaway"
+                                                         }
+                                                     ]
+                                      },
+    "guan.item_drinkcan_02_drink":  {
+                                        "sounds":  [
+                                                       {
+                                                           "name":  "firstpersonfoodeating:ep_gun/guan/item_drinkcan_02_drink"
+                                                       }
+                                                   ]
+                                    },
+    "guan.item_drinkcan_01_open":  {
+                                       "sounds":  [
+                                                      {
+                                                          "name":  "firstpersonfoodeating:ep_gun/guan/item_drinkcan_01_open"
+                                                      }
+                                                  ]
+                                   },
+    "guan.item_drinkcan_00_draw":  {
+                                       "sounds":  [
+                                                      {
+                                                          "name":  "firstpersonfoodeating:ep_gun/guan/item_drinkcan_00_draw"
+                                                      }
+                                                  ]
+                                   },
+    "bang.boink":  {
+                       "sounds":  [
+                                      {
+                                          "name":  "firstpersonfoodeating:ep_gun/bang/boink"
+                                      }
+                                  ]
+                   },
+    "bang.metalpipe":  {
+                           "sounds":  [
+                                          {
+                                              "name":  "firstpersonfoodeating:ep_gun/bang/metalpipe"
+                                          }
+                                      ]
+                       },
+    "bang.slip":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "firstpersonfoodeating:ep_gun/bang/slip"
+                                     }
+                                 ]
+                  },
+    "bang.tada":  {
+                      "sounds":  [
+                                     {
+                                         "name":  "firstpersonfoodeating:ep_gun/bang/tada"
+                                     }
+                                 ]
+                  },
+    "bang.yahoo":  {
+                       "sounds":  [
+                                      {
+                                          "name":  "firstpersonfoodeating:ep_gun/bang/yahoo"
+                                      }
+                                  ]
+                   },
+    "guantou.draw":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/guantou/item_foodcan_00_draw"
+                                        }
+                                    ]
+                     },
+    "guantou.guantou_inpect_1":  {
+                                     "sounds":  [
+                                                    {
+                                                        "name":  "firstpersonfoodeating:ep_gun/guantou/guantou_inpect_1"
+                                                    }
+                                                ]
+                                 },
+    "guantou.guantou_inpect_2":  {
+                                     "sounds":  [
+                                                    {
+                                                        "name":  "firstpersonfoodeating:ep_gun/guantou/guantou_inpect_2"
+                                                    }
+                                                ]
+                                 },
+    "guantou.guantou_inpect_3":  {
+                                     "sounds":  [
+                                                    {
+                                                        "name":  "firstpersonfoodeating:ep_gun/guantou/guantou_inpect_3"
+                                                    }
+                                                ]
+                                 },
+    "guantou.guantou_inpect_4":  {
+                                     "sounds":  [
+                                                    {
+                                                        "name":  "firstpersonfoodeating:ep_gun/guantou/guantou_inpect_4"
+                                                    }
+                                                ]
+                                 },
+    "guantou.guantou_inpect_5":  {
+                                     "sounds":  [
+                                                    {
+                                                        "name":  "firstpersonfoodeating:ep_gun/guantou/guantou_inpect_5"
+                                                    }
+                                                ]
+                                 },
+    "guantou.guantou_inpect_6":  {
+                                     "sounds":  [
+                                                    {
+                                                        "name":  "firstpersonfoodeating:ep_gun/guantou/guantou_inpect_6"
+                                                    }
+                                                ]
+                                 },
+    "guantou.put_awey":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "firstpersonfoodeating:ep_gun/guantou/item_foodcan_05_putaway"
+                                            }
+                                        ]
+                         },
+    "guantou.put_away":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "firstpersonfoodeating:ep_gun/guantou/item_foodcan_05_putaway"
+                                            }
+                                        ]
+                         },
+    "item_foodcan_01_open":  {
+                                 "sounds":  [
+                                                {
+                                                    "name":  "firstpersonfoodeating:ep_gun/guantou/item_foodcan_01_open"
+                                                }
+                                            ]
+                             },
+    "item_foodcan_02_open":  {
+                                 "sounds":  [
+                                                {
+                                                    "name":  "firstpersonfoodeating:ep_gun/guantou/item_foodcan_02_open"
+                                                }
+                                            ]
+                             },
+    "item_foodcan_03_drawspoon":  {
+                                      "sounds":  [
+                                                     {
+                                                         "name":  "firstpersonfoodeating:ep_gun/guantou/item_foodcan_03_drawspoon"
+                                                     }
+                                                 ]
+                                  },
+    "item_foodcan_04_foodtake":  {
+                                     "sounds":  [
+                                                    {
+                                                        "name":  "firstpersonfoodeating:ep_gun/guantou/item_foodcan_04_foodtake"
+                                                    }
+                                                ]
+                                 },
+    "yaoping.inpect_1":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "firstpersonfoodeating:ep_gun/yaoping/inpect_1"
+                                            }
+                                        ]
+                         },
+    "yaoping.inpect_2":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "firstpersonfoodeating:ep_gun/yaoping/inpect_2"
+                                            }
+                                        ]
+                         },
+    "yaoping.inpect_3":  {
+                             "sounds":  [
+                                            {
+                                                "name":  "firstpersonfoodeating:ep_gun/yaoping/inpect_3"
+                                            }
+                                        ]
+                         },
+    "yaoping.use_1":  {
+                          "sounds":  [
+                                         {
+                                             "name":  "firstpersonfoodeating:ep_gun/yaoping/use_1"
+                                         }
+                                     ]
+                      },
+    "yaoping.use_2":  {
+                          "sounds":  [
+                                         {
+                                             "name":  "firstpersonfoodeating:ep_gun/yaoping/use_2"
+                                         }
+                                     ]
+                      },
+    "yaoping.use_3":  {
+                          "sounds":  [
+                                         {
+                                             "name":  "firstpersonfoodeating:ep_gun/yaoping/use_3"
+                                         }
+                                     ]
+                      },
+    "zhenji.inpect_1":  {
+                            "sounds":  [
+                                           {
+                                               "name":  "firstpersonfoodeating:ep_gun/zhenji/inpect_1"
+                                           }
+                                       ]
+                        },
+    "zhenji.use_1":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/zhenji/use_1"
+                                        }
+                                    ]
+                     },
+    "zhenji.use_2":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/zhenji/use_2"
+                                        }
+                                    ]
+                     },
+    "zhenji.use_3":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/zhenji/use_3"
+                                        }
+                                    ]
+                     },
+    "zhenji.use_4":  {
+                         "sounds":  [
+                                        {
+                                            "name":  "firstpersonfoodeating:ep_gun/zhenji/use_4"
+                                        }
+                                    ]
+                     }
+}

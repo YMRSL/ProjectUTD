@@ -1,0 +1,34 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.codinglitch.simpleradio.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "MixinBlockEntity",
+    "MixinEntity",
+    "MixinExplosion",
+    "MixinJukeboxSongPlayer",
+    "MixinLevel",
+    "MixinMinecraftServer",
+    "MixinPlayerList",
+    "MixinServerLevel"
+  ],
+  "client": [
+    "MixinClientLevel",
+    "MixinDebugRenderer",
+    "MixinItemBlockRenderTypes",
+    "MixinItemRenderer",
+    "MixinLevelRenderer",
+    "MixinLocalPlayer",
+    "MixinModelBakery",
+    "MixinModelManager",
+    "MixinPlayerRenderer"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+

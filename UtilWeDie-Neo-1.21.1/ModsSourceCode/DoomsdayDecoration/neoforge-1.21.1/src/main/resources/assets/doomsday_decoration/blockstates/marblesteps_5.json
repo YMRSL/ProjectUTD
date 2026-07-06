@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/marblesteps_5"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/marblesteps_5_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/marblesteps_5_full"
+    }
+  }
+}

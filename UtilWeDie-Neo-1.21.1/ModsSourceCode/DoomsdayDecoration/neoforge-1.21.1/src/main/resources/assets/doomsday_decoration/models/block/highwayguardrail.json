@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/highway_guardrail",
+  "textures": {
+    "all": "doomsday_decoration:block/highway_guardrail",
+    "particle": "doomsday_decoration:block/highway_guardrail",
+    "0": "doomsday_decoration:block/highway_guardrail"
+  },
+  "render_type": "cutout_mipped"
+}

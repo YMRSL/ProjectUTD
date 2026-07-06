@@ -1,0 +1,27 @@
+{
+  "name": "Home-made Mortar",
+  "icon": "zombiekit:mortar_summon",
+  "category": "zombiekit:note",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "zombiekit:mortar_summon",
+      "text": "$(#a97b1d)During my tenure as a special envoy, the regions I worked in were always embroiled in conflict. Local resistance forces, cut off from external support and lacking industrial capacity, had to rely on creativity to arm themselves. Homemade weapons, cobbled together from scrap steel and vehicle parts, became"
+    },
+    {
+      "type": "patchouli:image",
+      "title": "Home-made Mortar",
+      "images": ["zombiekit:textures/gui/entries/mortar.png"],
+      "text": "$(#a97b1d)widespread in guerrilla warfare. The most memorable"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(#a97b1d)was the improvised mortar. Locals would cut open gas cylinders, fill them with explosives, and weld stabilizing tail fins and pipes to the base—creating a crude mortar shell. They would then mount a steel pipe, large enough to hold the shell, on a base or vehicle. Loading the shell and igniting the fuse completed this deadly DIY process. Though inaccurate, these weapons’ large caliber and low cost made them devastatingly effective."
+    },
+    {
+      "type": "patchouli:text",
+      "text": " "
+    }
+  ]
+}

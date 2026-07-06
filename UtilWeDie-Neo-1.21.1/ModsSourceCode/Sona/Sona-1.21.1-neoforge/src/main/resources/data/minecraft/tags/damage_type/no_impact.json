@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "sona:injury",
+    "sona:infection",
+    "sona:corrosion",
+    "sona:immunity",
+    "sona:laceration"
+  ]
+}

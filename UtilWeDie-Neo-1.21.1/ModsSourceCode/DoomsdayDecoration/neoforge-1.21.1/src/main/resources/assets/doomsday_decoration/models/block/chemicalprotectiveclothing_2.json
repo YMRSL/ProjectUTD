@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/chemical_protective_clothing2",
+  "textures": {
+    "all": "doomsday_decoration:block/chemical_protective_clothing2",
+    "particle": "doomsday_decoration:block/chemical_protective_clothing2",
+    "0": "doomsday_decoration:block/chemical_protective_clothing2"
+  },
+  "render_type": "cutout_mipped"
+}

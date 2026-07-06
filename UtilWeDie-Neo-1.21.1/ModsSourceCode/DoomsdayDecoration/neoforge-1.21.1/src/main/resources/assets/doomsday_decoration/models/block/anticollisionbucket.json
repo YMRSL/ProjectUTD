@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/anti-collision_bucket1_2",
+  "textures": {
+    "all": "doomsday_decoration:block/anti-collision_bucket",
+    "particle": "doomsday_decoration:block/anti-collision_bucket",
+    "0": "doomsday_decoration:block/anti-collision_bucket"
+  },
+  "render_type": "cutout"
+}

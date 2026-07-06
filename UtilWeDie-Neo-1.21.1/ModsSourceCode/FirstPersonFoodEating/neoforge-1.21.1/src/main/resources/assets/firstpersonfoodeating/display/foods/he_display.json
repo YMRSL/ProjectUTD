@@ -1,0 +1,9 @@
+{
+    "item":  "firstpersonfoodeating:he",
+    "geo":  "firstpersonfoodeating:i_he_a",
+    "geo_visible_root":  "ep_he",
+    "texture":  "firstpersonfoodeating:item/i_he_a",
+    "animation":  "firstpersonfoodeating:i_he_a",
+    "state_machine":  "firstpersonfoodeating:default_food_state_machine",
+    "use_sound":  "firstpersonfoodeating:he.he_use1"
+}

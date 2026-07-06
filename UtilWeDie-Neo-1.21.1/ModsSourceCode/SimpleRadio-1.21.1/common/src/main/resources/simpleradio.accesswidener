@@ -1,0 +1,44 @@
+accessWidener v1 named
+
+# Item Model Generator in ModelBakery
+accessible field net/minecraft/client/resources/model/ModelBakery ITEM_MODEL_GENERATOR Lnet/minecraft/client/renderer/block/model/ItemModelGenerator;
+
+# ItemOverrides constructor
+accessible method net/minecraft/client/renderer/block/model/ItemOverrides <init> ()V
+
+# ReloadState class
+accessible class net/minecraft/client/resources/model/ModelManager$ReloadState
+
+# processFrames method in ItemModelGenerator
+accessible method net/minecraft/client/renderer/block/model/ItemModelGenerator processFrames (ILjava/lang/String;Lnet/minecraft/client/renderer/texture/SpriteContents;)Ljava/util/List;
+
+# bakeFace method in BlockModel
+accessible method net/minecraft/client/renderer/block/model/BlockModel bakeFace (Lnet/minecraft/client/renderer/block/model/BlockElement;Lnet/minecraft/client/renderer/block/model/BlockElementFace;Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;Lnet/minecraft/core/Direction;Lnet/minecraft/client/resources/model/ModelState;)Lnet/minecraft/client/renderer/block/model/BakedQuad;
+
+# TextureAtlasSprite constructor
+accessible method net/minecraft/client/renderer/texture/TextureAtlasSprite <init> (Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/client/renderer/texture/SpriteContents;IIII)V
+
+# SoundEngine field
+accessible field net/minecraft/client/sounds/SoundManager soundEngine Lnet/minecraft/client/sounds/SoundEngine;
+
+# tickingSounds field
+accessible field net/minecraft/client/sounds/SoundEngine tickingSounds Ljava/util/List;
+accessible field net/minecraft/client/sounds/SoundEngine instanceBySource Lcom/google/common/collect/Multimap;
+accessible field net/minecraft/client/sounds/SoundEngine instanceToChannel Ljava/util/Map;
+accessible field net/minecraft/client/sounds/SoundEngine soundDeleteTime Ljava/util/Map;
+accessible field net/minecraft/client/sounds/SoundEngine tickCount I
+
+# SoundBufferLibrary field
+accessible field net/minecraft/client/sounds/SoundEngine soundBuffers Lnet/minecraft/client/sounds/SoundBufferLibrary;
+
+# ChannelAccess field
+accessible field net/minecraft/client/sounds/SoundEngine channelAccess Lnet/minecraft/client/sounds/ChannelAccess;
+
+# ResourceProvider field
+accessible field net/minecraft/client/sounds/SoundBufferLibrary resourceManager Lnet/minecraft/server/packs/resources/ResourceProvider;
+
+accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
+
+accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V
+
+accessible field com/mojang/blaze3d/audio/Channel source I

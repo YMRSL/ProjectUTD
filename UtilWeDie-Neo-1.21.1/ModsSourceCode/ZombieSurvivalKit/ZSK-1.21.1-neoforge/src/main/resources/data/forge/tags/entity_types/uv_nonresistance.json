@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:phantom",
+    {
+      "id": "fungal_hazard:volatile",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "doomsday_decoration:block/round_brick",
+    "top": "doomsday_decoration:block/round_brick",
+    "side": "doomsday_decoration:block/round_brick"
+  },
+  "render_type": "solid"
+}

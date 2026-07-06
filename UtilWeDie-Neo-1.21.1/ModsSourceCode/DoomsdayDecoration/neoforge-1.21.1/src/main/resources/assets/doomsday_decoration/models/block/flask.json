@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/flask",
+  "textures": {
+    "all": "doomsday_decoration:block/flask",
+    "particle": "doomsday_decoration:block/flask",
+    "0": "doomsday_decoration:block/flask"
+  },
+  "render_type": "translucent"
+}

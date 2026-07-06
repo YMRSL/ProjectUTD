@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/bullet_hole",
+  "textures": {
+    "all": "doomsday_decoration:block/bullet_hole",
+    "particle": "doomsday_decoration:block/bullet_hole",
+    "0": "doomsday_decoration:block/bullet_hole"
+  },
+  "render_type": "translucent"
+}

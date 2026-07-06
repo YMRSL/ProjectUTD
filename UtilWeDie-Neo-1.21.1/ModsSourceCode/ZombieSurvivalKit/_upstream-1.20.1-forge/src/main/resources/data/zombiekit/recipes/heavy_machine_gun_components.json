@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "345",
+    "678"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:iron_ingot"
+    },
+    "3": {
+      "item": "zombiekit:special_steel_sheet"
+    },
+    "4": {
+      "item": "minecraft:nether_star"
+    },
+    "5": {
+      "item": "zombiekit:special_steel_sheet"
+    },
+    "6": {
+      "item": "zombiekit:plastics"
+    },
+    "7": {
+      "item": "zombiekit:special_steel_sheet"
+    },
+    "8": {
+      "item": "zombiekit:plastics"
+    }
+  },
+  "result": {
+    "item": "zombiekit:machine_gun_components",
+    "count": 1
+  }
+}

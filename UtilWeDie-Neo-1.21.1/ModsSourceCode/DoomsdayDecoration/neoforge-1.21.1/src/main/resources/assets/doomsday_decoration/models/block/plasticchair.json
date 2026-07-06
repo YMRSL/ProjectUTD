@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/plastic_chair",
+  "textures": {
+    "all": "doomsday_decoration:block/plastic_chair",
+    "particle": "doomsday_decoration:block/plastic_chair",
+    "0": "doomsday_decoration:block/plastic_chair"
+  },
+  "render_type": "cutout_mipped"
+}

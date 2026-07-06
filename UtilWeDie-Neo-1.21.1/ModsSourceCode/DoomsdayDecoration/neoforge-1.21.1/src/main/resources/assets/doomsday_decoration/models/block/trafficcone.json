@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/traffic_cone",
+  "textures": {
+    "all": "doomsday_decoration:block/traffic_cone",
+    "particle": "doomsday_decoration:block/traffic_cone",
+    "0": "doomsday_decoration:block/traffic_cone"
+  },
+  "render_type": "cutout_mipped"
+}

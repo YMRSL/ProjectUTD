@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "survival_instinct:block/refrigerator"
+    },
+    "facing=east": {
+      "model": "survival_instinct:block/refrigerator",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "survival_instinct:block/refrigerator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "survival_instinct:block/refrigerator",
+      "y": 270
+    }
+  }
+}

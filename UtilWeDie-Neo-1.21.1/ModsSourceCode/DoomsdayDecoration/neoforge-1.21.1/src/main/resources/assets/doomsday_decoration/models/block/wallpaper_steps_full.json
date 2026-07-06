@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "doomsday_decoration:block/wallpaper",
+    "top": "doomsday_decoration:block/wallpaper",
+    "side": "doomsday_decoration:block/wallpaper"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/barrier_gate",
+  "textures": {
+    "all": "doomsday_decoration:block/barrier_gate",
+    "particle": "doomsday_decoration:block/barrier_gate",
+    "0": "doomsday_decoration:block/barrier_gate"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,231 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'idea'
+    id 'net.neoforged.moddev' version '2.0.82'
+    id 'io.freefair.lombok' version '8.6'
+}
+
+version = mod_version
+group = mod_group_id
+
+repositories {
+    mavenLocal()
+
+    //kubejs
+    maven {
+        name = "Latvian"
+        url = "https://maven.latvian.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+            includeGroup "dev.latvian.apps"
+        }
+    }
+    maven {
+        name = "JitPack"
+        url = "https://jitpack.io"
+        content {
+            includeGroup "com.github.rtyley"
+        }
+    }
+
+    // LDLib2
+    maven {
+        name = "Jared's maven"
+        url = "https://maven.firstdarkdev.xyz/snapshots"
+    }
+
+    //Modrinth
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+    maven {
+        // Add curse maven to repositories
+        name = "Curse Maven"
+        url = "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroupByRegex("software\\.bernie.*")
+            includeGroup("com.eliotlash.mclib")
+        }
+    }
+    repositories {
+        maven {
+            name = "Gegy"
+            url = uri("https://maven.gegy.dev")
+        }
+    }
+    maven { url "https://maven.shedaniel.me/" }
+    maven {
+        name = 'BlameJared Maven (CrT / Bookshelf)'
+        url = 'https://maven.blamejared.com'
+    }
+    maven {
+        url = "https://maven.ryanhcode.dev/releases"
+    }
+}
+
+base {
+    archivesName = "${mod_name}-neoforge-${minecraft_version}"
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    // Specify the version of NeoForge to use.
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    accessTransformers.from 'src/main/resources/META-INF/accesstransformer.cfg'
+
+    runs {
+        client {
+            client()
+
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        client2 {
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            programArgument "--username"
+            programArgument "Flechazo"
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        // This run config launches GameTestServer and runs all registered gametests, then exits.
+        // By default, the server will crash when no gametests are provided.
+        // The gametest system is also enabled by default for other run configs under the /test command.
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+
+            // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
+            // gameDirectory = project.file('run-data')
+
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        // applies to all the run configs above
+        configureEach {
+            // Recommended logging data for a userdev environment
+            // The markers can be added/remove as needed separated by commas.
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+
+            // Recommended logging level for the console
+            // You can set various levels here.
+            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
+
+    mods {
+        // define mod <-> source bindings
+        // these are used to tell the game which sources are for which mod
+        // mostly optional in a single mod project
+        // but multi mod projects should define one per mod
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+// Include resources generated by data generators.
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+def mappingsAttribute = Attribute.of("net.minecraft.mappings", String.class)
+
+dependencies {
+    attributesSchema {
+        attribute(mappingsAttribute)
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Compile-only mod APIs, supplied as local (Mojmap, production-mapped) jars copied from the
+    // target modpack's mods/ folder + the inspected SodiumDynamicLights jar. They are NOT bundled
+    // into our jar (the modpack already provides them at runtime), and using local files avoids the
+    // CurseMaven 403s that were breaking the build. See HandheldMoon-PORT_REPORT.md.
+    // ---------------------------------------------------------------------------------------------
+
+    // SodiumDynamicLights (SDDL) — the dynamic-light backend HandheldMoon now hooks into.
+    compileOnly(files("libs/sodiumdynamiclights-1.0.10.jar"))
+
+    // Curios — flashlight shoulder-slot rendering (compat.curios.*).
+    compileOnly(files("libs/curios-neoforge-9.5.1.jar"))
+
+    // Cloth Config — config screen (compat.clothconfig.*).
+    compileOnly(files("libs/cloth-config-15.0.140-neoforge.jar"))
+
+    // TaCZ — gun attachment compat (compat.tacz.*).
+    compileOnly(files("libs/tacz-neoforge-1.21.1-1.1.8-hotfix-r1.jar"))
+
+    // Sable + its jar-in-jar companion (math helpers) — Aeronautics/sub-level physics bridge (util.AeronauticsUtils).
+    compileOnly(files("libs/sable-neoforge-1.21.1-1.2.2.jar"))
+    compileOnly(files("libs/sable-companion-common-1.21.1-1.6.0.jar"))
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [minecraft_version      : minecraft_version,
+                             minecraft_version_range: minecraft_version_range,
+                             neo_version            : neo_version,
+                             neo_version_range      : neo_version_range,
+                             loader_version_range   : loader_version_range,
+                             mod_id                 : mod_id,
+                             mod_name               : mod_name,
+                             mod_license            : mod_license,
+                             mod_version            : mod_version,
+                             mod_authors            : mod_authors,
+                             mod_description        : mod_description]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/repo"
+        }
+    }
+}
+
+// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}

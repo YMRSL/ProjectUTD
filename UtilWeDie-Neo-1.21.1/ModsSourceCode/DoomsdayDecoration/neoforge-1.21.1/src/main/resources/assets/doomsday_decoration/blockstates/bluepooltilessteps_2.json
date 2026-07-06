@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/bluepooltilessteps_2"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/bluepooltilessteps_2_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/bluepooltilessteps_2_full"
+    }
+  }
+}

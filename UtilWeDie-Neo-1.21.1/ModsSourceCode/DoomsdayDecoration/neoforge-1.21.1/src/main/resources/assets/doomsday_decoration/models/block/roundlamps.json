@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/round_lamps",
+  "textures": {
+    "all": "doomsday_decoration:block/round_lamps",
+    "particle": "doomsday_decoration:block/round_lamps",
+    "0": "doomsday_decoration:block/round_lamps"
+  },
+  "render_type": "cutout_mipped"
+}

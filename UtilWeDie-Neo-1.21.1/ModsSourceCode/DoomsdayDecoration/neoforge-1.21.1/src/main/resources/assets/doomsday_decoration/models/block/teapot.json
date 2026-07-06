@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/teapot",
+  "textures": {
+    "all": "doomsday_decoration:block/teapot",
+    "particle": "doomsday_decoration:block/teapot",
+    "0": "doomsday_decoration:block/teapot"
+  },
+  "render_type": "cutout_mipped"
+}

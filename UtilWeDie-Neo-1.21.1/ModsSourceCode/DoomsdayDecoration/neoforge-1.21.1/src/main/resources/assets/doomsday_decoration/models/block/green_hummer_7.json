@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/green_hummer7",
+  "textures": {
+    "all": "doomsday_decoration:block/green_hummer7",
+    "particle": "doomsday_decoration:block/green_hummer7",
+    "0": "doomsday_decoration:block/green_hummer7"
+  },
+  "render_type": "cutout_mipped"
+}

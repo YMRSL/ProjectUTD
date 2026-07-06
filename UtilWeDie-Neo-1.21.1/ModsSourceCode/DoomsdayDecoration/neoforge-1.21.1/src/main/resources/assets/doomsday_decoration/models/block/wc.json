@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/wc",
+  "textures": {
+    "all": "doomsday_decoration:block/wc",
+    "particle": "doomsday_decoration:block/wc",
+    "0": "doomsday_decoration:block/wc"
+  },
+  "render_type": "cutout_mipped"
+}

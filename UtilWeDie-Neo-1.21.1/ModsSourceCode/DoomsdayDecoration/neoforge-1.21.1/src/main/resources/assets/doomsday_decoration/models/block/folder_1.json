@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/folder1",
+  "textures": {
+    "all": "doomsday_decoration:block/folder1",
+    "particle": "doomsday_decoration:block/folder1",
+    "2": "doomsday_decoration:block/folder1"
+  },
+  "render_type": "cutout_mipped"
+}

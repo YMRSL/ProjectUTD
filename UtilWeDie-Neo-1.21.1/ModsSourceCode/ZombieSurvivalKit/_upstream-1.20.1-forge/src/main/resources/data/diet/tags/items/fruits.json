@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "zombiekit:canned_yellow_peach",
+      "required": false
+    }
+  ]
+}

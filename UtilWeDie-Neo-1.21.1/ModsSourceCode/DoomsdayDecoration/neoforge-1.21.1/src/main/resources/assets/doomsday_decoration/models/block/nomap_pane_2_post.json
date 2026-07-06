@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_glass_pane_post",
+  "textures": {
+    "edge": "doomsday_decoration:block/no_map2",
+    "pane": "doomsday_decoration:block/no_map2"
+  },
+  "render_type": "solid"
+}

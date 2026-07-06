@@ -1,0 +1,239 @@
+{
+  "credit": "Made with Blockbench",
+  "elements": [
+    {
+      "from": [
+        -16,
+        -16,
+        -0.75
+      ],
+      "to": [
+        -7,
+        12.125,
+        18.625
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -16,
+          10.125,
+          -0.75
+        ]
+      },
+      "color": 9,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            9,
+            28.125
+          ],
+          "texture": "#missing"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            19.375,
+            28.125
+          ],
+          "texture": "#missing"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            9,
+            28.125
+          ],
+          "texture": "#missing"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            19.375,
+            28.125
+          ],
+          "texture": "#missing"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            9,
+            19.375
+          ],
+          "texture": "#missing"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            9,
+            19.375
+          ],
+          "texture": "#missing"
+        }
+      }
+    },
+    {
+      "from": [
+        -7,
+        -16,
+        -0.75
+      ],
+      "to": [
+        23,
+        3,
+        18.625
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          -7,
+          10.125,
+          -0.75
+        ]
+      },
+      "color": 9,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            30,
+            19
+          ],
+          "texture": "#missing"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            19.375,
+            19
+          ],
+          "texture": "#missing"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            30,
+            19
+          ],
+          "texture": "#missing"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            19.375,
+            19
+          ],
+          "texture": "#missing"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            30,
+            19.375
+          ],
+          "texture": "#missing"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            30,
+            19.375
+          ],
+          "texture": "#missing"
+        }
+      }
+    },
+    {
+      "from": [
+        23,
+        -16,
+        -0.75
+      ],
+      "to": [
+        32,
+        12.125,
+        18.625
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          32,
+          10.125,
+          -0.75
+        ]
+      },
+      "color": 9,
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            0,
+            0,
+            28.125
+          ],
+          "texture": "#missing"
+        },
+        "east": {
+          "uv": [
+            19.375,
+            0,
+            0,
+            28.125
+          ],
+          "texture": "#missing"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            0,
+            28.125
+          ],
+          "texture": "#missing"
+        },
+        "west": {
+          "uv": [
+            19.375,
+            0,
+            0,
+            28.125
+          ],
+          "texture": "#missing"
+        },
+        "up": {
+          "uv": [
+            9,
+            0,
+            0,
+            19.375
+          ],
+          "texture": "#missing"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            0,
+            19.375
+          ],
+          "texture": "#missing"
+        }
+      }
+    }
+  ]
+}

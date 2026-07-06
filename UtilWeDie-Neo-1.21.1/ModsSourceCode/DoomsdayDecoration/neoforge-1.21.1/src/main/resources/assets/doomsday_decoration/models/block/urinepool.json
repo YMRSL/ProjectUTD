@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/urine_pool",
+  "textures": {
+    "all": "doomsday_decoration:block/urine_pool",
+    "particle": "doomsday_decoration:block/urine_pool",
+    "0": "doomsday_decoration:block/urine_pool"
+  },
+  "render_type": "cutout_mipped"
+}

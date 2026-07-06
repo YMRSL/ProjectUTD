@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_side",
+  "textures": {
+    "wall": "doomsday_decoration:block/square_brick18",
+    "particle": "doomsday_decoration:block/square_brick18"
+  },
+  "render_type": "solid"
+}

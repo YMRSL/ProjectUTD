@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/luggage",
+  "textures": {
+    "all": "doomsday_decoration:block/luggage",
+    "particle": "doomsday_decoration:block/luggage",
+    "1": "doomsday_decoration:block/luggage"
+  },
+  "render_type": "cutout_mipped"
+}

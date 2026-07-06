@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/body_bag",
+  "textures": {
+    "all": "doomsday_decoration:block/body_bag",
+    "particle": "doomsday_decoration:block/body_bag",
+    "0": "doomsday_decoration:block/body_bag"
+  },
+  "render_type": "cutout_mipped"
+}

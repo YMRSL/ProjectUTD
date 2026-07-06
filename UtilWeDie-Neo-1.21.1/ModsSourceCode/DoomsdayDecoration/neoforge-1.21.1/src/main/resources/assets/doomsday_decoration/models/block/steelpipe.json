@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/steel_pipe",
+  "textures": {
+    "all": "doomsday_decoration:block/steel_pipe",
+    "particle": "doomsday_decoration:block/steel_pipe",
+    "0": "doomsday_decoration:block/steel_pipe"
+  },
+  "render_type": "cutout_mipped"
+}

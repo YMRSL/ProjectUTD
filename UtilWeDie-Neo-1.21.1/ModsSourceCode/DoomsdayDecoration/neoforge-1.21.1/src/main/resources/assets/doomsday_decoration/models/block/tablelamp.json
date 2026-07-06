@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/table_lamp",
+  "textures": {
+    "all": "doomsday_decoration:block/table_lamp",
+    "particle": "doomsday_decoration:block/table_lamp",
+    "0": "doomsday_decoration:block/table_lamp"
+  },
+  "render_type": "cutout_mipped"
+}

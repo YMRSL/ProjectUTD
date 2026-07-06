@@ -1,0 +1,27 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.107'
+}
+
+version = '1.0.0-neoforge-1.21.1'
+group = 'net.tejty.just_barricades'
+base { archivesName = 'just_barricades' }
+
+java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+
+repositories {
+    maven { url = 'https://maven.aliyun.com/repository/public' }
+    mavenCentral()
+}
+
+neoForge {
+    version = '21.1.233'
+    runs {
+        client { client() }
+    }
+    mods {
+        just_barricades { sourceSet sourceSets.main }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }

@@ -1,0 +1,9 @@
+{
+    "item":  "firstpersonfoodeating:ping",
+    "geo":  "firstpersonfoodeating:i_ping_b",
+    "geo_visible_root":  "ep_ping",
+    "texture":  "firstpersonfoodeating:item/i_ping_b",
+    "animation":  "firstpersonfoodeating:i_ping_b",
+    "state_machine":  "firstpersonfoodeating:default_food_state_machine",
+    "use_sound":  "firstpersonfoodeating:ping.item_tetrapakwcap_03_drink"
+}

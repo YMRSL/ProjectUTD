@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "survival_instinct:block/raw_steellium_block",
+    "particle": "survival_instinct:block/raw_steellium_block"
+  },
+  "render_type": "solid"
+}

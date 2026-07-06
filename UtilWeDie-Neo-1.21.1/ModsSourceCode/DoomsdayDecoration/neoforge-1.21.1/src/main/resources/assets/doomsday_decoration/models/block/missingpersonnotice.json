@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/missing_person_notice",
+  "textures": {
+    "all": "doomsday_decoration:block/missing_person_notice",
+    "particle": "doomsday_decoration:block/missing_person_notice",
+    "0": "doomsday_decoration:block/missing_person_notice"
+  },
+  "render_type": "cutout_mipped"
+}

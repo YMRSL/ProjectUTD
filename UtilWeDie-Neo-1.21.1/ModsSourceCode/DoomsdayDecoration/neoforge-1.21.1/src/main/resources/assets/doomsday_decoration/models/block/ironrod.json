@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/iron_rod",
+  "textures": {
+    "all": "doomsday_decoration:block/iron_rod",
+    "particle": "doomsday_decoration:block/iron_rod",
+    "0": "doomsday_decoration:block/iron_rod"
+  },
+  "render_type": "cutout_mipped"
+}

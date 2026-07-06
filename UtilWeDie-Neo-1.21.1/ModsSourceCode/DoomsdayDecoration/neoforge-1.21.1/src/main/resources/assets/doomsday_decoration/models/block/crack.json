@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/crack",
+  "textures": {
+    "all": "doomsday_decoration:block/crack",
+    "particle": "doomsday_decoration:block/crack",
+    "0": "doomsday_decoration:block/crack"
+  },
+  "render_type": "cutout_mipped"
+}

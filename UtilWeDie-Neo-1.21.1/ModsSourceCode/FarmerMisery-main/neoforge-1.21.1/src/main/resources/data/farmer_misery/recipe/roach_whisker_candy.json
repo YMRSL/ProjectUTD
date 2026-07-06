@@ -1,0 +1,22 @@
+{
+  "type": "farmersdelight:cooking_pot",
+  "experience": 1.0,
+  "ingredients": [
+    {
+      "item": "farmer_misery:bottled_roach"
+    },
+    {
+      "item": "farmer_misery:bottled_roach"
+    },
+    {
+      "item": "farmer_misery:bottled_roach"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "id": "farmer_misery:roach_whisker_candy",
+    "count": 2
+  }
+}

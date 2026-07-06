@@ -1,0 +1,9 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "doomsday_decoration:block/blue_blue_ceramic_tiles",
+    "top": "doomsday_decoration:block/blue_blue_ceramic_tiles",
+    "side": "doomsday_decoration:block/blue_blue_ceramic_tiles"
+  },
+  "render_type": "solid"
+}

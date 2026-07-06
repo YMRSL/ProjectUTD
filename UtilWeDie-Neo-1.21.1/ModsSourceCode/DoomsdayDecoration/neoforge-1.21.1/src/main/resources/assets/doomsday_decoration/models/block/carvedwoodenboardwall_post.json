@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_post",
+  "textures": {
+    "wall": "doomsday_decoration:block/carved_wooden_board",
+    "particle": "doomsday_decoration:block/carved_wooden_board"
+  },
+  "render_type": "solid"
+}

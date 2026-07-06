@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "doomsday_decoration:block/no_map"
+  },
+  "render_type": "solid"
+}

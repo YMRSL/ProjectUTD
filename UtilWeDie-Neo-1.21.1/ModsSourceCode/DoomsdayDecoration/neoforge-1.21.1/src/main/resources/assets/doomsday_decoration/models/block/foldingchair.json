@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/folding_chair",
+  "textures": {
+    "all": "doomsday_decoration:block/folding_chair",
+    "particle": "doomsday_decoration:block/folding_chair",
+    "0": "doomsday_decoration:block/folding_chair"
+  },
+  "render_type": "cutout_mipped"
+}

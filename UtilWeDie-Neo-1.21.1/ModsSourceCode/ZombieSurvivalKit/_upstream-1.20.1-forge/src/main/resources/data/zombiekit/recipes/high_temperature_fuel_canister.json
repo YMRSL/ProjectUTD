@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 2 ",
+    "313",
+    "424"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:blaze_rod"
+    },
+    "2": {
+      "item": "minecraft:iron_ingot"
+    },
+    "3": {
+      "item": "zombiekit:smokeless_gunpowder"
+    },
+    "4": {
+      "item": "minecraft:soul_sand"
+    }
+  },
+  "result": {
+    "item": "zombiekit:high_temperature_fuel_canister"
+  }
+}

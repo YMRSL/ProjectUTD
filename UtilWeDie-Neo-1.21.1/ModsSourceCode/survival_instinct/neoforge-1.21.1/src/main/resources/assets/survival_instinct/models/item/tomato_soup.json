@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/tomato_soup",
+  "textures": {
+    "0": "survival_instinct:block/tomato_soup",
+    "particle": "survival_instinct:item/tomato_soup"
+  }
+}

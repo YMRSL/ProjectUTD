@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/red_pickup_truck",
+  "textures": {
+    "all": "doomsday_decoration:block/red_pickup_truck",
+    "particle": "doomsday_decoration:block/red_pickup_truck",
+    "0": "doomsday_decoration:block/red_pickup_truck"
+  },
+  "render_type": "cutout_mipped"
+}

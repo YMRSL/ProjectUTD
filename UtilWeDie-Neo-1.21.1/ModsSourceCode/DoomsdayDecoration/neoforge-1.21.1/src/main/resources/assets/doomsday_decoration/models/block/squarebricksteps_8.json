@@ -1,0 +1,9 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "doomsday_decoration:block/square_brick8",
+    "top": "doomsday_decoration:block/square_brick8",
+    "side": "doomsday_decoration:block/square_brick8"
+  },
+  "render_type": "solid"
+}

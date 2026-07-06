@@ -1,0 +1,7 @@
+{
+  "parent": "block/button_pressed",
+  "textures": {
+    "texture": "doomsday_decoration:block/error"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/scale",
+  "textures": {
+    "all": "doomsday_decoration:block/scale",
+    "particle": "doomsday_decoration:block/scale",
+    "0": "doomsday_decoration:block/scale"
+  },
+  "render_type": "cutout_mipped"
+}

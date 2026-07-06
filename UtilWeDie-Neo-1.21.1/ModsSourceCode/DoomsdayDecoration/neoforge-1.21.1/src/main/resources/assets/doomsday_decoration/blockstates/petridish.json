@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "doomsday_decoration:block/petridish"
+    },
+    "facing=east": {
+      "model": "doomsday_decoration:block/petridish",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "doomsday_decoration:block/petridish",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "doomsday_decoration:block/petridish",
+      "y": 270
+    }
+  }
+}

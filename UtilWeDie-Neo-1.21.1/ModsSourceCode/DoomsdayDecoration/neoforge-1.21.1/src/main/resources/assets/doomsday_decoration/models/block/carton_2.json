@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/carton2",
+  "textures": {
+    "all": "doomsday_decoration:block/carton2",
+    "particle": "doomsday_decoration:block/carton2",
+    "0": "doomsday_decoration:block/carton2"
+  },
+  "render_type": "translucent"
+}

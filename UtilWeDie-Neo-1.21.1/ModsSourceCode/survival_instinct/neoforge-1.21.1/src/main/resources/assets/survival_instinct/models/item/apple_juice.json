@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/apple_juice",
+  "textures": {
+    "1": "survival_instinct:block/apple_juice",
+    "particle": "survival_instinct:item/apple_juice"
+  }
+}

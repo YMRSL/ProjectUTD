@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "232",
+    "545"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:copper_ingot"
+    },
+    "2": {
+      "item": "zombiekit:rubber"
+    },
+    "3": {
+      "item": "minecraft:piston"
+    },
+    "4": {
+      "item": "zombiekit:alcohol"
+    },
+    "5": {
+      "item": "minecraft:gunpowder"
+    }
+  },
+  "result": {
+    "item": "zombiekit:primary_burning_charging_parts"
+  }
+}

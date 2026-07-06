@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/floodlight",
+  "textures": {
+    "all": "doomsday_decoration:block/floodlight",
+    "particle": "doomsday_decoration:block/floodlight",
+    "0": "doomsday_decoration:block/floodlight"
+  },
+  "render_type": "cutout_mipped"
+}

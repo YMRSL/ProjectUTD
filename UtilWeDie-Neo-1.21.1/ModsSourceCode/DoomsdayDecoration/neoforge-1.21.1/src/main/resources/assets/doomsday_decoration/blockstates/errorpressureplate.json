@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "doomsday_decoration:block/errorpressureplate"
+    },
+    "powered=true": {
+      "model": "doomsday_decoration:block/errorpressureplate_down"
+    }
+  }
+}

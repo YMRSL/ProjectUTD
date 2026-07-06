@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/tuna_can",
+  "textures": {
+    "0": "survival_instinct:block/tuna_can",
+    "particle": "minecraft:item/cooked_cod"
+  }
+}

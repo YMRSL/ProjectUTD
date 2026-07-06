@@ -1,0 +1,45 @@
+{
+  "name": "Flamethrower",
+  "icon": "zombiekit:flamethrower",
+  "category": "zombiekit:projectile",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "zombiekit:flamethrower",
+      "text": "Welcome to advanced training! While Molotovs are handy, their fury is fleeting. If you’re crafty, let’s engineer something more... creative. Congratulations—you’re no longer a backyard BBQ hobbyist, but a Michelin-starred pyrotechnic chef. With slight modifications, Molotov fuel can power a "
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:flamethrower",
+      "text": "flamethrower’s endless inferno. Let’s burn this apocalypse to ashes! Zombies won’t stand a chance—at least until the fuel runs dry. Of course, only true warriors deserve such weapons, for wielding one makes you both the spearhead"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:fuel_canister",
+      "text": "of advancement and the final line of retreat."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(o)(This is a piece of note:)$()$(br)$(#a97b1d)'Alcohol-based fuel, while cheap and easily accessible, has limited lethality due to its relatively low burning temperature. Producing a truly military-grade fuel is no simple task, but through my experiments, I have successfully developed two relatively simple and stable formulas. The first formula utilizes the adhesive and highly oxidizing properties of slime balls, allowing the fuel to stick to targets and"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:napalm_fuel_canister",
+      "text": "$(#a97b1d)continue burning even in water. Additionally, the primary components of the fuel have been improved, significantly enhancing both its burning temperature and duration. The second formula takes advantage of the unique properties"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:high_temperature_fuel_canister",
+      "text": "$(#a97b1d)of soul sand. Although the use of soul sand has sparked considerable controversy and opposition due to its peculiar characteristics, simple experimental results indicate that this material releases an extremely high temperature"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(#a97b1d)when burned—approaching that of military-grade fuel. It is capable of rapidly carbonizing biological tissue, resulting in devastating lethality.'"
+    },
+    {
+      "type": "patchouli:text",
+      "text": " "
+    }
+  ]
+}

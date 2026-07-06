@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/fire_extinguisher",
+  "textures": {
+    "all": "doomsday_decoration:block/fire_extinguisher",
+    "particle": "doomsday_decoration:block/fire_extinguisher",
+    "1": "doomsday_decoration:block/fire_extinguisher"
+  },
+  "render_type": "cutout_mipped"
+}

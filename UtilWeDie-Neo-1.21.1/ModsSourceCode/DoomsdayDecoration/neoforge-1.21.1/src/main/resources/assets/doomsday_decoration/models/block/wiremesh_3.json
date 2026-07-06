@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/wire_mesh3",
+  "textures": {
+    "all": "doomsday_decoration:block/wire_mesh3",
+    "particle": "doomsday_decoration:block/wire_mesh3",
+    "0": "doomsday_decoration:block/wire_mesh3"
+  },
+  "render_type": "translucent"
+}

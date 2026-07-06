@@ -1,0 +1,9 @@
+{
+    "item":  "firstpersonfoodeating:guantou",
+    "geo":  "firstpersonfoodeating:i_guantou_a",
+    "geo_visible_root":  "ep_food",
+    "texture":  "firstpersonfoodeating:item/i_guantou_a",
+    "animation":  "firstpersonfoodeating:i_guantou_f",
+    "state_machine":  "firstpersonfoodeating:default_food_state_machine",
+    "use_sound":  "firstpersonfoodeating:item_foodcan_04_foodtake"
+}

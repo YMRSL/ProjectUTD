@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "just_barricades:oak_barricade",
+    "just_barricades:spruce_barricade",
+    "just_barricades:birch_barricade",
+    "just_barricades:jungle_barricade",
+    "just_barricades:cherry_barricade",
+    "just_barricades:acacia_barricade",
+    "just_barricades:dark_oak_barricade",
+    "just_barricades:mangrove_barricade",
+    "just_barricades:bamboo_barricade"
+  ]
+}

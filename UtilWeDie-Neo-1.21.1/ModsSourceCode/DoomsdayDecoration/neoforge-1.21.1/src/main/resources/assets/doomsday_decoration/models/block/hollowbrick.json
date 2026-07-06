@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/hollow_brick",
+  "textures": {
+    "all": "doomsday_decoration:block/hollow_brick",
+    "particle": "doomsday_decoration:block/hollow_brick",
+    "0": "doomsday_decoration:block/hollow_brick"
+  },
+  "render_type": "cutout_mipped"
+}

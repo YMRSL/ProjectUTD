@@ -1,0 +1,6 @@
+{
+  "parent": "just_barricades:block/barricade3",
+  "textures": {
+    "all": "minecraft:block/mangrove_planks"
+  }
+}

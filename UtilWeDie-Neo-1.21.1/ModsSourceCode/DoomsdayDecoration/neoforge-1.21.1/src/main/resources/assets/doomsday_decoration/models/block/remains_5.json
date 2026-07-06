@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/corpse5",
+  "textures": {
+    "all": "doomsday_decoration:block/corpse5",
+    "particle": "doomsday_decoration:block/corpse5",
+    "0": "doomsday_decoration:block/corpse5"
+  },
+  "render_type": "translucent"
+}

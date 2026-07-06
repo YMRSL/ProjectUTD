@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/oil_tank",
+  "textures": {
+    "all": "doomsday_decoration:block/oil_tank",
+    "particle": "doomsday_decoration:block/oil_tank",
+    "1": "doomsday_decoration:block/oil_tank"
+  },
+  "render_type": "cutout_mipped"
+}

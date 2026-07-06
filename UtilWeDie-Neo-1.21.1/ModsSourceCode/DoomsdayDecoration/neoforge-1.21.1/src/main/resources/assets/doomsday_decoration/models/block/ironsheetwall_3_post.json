@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_post",
+  "textures": {
+    "wall": "doomsday_decoration:block/iron_sheet3",
+    "particle": "doomsday_decoration:block/iron_sheet3"
+  },
+  "render_type": "solid"
+}

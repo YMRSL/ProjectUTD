@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/globe",
+  "textures": {
+    "all": "doomsday_decoration:block/globe",
+    "particle": "doomsday_decoration:block/globe",
+    "0": "doomsday_decoration:block/globe"
+  },
+  "render_type": "cutout_mipped"
+}

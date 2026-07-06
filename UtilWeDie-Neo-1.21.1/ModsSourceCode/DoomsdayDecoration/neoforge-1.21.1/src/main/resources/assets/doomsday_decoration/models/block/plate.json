@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/plate",
+  "textures": {
+    "all": "doomsday_decoration:block/plate",
+    "particle": "doomsday_decoration:block/plate",
+    "1": "doomsday_decoration:block/plate"
+  },
+  "render_type": "cutout_mipped"
+}

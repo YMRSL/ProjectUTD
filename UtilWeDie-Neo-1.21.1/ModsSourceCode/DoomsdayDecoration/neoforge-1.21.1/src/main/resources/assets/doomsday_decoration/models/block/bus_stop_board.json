@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/bus_stop_board",
+  "textures": {
+    "all": "doomsday_decoration:block/bus_stop_board",
+    "particle": "doomsday_decoration:block/bus_stop_board",
+    "1": "doomsday_decoration:block/bus_stop_board"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/corpse10.10.10",
+  "textures": {
+    "all": "doomsday_decoration:block/corpse10.10.10",
+    "particle": "doomsday_decoration:block/corpse10.10.10",
+    "1": "doomsday_decoration:block/corpse10.10.10"
+  },
+  "render_type": "cutout_mipped"
+}

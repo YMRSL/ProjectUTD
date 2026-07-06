@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/stoneparticlessteps"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/stoneparticlessteps_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/stoneparticlessteps_full"
+    }
+  }
+}

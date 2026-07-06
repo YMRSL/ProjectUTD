@@ -1,0 +1,41 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+
+    alias(libs.plugins.moddevgradle)
+}
+
+base {
+    archivesName = "${mod_id}-${project.name}"
+}
+
+apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main/repository-publishers/codinglitch.gradle'
+
+neoForge {
+    neoFormVersion = libs.versions.neoform.get()
+
+    parchment.minecraftVersion.set(libs.versions.parchment.minecraft.get())
+    parchment.mappingsVersion.set(libs.versions.parchment.mappings.get())
+}
+
+dependencies {
+    compileOnly(libs.mixin)
+    compileOnly(libs.mixinextras.common)
+    //compileOnly project(":common")
+}
+
+configurations {
+    apiJava {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+    apiResources {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+}
+
+artifacts {
+    apiJava sourceSets.main.java.sourceDirectories.singleFile
+    apiResources sourceSets.main.resources.sourceDirectories.singleFile
+}

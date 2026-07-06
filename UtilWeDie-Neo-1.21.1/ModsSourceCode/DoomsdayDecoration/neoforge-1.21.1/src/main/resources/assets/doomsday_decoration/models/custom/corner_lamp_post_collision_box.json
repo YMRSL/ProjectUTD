@@ -1,0 +1,150 @@
+{
+  "credit": "Made with Blockbench",
+  "elements": [
+    {
+      "from": [
+        6,
+        6,
+        0
+      ],
+      "to": [
+        10,
+        10,
+        6
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          -2
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            10,
+            16,
+            14,
+            20
+          ],
+          "texture": "#missing"
+        },
+        "east": {
+          "uv": [
+            0,
+            16,
+            6,
+            20
+          ],
+          "texture": "#missing"
+        },
+        "south": {
+          "uv": [
+            16,
+            10,
+            20,
+            14
+          ],
+          "texture": "#missing"
+        },
+        "west": {
+          "uv": [
+            16,
+            0,
+            22,
+            4
+          ],
+          "texture": "#missing"
+        },
+        "up": {
+          "uv": [
+            20,
+            10,
+            16,
+            4
+          ],
+          "texture": "#missing"
+        },
+        "down": {
+          "uv": [
+            10,
+            16,
+            6,
+            22
+          ],
+          "texture": "#missing"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        0,
+        6
+      ],
+      "to": [
+        10,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            4,
+            16
+          ],
+          "texture": "#missing"
+        },
+        "east": {
+          "uv": [
+            4,
+            0,
+            8,
+            16
+          ],
+          "texture": "#missing"
+        },
+        "south": {
+          "uv": [
+            8,
+            0,
+            12,
+            16
+          ],
+          "texture": "#missing"
+        },
+        "west": {
+          "uv": [
+            12,
+            0,
+            16,
+            16
+          ],
+          "texture": "#missing"
+        },
+        "up": {
+          "uv": [
+            14,
+            20,
+            10,
+            16
+          ],
+          "texture": "#missing"
+        },
+        "down": {
+          "uv": [
+            20,
+            10,
+            16,
+            14
+          ],
+          "texture": "#missing"
+        }
+      }
+    }
+  ]
+}

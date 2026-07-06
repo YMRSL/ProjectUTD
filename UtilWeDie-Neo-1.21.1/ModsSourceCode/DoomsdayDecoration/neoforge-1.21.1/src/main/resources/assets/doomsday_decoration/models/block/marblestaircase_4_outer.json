@@ -1,0 +1,9 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "doomsday_decoration:block/marble4",
+    "top": "doomsday_decoration:block/marble4",
+    "side": "doomsday_decoration:block/marble4"
+  },
+  "render_type": "solid"
+}

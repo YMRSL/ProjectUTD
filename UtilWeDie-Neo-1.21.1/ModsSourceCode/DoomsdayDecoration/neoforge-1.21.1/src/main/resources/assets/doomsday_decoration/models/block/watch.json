@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/watch",
+  "textures": {
+    "all": "doomsday_decoration:block/watch",
+    "particle": "doomsday_decoration:block/watch",
+    "0": "doomsday_decoration:block/watch"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/taxi1",
+  "textures": {
+    "all": "doomsday_decoration:block/taxi1",
+    "particle": "doomsday_decoration:block/taxi1",
+    "0": "doomsday_decoration:block/taxi1"
+  },
+  "render_type": "cutout_mipped"
+}

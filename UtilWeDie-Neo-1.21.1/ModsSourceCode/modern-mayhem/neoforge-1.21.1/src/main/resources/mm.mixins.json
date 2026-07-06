@@ -1,0 +1,29 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.tkg.ModernMayhem.server.mixin",
+  "plugin": "net.tkg.ModernMayhem.server.mixin.MMMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "injectors": { "defaultRequire": 0 },
+  "client": [
+    "sdl.DirectionalLightMixin",
+    "sdl.SodiumDynamicLightsMixin",
+    "sdl.EntityRenderLightClampMixin",
+    "client.DimensionEffectsMixin",
+    "client.DimensionEffectsMixin$EndMixin",
+    "client.DimensionEffectsMixin$NetherMixin",
+    "client.DynamicTextureMixin",
+    "client.GameRendererMixin",
+    "client.GunAnimationStateContextMixin",
+    "client.GunHudOverlayAccessor",
+    "client.GunHudOverlayMixin",
+    "client.LightTextureAccessor",
+    "client.LightTextureMixin",
+    "client.PostChainMixin"
+  ],
+  "mixins": [
+    "AbstractGunItemMixin",
+    "ModernKineticGunScriptAPIMixin",
+    "LeftHandRenderMixin"
+  ]
+}

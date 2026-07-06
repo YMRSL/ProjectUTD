@@ -1,0 +1,27 @@
+{
+  "name": "土制迫击炮",
+  "icon": "zombiekit:mortar_summon",
+  "category": "zombiekit:note",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "zombiekit:mortar_summon",
+      "text": "$(#a97b1d)在我担任特派员期间，所处地区始终处于战乱不断的状态。由于当地抵抗武装长期无法获得外界的支持，又因缺乏足够的工业能力，他们只能依靠自身的创造力来获取武器装备。因此，各种自制武器在局部战争和游击战中被广泛使用，这些武器大多数由废弃钢材和民用车辆零部件拼装而成。其中，"
+    },
+    {
+      "type": "patchouli:image",
+      "title": "Home-made Mortar",
+      "images": ["zombiekit:textures/gui/entries/mortar.png"],
+      "text": "$(#a97b1d)给我印象最深刻的是土制迫击炮。当地人会将煤气罐切"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(#a97b1d)开，内部填充炸药，然后在尾部焊接钢管和尾翼以维持平衡，一发简易迫击炮弹就此制作完成。接着，他们会找到一根足够容纳炮弹的钢管，将其焊接在底座或车辆上，使用时只需装填炮弹并点燃引信即可发射。虽然这些武器的精度可能不高，但由于其口径较大且成本低廉，往往能造成不小的杀伤力。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": " "
+    }
+  ]
+}

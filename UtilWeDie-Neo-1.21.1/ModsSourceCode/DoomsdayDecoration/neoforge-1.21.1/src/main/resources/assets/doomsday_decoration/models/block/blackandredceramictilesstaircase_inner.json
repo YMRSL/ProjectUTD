@@ -1,0 +1,9 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "doomsday_decoration:block/black_and_red_ceramic_tiles",
+    "top": "doomsday_decoration:block/black_and_red_ceramic_tiles",
+    "side": "doomsday_decoration:block/black_and_red_ceramic_tiles"
+  },
+  "render_type": "solid"
+}

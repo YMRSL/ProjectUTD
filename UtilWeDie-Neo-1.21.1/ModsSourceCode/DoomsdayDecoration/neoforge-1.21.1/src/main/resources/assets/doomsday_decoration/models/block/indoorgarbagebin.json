@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/indoor_garbage_bin",
+  "textures": {
+    "all": "doomsday_decoration:block/indoor_garbage_bin",
+    "particle": "doomsday_decoration:block/indoor_garbage_bin",
+    "0": "doomsday_decoration:block/indoor_garbage_bin"
+  },
+  "render_type": "cutout_mipped"
+}

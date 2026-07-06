@@ -1,0 +1,10 @@
+{
+  "comparator_output": 15,
+  "length_in_seconds": 204,
+  "sound_event": {
+    "sound_id": "zombiekit:konn_gara"
+  },
+  "description": {
+    "translate": "item.zombiekit.konn_gara"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/trophy",
+  "textures": {
+    "all": "doomsday_decoration:block/trophy",
+    "particle": "doomsday_decoration:block/trophy",
+    "0": "doomsday_decoration:block/trophy"
+  },
+  "render_type": "cutout_mipped"
+}

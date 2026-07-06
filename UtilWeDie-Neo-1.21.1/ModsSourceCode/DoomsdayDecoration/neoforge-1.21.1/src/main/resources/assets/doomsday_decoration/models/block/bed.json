@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/bed",
+  "textures": {
+    "all": "doomsday_decoration:block/bed",
+    "particle": "doomsday_decoration:block/bed",
+    "0": "doomsday_decoration:block/bed"
+  },
+  "render_type": "cutout_mipped"
+}

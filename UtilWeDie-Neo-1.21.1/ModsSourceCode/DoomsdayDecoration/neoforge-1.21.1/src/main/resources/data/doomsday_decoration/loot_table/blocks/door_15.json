@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "doomsday_decoration:blocks/door_15",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:door_15",
+          "conditions": [
+            {
+              "block": "doomsday_decoration:door_15",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

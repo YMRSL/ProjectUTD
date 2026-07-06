@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/freezer",
+  "textures": {
+    "all": "doomsday_decoration:block/freezer",
+    "particle": "doomsday_decoration:block/freezer",
+    "0": "doomsday_decoration:block/freezer"
+  },
+  "render_type": "cutout_mipped"
+}

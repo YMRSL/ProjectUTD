@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/petri_dish",
+  "textures": {
+    "all": "doomsday_decoration:block/petri_dish",
+    "particle": "doomsday_decoration:block/petri_dish",
+    "0": "doomsday_decoration:block/petri_dish"
+  },
+  "render_type": "translucent"
+}

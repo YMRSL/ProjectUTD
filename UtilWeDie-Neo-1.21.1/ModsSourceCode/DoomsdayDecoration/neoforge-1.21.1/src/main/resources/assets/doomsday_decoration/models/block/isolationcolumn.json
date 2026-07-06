@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/isolation_column",
+  "textures": {
+    "all": "doomsday_decoration:block/isolation_column",
+    "particle": "doomsday_decoration:block/isolation_column",
+    "0": "doomsday_decoration:block/isolation_column"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/extractor",
+  "textures": {
+    "all": "doomsday_decoration:block/extractor",
+    "particle": "doomsday_decoration:block/extractor",
+    "0": "doomsday_decoration:block/extractor"
+  },
+  "render_type": "cutout"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/basketball_hoop",
+  "textures": {
+    "all": "doomsday_decoration:block/basketball_hoop",
+    "particle": "doomsday_decoration:block/basketball_hoop",
+    "1": "doomsday_decoration:block/basketball_hoop"
+  },
+  "render_type": "cutout_mipped"
+}

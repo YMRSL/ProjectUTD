@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/bench",
+  "textures": {
+    "all": "doomsday_decoration:block/bench",
+    "particle": "doomsday_decoration:block/bench",
+    "0": "doomsday_decoration:block/bench"
+  },
+  "render_type": "cutout_mipped"
+}

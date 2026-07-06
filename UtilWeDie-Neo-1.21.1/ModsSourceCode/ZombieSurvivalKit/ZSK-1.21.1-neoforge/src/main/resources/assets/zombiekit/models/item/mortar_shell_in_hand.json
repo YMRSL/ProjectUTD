@@ -1,0 +1,6 @@
+{
+  "parent": "zombiekit:custom/mortar_shell",
+  "textures": {
+    "particle": "zombiekit:item/mortar_shell"
+  }
+}

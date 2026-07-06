@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/bottle",
+  "textures": {
+    "all": "doomsday_decoration:block/bottle",
+    "particle": "doomsday_decoration:block/bottle",
+    "0": "doomsday_decoration:block/bottle"
+  },
+  "render_type": "cutout_mipped"
+}

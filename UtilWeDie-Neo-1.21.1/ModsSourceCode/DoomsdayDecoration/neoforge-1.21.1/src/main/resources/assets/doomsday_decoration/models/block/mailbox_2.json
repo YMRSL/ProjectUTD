@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/mailbox2",
+  "textures": {
+    "all": "doomsday_decoration:block/mailbox2",
+    "particle": "doomsday_decoration:block/mailbox2",
+    "0": "doomsday_decoration:block/mailbox2"
+  },
+  "render_type": "cutout_mipped"
+}

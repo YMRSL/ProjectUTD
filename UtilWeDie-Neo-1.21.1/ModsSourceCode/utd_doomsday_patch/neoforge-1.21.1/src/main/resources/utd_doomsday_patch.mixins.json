@@ -1,0 +1,38 @@
+{
+  "required": true,
+  "verbose": true,
+  "package": "com.utdpatch.doomsday.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "DoomsdayBlockEntityAccessor",
+    "DeskLootSplitMixin",
+    "LootParseCrashGuardMixin",
+    "CreateContraptionReplayGuardMixin",
+    "ReplayPairingGuardMixin",
+    "AeronauticsBurnerClientWriteGuardMixin",
+    "RarityCoreRegistryMixin",
+    "TaczWorkbenchBlockEntityNameMixin"
+  ],
+  "client": [
+    "SableActiveCompanionNullGuardMixin",
+    "FlashbackC2MEReplayAllowMixin",
+    "FlashbackSableSnapshotMixin",
+    "FlashbackSableLivePacketMixin",
+    "SableReplayInterpolationDelayMixin",
+    "ReplayAddEntityDeduplicateMixin",
+    "GameRendererNullCameraGuardMixin",
+    "ItemStackTooltipLocalizationMixin",
+    "RarityCoreRenderCacheMixin",
+    "TaczGunSmithTableRecipeOrderMixin",
+    "TaczWorkbenchClientBlockIndexRepairMixin",
+    "TaczWorkbenchClientRenderFallbackMixin",
+    "TaczWorkbenchItemRenderGuardMixin",
+    "TaczMuzzleFlashImmediateMixin",
+    "ItemPhysicGunLayFlatMixin",
+    "EntityGunShadowMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

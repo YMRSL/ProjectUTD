@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/wheelchair",
+  "textures": {
+    "all": "doomsday_decoration:block/wheelchair",
+    "particle": "doomsday_decoration:block/wheelchair",
+    "0": "doomsday_decoration:block/wheelchair"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "doomsday_decoration:block/rearkhakisedan"
+    },
+    "facing=east": {
+      "model": "doomsday_decoration:block/rearkhakisedan",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "doomsday_decoration:block/rearkhakisedan",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "doomsday_decoration:block/rearkhakisedan",
+      "y": 270
+    }
+  }
+}

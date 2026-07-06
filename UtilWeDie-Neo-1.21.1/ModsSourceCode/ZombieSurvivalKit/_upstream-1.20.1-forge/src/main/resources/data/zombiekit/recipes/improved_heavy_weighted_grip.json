@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 3 ",
+    "215",
+    " 4 "
+  ],
+  "key": {
+    "1": {
+      "item": "zombiekit:primary_heavy_weighted_grip"
+    },
+    "2": {
+      "item": "zombiekit:sandpaper"
+    },
+    "3": {
+      "item": "minecraft:rabbit_hide"
+    },
+    "4": {
+      "item": "minecraft:iron_ingot"
+    },
+    "5": {
+      "item": "zombiekit:hydrogen_nitrate"
+    }
+  },
+  "result": {
+    "item": "zombiekit:improved_heavy_weighted_grip"
+  }
+}

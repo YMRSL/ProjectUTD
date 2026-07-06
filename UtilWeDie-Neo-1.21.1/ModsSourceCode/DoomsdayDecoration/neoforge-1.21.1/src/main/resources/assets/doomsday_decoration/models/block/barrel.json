@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/barrel",
+  "textures": {
+    "all": "doomsday_decoration:block/barrel",
+    "particle": "doomsday_decoration:block/barrel",
+    "1": "doomsday_decoration:block/barrel"
+  },
+  "render_type": "cutout_mipped"
+}

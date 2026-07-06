@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/jar",
+  "textures": {
+    "all": "doomsday_decoration:block/jar",
+    "particle": "doomsday_decoration:block/jar",
+    "0": "doomsday_decoration:block/jar"
+  },
+  "render_type": "cutout_mipped"
+}

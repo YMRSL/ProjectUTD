@@ -1,0 +1,11 @@
+{
+  "format_version": 1,
+  "packs": [
+    {
+      "id": "builtin_default",
+      "name": "First Person Food Default Pack",
+      "file": "default_food_pack.zip",
+      "enabled": true
+    }
+  ]
+}

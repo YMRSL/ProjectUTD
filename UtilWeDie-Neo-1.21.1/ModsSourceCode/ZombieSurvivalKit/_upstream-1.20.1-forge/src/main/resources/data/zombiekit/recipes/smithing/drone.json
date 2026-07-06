@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "zombiekit:blueprint_of_drone"
+  },
+  "base": {
+    "item": "zombiekit:drone_components"
+  },
+  "addition": {
+    "item": "minecraft:tnt"
+  },
+  "result": {
+    "item": "zombiekit:drone_summon"
+  }
+}

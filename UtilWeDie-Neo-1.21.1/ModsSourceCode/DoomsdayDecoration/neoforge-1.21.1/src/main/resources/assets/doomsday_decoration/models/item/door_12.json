@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "doomsday_decoration:item/item_door12"
+  },
+  "render_type": "translucent"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/popcorn_popper",
+  "textures": {
+    "all": "doomsday_decoration:block/popcorn_popper",
+    "particle": "doomsday_decoration:block/popcorn_popper",
+    "0": "doomsday_decoration:block/popcorn_popper"
+  },
+  "render_type": "cutout_mipped"
+}

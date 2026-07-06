@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/test_tube_rack2",
+  "textures": {
+    "all": "doomsday_decoration:block/test_tube_rack",
+    "particle": "doomsday_decoration:block/test_tube_rack",
+    "1": "doomsday_decoration:block/test_tube_rack2"
+  },
+  "render_type": "translucent"
+}

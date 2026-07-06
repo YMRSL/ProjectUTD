@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "survival_instinct:block/wire_trap"
+    },
+    "facing=east": {
+      "model": "survival_instinct:block/wire_trap",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "survival_instinct:block/wire_trap",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "survival_instinct:block/wire_trap",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "doomsday_decoration:block/carved_wooden_board",
+    "top": "doomsday_decoration:block/carved_wooden_board",
+    "side": "doomsday_decoration:block/carved_wooden_board"
+  },
+  "render_type": "solid"
+}

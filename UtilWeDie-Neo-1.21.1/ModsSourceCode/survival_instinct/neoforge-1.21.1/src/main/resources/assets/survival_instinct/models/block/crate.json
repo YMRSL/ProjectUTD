@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/crate",
+  "textures": {
+    "all": "survival_instinct:block/barricate_op",
+    "particle": "survival_instinct:block/barricate_op",
+    "0": "survival_instinct:block/crate"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "doomsday_decoration:block/cornerguardrail"
+    },
+    "facing=east": {
+      "model": "doomsday_decoration:block/cornerguardrail",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "doomsday_decoration:block/cornerguardrail",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "doomsday_decoration:block/cornerguardrail",
+      "y": 270
+    }
+  }
+}

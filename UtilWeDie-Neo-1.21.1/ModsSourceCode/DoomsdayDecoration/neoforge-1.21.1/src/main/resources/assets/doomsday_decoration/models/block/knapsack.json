@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/knapsack",
+  "textures": {
+    "all": "doomsday_decoration:block/knapsack",
+    "particle": "doomsday_decoration:block/knapsack",
+    "0": "doomsday_decoration:block/knapsack"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/oil_drum",
+  "textures": {
+    "all": "doomsday_decoration:block/oil_drum",
+    "particle": "doomsday_decoration:block/oil_drum",
+    "0": "doomsday_decoration:block/oil_drum"
+  },
+  "render_type": "cutout"
+}

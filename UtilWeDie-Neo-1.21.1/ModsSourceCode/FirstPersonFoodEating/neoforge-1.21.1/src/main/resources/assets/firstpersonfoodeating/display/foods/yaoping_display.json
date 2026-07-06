@@ -1,0 +1,9 @@
+{
+    "item":  "firstpersonfoodeating:yaoping",
+    "geo":  "firstpersonfoodeating:i_yaoping_b",
+    "geo_visible_root":  "i_yaoping",
+    "texture":  "firstpersonfoodeating:item/i_yaoping_a",
+    "animation":  "firstpersonfoodeating:i_yaoping_b",
+    "state_machine":  "firstpersonfoodeating:default_food_state_machine",
+    "use_sound":  "firstpersonfoodeating:yaoping.use_1"
+}

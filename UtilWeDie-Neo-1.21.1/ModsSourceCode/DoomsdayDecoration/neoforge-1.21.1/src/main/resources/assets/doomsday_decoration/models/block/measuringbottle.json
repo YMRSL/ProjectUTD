@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/measuring_bottle",
+  "textures": {
+    "all": "doomsday_decoration:block/measuring_bottle",
+    "particle": "doomsday_decoration:block/measuring_bottle",
+    "0": "doomsday_decoration:block/measuring_bottle"
+  },
+  "render_type": "translucent"
+}

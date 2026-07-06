@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/teddy_bear",
+  "textures": {
+    "all": "doomsday_decoration:block/teddy_bear",
+    "particle": "doomsday_decoration:block/teddy_bear",
+    "1": "doomsday_decoration:block/teddy_bear"
+  },
+  "render_type": "cutout_mipped"
+}

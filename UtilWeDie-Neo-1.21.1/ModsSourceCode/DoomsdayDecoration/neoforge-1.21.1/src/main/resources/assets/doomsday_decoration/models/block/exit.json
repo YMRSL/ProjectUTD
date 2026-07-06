@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/exit",
+  "textures": {
+    "all": "doomsday_decoration:block/exit",
+    "particle": "doomsday_decoration:block/exit",
+    "0": "doomsday_decoration:block/exit"
+  },
+  "render_type": "cutout_mipped"
+}

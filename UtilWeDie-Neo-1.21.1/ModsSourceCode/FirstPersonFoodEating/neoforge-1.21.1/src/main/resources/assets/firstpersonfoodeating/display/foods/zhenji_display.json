@@ -1,0 +1,9 @@
+{
+    "item":  "firstpersonfoodeating:zhenji",
+    "geo":  "firstpersonfoodeating:i_zhenji_a",
+    "geo_visible_root":  "ep_zhenji",
+    "texture":  "firstpersonfoodeating:item/i_zhenji_a",
+    "animation":  "firstpersonfoodeating:i_zhenji_a",
+    "state_machine":  "firstpersonfoodeating:default_food_state_machine",
+    "use_sound":  "firstpersonfoodeating:zhenji.use_1"
+}

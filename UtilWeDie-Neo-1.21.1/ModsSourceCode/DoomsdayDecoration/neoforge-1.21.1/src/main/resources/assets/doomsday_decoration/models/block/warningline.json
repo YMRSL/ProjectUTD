@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/cordon",
+  "textures": {
+    "all": "doomsday_decoration:block/cordon",
+    "particle": "doomsday_decoration:block/cordon",
+    "missing": "doomsday_decoration:block/cordon"
+  },
+  "render_type": "translucent"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/microphone",
+  "textures": {
+    "all": "doomsday_decoration:block/microphone",
+    "particle": "doomsday_decoration:block/microphone",
+    "0": "doomsday_decoration:block/microphone"
+  },
+  "render_type": "cutout_mipped"
+}

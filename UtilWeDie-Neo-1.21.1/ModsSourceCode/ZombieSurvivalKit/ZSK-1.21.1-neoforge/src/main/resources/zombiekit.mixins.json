@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "package": "com.scarasol.zombiekit.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "zombiekit.refmap.json",
+  "mixins": [
+    "AbstractArrowMixin",
+    "EntityMixin",
+    "LivingEntityMixin",
+    "PillagerMixin",
+    "PlayerMixin",
+    "ServerLevelMixin"
+  ],
+  "client": [
+    "LevelRendererAccessor",
+    "LiquidBlockRendererMixin",
+    "LocalPlayerMixin",
+    "MinecraftMixin",
+    "ModelBlockRendererMixin",
+    "PlayerRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

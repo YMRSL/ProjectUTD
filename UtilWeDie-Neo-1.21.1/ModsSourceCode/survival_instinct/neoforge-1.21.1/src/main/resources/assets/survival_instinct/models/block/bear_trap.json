@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/bear_trap",
+  "textures": {
+    "all": "survival_instinct:block/bear_trap",
+    "particle": "survival_instinct:block/bear_trap",
+    "0": "survival_instinct:block/bear_trap"
+  },
+  "render_type": "cutout"
+}

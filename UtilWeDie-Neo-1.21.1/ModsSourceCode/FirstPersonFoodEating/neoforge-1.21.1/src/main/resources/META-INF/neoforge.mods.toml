@@ -1,0 +1,24 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "firstpersonfoodeating"
+version = "0.1.0-neoforge-1.21.1"
+displayName = "First Person Food Eating"
+authors = "YMRSL"
+description = '''First-person food and medical item animation mod. Unofficial NeoForge 1.21.1 port (ProjectUTD WS-7). Uses bundled GeckoLib-style geo rendering and a LuaJ-scripted hand animation state machine.'''
+
+[[dependencies.firstpersonfoodeating]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.firstpersonfoodeating]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"

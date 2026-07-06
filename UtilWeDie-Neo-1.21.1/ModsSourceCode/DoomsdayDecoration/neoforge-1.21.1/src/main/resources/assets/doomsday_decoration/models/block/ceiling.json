@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "doomsday_decoration:block/ceiling",
+    "particle": "doomsday_decoration:block/ceiling"
+  },
+  "render_type": "solid"
+}

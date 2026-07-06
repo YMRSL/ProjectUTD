@@ -1,0 +1,9 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+    "bottom": "doomsday_decoration:block/square_brick14",
+    "top": "doomsday_decoration:block/square_brick14",
+    "side": "doomsday_decoration:block/square_brick14"
+  },
+  "render_type": "solid"
+}

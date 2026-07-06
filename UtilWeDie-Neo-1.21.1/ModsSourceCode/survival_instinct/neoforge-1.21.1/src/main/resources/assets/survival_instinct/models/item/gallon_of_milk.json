@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/gallon_of_milk",
+  "textures": {
+    "0": "survival_instinct:block/gallon_of_milk",
+    "particle": "survival_instinct:item/gallon_milk"
+  }
+}

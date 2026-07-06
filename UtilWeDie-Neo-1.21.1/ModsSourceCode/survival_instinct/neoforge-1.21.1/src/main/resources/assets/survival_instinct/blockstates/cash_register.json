@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "survival_instinct:block/cash_register"
+    },
+    "facing=east": {
+      "model": "survival_instinct:block/cash_register",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "survival_instinct:block/cash_register",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "survival_instinct:block/cash_register",
+      "y": 270
+    }
+  }
+}

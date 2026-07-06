@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/wire_trap",
+  "textures": {
+    "all": "minecraft:block/chain",
+    "particle": "minecraft:block/chain",
+    "0": "survival_instinct:block/wire_trap"
+  },
+  "render_type": "cutout"
+}

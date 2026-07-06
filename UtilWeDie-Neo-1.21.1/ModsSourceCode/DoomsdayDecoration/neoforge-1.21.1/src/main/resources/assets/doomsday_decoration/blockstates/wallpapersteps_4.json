@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/wallpapersteps_4"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/wallpapersteps_4_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/wallpapersteps_4_full"
+    }
+  }
+}

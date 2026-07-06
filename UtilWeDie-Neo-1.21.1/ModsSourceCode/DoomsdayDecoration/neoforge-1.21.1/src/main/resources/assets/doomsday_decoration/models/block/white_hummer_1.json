@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/white_hummer1",
+  "textures": {
+    "all": "doomsday_decoration:block/white_hummer1",
+    "particle": "doomsday_decoration:block/white_hummer1",
+    "1": "doomsday_decoration:block/white_hummer1"
+  },
+  "render_type": "cutout_mipped"
+}

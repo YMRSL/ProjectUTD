@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/brown_jeep1",
+  "textures": {
+    "all": "doomsday_decoration:block/brown_jeep1",
+    "particle": "doomsday_decoration:block/brown_jeep1",
+    "0": "doomsday_decoration:block/brown_jeep1"
+  },
+  "render_type": "cutout_mipped"
+}

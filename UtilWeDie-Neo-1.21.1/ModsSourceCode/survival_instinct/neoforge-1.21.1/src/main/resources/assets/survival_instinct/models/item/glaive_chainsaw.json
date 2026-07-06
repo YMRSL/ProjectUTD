@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/chainsaw",
+  "textures": {
+    "1": "survival_instinct:block/chainsaw_alternative_2",
+    "particle": "survival_instinct:item/fire_axe"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "description.mm.rig_supplies_ammo": "本背心除放置物品外，还可自动为枪械供弹",
+  "key.mm.toggle_ir": "切换主动红外照明（四管夜视仪）",
+  "block.mm.ir_light_block": "红外照明方块（单人测试）",
+  "description.mm.ir_light_block": "发射红外光——只有透过夜视仪才能看见"
+}

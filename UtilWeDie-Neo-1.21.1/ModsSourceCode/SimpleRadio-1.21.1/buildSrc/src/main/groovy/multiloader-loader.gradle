@@ -1,0 +1,143 @@
+plugins {
+    id 'multiloader-common'
+    id 'me.modmuss50.mod-publish-plugin'
+}
+
+sourceSets {
+    development {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
+
+    datagen {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
+}
+
+configurations {
+    commonJava { canBeResolved = true }
+    commonResources { canBeResolved = true }
+
+    apiJava { canBeResolved = true }
+    apiResources { canBeResolved = true }
+
+    developmentImplementation.extendsFrom implementation
+    developmentRuntimeOnly.extendsFrom runtimeOnly
+}
+
+dependencies {
+    compileOnly(project(':common')) {
+        capabilities {
+            requireCapability "$group:$mod_id"
+        }
+
+        def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
+        attributes {
+            attribute(loaderAttribute, 'common')
+        }
+    }
+
+    commonJava project(path: ':common', configuration: 'commonJava')
+    commonResources project(path: ':common', configuration: 'commonResources')
+
+    apiJava project(path: ':api', configuration: 'apiJava')
+    apiResources project(path: ':api', configuration: 'apiResources')
+}
+
+tasks.named('compileJava', JavaCompile) {
+    dependsOn(configurations.commonJava)
+    source(configurations.commonJava)
+
+    dependsOn(configurations.apiJava)
+    source(configurations.apiJava)
+}
+
+processResources {
+    dependsOn(configurations.commonResources)
+    from(configurations.commonResources)
+
+    dependsOn(configurations.apiResources)
+    from(configurations.apiResources)
+}
+
+tasks.named('javadoc', Javadoc).configure {
+    dependsOn(configurations.commonJava)
+    source(configurations.commonJava)
+
+    dependsOn(configurations.apiJava)
+    source(configurations.apiJava)
+}
+
+tasks.named("sourcesJar", Jar) {
+    dependsOn(configurations.commonJava)
+    from(configurations.commonJava)
+    dependsOn(configurations.commonResources)
+    from(configurations.commonResources)
+
+    dependsOn(configurations.apiJava)
+    from(configurations.apiJava)
+    dependsOn(configurations.apiResources)
+    from(configurations.apiResources)
+}
+
+// honestly no idea what im doing at this point
+tasks.register("substituteResources", Copy) {
+    from sourceSets.datagen.output.resourcesDir // we only need to replace the resources with the datagen one
+    into sourceSets.main.output.resourcesDir
+
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+}
+
+publishMods {
+    additionalFiles.from(sourcesJar)
+    additionalFiles.from(javadocJar)
+
+    displayName = "[${project.name.toUpperCase()}] ${mod_name} ${libs.versions.minecraft.asProvider().get()}-${providers.gradleProperty("version").get()}"
+
+    changelog = file("${project.rootDir}/changelog.md").text
+    type = STABLE
+
+    curseforge {
+        projectId = curseforge_id
+        projectSlug = "simple-voice-radio"
+        accessToken = project.findProperty("curseforge_token")
+
+        minecraftVersionRange {
+            start = minecraft_min
+            end   = minecraft_max
+        }
+
+        requires(required.split(","))
+        optional(optional.split(","))
+
+        client = true
+        server = true
+    }
+
+    modrinth {
+        projectId = modrinth_id
+        accessToken = project.findProperty("modrinth_token")
+
+        requires(required.split(","))
+        optional(optional.split(","))
+
+        minecraftVersionRange {
+            start = minecraft_min
+            end   = minecraft_max
+        }
+    }
+
+//    some other time
+//    github {
+//        repository = "test/example"
+//        accessToken = providers.environmentVariable("GITHUB_TOKEN")
+//        commitish = "main"
+//    }
+
+    dryRun = debug_mode.toBoolean()
+}

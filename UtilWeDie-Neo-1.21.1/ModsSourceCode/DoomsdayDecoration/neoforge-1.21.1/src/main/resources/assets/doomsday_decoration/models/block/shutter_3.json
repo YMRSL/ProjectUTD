@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/shutter3",
+  "textures": {
+    "all": "doomsday_decoration:block/shutter3",
+    "particle": "doomsday_decoration:block/shutter3",
+    "0": "doomsday_decoration:block/shutter3"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,15 @@
+{
+  "parent": "survival_instinct:custom/stop_sing_shield",
+  "textures": {
+    "0": "survival_instinct:block/stop_sing_shield.json",
+    "particle": "survival_instinct:item/stop_sing_shield"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "survival_instinct:item/stop_sing_shield_0"
+    }
+  ]
+}

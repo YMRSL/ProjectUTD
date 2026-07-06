@@ -1,0 +1,7 @@
+{
+  "parent": "block/template_glass_pane_noside_alt",
+  "textures": {
+    "pane": "doomsday_decoration:block/no_map"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/companion_block",
+  "textures": {
+    "all": "doomsday_decoration:block/companion_block",
+    "particle": "doomsday_decoration:block/companion_block",
+    "2": "doomsday_decoration:block/companion_block"
+  },
+  "render_type": "cutout_mipped"
+}

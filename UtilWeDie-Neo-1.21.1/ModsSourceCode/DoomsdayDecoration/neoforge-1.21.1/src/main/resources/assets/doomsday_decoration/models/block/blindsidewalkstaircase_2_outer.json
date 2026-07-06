@@ -1,0 +1,9 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "doomsday_decoration:block/blind_sidewalk2",
+    "top": "doomsday_decoration:block/blind_sidewalk2",
+    "side": "doomsday_decoration:block/blind_sidewalk2"
+  },
+  "render_type": "solid"
+}

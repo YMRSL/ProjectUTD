@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "mm:block/ir_light_block" }
+  }
+}

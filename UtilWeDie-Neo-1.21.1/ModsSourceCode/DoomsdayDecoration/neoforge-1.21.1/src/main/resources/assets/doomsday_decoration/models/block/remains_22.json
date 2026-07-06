@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/corpse2.2",
+  "textures": {
+    "all": "doomsday_decoration:block/corpse2.2",
+    "particle": "doomsday_decoration:block/corpse2.2",
+    "0": "doomsday_decoration:block/corpse2.2"
+  },
+  "render_type": "cutout_mipped"
+}

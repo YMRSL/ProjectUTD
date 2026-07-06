@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/stop",
+  "textures": {
+    "all": "doomsday_decoration:block/stop",
+    "particle": "doomsday_decoration:block/stop",
+    "1": "doomsday_decoration:block/stop"
+  },
+  "render_type": "cutout_mipped"
+}

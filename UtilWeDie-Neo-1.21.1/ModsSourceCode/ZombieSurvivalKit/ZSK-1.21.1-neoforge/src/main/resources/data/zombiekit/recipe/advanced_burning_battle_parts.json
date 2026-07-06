@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " 1 ",
+    "232",
+    "454"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "2": {
+      "item": "zombiekit:energy_rod"
+    },
+    "3": {
+      "item": "zombiekit:improved_burning_battle_parts"
+    },
+    "4": {
+      "item": "minecraft:blaze_rod"
+    },
+    "5": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "zombiekit:advanced_burning_battle_parts"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/socket",
+  "textures": {
+    "all": "doomsday_decoration:block/socket",
+    "particle": "doomsday_decoration:block/socket",
+    "0": "doomsday_decoration:block/socket"
+  },
+  "render_type": "cutout_mipped"
+}

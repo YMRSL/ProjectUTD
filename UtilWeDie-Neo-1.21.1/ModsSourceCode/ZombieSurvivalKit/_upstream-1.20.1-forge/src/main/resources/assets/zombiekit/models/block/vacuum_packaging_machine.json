@@ -1,0 +1,8 @@
+{
+  "parent": "zombiekit:custom/vacuum_packaging_machine",
+  "textures": {
+    "0": "zombiekit:block/vacuum_packaging_machine",
+    "particle": "zombiekit:block/vacuum_packaging_machine"
+  },
+  "render_type": "cutout"
+}

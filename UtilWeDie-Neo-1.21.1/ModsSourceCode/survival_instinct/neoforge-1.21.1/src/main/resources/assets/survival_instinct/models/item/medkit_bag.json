@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/medkit_bag",
+  "textures": {
+    "0": "survival_instinct:block/medkit_bag",
+    "particle": "survival_instinct:item/medkit"
+  }
+}

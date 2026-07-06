@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "111",
+    "101",
+    "111"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:paper"
+    },
+    "0": {
+      "item": "zombiekit:blueprint_of_drone"
+    }
+  },
+  "result": {
+    "item": "zombiekit:blueprint_of_drone",
+    "count": 9
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/office_chair",
+  "textures": {
+    "all": "doomsday_decoration:block/office_chair",
+    "particle": "doomsday_decoration:block/office_chair",
+    "0": "doomsday_decoration:block/office_chair"
+  },
+  "render_type": "cutout_mipped"
+}

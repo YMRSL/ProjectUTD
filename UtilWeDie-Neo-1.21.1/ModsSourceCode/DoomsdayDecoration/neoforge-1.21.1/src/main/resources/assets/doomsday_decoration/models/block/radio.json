@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/radio",
+  "textures": {
+    "all": "doomsday_decoration:block/radio",
+    "particle": "doomsday_decoration:block/radio",
+    "0": "doomsday_decoration:block/radio"
+  },
+  "render_type": "cutout_mipped"
+}

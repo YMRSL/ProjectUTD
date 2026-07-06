@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/broadcaster",
+  "textures": {
+    "all": "doomsday_decoration:block/broadcaster",
+    "particle": "doomsday_decoration:block/broadcaster",
+    "0": "doomsday_decoration:block/broadcaster"
+  },
+  "render_type": "cutout_mipped"
+}

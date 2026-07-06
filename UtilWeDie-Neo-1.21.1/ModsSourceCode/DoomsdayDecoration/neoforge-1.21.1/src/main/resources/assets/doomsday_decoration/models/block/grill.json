@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/grill",
+  "textures": {
+    "all": "doomsday_decoration:block/grill",
+    "particle": "doomsday_decoration:block/grill",
+    "0": "doomsday_decoration:block/grill"
+  },
+  "render_type": "cutout"
+}

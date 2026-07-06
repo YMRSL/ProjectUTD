@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/subway_seats",
+  "textures": {
+    "all": "doomsday_decoration:block/subway_seats",
+    "particle": "doomsday_decoration:block/subway_seats",
+    "0": "doomsday_decoration:block/subway_seats"
+  },
+  "render_type": "cutout_mipped"
+}

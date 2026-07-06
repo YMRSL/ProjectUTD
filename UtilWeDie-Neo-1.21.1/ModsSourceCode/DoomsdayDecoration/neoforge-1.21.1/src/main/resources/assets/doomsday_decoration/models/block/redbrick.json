@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/red_brick",
+  "textures": {
+    "all": "doomsday_decoration:block/red_brick",
+    "particle": "doomsday_decoration:block/red_brick",
+    "0": "doomsday_decoration:block/red_brick"
+  },
+  "render_type": "cutout_mipped"
+}

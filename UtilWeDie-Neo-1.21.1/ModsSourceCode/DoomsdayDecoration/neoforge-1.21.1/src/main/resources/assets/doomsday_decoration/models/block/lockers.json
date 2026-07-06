@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/lockers",
+  "textures": {
+    "all": "doomsday_decoration:block/lockers",
+    "particle": "doomsday_decoration:block/lockers",
+    "0": "doomsday_decoration:block/lockers"
+  },
+  "render_type": "cutout_mipped"
+}

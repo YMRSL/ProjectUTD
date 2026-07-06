@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/waste_paper1",
+  "textures": {
+    "all": "doomsday_decoration:block/waste_paper1",
+    "particle": "doomsday_decoration:block/waste_paper1",
+    "0": "doomsday_decoration:block/waste_paper1"
+  },
+  "render_type": "translucent"
+}

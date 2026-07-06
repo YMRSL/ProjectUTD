@@ -1,0 +1,10 @@
+{
+  "comparator_output": 6,
+  "length_in_seconds": 256.0,
+  "sound_event": {
+    "sound_id": "sculkhorde:deep_green"
+  },
+  "description": {
+    "translate": "jukebox_song.sculkhorde.deep_green"
+  }
+}

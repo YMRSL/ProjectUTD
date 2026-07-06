@@ -1,0 +1,9 @@
+{
+    "item":  "firstpersonfoodeating:bengdai",
+    "geo":  "firstpersonfoodeating:i_bengdai_a",
+    "geo_visible_root":  "ep_bengdai",
+    "texture":  "firstpersonfoodeating:item/i_bengdai_a",
+    "animation":  "firstpersonfoodeating:i_bengdai_a",
+    "state_machine":  "firstpersonfoodeating:default_food_state_machine",
+    "use_sound":  "firstpersonfoodeating:bengdai.item_bandage_03_use"
+}

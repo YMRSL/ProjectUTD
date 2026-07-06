@@ -1,0 +1,106 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.107'
+    // Shadow provides bytecode-level package relocation so the bundled luaj does
+    // not collide with Axiom's top-level org.luaj.vm2 export under JPMS.
+    id 'com.gradleup.shadow' version '8.3.5'
+}
+
+version = '0.1.0-neoforge-1.21.1'
+group = 'io.github.ymrsl.firstpersonfoodeating'
+base { archivesName = 'firstpersonfoodeating' }
+
+java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+
+repositories {
+    maven { url = 'https://maven.aliyun.com/repository/public' }
+    mavenCentral()
+    maven { url = 'https://jitpack.io' }
+}
+
+// Extra configuration whose contents are relocated + shaded into the final jar.
+configurations {
+    shade
+    implementation.extendsFrom(shade)
+}
+
+neoForge {
+    version = '21.1.233'
+    runs {
+        client { client() }
+    }
+    mods {
+        firstpersonfoodeating { sourceSet sourceSets.main }
+    }
+}
+
+dependencies {
+    // Pure-Java Lua VM used by the scripted animation state machines.
+    // Bundled from the original Forge build's jar-in-jar (luaj-jse-3.0.1) to avoid
+    // depending on JitPack (FiguraMC variant) at build time.
+    //
+    // luaj is relocated below from org.luaj.** to com.sighs.firstpersonfoodeating.shadow.luaj.**
+    // so it no longer exports the top-level org.luaj.vm2 package that Axiom (5.4.2) already
+    // exports. Two JPMS modules cannot export the same package, which otherwise crashes startup
+    // with: ResolutionException: Modules ... export package org.luaj.vm2.compiler to module jei.
+    shade files("libs/luaj-jse-3.0.1.jar")
+
+    // Compile-only access to the "Thirst Was Taken" (dev.ghen.thirst) API used by
+    // ThirstCompatBridge for the optional thirst linkage. Provided at runtime by the
+    // 'thirst' mod; NOT bundled (compileOnly) so it never ships inside our jar.
+    compileOnly files("libs/ThirstWasTaken-1.21.1-2.1.5.jar")
+
+    // Compile-only access to Sona (com.scarasol.sona) for SonaCompatBridge — the optional
+    // medkit↔Sona linkage (blood-bar/injury refill). Provided at runtime by the 'sona' mod;
+    // NOT bundled (compileOnly), and all references are gated behind ModList.isLoaded("sona").
+    compileOnly files("libs/sona-101.1.21.1.jar")
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+
+// ---------------------------------------------------------------------------
+// luaj relocation
+//
+// shadowJar takes the compiled mod classes + the luaj library and rewrites every
+// reference to org.luaj.** (both in the library's own bytecode and in the mod's
+// compiled imports) to com.sighs.firstpersonfoodeating.shadow.luaj.**. This is the
+// jar that actually ships, so we give it the empty classifier and steer the default
+// `jar` artifact aside.
+// ---------------------------------------------------------------------------
+tasks.named('shadowJar', com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
+    // Only the shade configuration is bundled; MC/NeoForge deps stay external.
+    configurations = [project.configurations.shade]
+
+    relocate 'org.luaj', 'com.sighs.firstpersonfoodeating.shadow.luaj'
+
+    // Rewrite the bundled javax.script ScriptEngineFactory service descriptor so its
+    // contents (org.luaj.vm2.script.LuaScriptEngineFactory) follow the same relocation.
+    // The path-only relocate above leaves the file body untouched; the ServiceFileTransformer
+    // applies the relocation to the declared class name, keeping the engine self-consistent.
+    mergeServiceFiles()
+
+    // Drop the luaj CLI entry points that live in the default (unnamed) package.
+    // They are dev tools (lua/luac/luajc) that cannot be relocated and are unused at runtime.
+    exclude 'lua.class'
+    exclude 'luac.class'
+    exclude 'luajc.class'
+    exclude 'luajc$*.class'
+
+    // Avoid signature/manifest clashes from the dependency jar.
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+
+    // Ship as the canonical artifact (firstpersonfoodeating-<version>.jar).
+    archiveClassifier = ''
+}
+
+// The plain `jar` output would still contain the un-relocated mod classes, so move it
+// out of the way and make the relocated shadowJar the artifact produced by `build`.
+tasks.named('jar', Jar) {
+    archiveClassifier = 'slim'
+}
+
+tasks.named('assemble') {
+    dependsOn tasks.named('shadowJar')
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/blacksteps"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/blacksteps_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/blacksteps_full"
+    }
+  }
+}

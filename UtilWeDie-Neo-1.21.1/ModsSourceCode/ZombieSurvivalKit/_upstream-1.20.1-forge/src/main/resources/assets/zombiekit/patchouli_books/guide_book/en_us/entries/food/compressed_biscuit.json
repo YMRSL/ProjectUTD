@@ -1,0 +1,26 @@
+{
+  "name": "Compressed Biscuit",
+  "icon": "zombiekit:compressed_biscuit",
+  "category": "zombiekit:food",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "zombiekit:compressed_biscuit",
+      "text": "The survivors gathered around the campfire, having steaming stew and roasted meat, drinking beer, and singing loudly—does this seem rather idyllic? Wake up! This is the apocalypse. You should thank God if you have canned food! Since the fall of the northeastern regions, canned goods sold out long ago."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:compressed_biscuit",
+      "text": "Whatever food you have at home now might be your entire future ration. But don’t panic—there’s still a way to salvage this. What we need is the lightest, most hunger-resistant food: compressed biscuits, without a doubt."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Wheat is all you need to make them, though if conditions allow, adding eggs and sugar can improve flavor and nutrition. Not only do they stave off hunger, but this pure grain resists moisture and spoilage—truly the ultimate \"apocalypse survival food.\" Even if you’ve stockpiled enough food, I still recommend keeping compressed biscuits. After all, supplies will eventually run out, and you can’t guarantee every meal will be eaten safely in your"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "shelter. Plus, they’re lightweight, require no heating, and can be carried in your pocket for a quick bite."
+    }
+  ]
+}

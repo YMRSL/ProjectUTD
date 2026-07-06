@@ -1,0 +1,25 @@
+modLoader = "javafml"
+loaderVersion = "${loaderVersionRange}"
+license = "LGPL-3.0-or-later"
+issueTrackerURL = "https://github.com/DuckyCrayfish/hourglass/issues"
+
+[[mods]]
+modId = "hourglass"
+version = "${modVersion}"
+displayName = "Hourglass"
+authors = "DuckyCrayfish"
+description = '''Hourglass gives you control over the speed of time, and improves the sleep mechanic. Unofficial NeoForge 1.21.1 port (ProjectUTD WS-7).'''
+
+[[dependencies.hourglass]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neoVersionRange}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hourglass]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraftVersionRange}"
+ordering = "NONE"
+side = "BOTH"

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/shelf",
+  "textures": {
+    "all": "doomsday_decoration:block/shelf",
+    "particle": "doomsday_decoration:block/shelf",
+    "0": "doomsday_decoration:block/shelf"
+  },
+  "render_type": "cutout_mipped"
+}

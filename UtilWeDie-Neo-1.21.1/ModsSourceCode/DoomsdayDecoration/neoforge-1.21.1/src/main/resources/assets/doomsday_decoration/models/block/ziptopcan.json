@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/zip-top_can",
+  "textures": {
+    "all": "doomsday_decoration:block/zip-top_can",
+    "particle": "doomsday_decoration:block/zip-top_can",
+    "0": "doomsday_decoration:block/zip-top_can"
+  },
+  "render_type": "cutout_mipped"
+}

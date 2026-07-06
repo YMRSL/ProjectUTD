@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/homemade_bandage",
+  "textures": {
+    "0": "survival_instinct:block/homemade_bandage",
+    "particle": "survival_instinct:item/bandage"
+  }
+}

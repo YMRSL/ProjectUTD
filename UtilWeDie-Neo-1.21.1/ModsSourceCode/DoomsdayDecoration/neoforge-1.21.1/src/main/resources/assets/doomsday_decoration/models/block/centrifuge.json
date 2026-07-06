@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/centrifuge",
+  "textures": {
+    "all": "doomsday_decoration:block/centrifuge",
+    "particle": "doomsday_decoration:block/centrifuge",
+    "1": "doomsday_decoration:block/centrifuge"
+  },
+  "render_type": "cutout_mipped"
+}

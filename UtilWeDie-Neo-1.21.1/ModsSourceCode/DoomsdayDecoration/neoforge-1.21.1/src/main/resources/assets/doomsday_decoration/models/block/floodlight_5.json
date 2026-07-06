@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/floodlight5",
+  "textures": {
+    "all": "doomsday_decoration:block/floodlight5",
+    "particle": "doomsday_decoration:block/floodlight5",
+    "0": "doomsday_decoration:block/floodlight5"
+  },
+  "render_type": "cutout_mipped"
+}

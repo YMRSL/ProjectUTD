@@ -1,0 +1,42 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "All Rights Reserved"
+issueTrackerURL = "https://github.com/AmarokIce/FarmerMisery/issues"
+
+[[mods]]
+modId = "farmer_misery"
+version = "1.0.1-neoforge-1.21.1"
+displayName = "Farmer's Misery"
+authors = "AmarokIce"
+description = '''A Farmer's Delight cockroach-cuisine add-on. Unofficial NeoForge 1.21.1 port (ProjectUTD WS-7). Alex's Mobs is an optional dependency: cockroach catching/spawning activates only when it is installed.'''
+
+[[mixins]]
+config = "farmer_misery.mixins.json"
+
+[[dependencies.farmer_misery]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.farmer_misery]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.farmer_misery]]
+modId = "farmersdelight"
+type = "optional"
+versionRange = "[1.3,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.farmer_misery]]
+modId = "alexsmobs"
+type = "optional"
+versionRange = "[1.0,)"
+ordering = "AFTER"
+side = "BOTH"

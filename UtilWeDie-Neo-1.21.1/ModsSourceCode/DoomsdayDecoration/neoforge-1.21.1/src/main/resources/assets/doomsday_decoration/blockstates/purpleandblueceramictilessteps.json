@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/purpleandblueceramictilessteps"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/purpleandblueceramictilessteps_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/purpleandblueceramictilessteps_full"
+    }
+  }
+}

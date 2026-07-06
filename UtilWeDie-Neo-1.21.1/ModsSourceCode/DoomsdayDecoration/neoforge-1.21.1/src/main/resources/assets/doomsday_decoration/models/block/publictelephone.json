@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/public_telephone",
+  "textures": {
+    "all": "doomsday_decoration:block/public_telephone",
+    "particle": "doomsday_decoration:block/public_telephone",
+    "1": "doomsday_decoration:block/public_telephone"
+  },
+  "render_type": "cutout_mipped"
+}

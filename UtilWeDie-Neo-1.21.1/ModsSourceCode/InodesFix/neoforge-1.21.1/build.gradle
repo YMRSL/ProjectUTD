@@ -1,0 +1,35 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.107'
+}
+
+version = '1.0.0-neoforge-1.21.1'
+group = 'com.utd.inodesfix'
+base { archivesName = 'inodesfix' }
+
+java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+
+repositories {
+    maven { url = 'https://maven.aliyun.com/repository/public' }
+    mavenCentral()
+}
+
+dependencies {
+    // MixinExtras is bundled inside NeoForge at runtime, but the moddev plugin does
+    // not expose it on the compile classpath. Pull the exact version NeoForge 21.1.233
+    // ships (io.github.llamalad7:mixinextras-neoforge:0.5.3) as compileOnly so
+    // @WrapMethod / Operation resolve at compile time without duplicating it in the jar.
+    compileOnly 'io.github.llamalad7:mixinextras-neoforge:0.5.3'
+}
+
+neoForge {
+    version = '21.1.233'
+    runs {
+        client { client() }
+    }
+    mods {
+        inodesfix { sourceSet sourceSets.main }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }

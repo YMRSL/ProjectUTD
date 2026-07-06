@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/safe",
+  "textures": {
+    "all": "doomsday_decoration:block/safe",
+    "particle": "doomsday_decoration:block/safe",
+    "1": "doomsday_decoration:block/safe"
+  },
+  "render_type": "cutout_mipped"
+}

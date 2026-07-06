@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:oak_slab"
+    }
+  },
+  "result": {
+    "item": "just_barricades:oak_barricade",
+    "count": 4
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "zombiekit:custom/mortar_rack",
+  "textures": {
+    "particle": "zombiekit:block/mortar_rack"
+  }
+}

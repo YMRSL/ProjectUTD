@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/draw4",
+  "textures": {
+    "all": "doomsday_decoration:block/draw4",
+    "particle": "doomsday_decoration:block/draw4",
+    "0": "doomsday_decoration:block/draw4"
+  },
+  "render_type": "cutout_mipped"
+}

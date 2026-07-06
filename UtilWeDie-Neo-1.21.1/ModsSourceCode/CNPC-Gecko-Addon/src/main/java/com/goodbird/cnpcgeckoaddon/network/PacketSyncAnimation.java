@@ -1,0 +1,84 @@
+package com.goodbird.cnpcgeckoaddon.network;
+
+import com.goodbird.cnpcgeckoaddon.entity.EntityCustomModel;
+import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.entity.Entity;
+import noppes.npcs.entity.EntityCustomNpc;
+import software.bernie.geckolib.animation.Animation;
+import software.bernie.geckolib.animation.RawAnimation;
+
+import java.util.Map;
+import java.util.function.Supplier;
+
+public class PacketSyncAnimation implements CustomPacketPayload {
+    private int id;
+    private RawAnimation builder;
+
+    public PacketSyncAnimation(int entityId, RawAnimation builder) {
+        this.id = entityId;
+        this.builder = builder;
+    }
+
+    public PacketSyncAnimation(){
+
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(id);
+
+        CompoundTag compound = new CompoundTag();
+        ListTag animList = new ListTag();
+        for(RawAnimation.Stage anim: builder.getAnimationStages()){
+            CompoundTag animTag = new CompoundTag();
+            animTag.putString("name", anim.animationName());
+            if(anim.loopType()!=null) {
+                animTag.putString("loop", getNameFromLoopType(anim.loopType()));
+            }else{
+                animTag.putInt("loop",1);
+            }
+            animList.add(animTag);
+        }
+        compound.put("anims",animList);
+        buf.writeNbt(compound);
+    }
+
+    private String getNameFromLoopType(Animation.LoopType type){
+        for(Map.Entry<String, Animation.LoopType> entry : Animation.LoopType.LOOP_TYPES.entrySet()){
+            if(entry.getValue()==type){
+                return entry.getKey();
+            }
+        }
+        return "play_once";
+    }
+
+    public static PacketSyncAnimation decode(FriendlyByteBuf buf) {
+        int id = buf.readInt();
+        RawAnimation builder = RawAnimation.begin();
+        CompoundTag compound = buf.readNbt();
+        ListTag animList = compound.getList("anims",10);
+        for(int i=0;i<animList.size();i++){
+            CompoundTag animTag = (CompoundTag) animList.get(i);
+            builder.then(animTag.getString("name"), Animation.LoopType.fromString(animTag.getString("loop")));
+        }
+        return new PacketSyncAnimation(id,builder);
+    }
+
+    public static void handle(PacketSyncAnimation packet) {
+        Entity entity = Minecraft.getInstance().player.getCommandSenderWorld().getEntity(packet.id);
+        if(!(entity instanceof EntityCustomNpc)) return;
+        EntityCustomNpc npc = (EntityCustomNpc) entity;
+        if(npc.modelData==null || !(npc.modelData.getEntity(npc) instanceof EntityCustomModel)) return;
+        EntityCustomModel entityCustomModel = (EntityCustomModel) npc.modelData.getEntity(npc);
+        entityCustomModel.manualAnim = packet.builder;
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return new CustomPacketPayload.Type<>(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("cnpcgeckoaddon", getClass().getSimpleName().toLowerCase()));
+    }
+}
+

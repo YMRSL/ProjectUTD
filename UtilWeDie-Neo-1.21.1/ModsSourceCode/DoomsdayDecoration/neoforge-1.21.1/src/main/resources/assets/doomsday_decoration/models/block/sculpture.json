@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/sculpture",
+  "textures": {
+    "all": "doomsday_decoration:block/sculpture",
+    "particle": "doomsday_decoration:block/sculpture",
+    "1": "doomsday_decoration:block/sculpture"
+  },
+  "render_type": "cutout_mipped"
+}

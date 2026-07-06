@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/picnic_bench",
+  "textures": {
+    "all": "doomsday_decoration:block/picnic_bench",
+    "particle": "doomsday_decoration:block/picnic_bench",
+    "0": "doomsday_decoration:block/picnic_bench"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/parasol4",
+  "textures": {
+    "all": "doomsday_decoration:block/parasol4",
+    "particle": "doomsday_decoration:block/parasol4",
+    "1": "doomsday_decoration:block/parasol4"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/yellow_curtains",
+  "textures": {
+    "all": "doomsday_decoration:block/yellow_curtains",
+    "particle": "doomsday_decoration:block/yellow_curtains",
+    "0": "doomsday_decoration:block/yellow_curtains"
+  },
+  "render_type": "cutout_mipped"
+}

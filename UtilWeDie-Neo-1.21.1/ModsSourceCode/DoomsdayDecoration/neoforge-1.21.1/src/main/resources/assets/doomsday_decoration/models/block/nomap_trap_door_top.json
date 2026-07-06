@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_orientable_trapdoor_top",
+  "textures": {
+    "texture": "doomsday_decoration:block/no_map",
+    "particle": "doomsday_decoration:block/no_map"
+  },
+  "render_type": "solid"
+}

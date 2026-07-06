@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "sculkhorde:crying_souls"
+    },
+    {
+      "item": "sculkhorde:essence_of_purity"
+    },
+    {
+      "item": "sculkhorde:essence_of_purity"
+    },
+    {
+      "item": "sculkhorde:essence_of_purity"
+    },
+    {
+      "item": "sculkhorde:essence_of_purity"
+    },
+    {
+      "item": "sculkhorde:essence_of_purity"
+    },
+    {
+      "item": "sculkhorde:essence_of_purity"
+    },
+    {
+      "item": "sculkhorde:essence_of_purity"
+    },
+    {
+      "item": "sculkhorde:essence_of_purity"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "sculkhorde:pure_souls"
+  }
+}

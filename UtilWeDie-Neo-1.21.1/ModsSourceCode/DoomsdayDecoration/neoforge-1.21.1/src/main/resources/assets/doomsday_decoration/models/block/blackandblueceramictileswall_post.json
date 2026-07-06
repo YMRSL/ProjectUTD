@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_post",
+  "textures": {
+    "wall": "doomsday_decoration:block/black_and_blue_ceramic_tiles",
+    "particle": "doomsday_decoration:block/black_and_blue_ceramic_tiles"
+  },
+  "render_type": "solid"
+}

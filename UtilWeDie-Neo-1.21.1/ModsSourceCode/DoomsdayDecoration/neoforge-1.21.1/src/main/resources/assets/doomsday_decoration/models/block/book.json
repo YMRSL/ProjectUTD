@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/book",
+  "textures": {
+    "all": "doomsday_decoration:block/book",
+    "particle": "doomsday_decoration:block/book",
+    "0": "doomsday_decoration:block/book"
+  },
+  "render_type": "cutout_mipped"
+}

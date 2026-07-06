@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/speaker",
+  "textures": {
+    "all": "doomsday_decoration:block/speaker",
+    "particle": "doomsday_decoration:block/speaker",
+    "0": "doomsday_decoration:block/speaker"
+  },
+  "render_type": "cutout_mipped"
+}

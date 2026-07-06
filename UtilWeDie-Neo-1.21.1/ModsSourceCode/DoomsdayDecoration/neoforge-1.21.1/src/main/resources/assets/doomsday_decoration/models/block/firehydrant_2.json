@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/fire_hydrant2",
+  "textures": {
+    "all": "doomsday_decoration:block/fire_hydrant2",
+    "particle": "doomsday_decoration:block/fire_hydrant2",
+    "0": "doomsday_decoration:block/fire_hydrant2"
+  },
+  "render_type": "cutout_mipped"
+}

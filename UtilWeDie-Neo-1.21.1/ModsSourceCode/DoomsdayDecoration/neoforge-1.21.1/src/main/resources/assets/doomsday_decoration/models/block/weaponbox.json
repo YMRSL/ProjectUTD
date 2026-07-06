@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/weapon_box",
+  "textures": {
+    "all": "doomsday_decoration:block/weapon_box",
+    "particle": "doomsday_decoration:block/weapon_box",
+    "0": "doomsday_decoration:block/weapon_box"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "survival_instinct:custom/barricade",
+  "textures": {
+    "all": "survival_instinct:block/barricate_op",
+    "particle": "survival_instinct:block/barricate_op",
+    "1": "survival_instinct:block/barricade"
+  },
+  "render_type": "solid"
+}

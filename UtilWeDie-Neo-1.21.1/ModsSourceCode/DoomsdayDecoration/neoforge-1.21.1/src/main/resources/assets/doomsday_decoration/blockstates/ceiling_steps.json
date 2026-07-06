@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "doomsday_decoration:block/ceiling_steps"
+    },
+    "type=top": {
+      "model": "doomsday_decoration:block/ceiling_steps_top"
+    },
+    "type=double": {
+      "model": "doomsday_decoration:block/ceiling_steps_full"
+    }
+  }
+}

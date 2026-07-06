@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/broadcast",
+  "textures": {
+    "all": "doomsday_decoration:block/broadcast",
+    "particle": "doomsday_decoration:block/broadcast",
+    "0": "doomsday_decoration:block/broadcast"
+  },
+  "render_type": "solid"
+}

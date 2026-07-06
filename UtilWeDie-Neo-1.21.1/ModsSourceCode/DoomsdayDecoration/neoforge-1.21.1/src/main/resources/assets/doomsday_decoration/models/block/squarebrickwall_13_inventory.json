@@ -1,0 +1,8 @@
+{
+  "parent": "block/wall_inventory",
+  "textures": {
+    "wall": "doomsday_decoration:block/square_brick13",
+    "particle": "doomsday_decoration:block/square_brick13"
+  },
+  "render_type": "solid"
+}

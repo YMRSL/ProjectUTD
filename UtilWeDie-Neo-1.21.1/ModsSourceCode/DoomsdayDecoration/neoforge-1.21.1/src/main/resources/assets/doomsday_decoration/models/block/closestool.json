@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/closestool",
+  "textures": {
+    "all": "doomsday_decoration:block/closestool",
+    "particle": "doomsday_decoration:block/closestool",
+    "0": "doomsday_decoration:block/closestool"
+  },
+  "render_type": "cutout_mipped"
+}

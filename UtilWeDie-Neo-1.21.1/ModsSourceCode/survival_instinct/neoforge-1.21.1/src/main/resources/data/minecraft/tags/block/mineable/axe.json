@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "survival_instinct:rope_trap",
+    "survival_instinct:crate",
+    "survival_instinct:barricade",
+    "survival_instinct:wire_trap"
+  ]
+}

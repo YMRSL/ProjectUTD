@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/balloon",
+  "textures": {
+    "all": "doomsday_decoration:block/balloon",
+    "particle": "doomsday_decoration:block/balloon",
+    "0": "doomsday_decoration:block/balloon"
+  },
+  "render_type": "cutout_mipped"
+}

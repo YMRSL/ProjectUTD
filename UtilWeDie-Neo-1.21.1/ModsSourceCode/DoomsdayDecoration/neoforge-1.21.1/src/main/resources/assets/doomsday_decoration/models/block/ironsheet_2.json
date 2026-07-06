@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "doomsday_decoration:block/iron_sheet2",
+    "particle": "doomsday_decoration:block/iron_sheet2"
+  },
+  "render_type": "solid"
+}

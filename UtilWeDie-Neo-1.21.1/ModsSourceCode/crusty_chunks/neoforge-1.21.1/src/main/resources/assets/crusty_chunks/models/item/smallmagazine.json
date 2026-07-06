@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "crusty_chunks:item/smallmagazineempty"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "crusty_chunks:smallmagazine_ammunitionload": 1
+      },
+      "model": "crusty_chunks:item/smallmagazine_0"
+    }
+  ]
+}

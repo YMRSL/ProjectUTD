@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/metal_drawer2",
+  "textures": {
+    "all": "doomsday_decoration:block/metal_drawer2",
+    "particle": "doomsday_decoration:block/metal_drawer2",
+    "2": "doomsday_decoration:block/metal_drawer2"
+  },
+  "render_type": "cutout"
+}

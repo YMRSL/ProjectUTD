@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/fan",
+  "textures": {
+    "all": "doomsday_decoration:block/fan",
+    "particle": "doomsday_decoration:block/fan",
+    "1": "doomsday_decoration:block/fan"
+  },
+  "render_type": "cutout_mipped"
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "doomsday_decoration:blocks/fixedgenerator",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:fixedgenerator"
+        }
+      ]
+    }
+  ]
+}

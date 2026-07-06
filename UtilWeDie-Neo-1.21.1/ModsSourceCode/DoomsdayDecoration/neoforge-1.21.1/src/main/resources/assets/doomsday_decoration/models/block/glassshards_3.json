@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/glass_shards3",
+  "textures": {
+    "all": "doomsday_decoration:block/glass_shards3",
+    "particle": "doomsday_decoration:block/glass_shards3",
+    "0": "doomsday_decoration:block/glass_shards3"
+  },
+  "render_type": "translucent"
+}

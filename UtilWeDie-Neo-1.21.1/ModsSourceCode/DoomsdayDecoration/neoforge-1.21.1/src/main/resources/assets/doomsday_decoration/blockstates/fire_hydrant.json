@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "doomsday_decoration:block/fire_hydrant"
+    },
+    "facing=east": {
+      "model": "doomsday_decoration:block/fire_hydrant",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "doomsday_decoration:block/fire_hydrant",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "doomsday_decoration:block/fire_hydrant",
+      "y": 270
+    }
+  }
+}

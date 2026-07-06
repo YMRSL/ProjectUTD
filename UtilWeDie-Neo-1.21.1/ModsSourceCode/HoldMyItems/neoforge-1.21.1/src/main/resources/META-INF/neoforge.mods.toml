@@ -1,0 +1,33 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+
+[[mods]]
+modId = "holdmyitems"
+version = "2.0-neoforge-1.21.1"
+displayName = "HoldMyItems - Reforged"
+logoFile = "logo.png"
+authors = "bene2212 (Forge port), thesapling (original author)"
+credits = "Special thanks to thesapling for the original idea and implementation of this mod. Unofficial NeoForge 1.21.1 port (ProjectUTD WS-7)."
+description = '''This mod makes Minecraft more immersive.
+
+It renders an arm when you're holding an item, so it looks like you're actually holding it!
+
+Unofficial NeoForge 1.21.1 port. Configurable mod render blacklist (excludedModIds) lets other mods render their own held items; defaults exclude firstpersonfoodeating, superbwarfare and handheldmoon.'''
+
+[[mixins]]
+config = "holdmyitems.mixins.json"
+
+[[dependencies.holdmyitems]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.holdmyitems]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"

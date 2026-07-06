@@ -1,0 +1,9 @@
+{
+    "item":  "firstpersonfoodeating:jijiubao",
+    "geo":  "firstpersonfoodeating:i_jijiubao_a",
+    "geo_visible_root":  "ep_jijiubao",
+    "texture":  "firstpersonfoodeating:item/i_jijiubao_a",
+    "animation":  "firstpersonfoodeating:i_jijiubao_a",
+    "state_machine":  "firstpersonfoodeating:default_food_state_machine",
+    "use_sound":  "firstpersonfoodeating:jijiubao.jijiubao_use1"
+}

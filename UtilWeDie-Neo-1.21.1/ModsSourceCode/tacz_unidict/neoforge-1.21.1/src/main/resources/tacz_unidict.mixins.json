@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "package": "com.scarasol.tud.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "injectors": {
+    "defaultRequire": 0
+  },
+  "minVersion": "0.8",
+  "mixins": [
+    "AbstractGunItemMixin",
+    "AmmoBoxItemMixin",
+    "AmmoItemMixin",
+    "AttachmentCachePropertyMixin",
+    "AttachmentDataUtilsMixin",
+    "GunAnimationStateContextMixin",
+    "LootTableMixin",
+    "ModernKineticGunScriptAPIMixin",
+    "accessor.BulletDataAccessor",
+    "accessor.ExtraDamageAccessor",
+    "accessor.FallingBlockEntityAccessor",
+    "accessor.GunDataAccessor"
+  ],
+  "client": [
+    "ClientGunTooltipMixin",
+    "GunHudOverlayMixin"
+  ]
+}

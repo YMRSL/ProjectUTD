@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/hanging_bottle_rod",
+  "textures": {
+    "all": "doomsday_decoration:block/hanging_bottle_rod",
+    "particle": "doomsday_decoration:block/hanging_bottle_rod",
+    "0": "doomsday_decoration:block/hanging_bottle_rod"
+  },
+  "render_type": "cutout_mipped"
+}

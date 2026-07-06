@@ -1,0 +1,10 @@
+{
+  "parent": "doomsday_decoration:custom/bloodstain5",
+  "textures": {
+    "all": "doomsday_decoration:block/bloodstain5",
+    "particle": "doomsday_decoration:block/bloodstain5",
+    "0": "doomsday_decoration:block/bloodstain5",
+    "missing": "doomsday_decoration:block/"
+  },
+  "render_type": "translucent"
+}

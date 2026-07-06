@@ -1,0 +1,27 @@
+{
+  "_comment": "BlockZ linkage: survival_instinct chestplates grant a storage grid when worn (read from the vanilla chest slot). cap_width=columns, cap_height=rows. Tweak freely.",
+  "items": {
+    "survival_instinct:green_rockie_armor_chestplate":   { "cap_width": 6, "cap_height": 3 },
+    "survival_instinct:desert_rockie_armor_chestplate":  { "cap_width": 6, "cap_height": 3 },
+    "survival_instinct:black_rockie_armor_chestplate":   { "cap_width": 6, "cap_height": 3 },
+    "survival_instinct:green_recluit_armor_chestplate":  { "cap_width": 6, "cap_height": 3 },
+    "survival_instinct:desert_recluit_armor_chestplate": { "cap_width": 6, "cap_height": 3 },
+    "survival_instinct:black_recluit_armor_chestplate":  { "cap_width": 6, "cap_height": 3 },
+    "survival_instinct:guillie_chestplate":              { "cap_width": 6, "cap_height": 3 },
+    "survival_instinct:spruce_guillie_chestplate":       { "cap_width": 6, "cap_height": 3 },
+    "survival_instinct:artic_guillie_chestplate":        { "cap_width": 6, "cap_height": 3 },
+    "survival_instinct:fire_fighter_chestplate":         { "cap_width": 6, "cap_height": 3 },
+    "survival_instinct:hazmat_chestplate":               { "cap_width": 6, "cap_height": 3 },
+
+    "survival_instinct:military_chestplate":             { "cap_width": 4, "cap_height": 5 },
+    "survival_instinct:police_chestplate":               { "cap_width": 4, "cap_height": 5 },
+
+    "survival_instinct:green_juggernaut_chestplate":     { "cap_width": 6, "cap_height": 4 },
+    "survival_instinct:desert_juggernaut_chestplate":    { "cap_width": 6, "cap_height": 4 },
+    "survival_instinct:black_juggernaut_chestplate":     { "cap_width": 6, "cap_height": 4 },
+    "survival_instinct:exo_chestplate":                  { "cap_width": 6, "cap_height": 4 },
+    "survival_instinct:exo_heavy_green_chestplate":      { "cap_width": 6, "cap_height": 4 },
+    "survival_instinct:exo_heavy_desert_chestplate":     { "cap_width": 6, "cap_height": 4 },
+    "survival_instinct:exo_heavy_black_chestplate":      { "cap_width": 6, "cap_height": 4 }
+  }
+}

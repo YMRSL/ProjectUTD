@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/gas_station",
+  "textures": {
+    "all": "doomsday_decoration:block/gas_station",
+    "particle": "doomsday_decoration:block/gas_station",
+    "1": "doomsday_decoration:block/gas_station"
+  },
+  "render_type": "cutout_mipped"
+}

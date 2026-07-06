@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "zombiekit:canned_fish_in_black_bean_sauce",
+      "required": false
+    },
+    {
+      "id": "zombiekit:canned_luncheon_meat",
+      "required": false
+    },
+    {
+      "id": "zombiekit:canned_beef_hotpot",
+      "required": false
+    }
+  ]
+}

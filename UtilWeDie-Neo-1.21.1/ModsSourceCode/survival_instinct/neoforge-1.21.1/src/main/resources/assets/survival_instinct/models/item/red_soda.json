@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/red_soda",
+  "textures": {
+    "0": "survival_instinct:block/red_soda",
+    "particle": "survival_instinct:item/red_soda"
+  }
+}

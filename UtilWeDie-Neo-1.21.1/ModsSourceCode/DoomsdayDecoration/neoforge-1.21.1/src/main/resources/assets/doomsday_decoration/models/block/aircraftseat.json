@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/aircraft_seat",
+  "textures": {
+    "all": "doomsday_decoration:block/aircraft_seat",
+    "particle": "doomsday_decoration:block/aircraft_seat",
+    "0": "doomsday_decoration:block/aircraft_seat"
+  },
+  "render_type": "cutout_mipped"
+}

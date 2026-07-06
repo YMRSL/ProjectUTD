@@ -1,0 +1,34 @@
+{
+  "name": "真空包装机",
+  "icon": "zombiekit:vacuum_packaging_machine",
+  "category": "zombiekit:food",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "zombiekit:vacuum_packaging_machine",
+      "text": "外面病毒肆虐，丧尸横行，而你坐在家里想着自己装满食物的储藏室和大冰柜，肯定让你感觉很有安全感吧？希望那些食物全是罐头，不然一旦电力瘫痪，食物保存问题就会成为你最大的困扰。冰柜可是大功率电器，和平年代能源已经堪比黄金，末世中更是如此！所以，你的食物最好采取其他"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "zombiekit:vacuum_packaging_machine",
+      "text": "保存方式，比如脱水、腌制或者真空包装。趁现在还来得及，赶紧买一台真空包装机吧！最好是电池供电的，这样你现在就可以储备蓄电池，等电力瘫痪时，你还有充足的能源可以使用。而且目前市面上已经开始流行"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "这种电池供电的真空包装机了，他们真懂怎么做生意，只希望他们赚的钱能在末世也能派上用场。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(o)（这里有一张说明书）$()$(br)$(#6F6F6F)$(l)格莱尔GRE-738食品真空包装机$()$(br)$(#6F6F6F)规格参数$(li)功率：580W$(li)封装材料：制式塑料包装袋$(li)机身材质:食品级合金$(li)真空度：80KPA$(li)电源：大容量蓄电池$(br)使用须知$(li)一枚市面上流行的大容量蓄电池大约能够供该机器进行500个食物的包装。请依据实际情况及时补充电源；"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "$(#6F6F6F)$(li)请勿在未填充包装袋的情况下长期将食物滞留于该机器中，以免食物发生腐败损伤机器内胆。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": " "
+    }
+  ]
+}

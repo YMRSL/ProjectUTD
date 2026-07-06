@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/sign",
+  "textures": {
+    "all": "doomsday_decoration:block/sign",
+    "particle": "doomsday_decoration:block/sign",
+    "0": "doomsday_decoration:block/sign"
+  },
+  "render_type": "cutout_mipped"
+}

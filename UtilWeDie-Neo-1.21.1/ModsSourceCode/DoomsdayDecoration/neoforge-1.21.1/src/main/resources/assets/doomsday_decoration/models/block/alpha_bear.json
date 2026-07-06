@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/alpha_bear",
+  "textures": {
+    "all": "doomsday_decoration:block/alpha_bear",
+    "particle": "doomsday_decoration:block/alpha_bear",
+    "1": "doomsday_decoration:block/alpha_bear"
+  },
+  "render_type": "cutout_mipped"
+}

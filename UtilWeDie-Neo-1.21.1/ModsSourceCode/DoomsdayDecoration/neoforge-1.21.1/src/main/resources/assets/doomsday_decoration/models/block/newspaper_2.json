@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/newspaper2",
+  "textures": {
+    "all": "doomsday_decoration:block/newspaper2",
+    "particle": "doomsday_decoration:block/newspaper2",
+    "1": "doomsday_decoration:block/newspaper2"
+  },
+  "render_type": "cutout_mipped"
+}

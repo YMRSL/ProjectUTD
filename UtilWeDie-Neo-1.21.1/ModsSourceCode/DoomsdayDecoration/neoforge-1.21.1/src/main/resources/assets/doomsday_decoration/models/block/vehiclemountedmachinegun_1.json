@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/vehicle_mounted_machine_gun1",
+  "textures": {
+    "all": "doomsday_decoration:block/vehicle_mounted_machine_gun1",
+    "particle": "doomsday_decoration:block/vehicle_mounted_machine_gun1",
+    "2": "doomsday_decoration:block/vehicle_mounted_machine_gun1"
+  },
+  "render_type": "cutout_mipped"
+}

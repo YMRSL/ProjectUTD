@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/shed2",
+  "textures": {
+    "all": "doomsday_decoration:block/shed2",
+    "particle": "doomsday_decoration:block/shed2",
+    "0": "doomsday_decoration:block/shed2"
+  },
+  "render_type": "cutout_mipped"
+}

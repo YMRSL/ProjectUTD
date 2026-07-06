@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "zombiekit:item/mine_layer_mortar_shell_in_inventory"
+  }
+}

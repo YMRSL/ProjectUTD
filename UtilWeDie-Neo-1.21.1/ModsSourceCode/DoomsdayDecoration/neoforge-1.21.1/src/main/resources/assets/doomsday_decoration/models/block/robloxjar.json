@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/roblox_jar",
+  "textures": {
+    "all": "doomsday_decoration:block/roblox_jar",
+    "particle": "doomsday_decoration:block/roblox_jar",
+    "0": "doomsday_decoration:block/roblox_jar"
+  },
+  "render_type": "cutout_mipped"
+}

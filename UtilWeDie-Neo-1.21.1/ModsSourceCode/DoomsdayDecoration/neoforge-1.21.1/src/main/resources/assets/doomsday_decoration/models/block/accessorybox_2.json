@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/accessory_box2",
+  "textures": {
+    "all": "doomsday_decoration:block/accessory_box2",
+    "particle": "doomsday_decoration:block/accessory_box2",
+    "2": "doomsday_decoration:block/accessory_box2"
+  },
+  "render_type": "cutout_mipped"
+}

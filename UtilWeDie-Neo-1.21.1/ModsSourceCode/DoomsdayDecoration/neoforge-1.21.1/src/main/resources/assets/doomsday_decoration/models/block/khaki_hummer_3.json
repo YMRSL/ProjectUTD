@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/khaki_hummer3",
+  "textures": {
+    "all": "doomsday_decoration:block/khaki_hummer3",
+    "particle": "doomsday_decoration:block/khaki_hummer3",
+    "0": "doomsday_decoration:block/khaki_hummer3"
+  },
+  "render_type": "cutout_mipped"
+}

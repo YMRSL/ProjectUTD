@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/hanging_clothes",
+  "textures": {
+    "all": "doomsday_decoration:block/hanging_clothes",
+    "particle": "doomsday_decoration:block/hanging_clothes",
+    "2": "doomsday_decoration:block/hanging_clothes"
+  },
+  "render_type": "translucent"
+}

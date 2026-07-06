@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/printer",
+  "textures": {
+    "all": "doomsday_decoration:block/printer",
+    "particle": "doomsday_decoration:block/printer",
+    "0": "doomsday_decoration:block/printer"
+  },
+  "render_type": "cutout_mipped"
+}

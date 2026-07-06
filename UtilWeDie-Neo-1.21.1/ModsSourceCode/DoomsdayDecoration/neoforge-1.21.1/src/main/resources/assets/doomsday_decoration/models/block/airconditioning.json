@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/air-conditioning",
+  "textures": {
+    "all": "doomsday_decoration:block/air-conditioning",
+    "particle": "doomsday_decoration:block/air-conditioning",
+    "0": "doomsday_decoration:block/air-conditioning"
+  },
+  "render_type": "cutout_mipped"
+}

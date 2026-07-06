@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/first_aid_kit",
+  "textures": {
+    "all": "doomsday_decoration:block/first_aid_kit",
+    "particle": "doomsday_decoration:block/first_aid_kit",
+    "0": "doomsday_decoration:block/first_aid_kit"
+  },
+  "render_type": "cutout_mipped"
+}

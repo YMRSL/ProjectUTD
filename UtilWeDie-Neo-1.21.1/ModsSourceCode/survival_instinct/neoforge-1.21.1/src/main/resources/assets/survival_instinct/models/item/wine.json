@@ -1,0 +1,7 @@
+{
+  "parent": "survival_instinct:custom/wine",
+  "textures": {
+    "4": "survival_instinct:block/wine",
+    "particle": "survival_instinct:item/wine"
+  }
+}

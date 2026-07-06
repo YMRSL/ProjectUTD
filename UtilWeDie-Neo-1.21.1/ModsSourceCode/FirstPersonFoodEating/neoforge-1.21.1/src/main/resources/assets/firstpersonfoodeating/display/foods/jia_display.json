@@ -1,0 +1,9 @@
+{
+    "item":  "firstpersonfoodeating:jia",
+    "geo":  "firstpersonfoodeating:i_jia_a",
+    "geo_visible_root":  "i_jia",
+    "texture":  "firstpersonfoodeating:item/i_jia_a_uv",
+    "animation":  "firstpersonfoodeating:i_jia_a",
+    "state_machine":  "firstpersonfoodeating:default_food_state_machine",
+    "use_sound":  "firstpersonfoodeating:jia.use1"
+}

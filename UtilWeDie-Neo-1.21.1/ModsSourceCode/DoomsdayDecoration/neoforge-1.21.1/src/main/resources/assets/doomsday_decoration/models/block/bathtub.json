@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/bathtub",
+  "textures": {
+    "all": "doomsday_decoration:block/bathtub",
+    "particle": "doomsday_decoration:block/bathtub",
+    "2": "doomsday_decoration:block/bathtub"
+  },
+  "render_type": "cutout_mipped"
+}

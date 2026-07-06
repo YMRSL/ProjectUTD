@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/wooden_cabinet2",
+  "textures": {
+    "all": "doomsday_decoration:block/wooden_cabinet2",
+    "particle": "doomsday_decoration:block/wooden_cabinet2",
+    "0": "doomsday_decoration:block/wooden_cabinet2"
+  },
+  "render_type": "cutout"
+}

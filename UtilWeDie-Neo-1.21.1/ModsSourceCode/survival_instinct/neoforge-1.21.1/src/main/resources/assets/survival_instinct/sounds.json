@@ -1,0 +1,130 @@
+{
+  "bear_trap_close": {
+    "sounds": [
+      {
+        "name": "survival_instinct:bear_trap_close",
+        "stream": false
+      }
+    ]
+  },
+  "chainsaw_swing": {
+    "sounds": [
+      {
+        "name": "survival_instinct:chainsaw_swing",
+        "stream": false
+      }
+    ]
+  },
+  "electric_guitar_swing": {
+    "sounds": [
+      {
+        "name": "survival_instinct:electric_guitar_swing",
+        "stream": false
+      }
+    ]
+  },
+  "electric_guitar_smash": {
+    "sounds": [
+      {
+        "name": "survival_instinct:electric_guitar_smash",
+        "stream": false
+      }
+    ]
+  },
+  "pipe_slam": {
+    "sounds": [
+      {
+        "name": "survival_instinct:pipe_slam",
+        "stream": false
+      }
+    ]
+  },
+  "trhow_molotov": {
+    "sounds": [
+      {
+        "name": "survival_instinct:molotov_throw",
+        "stream": false
+      }
+    ]
+  },
+  "explote_molotov": {
+    "sounds": [
+      {
+        "name": "survival_instinct:molotov_explote",
+        "stream": false
+      }
+    ]
+  },
+  "circularsaw_swing": {
+    "sounds": [
+      {
+        "name": "survival_instinct:circularsaw_swing",
+        "stream": false
+      }
+    ]
+  },
+  "crowbar_swing": {
+    "sounds": [
+      {
+        "name": "survival_instinct:crowbar_swing",
+        "stream": false
+      }
+    ]
+  },
+  "crowbar_slam": {
+    "sounds": [
+      {
+        "name": "survival_instinct:crowbar_slam",
+        "stream": false
+      }
+    ]
+  },
+  "nailgun_shoot": {
+    "sounds": [
+      {
+        "name": "survival_instinct:nailgun_shoot",
+        "stream": false
+      }
+    ]
+  },
+  "exo_dash_01": {
+    "sounds": [
+      {
+        "name": "survival_instinct:exo_dash_01",
+        "stream": false
+      }
+    ]
+  },
+  "exo_dash_02": {
+    "sounds": [
+      {
+        "name": "survival_instinct:exo_dash_02",
+        "stream": false
+      }
+    ]
+  },
+  "electric_fist_01": {
+    "sounds": [
+      {
+        "name": "survival_instinct:electric_fist_01",
+        "stream": false
+      }
+    ]
+  },
+  "handcuff_sound": {
+    "sounds": [
+      {
+        "name": "survival_instinct:handcuff_sound",
+        "stream": false
+      }
+    ]
+  },
+  "handcuff_off_sound": {
+    "sounds": [
+      {
+        "name": "survival_instinct:handcuff_off_sound",
+        "stream": false
+      }
+    ]
+  }
+}

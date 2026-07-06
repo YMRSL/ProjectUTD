@@ -1,0 +1,9 @@
+{
+  "parent": "doomsday_decoration:custom/discard_green_car2",
+  "textures": {
+    "all": "doomsday_decoration:block/discard_green_car2",
+    "particle": "doomsday_decoration:block/discard_green_car2",
+    "1": "doomsday_decoration:block/discard_green_car2"
+  },
+  "render_type": "cutout_mipped"
+}
