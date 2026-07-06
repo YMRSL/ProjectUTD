@@ -6,6 +6,7 @@ This repository is being imported in small batches so that Git history stays use
 
 - `Migration-1.21.1/`: migration notes.
 - `SocialWill/Picasso/`: Python tooling and documentation.
+- `SocialWill/sw_src/`: copied from `D:/ModDevelop/sw_src/`; active Gradle/Kotlin SuperbWarfare-related source with local build output excluded.
 - `Code/ItemsReFresh/`: maintained Java plugin source. Build outputs are ignored.
 - `UtilWeDie-Neo-1.21.1/ModsSourceCode/`: active UtilWeDie mod source workspaces and curated assets. Build output, Gradle caches, extracted jars, temporary tooling folders, and selected embedded upstream Git snapshots remain ignored.
 
@@ -15,7 +16,7 @@ This repository is being imported in small batches so that Git history stays use
 - `Code/WorldEdit-version-7.2.x/`: upstream/source snapshot.
 - `Code/WorldEditCUI-Arch-master/`: upstream/source snapshot.
 - `UtilWeDie-Neo-1.21.1/npc/`: good source candidate, but includes scripts, docs, textures, sounds, and resource-pack assets; import in a separate reviewed commit.
-- `D:/ModDevelop/`: large external development workspace discovered during repository cleanup. Needs a separate inventory and copy/import pass before it is managed by this repository.
+- `D:/ModDevelop/`: large external development workspace discovered during repository cleanup. See `docs/moddevelop-inventory.md`; import source subsets only, not whole mixed workspaces.
 
 ## Rules For Future Imports
 
