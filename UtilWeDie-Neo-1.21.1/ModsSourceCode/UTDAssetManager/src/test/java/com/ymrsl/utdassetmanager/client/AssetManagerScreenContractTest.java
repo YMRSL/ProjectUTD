@@ -44,4 +44,20 @@ class AssetManagerScreenContractTest {
         assertTrue(source.contains("badge(graphics, \"掉\""));
         assertTrue(source.contains("? \"同\" : \"!\""));
     }
+
+    @Test
+    void projectDirectoryIsASeparateReadOnlyScope() throws Exception {
+        Path sourcePath = Path.of(
+                "src/main/java/com/ymrsl/utdassetmanager/client/AssetManagerScreen.java");
+        String source = Files.readString(sourcePath);
+
+        assertTrue(source.contains("private AssetScope scope = AssetScope.LOCAL"));
+        assertTrue(source.contains("source = repository.allManifestDirectory()"));
+        assertTrue(source.contains("repository.projectStatusFor(record)"));
+        assertTrue(source.contains("repository.isSelectedIdentity(record)"));
+        assertTrue(source.contains("String haystack = (displayName(record)"));
+        assertTrue(source.contains("项目目录只读"));
+        assertTrue(source.contains("if (scope != AssetScope.LOCAL)"));
+        assertTrue(source.contains("componentSensitiveBase(record)"));
+    }
 }

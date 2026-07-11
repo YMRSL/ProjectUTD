@@ -20,6 +20,24 @@ public final class ManifestEntry {
     @SerializedName(value = "variant_discriminator", alternate = {"variantDiscriminator"})
     public String variantDiscriminator = "";
 
+    @SerializedName(value = "client_name_zh_cn", alternate = {"clientNameZhCn"})
+    public String clientNameZhCn = "";
+
+    @SerializedName(value = "translation_key", alternate = {"translationKey"})
+    public String translationKey = "";
+
+    @SerializedName(value = "components_snbt", alternate = {"componentsSnbt"})
+    public String componentsSnbt = "";
+
+    @SerializedName(value = "components_canonical", alternate = {"componentsCanonical"})
+    public String componentsCanonical = "";
+
+    @SerializedName(value = "identity_components_canonical", alternate = {"identityComponentsCanonical"})
+    public String identityComponentsCanonical = "";
+
+    @SerializedName(value = "human_selected", alternate = {"humanSelected"})
+    public boolean humanSelected;
+
     public boolean catalogued;
 
     @SerializedName(value = "recipe_input_count", alternate = {"recipeInputCount"})

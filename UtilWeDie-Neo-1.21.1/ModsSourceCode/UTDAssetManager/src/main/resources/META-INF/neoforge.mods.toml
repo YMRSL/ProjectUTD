@@ -4,7 +4,7 @@ license = "All Rights Reserved"
 
 [[mods]]
 modId = "utd_asset_manager"
-version = "0.1.2-test2"
+version = "0.1.3-test3"
 displayName = "UTD Asset Manager"
 authors = "YMRSL / ProjectUTD"
 description = '''Client-side, human-curated item variant catalogue and status console for ProjectUTD. No registry-wide scan and no automatic deployment.'''

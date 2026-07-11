@@ -2,16 +2,17 @@
 
 面向 ProjectUTD 的 NeoForge 1.21.1 客户端资产档案台。它继承旧 ItemNameCatch 的“由人明确选择物品”原则，但不扫描完整物品注册表，也不修改 KubeJS、Loot 或客户端部署目录。
 
-**发布状态（2026-07-11）：** 源码、12 项自动测试和 JAR 构建已通过，JAR 与首份状态清单已安装到本地 NeoForge 21.1.233 客户端；完整整合包中的 O 键界面、Tooltip、标注持久化和 TaCZ/FPE 实机身份稳定性仍待用户验收。
+**发布状态（2026-07-12）：** `0.1.2-test2` 已通过用户完整实机验收；`0.1.3-test3` 的项目目录候选版已通过 23 项自动测试，等待定向实机验收后再作为下一基线。
 
 ## 当前能力
 
 - `O` 或 `/utdasset open` 打开工业档案台三栏界面；
-- 界面只显示已经人工标注的 variant、玩家背包内容，以及打开档案台前所在容器的可见槽位；
-- 搜索名称、registry id、asset key、variant 类型；按人工标注、已纳管、配方、Loot、同步、异常分组；
+- 默认“本机”页显示已经人工标注的 variant、玩家背包内容，以及打开档案台前所在容器的可见槽位；
+- 只读“项目目录”页浏览完整 `status_manifest.json`，并把项目历史标注与本机白名单明确分开；
+- 搜索名称、registry id、asset key、variant 类型和稳定 discriminator；按人工标注、已纳管、配方、Loot、同步、异常分组；
 - 在检查器内标注/取消标注，并可按当前搜索与状态筛选批量标注/取消；支持重载外部状态、导出 JSON；
 - `/utdasset markhand`、`unmarkhand`、`export`、`reload`；
-- 所有物品 Tooltip 实时显示 `human_selected`、`catalogued`、`recipe_input`、`recipe_output`、`loot_enabled`、`sync_state`、`stale`、`issues`；
+- 所有物品 Tooltip 实时显示本机 `human_selected`、`catalogued`、`recipe_input`、`recipe_output`、`loot_enabled`、`sync_state`、`stale`、`issues`；项目历史人工标注在只读目录中单独显示；
 - 保存客户端当前显示名、translation key、registry id、完整 ItemStack SNBT、原始 components SNBT、确定性 observed/identity canonical forms、asset key 和 variant key；非 `zh_cn` 客户端禁止标注与正式导出。
 
 ## 文件协议
@@ -39,6 +40,7 @@
 - 标注、取消和批量操作在写盘失败时回滚内存状态；
 - 白名单损坏时进入只读保护，不会用空数据覆盖原文件；
 - Manifest 先在临时索引中完整解析和检查重复键，再一次性替换内存状态；半写或损坏文件会继续使用 last-known-good 状态并显示问题；
+- 相同损坏版本只解析并报告一次，避免每秒重复读取完整 Manifest；手动“重载”仍可强制重试；
 - exact `asset_key` 优先；只允许唯一的 plain registry 或稳定 discriminator 回退，歧义回退会拒绝并显示 issue。
 
 ## 构建与测试
@@ -53,7 +55,7 @@
 
 ## MVP 边界
 
-- 不枚举全注册表，不自动收集所有 creative tab 物品；
+- 不枚举全注册表，不自动收集所有 creative tab 物品；项目目录只消费外部工具明确写入的 Manifest；
 - 不在 Mod 内生成 Excel 或 KubeJS；外部管理器消费导出 JSON，完成校验、KJS/Excel 生成和 diff；
 - 不写入 `.minecraft/kubejs`、Loot 表或任何部署文件；
 - 本轮未提供服务端共享目录或多人权限，面向本地策划客户端；

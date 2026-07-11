@@ -21,11 +21,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.function.Supplier;
 import net.neoforged.fml.loading.FMLPaths;
 
 public final class AssetRepository {
@@ -35,20 +34,28 @@ public final class AssetRepository {
             .withZone(ZoneOffset.UTC);
 
     private final Map<String, AssetRecord> selected = new LinkedHashMap<>();
-    private final Map<String, ManifestEntry> manifestEntries = new LinkedHashMap<>();
-    private final Map<String, ManifestEntry> plainManifestEntries = new LinkedHashMap<>();
-    private final Map<String, ManifestEntry> variantManifestEntries = new LinkedHashMap<>();
-    private final Set<String> ambiguousPlainManifestKeys = new HashSet<>();
-    private final Set<String> ambiguousVariantManifestKeys = new HashSet<>();
+    private final Supplier<Path> directorySupplier;
+    private ManifestCatalog manifestCatalog = ManifestCatalog.empty();
     private boolean loaded;
     private boolean whitelistWritable = true;
+    private boolean forceManifestReload;
     private long manifestModified = Long.MIN_VALUE;
+    private long lastObservedManifestModified = Long.MIN_VALUE;
     private long lastManifestCheck;
     private String repositoryError = "";
     private String manifestError = "";
     private String exportError = "";
 
     private AssetRepository() {
+        this(() -> FMLPaths.CONFIGDIR.get().resolve("utd_asset_manager"));
+    }
+
+    AssetRepository(Path directory) {
+        this(() -> directory);
+    }
+
+    private AssetRepository(Supplier<Path> directorySupplier) {
+        this.directorySupplier = directorySupplier;
     }
 
     public static AssetRepository get() {
@@ -63,6 +70,57 @@ public final class AssetRepository {
                         .thenComparing(entry -> entry.registryId)
                         .thenComparing(entry -> entry.assetKey))
                 .toList();
+    }
+
+    public synchronized List<AssetRecord> allManifestDirectory() {
+        ensureLoaded();
+        reloadManifestIfChanged();
+        return manifestCatalog.directorySnapshot();
+    }
+
+    public synchronized int manifestDirectorySize() {
+        ensureLoaded();
+        reloadManifestIfChanged();
+        return manifestCatalog.size();
+    }
+
+    /**
+     * Last successfully loaded manifest mtime, or -1 when the manifest was successfully observed absent.
+     * A malformed replacement keeps the previous value together with the last-known-good catalog.
+     */
+    public synchronized long manifestRevision() {
+        ensureLoaded();
+        reloadManifestIfChanged();
+        return manifestModified;
+    }
+
+    public synchronized String canonicalRowKey(AssetRecord record) {
+        ensureLoaded();
+        reloadManifestIfChanged();
+        return manifestCatalog.canonicalRowKey(record);
+    }
+
+    public synchronized boolean manifestHumanSelected(AssetRecord record) {
+        ensureLoaded();
+        reloadManifestIfChanged();
+        ManifestCatalog.Resolution resolution = manifestCatalog.resolve(
+                record == null ? "" : record.assetKey, record);
+        return resolution.entry() != null && resolution.entry().humanSelected;
+    }
+
+    public synchronized boolean isSelectedIdentity(AssetRecord record) {
+        ensureLoaded();
+        reloadManifestIfChanged();
+        String target = manifestCatalog.canonicalRowKey(record);
+        if (target.isBlank()) {
+            return false;
+        }
+        for (AssetRecord selectedRecord : selected.values()) {
+            if (target.equals(manifestCatalog.canonicalRowKey(selectedRecord))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public synchronized boolean isSelected(String assetKey) {
@@ -155,18 +213,23 @@ public final class AssetRepository {
 
     public synchronized AssetStatus statusFor(String assetKey) {
         ensureLoaded();
-        return statusForInternal(assetKey, selected.get(assetKey));
+        return statusForInternal(assetKey, selected.get(assetKey), false);
     }
 
     public synchronized AssetStatus statusFor(AssetRecord record) {
         ensureLoaded();
-        return statusForInternal(record == null ? "" : record.assetKey, record);
+        return statusForInternal(record == null ? "" : record.assetKey, record, false);
     }
 
-    private AssetStatus statusForInternal(String assetKey, AssetRecord record) {
+    public synchronized AssetStatus projectStatusFor(AssetRecord record) {
+        ensureLoaded();
+        return statusForInternal(record == null ? "" : record.assetKey, record, true);
+    }
+
+    private AssetStatus statusForInternal(String assetKey, AssetRecord record, boolean includeManifestHumanSelected) {
         ensureLoaded();
         reloadManifestIfChanged();
-        ManifestResolution resolution = resolveManifest(assetKey, record);
+        ManifestCatalog.Resolution resolution = manifestCatalog.resolve(assetKey, record);
         ManifestEntry manifest = resolution.entry();
         List<String> issues = new ArrayList<>();
         if (manifest != null && manifest.issues != null) {
@@ -177,7 +240,8 @@ public final class AssetRepository {
         if (!manifestError.isBlank()) issues.add("status_manifest: " + manifestError);
         if (!exportError.isBlank()) issues.add("last_export: " + exportError);
         return new AssetStatus(
-                selected.containsKey(assetKey),
+                selected.containsKey(assetKey)
+                        || (includeManifestHumanSelected && manifest != null && manifest.humanSelected),
                 manifest != null && manifest.catalogued,
                 manifest == null ? 0 : manifest.recipeInputCount,
                 manifest == null ? 0 : manifest.recipeOutputCount,
@@ -193,35 +257,9 @@ public final class AssetRepository {
         );
     }
 
-    private ManifestResolution resolveManifest(String assetKey, AssetRecord record) {
-        ManifestEntry exact = manifestEntries.get(assetKey);
-        if (exact != null || record == null) {
-            return new ManifestResolution(exact, "");
-        }
-        String discriminator = record.variantDiscriminator == null || record.variantDiscriminator.isBlank()
-                ? com.ymrsl.utdassetmanager.core.AssetIdentity.variantDiscriminator(record.componentsSnbt)
-                : record.variantDiscriminator;
-        if (!discriminator.isBlank()) {
-            String key = manifestVariantKey(record.registryId, discriminator);
-            if (ambiguousVariantManifestKeys.contains(key)) {
-                return new ManifestResolution(null, "manifest_fallback_ambiguous: " + discriminator);
-            }
-            ManifestEntry fallback = variantManifestEntries.get(key);
-            return new ManifestResolution(fallback, "");
-        }
-        if ("plain".equalsIgnoreCase(record.variantKind)) {
-            if (ambiguousPlainManifestKeys.contains(record.registryId)) {
-                return new ManifestResolution(null, "manifest_fallback_ambiguous: " + record.registryId);
-            }
-            ManifestEntry fallback = plainManifestEntries.get(record.registryId);
-            return new ManifestResolution(fallback, "");
-        }
-        return new ManifestResolution(null, "");
-    }
-
     public synchronized void forceReloadManifest() {
         ensureLoaded();
-        manifestModified = Long.MIN_VALUE;
+        forceManifestReload = true;
         lastManifestCheck = 0L;
         reloadManifestIfChanged();
     }
@@ -289,8 +327,14 @@ public final class AssetRepository {
                 .filter(value -> value != null && !value.isBlank()).toList());
     }
 
+    public synchronized String manifestErrorMessage() {
+        ensureLoaded();
+        reloadManifestIfChanged();
+        return manifestError;
+    }
+
     public Path directory() {
-        return FMLPaths.CONFIGDIR.get().resolve("utd_asset_manager");
+        return directorySupplier.get();
     }
 
     private void ensureLoaded() {
@@ -348,63 +392,32 @@ public final class AssetRepository {
 
     private void reloadManifestIfChanged() {
         long now = System.currentTimeMillis();
-        if (now - lastManifestCheck < 1_000L) {
+        boolean forced = forceManifestReload;
+        if (!forced && now - lastManifestCheck < 1_000L) {
             return;
         }
+        forceManifestReload = false;
         lastManifestCheck = now;
         Path path = directory().resolve("status_manifest.json");
         try {
             long modified = Files.exists(path) ? Files.getLastModifiedTime(path).toMillis() : -1L;
-            if (modified == manifestModified) {
+            if (!forced && modified == lastObservedManifestModified) {
                 return;
             }
+            lastObservedManifestModified = modified;
             if (modified < 0L) {
-                manifestEntries.clear();
-                plainManifestEntries.clear();
-                variantManifestEntries.clear();
-                ambiguousPlainManifestKeys.clear();
-                ambiguousVariantManifestKeys.clear();
+                manifestCatalog = ManifestCatalog.empty();
                 manifestModified = modified;
                 manifestError = "";
                 return;
             }
-            Map<String, ManifestEntry> nextExact = new LinkedHashMap<>();
-            Map<String, ManifestEntry> nextPlain = new LinkedHashMap<>();
-            Map<String, ManifestEntry> nextVariant = new LinkedHashMap<>();
-            Set<String> nextAmbiguousPlain = new HashSet<>();
-            Set<String> nextAmbiguousVariant = new HashSet<>();
+            ManifestCatalog nextCatalog;
             try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
                 StatusManifest manifest = GSON.fromJson(reader, StatusManifest.class);
                 validateManifestHeader(manifest);
-                for (ManifestEntry entry : manifest.entries) {
-                    if (entry == null || entry.assetKey == null || entry.assetKey.isBlank()) {
-                        throw new IllegalStateException("status manifest contains an entry without asset_key");
-                    }
-                    if (entry.registryId == null || entry.registryId.isBlank()) {
-                        throw new IllegalStateException("status manifest entry has no registry_id: " + entry.assetKey);
-                    }
-                    if (nextExact.putIfAbsent(entry.assetKey, entry) != null) {
-                        throw new IllegalStateException("status manifest duplicate asset_key: " + entry.assetKey);
-                    }
-                    if (entry.variantDiscriminator != null && !entry.variantDiscriminator.isBlank()) {
-                        addFallback(nextVariant, nextAmbiguousVariant,
-                                manifestVariantKey(entry.registryId, entry.variantDiscriminator), entry);
-                    } else if ("plain".equalsIgnoreCase(entry.identityKind)
-                            && (entry.variantKey == null || entry.variantKey.isBlank())) {
-                        addFallback(nextPlain, nextAmbiguousPlain, entry.registryId, entry);
-                    }
-                }
+                nextCatalog = ManifestCatalog.from(manifest.entries);
             }
-            manifestEntries.clear();
-            manifestEntries.putAll(nextExact);
-            plainManifestEntries.clear();
-            plainManifestEntries.putAll(nextPlain);
-            variantManifestEntries.clear();
-            variantManifestEntries.putAll(nextVariant);
-            ambiguousPlainManifestKeys.clear();
-            ambiguousPlainManifestKeys.addAll(nextAmbiguousPlain);
-            ambiguousVariantManifestKeys.clear();
-            ambiguousVariantManifestKeys.addAll(nextAmbiguousVariant);
+            manifestCatalog = nextCatalog;
             manifestModified = modified;
             manifestError = "";
         } catch (Exception error) {
@@ -419,18 +432,6 @@ public final class AssetRepository {
         String schema = manifest.schemaVersion == null ? "" : manifest.schemaVersion.trim();
         if (!schema.isEmpty() && !"1".equals(schema) && !"utd-asset-status/v1".equals(schema)) {
             throw new IllegalStateException("unsupported status manifest schema: " + schema);
-        }
-    }
-
-    private static void addFallback(
-            Map<String, ManifestEntry> target,
-            Set<String> ambiguous,
-            String key,
-            ManifestEntry entry
-    ) {
-        ManifestEntry existing = target.putIfAbsent(key, entry);
-        if (existing != null && !existing.assetKey.equals(entry.assetKey)) {
-            ambiguous.add(key);
         }
     }
 
@@ -461,12 +462,6 @@ public final class AssetRepository {
         selected.clear();
         selected.putAll(before);
     }
-
-    private static String manifestVariantKey(String registryId, String discriminator) {
-        return registryId + "\n" + discriminator;
-    }
-
-    private record ManifestResolution(ManifestEntry entry, String issue) {}
 
     private static void writeJsonAtomic(Path target, Object value) throws Exception {
         Path temp = target.resolveSibling(target.getFileName() + ".tmp");

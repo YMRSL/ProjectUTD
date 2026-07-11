@@ -9,7 +9,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public final class AssetStackCodec {
     private AssetStackCodec() {
@@ -67,13 +69,32 @@ public final class AssetStackCodec {
         }
         try {
             CompoundTag full = TagParser.parseTag(record.itemStackSnbt);
-            return ItemStack.parse(minecraft.level.registryAccess(), full).orElse(ItemStack.EMPTY);
-        } catch (Exception ignored) {
-            try {
-                return new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(record.registryId)));
-            } catch (Exception invalidId) {
-                return ItemStack.EMPTY;
+            ItemStack restored = ItemStack.parse(minecraft.level.registryAccess(), full).orElse(ItemStack.EMPTY);
+            if (!restored.isEmpty()) {
+                return restored;
             }
+        } catch (Exception ignored) {
+            // A status-manifest directory row intentionally has no exact stack
+            // snapshot. Fall through to a base registry icon when possible.
+        }
+        try {
+            ItemStack base = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(record.registryId)));
+            return base.isEmpty() ? ItemStack.EMPTY : base;
+        } catch (Exception invalidId) {
+            return ItemStack.EMPTY;
+        }
+    }
+
+    public static String localizedBaseName(String registryId) {
+        try {
+            ResourceLocation id = ResourceLocation.parse(registryId);
+            Item item = BuiltInRegistries.ITEM.get(id);
+            if (item == Items.AIR && !"minecraft:air".equals(id.toString())) {
+                return "";
+            }
+            return item.getDescription().getString();
+        } catch (Exception invalidId) {
+            return "";
         }
     }
 }

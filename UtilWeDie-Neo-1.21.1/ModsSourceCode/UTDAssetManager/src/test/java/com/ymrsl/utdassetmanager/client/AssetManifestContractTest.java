@@ -24,6 +24,14 @@ final class AssetManifestContractTest {
                   "items": [{
                     "asset_key": "asset_abc",
                     "registry_id": "minecraft:stick",
+                    "identity_kind": "loot_variant",
+                    "variant_discriminator": "profile=abc",
+                    "client_name_zh_cn": "木棍",
+                    "translation_key": "item.minecraft.stick",
+                    "components_snbt": "{profile:\\\"abc\\\"}",
+                    "components_canonical": "C{profile=abc}",
+                    "identity_components_canonical": "profile=abc",
+                    "human_selected": true,
                     "catalogued": true,
                     "recipe_input_count": 2,
                     "recipe_output_count": 1,
@@ -42,6 +50,12 @@ final class AssetManifestContractTest {
         assertEquals("asset_abc", manifest.entries.getFirst().assetKey);
         assertEquals(2, manifest.entries.getFirst().recipeInputCount);
         assertEquals("synced", manifest.entries.getFirst().syncState);
+        assertEquals("木棍", manifest.entries.getFirst().clientNameZhCn);
+        assertEquals("item.minecraft.stick", manifest.entries.getFirst().translationKey);
+        assertEquals("{profile:\"abc\"}", manifest.entries.getFirst().componentsSnbt);
+        assertEquals("C{profile=abc}", manifest.entries.getFirst().componentsCanonical);
+        assertEquals("profile=abc", manifest.entries.getFirst().identityComponentsCanonical);
+        assertTrue(manifest.entries.getFirst().humanSelected);
     }
 
     @Test
@@ -49,12 +63,17 @@ final class AssetManifestContractTest {
         StatusManifest manifest = GSON.fromJson("""
                 {"schemaVersion":1,"entries":[{
                   "assetKey":"asset_old","registryId":"minecraft:stone",
+                  "clientNameZhCn":"石头","translationKey":"block.minecraft.stone",
+                  "componentsSnbt":"{}","componentsCanonical":"C{}",
+                  "identityComponentsCanonical":"C{}","humanSelected":true,
                   "recipeInputCount":4,"syncState":"pending"
                 }]}
                 """, StatusManifest.class);
 
         assertEquals("asset_old", manifest.entries.getFirst().assetKey);
         assertEquals(4, manifest.entries.getFirst().recipeInputCount);
+        assertEquals("石头", manifest.entries.getFirst().clientNameZhCn);
+        assertTrue(manifest.entries.getFirst().humanSelected);
     }
 
     @Test
