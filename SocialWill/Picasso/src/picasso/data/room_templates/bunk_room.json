@@ -1,0 +1,31 @@
+{
+  "name": "bunk_room",
+  "description": "Survivor sleeping quarters — beds against walls, a storage corner, sparse personal effects. Reference example for the template format (brush_room_system §3.1).",
+  "identity": "bunk_room",
+  "role": "room",
+  "dims": {
+    "width":  {"min": 4, "max": 7},
+    "length": {"min": 5, "max": 8},
+    "height": {"min": 3, "max": 4}
+  },
+  "envelope": {"wall": "wall_primary", "floor": "floor_main", "ceiling": "ceiling_main"},
+  "palette_defaults": {
+    "wall_primary": "minecraft:stone_bricks",
+    "floor_main":   "minecraft:oak_planks",
+    "ceiling_main": "minecraft:oak_planks"
+  },
+  "entrances": [
+    {"kind": "door", "side": "attach", "dressing_fragment": null}
+  ],
+  "placements": [
+    {"item": "minecraft:red_bed",        "slot": "against_wall", "count": {"min": 1, "max": 3}, "facing": "into_room"},
+    {"item": "minecraft:chest",          "slot": "corner",       "count": {"min": 0, "max": 1}, "facing": "into_room"},
+    {"item": "minecraft:barrel",         "slot": "against_wall", "count": {"min": 0, "max": 2}, "facing": "into_room"},
+    {"item": "minecraft:lantern",        "slot": "center",       "count": {"min": 0, "max": 1}, "facing": "hash_rolled"},
+    {"item": "minecraft:crafting_table", "slot": "corner",       "count": {"min": 0, "max": 1}, "facing": "hash_rolled"}
+  ],
+  "scatter": [],
+  "condition": [],
+  "variants": {},
+  "tags": ["residential", "survivor", "reference_example"]
+}

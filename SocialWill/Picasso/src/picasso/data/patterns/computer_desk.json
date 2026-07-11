@@ -12,7 +12,7 @@
       "match": {"name_contains": "trapdoor"}
     }
   ],
-  "dd_replacement": "doomsday:broken_computer",
+  "dd_replacement": "doomsday_decoration:officepartitiondesk",
   "replacement_anchor_offset": [0, 0, 0],
   "clear_offsets": [[0, 1, 0]]
 }

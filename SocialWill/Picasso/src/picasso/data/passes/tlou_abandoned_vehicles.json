@@ -8,6 +8,5 @@
   "density": 0.04,
   "noise": {"scale": 0.10, "threshold": 0.60},
   "min_spacing": 8,
-  "space_filter": "exterior",
   "only_safe_anchor_blocks": true
 }

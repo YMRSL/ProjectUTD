@@ -1,0 +1,49 @@
+{
+  "name": "supermarket_stair_shelf",
+  "description": "Two-tier supermarket-style merchandise shelf made from side-by-side stair blocks.",
+  "experimental": true,
+  "experimental_reason": "Requires structure segmentation before default detection; otherwise real stairs, stadium seating, bleachers, and stepped decorative shelves are high-risk false positives.",
+  "anchor": [0, 0, 0],
+  "min_optional_matches": 1,
+  "blocks": [
+    {
+      "offset": [0, 0, 0],
+      "match": {"name_contains": "stairs"}
+    },
+    {
+      "offset": [1, 0, 0],
+      "match": {"name_contains": "stairs"}
+    },
+    {
+      "offset": [0, 1, 0],
+      "match": {"name_contains": "stairs"}
+    },
+    {
+      "offset": [1, 1, 0],
+      "match": {"name_contains": "stairs"}
+    },
+    {
+      "offset": [2, 0, 0],
+      "optional": true,
+      "match": {"name_contains": "stairs"}
+    },
+    {
+      "offset": [2, 1, 0],
+      "optional": true,
+      "match": {"name_contains": "stairs"}
+    },
+    {
+      "offset": [0, 2, 0],
+      "optional": true,
+      "match": {"name_contains": "carpet"}
+    },
+    {
+      "offset": [1, 2, 0],
+      "optional": true,
+      "match": {"name_contains": "carpet"}
+    }
+  ],
+  "dd_replacement": "doomsday_decoration:shelf_2",
+  "replacement_anchor_offset": [0, 0, 0],
+  "clear_offsets": [[1, 0, 0], [0, 1, 0], [1, 1, 0], [2, 0, 0], [2, 1, 0], [0, 2, 0], [1, 2, 0]]
+}

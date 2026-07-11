@@ -3,11 +3,11 @@
   "type": "fragment_pass",
   "description": "Fill broken window gaps with vines and leaf growth — nature entering through glass openings.",
   "version": "1.0",
+  "destructive": true,
   "fragments": ["window_overgrown"],
   "anchor_surface": "outer_wall",
   "density": 0.20,
   "noise": {"scale": 0.08, "threshold": 0.50},
   "min_spacing": 3,
-  "space_filter": "exterior",
   "only_safe_anchor_blocks": false
 }

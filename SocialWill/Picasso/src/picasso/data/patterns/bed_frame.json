@@ -1,14 +1,24 @@
 {
   "name": "bed_frame",
-  "description": "Any vanilla bed block — replace with DD metal bed",
+  "description": "Complete vanilla bed (foot plus head, same facing) — replace once with DD metal bed",
   "anchor": [0, 0, 0],
   "blocks": [
     {
       "offset": [0, 0, 0],
-      "match": {"name_contains": "_bed"}
+      "match": {
+        "name_contains": "_bed",
+        "properties": {"part": "foot", "facing": "south"}
+      }
+    },
+    {
+      "offset": [0, 0, 1],
+      "match": {
+        "name_contains": "_bed",
+        "properties": {"part": "head", "facing": "south"}
+      }
     }
   ],
-  "dd_replacement": "doomsday:metal_bed",
+  "dd_replacement": "doomsday_decoration:bed",
   "replacement_anchor_offset": [0, 0, 0],
-  "clear_offsets": []
+  "clear_offsets": [[0, 0, 1]]
 }

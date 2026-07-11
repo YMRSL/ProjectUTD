@@ -3,11 +3,11 @@
   "type": "fragment_pass",
   "description": "Trees and bushes breaking through rooftop surfaces — requires 5+ clear blocks above anchor.",
   "version": "1.0",
+  "destructive": true,
   "fragments": ["roof_tree_growth"],
   "anchor_surface": "rooftop",
   "density": 0.05,
   "noise": {"scale": 0.10, "threshold": 0.58},
   "min_spacing": 8,
-  "space_filter": "exterior",
   "only_safe_anchor_blocks": true
 }

@@ -1,0 +1,41 @@
+{
+  "name": "computer_desk_combo",
+  "description": "Composite vanilla office desk: slab desktop, player-head monitor, fence support, carpet keyboard, and stair chair.",
+  "experimental": true,
+  "experimental_reason": "Requires room/structure context before default replacement; otherwise player-head displays, counters, railings, and stair/bleacher furniture can be confused with desks.",
+  "anchor": [0, 0, 0],
+  "min_optional_matches": 2,
+  "blocks": [
+    {
+      "offset": [0, 0, 0],
+      "match": {"name_endswith": ["_slab", "slab"]}
+    },
+    {
+      "offset": [0, 1, 0],
+      "match": {"name_contains_any": ["player_head", "player_wall_head", "skull"]}
+    },
+    {
+      "offset": [1, 0, 0],
+      "optional": true,
+      "match": {"name_endswith": ["_slab", "slab"]}
+    },
+    {
+      "offset": [1, 1, 0],
+      "optional": true,
+      "match": {"name_contains": "carpet"}
+    },
+    {
+      "offset": [0, -1, 0],
+      "optional": true,
+      "match": {"name_contains": "fence"}
+    },
+    {
+      "offset": [0, 0, -1],
+      "optional": true,
+      "match": {"name_contains": "stairs"}
+    }
+  ],
+  "dd_replacement": "doomsday_decoration:officepartitiondesk",
+  "replacement_anchor_offset": [0, 0, 0],
+  "clear_offsets": [[0, 1, 0], [1, 0, 0], [1, 1, 0], [0, -1, 0], [0, 0, -1]]
+}

@@ -3,11 +3,11 @@
   "type": "fragment_pass",
   "description": "Root systems cracking through indoor floor surfaces — subtle, requires 2+ clear blocks above.",
   "version": "1.0",
+  "destructive": true,
   "fragments": ["floor_root_crack"],
   "anchor_surface": "floor",
   "density": 0.03,
   "noise": {"scale": 0.09, "threshold": 0.65},
   "min_spacing": 6,
-  "space_filter": "interior",
   "only_safe_anchor_blocks": true
 }

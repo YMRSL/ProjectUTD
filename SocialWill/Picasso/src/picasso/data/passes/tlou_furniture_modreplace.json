@@ -1,8 +1,8 @@
 {
   "name": "tlou_furniture_modreplace",
   "type": "pattern_replace",
-  "description": "Replace vanilla furniture combos with Doomsday Decoration equivalents. IDs verified against doomsday_decoration_semantic.json 2026-07-05.",
-  "version": "1.1",
+  "description": "Replace low-risk vanilla furniture combos with Doomsday Decoration equivalents. IDs verified against doomsday_decoration_semantic.json 2026-07-05.",
+  "version": "1.2",
   "mappings": [
     {
       "pattern": "chair",

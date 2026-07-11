@@ -6,15 +6,15 @@
   "requires_clear_above": false,
   "min_clear_height": 0,
   "destructive": true,
+  "orientable": true,
   "tags": ["vegetation", "structural"],
   "match_hint": "glass_pane",
   "blocks": [
-    {"offset": [ 0,  0, 0], "block": "minecraft:air",         "probability": 1.0},
-    {"offset": [ 0,  1, 0], "block": "minecraft:air",         "probability": 0.8},
-    {"offset": [ 0,  0, 0], "block": "minecraft:vine",        "probability": 0.7},
-    {"offset": [ 0,  1, 0], "block": "minecraft:oak_leaves",  "probability": 0.5},
-    {"offset": [ 0, -1, 0], "block": "minecraft:vine",        "probability": 0.4},
-    {"offset": [ 1,  0, 0], "block": "minecraft:vine",        "probability": 0.3},
-    {"offset": [-1,  0, 0], "block": "minecraft:vine",        "probability": 0.3}
+    {"offset": [ 0,  0, 0], "block": "minecraft:air",        "probability": 1.0},
+    {"offset": [ 0,  0, 1], "block": "minecraft:oak_leaves", "probability": 0.7, "preserve_existing": true},
+    {"offset": [ 0,  1, 1], "block": "minecraft:vine",       "probability": 0.5, "preserve_existing": true},
+    {"offset": [ 0, -1, 1], "block": "minecraft:vine",       "probability": 0.4, "preserve_existing": true},
+    {"offset": [ 1,  0, 1], "block": "minecraft:vine",       "probability": 0.3, "preserve_existing": true},
+    {"offset": [-1,  0, 1], "block": "minecraft:vine",       "probability": 0.3, "preserve_existing": true}
   ]
 }

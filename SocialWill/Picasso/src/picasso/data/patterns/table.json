@@ -5,14 +5,14 @@
   "blocks": [
     {
       "offset": [0, 0, 0],
-      "match": {"name_contains": "fence"}
+      "match": {"namespace": "minecraft", "name_endswith": "_fence"}
     },
     {
       "offset": [0, 1, 0],
-      "match": {"name_contains": "pressure_plate"}
+      "match": {"namespace": "minecraft", "name_contains": ["pressure_plate", "carpet"]}
     }
   ],
-  "dd_replacement": "doomsday:metal_table",
+  "dd_replacement": "doomsday_decoration:table",
   "replacement_anchor_offset": [0, 0, 0],
   "clear_offsets": [[0, 1, 0]]
 }

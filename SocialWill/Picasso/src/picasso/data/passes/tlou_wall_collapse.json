@@ -3,11 +3,11 @@
   "type": "fragment_pass",
   "description": "Create localized wall breaches — remove blocks and place rubble at base. Destructive pass.",
   "version": "1.0",
+  "destructive": true,
   "fragments": ["wall_breach"],
   "anchor_surface": "outer_wall",
   "density": 0.08,
   "noise": {"scale": 0.12, "threshold": 0.68},
   "min_spacing": 6,
-  "space_filter": null,
   "only_safe_anchor_blocks": true
 }

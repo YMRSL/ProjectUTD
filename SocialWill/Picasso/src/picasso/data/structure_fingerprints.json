@@ -130,6 +130,66 @@
         "height_range": {"max": 3}
       },
       "confidence_boost": 0.30
+    },
+    {
+      "sub_type": "office_building",
+      "parent_type": "building",
+      "signals": {
+        "dominant_materials_include": ["glass_pane", "glass", "smooth_stone", "white_concrete", "light_gray_concrete", "quartz_block"],
+        "height_range": {"min": 12, "max": 80},
+        "footprint_area": {"min": 150, "max": 2500},
+        "floor_count_estimate": {"min": 3},
+        "interior_pattern_density": {"desk": ">0"}
+      },
+      "confidence_boost": 0.30
+    },
+    {
+      "sub_type": "warehouse",
+      "parent_type": "building",
+      "signals": {
+        "dominant_materials_include": ["smooth_stone", "gray_concrete", "iron_bars", "oak_planks", "spruce_planks"],
+        "height_range": {"min": 6, "max": 15},
+        "footprint_area": {"min": 300, "max": 4000},
+        "hollow_core_fraction": {"min": 0.5},
+        "floor_count_estimate": {"min": 1, "max": 2},
+        "special_blocks_present": ["barrel", "chest"]
+      },
+      "confidence_boost": 0.30
+    },
+    {
+      "sub_type": "church",
+      "parent_type": "building",
+      "signals": {
+        "dominant_materials_include": ["stone_bricks", "cobblestone", "deepslate_bricks", "white_stained_glass_pane"],
+        "height_range": {"min": 10, "max": 45},
+        "footprint_aspect_ratio": {"min": 1.6},
+        "footprint_area": {"min": 120, "max": 1200},
+        "hollow_core_fraction": {"min": 0.45},
+        "tower_present": true
+      },
+      "confidence_boost": 0.35
+    },
+    {
+      "sub_type": "parking_lot",
+      "parent_type": "flat_unknown",
+      "signals": {
+        "dominant_materials_include": ["gray_concrete", "smooth_stone", "black_concrete", "stone_slab"],
+        "height_range": {"max": 2},
+        "footprint_area": {"min": 200},
+        "pattern_regularity": {"min": 0.5}
+      },
+      "confidence_boost": 0.30
+    },
+    {
+      "sub_type": "utility_tunnel",
+      "parent_type": "underground_space",
+      "signals": {
+        "underground_linear_segments": {"min": 1},
+        "tunnel_width": {"min": 2, "max": 4},
+        "y_range": {"max_y": 50},
+        "dominant_materials_include": ["stone_bricks", "cobblestone", "iron_bars", "smooth_stone"]
+      },
+      "confidence_boost": 0.35
     }
   ]
 }

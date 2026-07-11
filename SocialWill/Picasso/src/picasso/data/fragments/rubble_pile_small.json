@@ -2,7 +2,7 @@
   "name": "rubble_pile_small",
   "description": "A small scattering of stone debris on a flat surface",
   "anchor_surface": "floor",
-  "footprint": "2x2",
+  "footprint": "3x2",
   "requires_clear_above": true,
   "min_clear_height": 2,
   "destructive": false,

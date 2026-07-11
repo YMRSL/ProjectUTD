@@ -1,6 +1,6 @@
 # Style Learning from Reference Saves
 
-> Supplement to `ARCHITECTURE.md` and `docs/fragment_system.md`.
+> Supplement to `ARCHITECTURE.md` (tracks v0.4.4) and `docs/fragment_system.md`.
 > This document describes the reverse-engineering workflow: extracting a Style Bundle from a reference world save.
 
 ---
@@ -80,9 +80,14 @@ Returns a list of recurring spatial block arrangements found in the region. Thes
       "spatial_description": "2-block-tall iron bars with stone debris cluster — appears on outer walls"
     }
   ],
-  "summary": "Found 12 recurring cluster types. Top 3 by frequency: cl_0001 (47×), cl_0004 (31×), cl_0007 (22×). Suggest reviewing clusters with occurrences > 10 first."
+  "candidate_groups": [
+    {"group_id": "grp_01", "cluster_ids": ["cl_0001", "cl_0003", "cl_0009"], "reason": "rotation_variants"}
+  ],
+  "summary": "Found 12 recurring cluster types. Top 3 by frequency: cl_0001 (47×), cl_0004 (31×), cl_0007 (22×). grp_01 groups 3 rotation-variant clusters (combined 71×). Suggest reviewing clusters with occurrences > 10 first."
 }
 ```
+
+**`candidate_groups` (normative):** clusters whose canonical block lists are 90°/180°/270° yaw-rotations (or X/Z mirrors) of one another are reported in the same group. Detection: for each cluster signature, compute the signatures of its 3 rotations + 2 mirrors and check for matches among the other clusters. The engine does **not** merge them — orientation may be meaningful (all clusters facing one street) or incidental; that judgment belongs to the AI agent. But without this field the agent would systematically undercount recurrence: the same wall decoration on four wall faces shows as 4 separate clusters at ¼ the density each, leading to too-low `probability` values in `create_fragment`. When authoring a fragment from a grouped cluster, sum the group's occurrences for density estimation and pick one representative orientation as the canonical frame (fragment orientation rules: `docs/fragment_system.md` §4).
 
 ### Algorithm (for `core/segmentation/cluster_extractor.py`)
 

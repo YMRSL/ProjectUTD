@@ -16,7 +16,7 @@
       "match": {"name_contains": "slab"}
     }
   ],
-  "dd_replacement": "doomsday:office_desk",
+  "dd_replacement": "doomsday_decoration:desk",
   "replacement_anchor_offset": [0, 0, 0],
   "clear_offsets": [[1, 0, 0], [0, 1, 0]]
 }

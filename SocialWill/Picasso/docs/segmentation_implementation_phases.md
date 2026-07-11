@@ -1,8 +1,35 @@
 # Semantic Segmentation — Implementation Phases
 
-> Supplement to `docs/implementation_order.md`. **Status: all phases 🚧 (nothing built).** Prerequisite: base Phase 1 (AmuletBridge) ✅. Can proceed in parallel with base Phases 6/8.
+> Supplement to `docs/implementation_order.md` — tracks `ARCHITECTURE.md` v0.4.4. **Status: segmentation Phases 0/S1-S4 remain 🚧; Agent-evidence Phase A0 is ✅.** Prerequisite: base Phase 1 (AmuletBridge) ✅. Can proceed in parallel with base Phases 6/8.
 >
 > Before Phase 0: add `scipy>=1.11` to `pyproject.toml` dependencies (flood fill requires `scipy.ndimage.label`; it is **not** currently listed).
+
+---
+
+## Phase A0 — Agent Evidence Substrate ✅
+
+**Goal:** let an Agent inspect bounded physical evidence and interpret local
+semantic candidates without exposing whole-world block dumps or mutating a save.
+
+Implemented:
+
+1. `analyze_region.local_semantics` reports conservative stair assemblies and
+   horizontal-level candidates with `scope=candidate_only`.
+2. `inspect_volume` returns an inclusive, capped palette + Y/Z/X-RLE voxel view,
+   complete/truncated markers, surfaces, properties, and block-entity positions.
+3. FastMCP initialization instructions publish the honesty/no-implicit-write
+   boundary; `interpret_world_structure` supplies the explicit review workflow.
+4. Synthetic tests cover semantic assemblies, level candidates, RLE evidence,
+   properties, limits, truncation, halo exclusion, and prompt registration.
+
+Full contract: `docs/agent_semantic_review.md`.
+
+### Done When
+
+- A controlled fixture's known local structures are recovered from read-only
+  analysis and an Agent can request their bounded geometry.
+- No incomplete view can silently represent omitted/missing data as air.
+- Prompt rendering never touches the shared world session.
 
 ---
 
@@ -97,12 +124,19 @@
 
 1. Create `src/picasso/core/segmentation/structure_assembler.py`:
    - `assemble(candidates) -> list[Structure]`: overlap resolution, merge rules, relationship recording (`docs/semantic_segmentation.md` §5).
-   - Fingerprint matching against `data/structure_fingerprints.json` → `sub_type`, `confidence`.
+   - Fingerprint matching against `data/structure_fingerprints.json` → `sub_type`, `confidence`. **Algorithm: rule-based signal scoring, matching the shipped file's actual schema** (the file is per-`sub_type` entries with a `signals` object and a `confidence_boost` — *not* a feature vector; an earlier cosine-similarity sketch in this doc was misaligned with the shipped data and is retracted):
+     1. For each assembled Structure, evaluate each fingerprint entry whose `parent_type` matches the structure's detected `type`.
+     2. Each signal in the entry's `signals` object is a predicate over computed structure properties: `dominant_materials_include` (≥1 listed material in the structure's top-5 materials), range checks (`height_range`, `footprint_area`, `enclosed_volume`, `footprint_aspect_ratio`, …), `special_blocks_present` (≥1 present), boolean flags (`tiered_profile`).
+     3. Entry score = fraction of its signals that pass (each signal equally weighted in v1).
+     4. Best entry with score ≥ **0.6** wins: `sub_type` = entry's, `confidence = min(1.0, base_confidence + confidence_boost × score)` where `base_confidence` comes from the detector.
+     5. No entry reaches 0.6 → `sub_type = null`, confidence unchanged.
+     6. Signals referencing properties the assembler didn't compute are skipped and excluded from the denominator (a fingerprint using a future signal doesn't penalize present structures); if >50% of an entry's signals are skipped, the entry is ineligible.
+     The **shipped JSON schema is the stable interface**; the scoring function is swappable (upgrade path: per-signal weights, then a learned classifier once labeled examples accumulate).
 2. Create `src/picasso/core/segmentation/structure_registry.py`:
    - Load/save `<world>/picasso_structures.json`.
-   - **Identity resolution on re-detection** per `docs/semantic_segmentation.md` §7 (IoU ≥ 0.5 greedy matching, override preservation, stale marking).
+   - **Identity resolution on re-detection** per `docs/semantic_segmentation.md` §7 (IoU ≥ 0.5 greedy matching; containment-ratio ≥ 0.7 when either side is `partial`; override preservation; full-containment-only stale marking).
    - Lookups: `get_by_id`, `get_by_type`, `get_at_pos`.
-3. Create `src/picasso/tools/segmentation.py`: all **6** tools — `detect_structures`, `list_structures`, `get_structure`, `annotate_structure`, `apply_pass_to_structure`, `apply_pass_by_type` (`docs/structure_detection_tool_specs.md`).
+3. Create `src/picasso/tools/segmentation.py`: all **8** tools — read-only `scan_semantic_candidates`, `get_candidate_evidence`, then `detect_structures`, `list_structures`, `get_structure`, `annotate_structure`, `apply_pass_to_structure`, `apply_pass_by_type` (`docs/structure_detection_tool_specs.md`). Candidate/evidence responses are paginated/run-scoped and follow `docs/agent_semantic_review.md`.
 4. Enable `apply_bundle` **structure mode** (`docs/fragment_system.md` §6).
 
 ### Done When
@@ -118,6 +152,7 @@
 
 ```
 Base Phase 1 (Amulet Bridge) ✅
+    ├── Phase A0 (Agent Evidence) ✅
     └── Phase 0 (Signal Extraction)
             ├── Phase S1 (Flood Fill)  ──→ unlocks tier-2 space_filter
             ├── Phase S2 (Flat + Linear + Elevated)

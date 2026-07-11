@@ -1,0 +1,5 @@
+{"v":1,"t":"2026-07-08T00:05:00.000Z","player":"Steve","action":"place","pos":{"x":100,"y":70,"z":0},"block":"minecraft:stone","dim":"minecraft:overworld"}
+{"v":1,"t":"2026-07-08T00:10:00.000Z","player":"Alex","action":"place","pos":{"x":101,"y":71,"z":0},"block":"minecraft:oak_planks","dim":"minecraft:overworld"}
+{"v":1,"t":"2026-07-08T01:00:00.000Z","player":"Steve","action":"break","pos":{"x":102,"y":72,"z":0},"block":"minecraft:stone","dim":"minecraft:overworld"}
+{"v":1,"t":"2026-07-08T01:20:00.000Z","player":"Steve","action":"place","pos":{"x":103,"y":73,"z":0},"block":"minecraft:glass","dim":"minecraft:overworld"}
+{"v":1,"t":"2026-07-08T03:00:00.000Z","player":"Steve","action":"place","pos":{"x":500,"y":70,"z":0},"block":"minecraft:stone","dim":"minecraft:overworld"}

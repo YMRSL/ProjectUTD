@@ -12,7 +12,7 @@
       "match": {"air": true}
     }
   ],
-  "dd_replacement": "doomsday:wall_shelf",
+  "dd_replacement": "doomsday_decoration:shelf_2",
   "replacement_anchor_offset": [0, 0, 0],
   "clear_offsets": []
 }

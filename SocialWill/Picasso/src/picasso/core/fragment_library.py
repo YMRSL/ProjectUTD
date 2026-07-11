@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import json
+import logging
 from pathlib import Path
 
 from picasso.models.fragment import Fragment
+
+logger = logging.getLogger(__name__)
 
 
 class FragmentLibrary:
@@ -17,10 +20,14 @@ class FragmentLibrary:
         if not self.fragments_dir.exists():
             return
         for path in sorted(self.fragments_dir.glob("*.json")):
-            data = json.loads(path.read_text(encoding="utf-8"))
-            if data.get("deprecated"):
+            try:
+                data = json.loads(path.read_text(encoding="utf-8"))
+                if data.get("deprecated"):
+                    continue
+                fragment = Fragment.model_validate(data)
+            except Exception:
+                logger.exception("Skipping invalid fragment file: %s", path)
                 continue
-            fragment = Fragment.model_validate(data)
             self.fragments[fragment.name] = fragment
 
     def get(self, name: str) -> Fragment | None:

@@ -2,6 +2,8 @@
   "name": "tlou_structural_damage",
   "description": "Simulate partial building collapse: remove edge blocks, replace corners with rubble, add debris piles.",
   "version": "1.0",
+  "deprecated": true,
+  "destructive": true,
   "targets": ["outer_wall", "rooftop"],
   "only_safe_blocks": true,
   "rules": [

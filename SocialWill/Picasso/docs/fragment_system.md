@@ -1,6 +1,6 @@
 # Fragment System — Architecture Supplement
 
-> Supplements `ARCHITECTURE.md` (v0.4). Read after the main document.
+> Supplements `ARCHITECTURE.md` — tracks v0.4.4. Read after the main document.
 > The Fragment system is the **primary** stylization mechanism since v0.3. Block-replacement Style Passes are auxiliary (≤15% surface coverage, texture variation only).
 
 ---
@@ -41,6 +41,7 @@ class Fragment(BaseModel):
     min_clear_height: int = 2
     destructive: bool = False       # if True, MAY write air (subject to the §12.1 choke point in ARCHITECTURE.md)
     orientable: bool = False        # if True, engine rotates the fragment per anchor (§4)
+    match_hint: Literal["glass_pane"] | None = None # optional strict anchor constraint
     tags: list[str] = []
 ```
 
@@ -49,6 +50,12 @@ class Fragment(BaseModel):
 Must be one of the surface classes produced by the classifier (`ARCHITECTURE.md` §4.5): `"floor"`, `"outer_wall"`, `"inner_wall"`, `"ceiling"`, `"rooftop"`, or the wildcard `"any"`.
 
 > v0.3 examples used `"street"`. **Retracted** — the classifier never emits it. "Street-ness" is expressed by targeting `anchor_surface: "floor"` and running the pass against `structure_type: "road"` in a bundle (or `space_filter: "exterior"`).
+
+`match_hint: "glass_pane"` restricts an anchor to vanilla clear/stained glass
+panes. Unknown hints fail schema validation; hints are never decorative prose.
+The shipped overgrown-window fragment only removes its verified pane anchor and
+places surrounding growth in outward air, so the hint cannot authorize damage
+to adjacent wall blocks.
 
 ### Fragment JSON Example: `rubble_pile_small`
 
@@ -100,6 +107,18 @@ Must be one of the surface classes produced by the classifier (`ARCHITECTURE.md`
 
 (Note the rubble at `z=+1`: in the canonical frame, +Z is the wall's *outward* normal — the debris falls on the outside. See §4.)
 
+### Game-physics authoring checklist (normative for shipped fragments)
+
+Picasso writes save files; the game engine then runs physics on load. A fragment that ignores this looks right in preview and wrong in game. Rules for fragment authors (AI or human):
+
+1. **Leaves** — handled by the engine: the write choke point auto-injects `persistent: true` on all `*_leaves` writes (`ARCHITECTURE.md` §12.1). Authors need do nothing, but may set `persistent` explicitly to override.
+2. **Falling blocks** (`gravel`, `sand`, `*_concrete_powder`): only place where directly supported — offset `(x, y, z)` with a solid or same-fragment block at `(x, y−1, z)`, or `y = 0` on a solid anchor surface. A gravel block placed floating (e.g. on a breach windowsill without support) falls on the first tick and lands somewhere unplanned.
+3. **Vines** need an adjacent solid face to attach to; place only against solid blocks (the `air_side` direction of a wall anchor guarantees this). Free-floating vine columns pop off on update.
+4. **Torches, buttons, signs** (attachable blocks) need a supporting face; same rule as vines.
+5. **Water line**: a `destructive` fragment breaching a wall below the local water level lets water flow in on load. Until the water-structure subsystem (🚧 S3) owns flooding semantics, avoid destructive fragments below Y-of-adjacent-water; the authoring workaround is `y_min` matching in the pass or careful anchor_surface choice.
+
+Shipped-content audit note: `rubble_pile_*` (gravel at y=0/y=1 — verify y=1 entries sit on y=0 entries), `wall_breach` windowsill gravel, and `roof_tree_growth`/`window_overgrown` leaves (now engine-covered) are the known exposure points. Verify in the Phase 5 in-game check.
+
 ---
 
 ## 3. Fragment Pass
@@ -123,15 +142,17 @@ A Fragment Pass places Fragment instances at valid anchor points across a surfac
 }
 ```
 
-| Field | Type | Description |
-|---|---|---|
-| `type` | `"fragment_pass"` | Pass type discriminator |
-| `fragments` | string[] | Fragment names to draw from; one chosen per placement via position-hash roll |
-| `anchor_surface` | string | Surface class to scan for anchors. Overrides each fragment's own `anchor_surface` for *candidate collection*; a listed fragment whose `anchor_surface` differs and isn't `"any"` is skipped for incompatible anchors |
-| `density` | float 0–1 | Fraction of eligible anchors that receive a fragment, **after** intensity scaling: `effective_density = clamp01(density × intensity)` |
-| `noise` | NoiseConfig | Spatial gate — only fire where noise > threshold |
-| `min_spacing` | int | Min XZ distance between anchors placed **by this pass execution** (see cross-pass note below) |
-| `only_safe_anchor_blocks` | bool | Anchor block must be in `safe_blocks.json` `replaceable` |
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `type` | `"fragment_pass"` | ✓ | Pass type discriminator |
+| `fragments` | string[] | ✓ non-empty | Fragment names to draw from; one chosen per placement via position-hash roll |
+| `anchor_surface` | string | ✓ | Surface class to scan for anchors. Overrides each fragment's own `anchor_surface` for *candidate collection*; a listed fragment whose `anchor_surface` differs and isn't `"any"` is skipped for incompatible anchors |
+| `density` | float 0–1 | ✓ | Fraction of eligible anchors that receive a fragment, **after** intensity scaling: `effective_density = clamp01(density × intensity)` |
+| `noise` | NoiseConfig | | Spatial gate — only fire where noise > threshold |
+| `min_spacing` | int | | Min XZ distance between anchors placed **by this pass execution** (see cross-pass note below). Default 0 |
+| `only_safe_anchor_blocks` | bool | | Anchor block must be in `safe_blocks.json` `replaceable`. Default `true` |
+
+`fragments`, `anchor_surface`, and `density` are **required with no defaults** (`ARCHITECTURE.md` §7): a missing `density` must fail load as `invalid_pass_definition`, not silently place zero fragments; a defaulted `anchor_surface` would silently override each fragment's own surface.
 
 > `space_filter` is **not** a pass field — it is a call-time / bundle-entry parameter (`ARCHITECTURE.md` §5.2). v0.3 showed it inside the pass JSON; retracted to keep "what the pass does" separate from "where it is applied".
 
@@ -152,6 +173,10 @@ Wall-anchored fragments are directional: a breach must punch *through* the wall,
 3. `orientable: true` + horizontal anchor (`floor` / `rooftop` / `ceiling`): yaw is chosen uniformly from {0°, 90°, 180°, 270°} via position-hash roll — free rotation for visual variety (cars shouldn't all face north).
 4. **Block state properties are rotated too:** directional properties (`facing`, `axis`, `rotation`) are remapped by the same yaw. v1 scope: `facing` (N/E/S/W values), `axis` (x↔z). Anything else passes through unchanged.
 5. Rotation happens **before** clearance/footprint checks (§5 step e) — checks run on rotated offsets.
+
+Shipped vehicles are horizontal `orientable` fragments and place their model
+blocks at `y=1` above the floor anchor. This keeps the road surface intact while
+still applying full rotated-footprint clearance.
 
 ---
 
@@ -177,7 +202,15 @@ Wall-anchored fragments are directional: a breach must punch *through* the wall,
       - Block is air and fragment not destructive → skip.
       - Emit change. Final write-time validation (never-touch list, marker
         protection, destructive air-gate) is the §12.1 choke point in ARCHITECTURE.md —
-        it applies to every emitted position, not just the anchor.
+        it applies to every emitted position, not just the anchor. Note the
+        §12.1 air-transparency rule: fragment blocks written into air/air-like
+        positions (most of them — rubble stacks, vines, tree canopies) pass the
+        replaceable-whitelist check unconditionally; only blocks that overwrite
+        an existing solid block need whitelist membership.
+   g. The unique positions actually emitted by this fragment instance form one
+      atomic group when there is more than one. Probability/preserve skips are
+      excluded. If any member later fails the choke, the whole instance is
+      dropped; overlapping groups fail transitively, preventing half vehicles.
 ```
 
 All rolls use the position-hash scheme of `ARCHITECTURE.md` §6 — never a shared RNG stream.
@@ -190,11 +223,15 @@ class FragmentEngine:
                  safe_replaceable: set[str], structural_never_touch: set[str]) -> None: ...
 
     def preview(self, pass_def: dict, region: RegionData,
-                seed: int = 42, intensity: float = 1.0) -> PreviewResult: ...
+                seed: int = 42, intensity: float = 1.0,
+                initial_placed_anchors: list[BlockPos] = []) -> PreviewResult: ...
 
     def apply(self, pass_def: dict, region: RegionData,
-              seed: int = 42, intensity: float = 1.0) -> RegionData: ...
+              seed: int = 42, intensity: float = 1.0,
+              initial_placed_anchors: list[BlockPos] = []) -> RegionData: ...
 ```
+
+`initial_placed_anchors` (implemented, backward-compatible — default empty): pre-seeded anchor positions consulted by step 5c's `min_spacing` check *before* this execution's own placements. The future brush compiler will pass accumulated anchors across per-space-kind executions; ordinary fragment passes leave it empty.
 
 `StyleEngine` dispatches to `FragmentEngine` for `"type": "fragment_pass"` (see `ARCHITECTURE.md` §5).
 
@@ -283,7 +320,15 @@ Calling with both or neither scope → `ambiguous_bundle_scope`.
 }
 ```
 
-**Output:** aggregated per-pass results — `passes_applied: [{structure_type, pass, intensity, space_filter, changed}]`, `total_changed`, `errors[]`, `dry_run`, plus `space_classification` tier and `noise_backend` markers.
+**Output:** aggregated per-pass results — `passes_applied: [{structure_type, pass, intensity, space_filter, changed}]`, `total_changed`, `errors[]`, `dry_run`, plus `space_classification` tier and `noise_backend` (required field) markers.
+
+**Region-mode warning (normative):** in region mode without `structure_type_filter`, the response **must always** include a `region_mode_warning` stating that every entry's passes run over the whole region. If any pass name appears in more than one entry, the warning additionally names those passes and the repeat count:
+
+```json
+"region_mode_warning": "Region mode without structure_type_filter: all 3 entries run over the full region regardless of their structure_type labels. Passes ['tlou_rubble_scatter'] appear in 2 entries and will be applied that many times. Pass structure_type_filter if the area is not homogeneous."
+```
+
+The warning is unconditional (not only on duplicate passes) because the mismatch failure mode has two shapes: duplicated effects (a shared pass runs N times) *and* misdirected effects (a building-entry pass runs over a road area, silently producing nothing useful). It fires in both `dry_run` modes, is advisory, and never blocks execution — intentional whole-region application is valid.
 
 ### Storage
 
@@ -298,7 +343,7 @@ src/picasso/
 ├── core/
 │   ├── fragment_engine.py        ✅ placement logic (§4–§5)
 │   ├── fragment_library.py       ✅ loads/indexes data/fragments/*.json
-│   └── bundle_executor.py        🚧 to be extracted from tools/bundle.py (layering rule)
+│   └── bundle_executor.py        ✅ ordered bundle orchestration
 ├── models/
 │   └── fragment.py               ✅ Fragment, FragmentBlock
 ├── tools/

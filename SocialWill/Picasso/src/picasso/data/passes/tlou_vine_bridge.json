@@ -2,6 +2,7 @@
   "name": "tlou_vine_bridge",
   "description": "Place vines in air columns between building faces to create cross-building vine connections.",
   "version": "1.0",
+  "deprecated": true,
   "targets": ["outer_wall"],
   "only_safe_blocks": false,
   "rules": [

@@ -1,0 +1,23 @@
+{
+  "name": "breach_dressing_default",
+  "description": "Default ragged-edge dressing for breach-kind room entrances (brush_room_system §3.1/§5.4). Applied at the opening after the cut: cracked edging, crumble at the base, dust. Canonical frame: +Z = outward through the opening.",
+  "anchor_surface": "any",
+  "footprint": "3x2",
+  "requires_clear_above": false,
+  "min_clear_height": 0,
+  "destructive": false,
+  "orientable": true,
+  "tags": ["breach", "dressing", "room_system"],
+  "blocks": [
+    {"offset": [ 1,  0, 0], "block": "minecraft:cracked_stone_bricks", "probability": 0.6, "preserve_existing": true},
+    {"offset": [-1,  0, 0], "block": "minecraft:cracked_stone_bricks", "probability": 0.6, "preserve_existing": true},
+    {"offset": [ 1,  1, 0], "block": "minecraft:cobblestone",          "probability": 0.4, "preserve_existing": true},
+    {"offset": [-1,  1, 0], "block": "minecraft:cobblestone",          "probability": 0.4, "preserve_existing": true},
+    {"offset": [ 1,  2, 0], "block": "minecraft:cracked_stone_bricks", "probability": 0.3, "preserve_existing": true},
+    {"offset": [-1,  2, 0], "block": "minecraft:cracked_stone_bricks", "probability": 0.3, "preserve_existing": true},
+    {"offset": [ 0, -1, 1], "block": "minecraft:cobblestone",          "probability": 0.7, "preserve_existing": true},
+    {"offset": [ 1, -1, 1], "block": "minecraft:gravel",               "probability": 0.5, "preserve_existing": true},
+    {"offset": [-1, -1, 1], "block": "minecraft:gravel",               "probability": 0.5, "preserve_existing": true},
+    {"offset": [ 0,  0, 1], "block": "minecraft:cobweb",               "probability": 0.25}
+  ]
+}

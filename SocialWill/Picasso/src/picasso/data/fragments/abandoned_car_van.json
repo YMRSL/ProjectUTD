@@ -6,11 +6,12 @@
   "requires_clear_above": true,
   "min_clear_height": 3,
   "destructive": false,
+  "orientable": true,
   "tags": ["vehicle", "street", "debris"],
   "blocks": [
-    {"offset": [0, 0, 0], "block": "doomsday_decoration:discardgreyvans_1",  "probability": 1.0},
-    {"offset": [1, 0, 0], "block": "doomsday_decoration:discardgreyvans_2",  "probability": 1.0},
-    {"offset": [2, 0, 0], "block": "minecraft:gravel",                        "probability": 0.50},
-    {"offset": [0, 0, 1], "block": "minecraft:cobblestone",                   "probability": 0.40}
+    {"offset": [0, 1, 0], "block": "doomsday_decoration:discardgreyvan_1",   "probability": 1.0},
+    {"offset": [1, 1, 0], "block": "doomsday_decoration:discardgreyvan_2",   "probability": 1.0},
+    {"offset": [2, 1, 0], "block": "minecraft:gravel",                        "probability": 0.50},
+    {"offset": [0, 1, 1], "block": "minecraft:cobblestone",                   "probability": 0.40}
   ]
 }

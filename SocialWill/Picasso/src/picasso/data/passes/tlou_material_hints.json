@@ -30,15 +30,6 @@
       ],
       "weight": 0.10,
       "noise": {"scale": 0.10, "threshold": 0.72}
-    },
-    {
-      "match": {
-        "block": ["minecraft:glass_pane", "minecraft:white_stained_glass_pane"],
-        "surface": "outer_wall"
-      },
-      "action": "remove",
-      "weight": 0.08,
-      "noise": {"scale": 0.12, "threshold": 0.75}
     }
   ]
 }

@@ -2,6 +2,7 @@
   "name": "tlou_decay_surfaces",
   "description": "Replace clean stone, concrete, and wood surfaces with weathered, cracked, and worn variants. First layer of TLOU stylization.",
   "version": "1.0",
+  "destructive": true,
   "targets": ["floor", "outer_wall", "inner_wall", "rooftop"],
   "only_safe_blocks": true,
   "rules": [

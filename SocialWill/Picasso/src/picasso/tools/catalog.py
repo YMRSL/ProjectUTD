@@ -15,16 +15,17 @@ def register(mcp) -> None:
         context: list[str] | None = None,
         tags: list[str] | None = None,
         function: str | None = None,
+        source: str | None = None,
     ) -> dict:
         """Query the Doomsday Decoration semantic catalog."""
         try:
-            if session.catalog is None:
+            if session.catalog is None or not session.catalog.entries:
                 return {
                     "ok": False,
                     "error": "catalog_not_loaded",
-                    "message": "Catalog was not loaded at startup.",
-            }
-            blocks = session.catalog.query(category, surface, context, tags, function)
+                    "message": "No valid catalog entries were loaded at startup.",
+                }
+            blocks = session.catalog.query(category, surface, context, tags, function, source)
             return {"ok": True, "count": len(blocks), "blocks": blocks}
         except Exception as exc:
             logger.exception("Unexpected error in query_catalog")

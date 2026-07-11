@@ -1,0 +1,19 @@
+{
+  "name": "debris_scatter",
+  "description": "General-purpose floor debris — rubble piles biased small, denser in corridors than halls. Reference example for the brush format (brush_room_system §2.1).",
+  "fragments": ["rubble_pile_small", "rubble_pile_medium"],
+  "anchor_surface": "floor",
+  "density": {
+    "default": 0.05,
+    "corridor": 0.09,
+    "room": 0.05,
+    "hall": 0.03,
+    "exterior": 0.06
+  },
+  "size_bias": "prefer_small",
+  "angle": "free",
+  "min_spacing": 3,
+  "noise": {"scale": 0.07, "threshold": 0.45},
+  "condition_layer": true,
+  "tags": ["debris", "condition", "reference_example"]
+}

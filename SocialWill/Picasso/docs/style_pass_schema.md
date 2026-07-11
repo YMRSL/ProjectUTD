@@ -1,6 +1,6 @@
 # Pass, Pattern & Safe-Blocks Schema Reference
 
-> Authoritative JSON schemas for everything under `data/`. Pass **type system** (dispatcher, intensity/space_filter semantics, seed precedence) is defined in `ARCHITECTURE.md` §5; this file specifies the per-type file formats.
+> Tracks `ARCHITECTURE.md` v0.4.4. Authoritative JSON schemas for everything under `data/`. Pass **type system** (dispatcher, intensity/space_filter semantics, seed precedence) is defined in `ARCHITECTURE.md` §5; this file specifies the per-type file formats.
 
 A pass is any `*.json` in `data/passes/`. The top-level `type` field selects the schema:
 
@@ -133,7 +133,7 @@ Runs `PatternMatcher` over the region and substitutes matched vanilla furniture 
 | `type` | `"pattern_replace"` | ✓ | |
 | `mappings` | Mapping[] | ✓ | `{"pattern": "<pattern name>", "dd_block": "<full block id>"}` |
 
-Per match: replacement fires with probability = call-time `intensity` (position-hash roll on the anchor). The DD block is placed at `anchor + replacement_anchor_offset`; positions in the pattern's `clear_offsets` are set to air. Pattern-replace clears are **exempt from the destructive flag** (replacing a chair implies removing its parts) but still respect `structural_never_touch` and marker protection at the write choke point.
+Per match: replacement fires with probability = call-time `intensity` (position-hash roll on the anchor). The DD block is placed at `anchor + replacement_anchor_offset`; positions in the pattern's `clear_offsets` are set to air only when that rotated offset actually matched a required or optional pattern block. Pattern-replace clears are **exempt from the destructive flag** (replacing a chair implies removing its parts) but still respect `structural_never_touch` and marker protection at the write choke point. The replacement plus its clears are validated as one atomic group: if any position in the group is blocked by the choke, the whole pattern replacement is dropped.
 
 ```json
 {
@@ -169,16 +169,23 @@ Small 3D block templates for `PatternMatcher`.
 | `blocks` | PatternBlock[] | ✓ | Offsets + match conditions. |
 | `dd_replacement` | string | | Default DD substitute (pass `mappings` override it). |
 | `replacement_anchor_offset` | [int,int,int] | | Where the replacement goes, relative to anchor. Default `[0,0,0]`. |
-| `clear_offsets` | [[int,int,int]] | | Extra positions set to air on replacement. |
+| `clear_offsets` | [[int,int,int]] | | Matched pattern positions set to air on replacement. Optional offsets that did not match are not cleared. |
+| `min_optional_matches` | int | | Minimum number of optional pattern blocks that must match. Default `0`. |
+| `experimental` | bool | | Default `false`. If true, skipped by default `PatternMatcher.find_matches`, `analyze_region`, and `pattern_replace` until a caller explicitly opts in. |
 
 ### PatternBlock / PatternMatch
 
 | Field | Type | Description |
 |---|---|---|
 | `offset` | [int,int,int] | Relative to anchor. |
+| `optional` | bool | If true, a mismatch does not fail the pattern; matched optional blocks count toward `min_optional_matches`. |
+| `match.block` | string \| string[] | Full block id(s), e.g. `minecraft:oak_stairs`. |
 | `match.namespace` | string | Block namespace. |
 | `match.name` | string | Exact name. |
-| `match.name_contains` | string | Substring (case-insensitive). |
+| `match.name_contains` | string \| string[] | Substring match. A list means any listed substring may match. |
+| `match.name_contains_any` | string[] | Any listed substring may match. |
+| `match.name_contains_all` | string[] | All listed substrings must match. |
+| `match.name_endswith` | string \| string[] | Name suffix match. Useful for `*_slab`, `*_stairs`, etc. |
 | `match.any` | bool | Any non-air block. |
 | `match.air` | bool | Must be air. |
 

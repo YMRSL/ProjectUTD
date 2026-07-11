@@ -6,17 +6,23 @@ build-backend = "hatchling.build"
 name = "picasso"
 version = "0.1.0"
 description = "Impressionist World Stylization MCP Server for Minecraft — SocialWill World Layer"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.12"
 dependencies = [
-    "mcp>=1.0.0",
-    "amulet-core>=1.0.0",
-    "pydantic>=2.0.0",
-    "numpy>=1.26.0",
-    "python-dotenv>=1.0.0",
+    # The bridge is tested against these exact MCP/Amulet APIs. Upgrade only
+    # together with the temporary-world integration suite.
+    "mcp==1.28.1",
+    "amulet-core==1.9.41",
+    "pydantic>=2.13,<3",
+    "numpy>=1.26,<2",
+    "python-dotenv>=1.2,<2",
 ]
 
 [project.optional-dependencies]
 perlin = ["noise==1.2.2"]
+test = [
+    "pytest>=9.1,<10",
+    "coverage>=7.15,<8",
+]
 
 [project.scripts]
 picasso = "picasso.server:main"

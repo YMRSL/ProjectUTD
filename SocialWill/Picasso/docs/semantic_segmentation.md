@@ -1,6 +1,6 @@
 # Semantic Segmentation & Structure Detection
 
-> Supplement to `ARCHITECTURE.md` (v0.4). Read after the main architecture document.
+> Supplement to `ARCHITECTURE.md` — tracks v0.4.4. Read after the main architecture document.
 > Covers the automatic structure recognition subsystem (introduced v0.2; identity rules and Zone-cut updated in v0.4). **Status: 🚧 entirely unimplemented** — this is a build spec, not a description of working code. Tool API: `docs/structure_detection_tool_specs.md`; build order: `docs/segmentation_implementation_phases.md`.
 >
 > Requires `scipy` (flood fill via `scipy.ndimage.label`) — add to `pyproject.toml` when this subsystem starts.
@@ -235,6 +235,33 @@ class StructureAssembler:
 **Fingerprint matching:**
 After assembly, each Structure is matched against `data/structure_fingerprints.json` (see §8). The best match updates `sub_type` and `confidence` score.
 
+### 5.1 Agent evidence review (normative)
+
+The assembler owns reproducible geometry and detector hypotheses; it does not own
+human intent. An MCP-connected Agent may review a candidate by combining its
+bounds, detector facts, relationships, local patterns, and bounded voxel evidence
+from `inspect_volume`. The Agent returns ranked interpretations, alternatives,
+confidence, and cited evidence. This review is advisory until an explicit human
+or authorized annotation operation stores it under `authored.*`.
+
+The full responsibility and promotion contract is
+`docs/agent_semantic_review.md`. In particular:
+
+- aggregate counts are not sufficient evidence for room/building names;
+- `storey_level_candidate` is not an ordinal floor until a host building, ground
+  reference, overlapping horizontal levels, and vertical connectivity exist;
+- partial/truncated evidence must be expanded before absence is interpreted;
+- one reviewed example cannot silently rewrite a global Pattern or fingerprint;
+- `detected.*` remains pipeline-owned and `authored.*` remains review-owned.
+
+Phase S4 adds read-only `scan_semantic_candidates` and
+`get_candidate_evidence` before the existing registry/write tools. Candidate
+evidence is paginated and run-scoped. When a candidate is accepted into the
+registry, Picasso stores a compact evidence digest/summary in `detected.*`; it
+does not persist raw chunk dumps. If re-detection changes that digest while an
+authored semantic review exists, readers expose `review_stale: true` rather than
+silently treating an old explanation as freshly verified.
+
 ---
 
 ## 6. Structure Data Model
@@ -277,23 +304,52 @@ class BoundingBox:
 
 The correction workflow (§8) promises that human overrides survive re-detection. That promise is only meaningful with a rule for deciding when a newly detected candidate **is** an existing registry entry. Sequential IDs (`struct_0001`) are labels, not identity.
 
+**Partial detections:** a candidate whose bounds touch the scan boundary (any face of its AABB within 1 chunk of the scanned area's edge) is flagged **`partial: true`** — its true extent is unknown because the structure may continue beyond the scan. Partial entries are first-class registry citizens (annotatable, targetable), but their identity matching differs below. A later scan that covers the structure completely clears the flag.
+
 **Matching rule:** for each new candidate `C` against each registry entry `E` of a *compatible* type:
 
-1. Compute 3D bounding-box IoU (intersection volume / union volume).
-2. Compatible types: exact type match, or either side's type is `unknown`, or both are in the same family (`{ground_rail, elevated_rail, subway_line}`, `{road, plaza, highway}`, `{building, stadium}`).
-3. Candidate–entry pairs with IoU ≥ **0.5** are matched greedily, highest IoU first; each entry matches at most one candidate.
+1. Compatible types: exact type match, or either side's type is `unknown`, or both are in the same family (`{ground_rail, elevated_rail, subway_line}`, `{road, plaza, highway}`, `{building, stadium}`).
+2. **Neither side partial:** score = 3D bounding-box IoU (intersection volume / union volume); match threshold **0.5**.
+3. **Either side partial:** score = **containment ratio** — `intersection volume / min(volume(C), volume(E))`; match threshold **0.7**. Rationale: a stadium half-captured by an earlier scan has clipped bounds; against the full detection, IoU can fall below 0.5 (the clipped box is a fraction of the true one) and the manual correction on the clipped entry would be orphaned into a stale duplicate. Containment asks "is the smaller box essentially inside the bigger one?", which is the right question when one box is known-truncated.
+4. Candidate–entry pairs at/above their threshold are matched greedily, highest score first; each entry matches at most one candidate.
+
+**Entry schema: two namespaces (normative — decided in review round 4, H8).** A registry entry holds two disjoint kinds of data, and the update semantics are defined per namespace, not per field:
+
+```json
+{
+  "id": "struct_0042",
+  "detected": {
+    "type": "building", "sub_type": "residential", "confidence": 0.8,
+    "bounds": {...}, "partial": false, "dominant_materials": [...],
+    "volume_estimate": 30200, "detected_at": "...",
+    "evidence_digest": "sha256:...", "evidence_summary": {...}
+  },
+  "authored": {
+    "manual_override": {"type": "stadium"},
+    "semantic_reviews": [{"interpretation": {...}, "basis": ["f1", "f2"], "evidence_digest": "sha256:..."}],
+    "interior_graph": {...},
+    "room_instantiations": [...],
+    "annotations": {...}
+  },
+  "stale": false
+}
+```
+
+- **`detected.*`** is owned by the detection pipeline: re-detection may refresh any of it (subject to the override shadowing below).
+- **`authored.*`** is owned by agents/humans (`annotate_structure`, room-graph editing, future layers): **re-detection never touches this namespace.** Without this split, a re-run of `detect_structures` — a routine operation — would erase an afternoon of room-graph authoring under the old "replace all detected fields" rule; and every future authored field would need to be individually remembered in the exemption list. `manual_override` is simply the first resident of `authored`.
+- Where an `authored.manual_override` key shadows a `detected` key (e.g. `type`), readers resolve authored-over-detected; detection refreshes the detected value underneath without effect on consumers until the override is removed.
+- An authored semantic review retains the evidence digest it reviewed. A digest mismatch after re-detection sets a derived `review_stale` warning; it never deletes the review or blocks the refreshed detected facts.
 
 **Update semantics:**
 
 | Case | Action |
 |---|---|
-| Matched, entry has `manual_override` | Keep entry ID and **all** overridden fields; refresh only non-overridden computed fields (dominant_materials, volume_estimate, …); update `detected_at` |
-| Matched, no override | Keep entry ID; replace all detected fields with the new detection |
-| Unmatched new candidate | Append with the next sequential ID |
-| Unmatched old entry, its bounds were inside the re-scanned area | Mark `"stale": true` (never silently delete — a human may still reference it). `list_structures` hides stale entries unless `include_stale: true` |
-| Unmatched old entry outside the scanned area | Untouched |
+| Matched (with or without overrides) | Keep entry ID and the **entire `authored` namespace** untouched; refresh `detected.*` from the new detection (bounds refresh includes the partial→full upgrade); update `detected_at` |
+| Unmatched new candidate | Append with the next sequential ID, empty `authored` |
+| Unmatched old entry whose bounds are **fully contained** in the re-scanned area | Mark `"stale": true` (never silently delete — a human may still reference it, and its `authored` data survives with it). `list_structures` hides stale entries unless `include_stale: true` |
+| Unmatched old entry partially overlapping or outside the scanned area | Untouched — **partial overlap is not evidence of disappearance**; only a scan that covers the entry's entire bounds and fails to re-detect it may stale it. (Without this rule, every tile seam in a tiled workflow would stale the structures it slices through.) |
 
-Structure IDs are therefore **stable across re-detection for continuously-existing structures**, and `annotate_structure` corrections persist per §8.
+Structure IDs are therefore **stable across re-detection for continuously-existing structures** — including structures first seen clipped at a scan boundary — and everything under `authored` (corrections, interior graphs, room records) persists unconditionally per §8.
 
 ---
 
@@ -309,10 +365,16 @@ All detected structures are saved to `<world>/picasso_structures.json`. This fil
 
 **Correction flow:**
 1. `detect_structures()` writes `picasso_structures.json` with auto-detected results.
-2. A human (or AI with specific instructions) edits `type`, `sub_type`, or `bounds` for any structure — directly in the file or via `annotate_structure`.
-3. The edit sets `manual_override` (e.g. `{"type": "stadium", "sub_type": "sports_complex"}`) on the entry.
-4. Future `detect_structures()` runs preserve overridden fields per the §7 identity/update rules.
+2. A human (or an Agent following `docs/agent_semantic_review.md` with cited evidence) proposes or confirms `type`, `sub_type`, `bounds`, room meaning, or another semantic annotation — directly in the file or via `annotate_structure`.
+3. The edit sets `authored.manual_override` (e.g. `{"type": "stadium", "sub_type": "sports_complex"}`) on the entry.
+4. Future `detect_structures()` runs preserve the entire `authored` namespace per the §7 identity/update rules.
 5. New structures in newly scanned areas are appended; vanished structures are marked stale, never deleted.
+
+**Multi-writer protocol (normative — H11).** This file has at least three writers: Picasso (detect / annotate / room-graph edits), humans editing directly (explicitly encouraged above), and potentially future layers. Picasso holding the registry in memory and bulk-writing it back would silently destroy concurrent hand edits (lost update — the same threat model as external marker writers, F1). Therefore:
+
+1. **Read-merge-write:** before any write-back, Picasso re-reads the file and merges — entries it did not modify in this operation are taken from the file as-is; entries it did modify are written from memory. Field-level merge within one entry is not attempted (last writer wins per entry); the entry is the merge granule.
+2. **Atomic write:** write to a temp file in the same directory, then rename over the original. A crash mid-write must never leave a truncated `picasso_structures.json` — this file is the single source of truth.
+3. Same two rules apply to every per-world JSON Picasso writes (`picasso_rooms.json`, journal entries — journal entries are append-only files, so atomicity alone suffices there).
 
 ---
 
