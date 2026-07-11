@@ -40,6 +40,8 @@ runs/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.coverage
+htmlcov/
 .ruff_cache/
 .mypy_cache/
 .venv/
@@ -102,12 +104,24 @@ _inspect*/
 *.mp3
 *.mp4
 *.wav
+*.ogg
+
+# Intentional project-source spreadsheets (small, reviewed, and versioned).
+!策划案以及文档相关/ItemNameCatch分类汇总_合成设计方案_v1.xlsx
+!outputs/projectutd-sprint-20260711/*.xlsx
 
 # Large project areas to review before importing into Git
 UntilWeDieOriginal/
 地图管理/
 待删除或整改升级的mod/
 _inspect_sable_tmp/
+UtilWeDie-Neo-1.21.1/建筑存档/
+
+# Local reference/provenance-review areas: keep locally, do not publish from this public repo yet.
+CNPCScripts/CnpcScript/
+CNPCScripts/resourcepack/fungal_cnpc_test/assets/fungalcnpc/textures/
+SocialWill/Chess/assets/**/*.png
+SocialWill/Chess/*.png
 
 # Third-party/upstream source snapshots. Track local forks separately after review.
 Code/SuperbWarfare-superbwarfare/

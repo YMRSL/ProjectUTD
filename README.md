@@ -2,6 +2,10 @@
 
 ProjectUTD is a Minecraft project workspace containing mod source experiments, migration notes, NPC scripts, tooling, and supporting design documents.
 
+## Project Operations
+
+The project-level sprint status, priorities, blockers, and acceptance criteria are maintained in [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md). Module architecture documents remain authoritative for technical design.
+
 ## Current Repository Scope
 
 This repository is prepared as a source-management root, not as a full Minecraft client backup. The first Git pass should focus on:
