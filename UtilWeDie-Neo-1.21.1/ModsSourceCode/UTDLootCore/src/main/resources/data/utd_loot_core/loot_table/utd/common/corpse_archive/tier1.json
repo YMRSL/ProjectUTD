@@ -1,0 +1,307 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "create:cuckoo_clock",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:desk_bell",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:display_board",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:goggles",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:nixie_tube",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:nozzle",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:peculiar_bell",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:redstone_contact",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:rose_quartz_lamp",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:sail_frame",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:turntable",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:white_sail",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "createdieselgenerators:track_layers_bag",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:book",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:desk",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:kettle",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:teapot",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:trophy",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:skillet",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:stove",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:chopping_board",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:enamel_basin",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:fruit_basket",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:kitchen_shovel",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:kitchenware_racks",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:oil_pot",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:pot",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:scarecrow",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:steamer",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:stockpot_lid",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bucket",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flint_and_steel",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:lead",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_boots",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_chestplate",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_helmet",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_leggings",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simpleradio:spuddie_talkie",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "spore:gas_mask",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:dog_tag",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:ge_helmet_m_35",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:iff",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:baseball_bat_sword",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:broken_bottle_sword",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:cloth_balaclava_helmet",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:coins",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:gas_mask_helmet",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:homemade_impact_bomb",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:lance_pitchfork",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:money",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:nail",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:nails_box",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:stop_sing_head",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:wool_balaclava_helmet",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:baseball_bat",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:rake",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:wrench",
+          "weight": 3
+        }
+      ]
+    }
+  ]
+}

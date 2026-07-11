@@ -1,0 +1,745 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "create:adjustable_chain_gearshift",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:andesite_funnel",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:andesite_tunnel",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:basin",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:belt_connector",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:brass_funnel",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:brass_ingot",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:brass_tunnel",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:chute",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:clutch",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:cogwheel",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:copper_sheet",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:depot",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:encased_chain_drive",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:encased_fan",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:fluid_tank",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:fluid_valve",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:gearbox",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:gearshift",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:hose_pulley",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:iron_sheet",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:item_drain",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:large_cogwheel",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:portable_fluid_interface",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:smart_chute",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:spout",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:vertical_gearbox",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:weighted_ejector",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:wrench",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create_new_age:copper_wire",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "createaddition:rolling_mill",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "createdieselgenerators:hammer",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "createdieselgenerators:wire_cutters",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:bolt_action_receiver",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:shotgun_casing",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:small_casing",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:smg_magazine",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:smg_receiver",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bengdai_b\",use_duration_ticks:82,nutrition:0,saturation:0.0f,max_stack_size:16,custom_effects:[{type:\"bandage\",value:2.0f,duration_ticks:0,interval_ticks:0,chance:1.0f},{type:\"heal_gradual\",value:4.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你将它贴合缠好\"},{at_ticks:26,text:\"适中的紧绷感包裹伤口\"},{at_ticks:58,text:\"一开始有一些冰凉的刺痛\"},{at_ticks:92,text:\"但随之而来的是疼痛的缓解\"}]}]}},food_id:\"firstpersonfoodeating:i_bengdai_b\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jijiubao_b\",use_duration_ticks:115,nutrition:0,saturation:0.0f,max_stack_size:1,custom_effects:[{type:\"heal_gradual\",value:0.0f,duration_ticks:100,interval_ticks:0,chance:1.0f},{type:\"emergency_painkiller\",value:10.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你专业处理创面\"},{at_ticks:26,text:\"你感到疼痛快速减轻\"},{at_ticks:56,text:\"止血抗感染\"},{at_ticks:78,text:\"伤势迅速稳定\"}]}]},use_selector:{mode:\"hp\",default_clip:\"use1\",rules:[{min_amount:1,max_amount:25,clip:\"use1\",duration_ticks:115},{min_amount:26,max_amount:50,clip:\"use2\",duration_ticks:115}]},durability_use:{enabled:true,resource:\"hp\",max:50,current:50,per_point:1}},food_id:\"firstpersonfoodeating:i_jijiubao_b\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_yaoping_b\",use_duration_ticks:56,nutrition:0,saturation:0.0f,max_stack_size:16,custom_effects:[{type:\"healthy\",value:20.0f,duration_ticks:400,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你吃下药片\"},{at_ticks:22,text:\"温和效力扩散全身\"},{at_ticks:50,text:\"你感到乏力感减轻\"},{at_ticks:78,text:\"状态趋于平稳\"}]}]}},food_id:\"firstpersonfoodeating:i_yaoping_b\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:4,GunFireMode:\"SEMI\",GunId:\"hamster:auto5\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:2,GunCurrentAmmoCount:3,GunFireMode:\"SEMI\",GunId:\"hamster:gew98\",HasBulletInBarrel:1b,RepairCost:0}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:6,GunCurrentAmmoCount:4,GunFireMode:\"SEMI\",GunId:\"hamster:krag\",HasBulletInBarrel:1b,RepairCost:0}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:9,GunCurrentAmmoCount:7,GunFireMode:\"SEMI\",GunId:\"hamster:lugerp08\",HasBulletInBarrel:1b,RepairCost:0}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:6,GunFireMode:\"SEMI\",GunId:\"hamster:m1887_hc\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:8,GunFireMode:\"SEMI\",GunId:\"hamster:m1garand\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:9,GunCurrentAmmoCount:7,GunFireMode:\"SEMI\",GunId:\"hamster:makarov\",HasBulletInBarrel:1b,RepairCost:0}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:32,GunCurrentAmmoCount:32,GunFireMode:\"AUTO\",GunId:\"hamster:mp18\",HasBulletInBarrel:1b,RepairCost:0}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:1,GunFireMode:\"SEMI\",GunId:\"hamster:one_barrel\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:5,GunCurrentAmmoCount:5,GunFireMode:\"SEMI\",GunId:\"hamster:smle_mk3\",HasBulletInBarrel:1b,RepairCost:0}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{AttachmentEXTENDED_MAG:{Count:1b,id:\"tacz:attachment\",tag:{AttachmentId:\"hamster:speedloader\"}},Damage:12,GunCurrentAmmoCount:6,GunFireMode:\"BURST\",GunId:\"hamster:sw_mk2\",HasBulletInBarrel:1b,RepairCost:0}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{AttachmentEXTENDED_MAG:{Count:1b,id:\"tacz:attachment\",tag:{AttachmentId:\"hamster:speedloader\"}},Damage:21,GunCurrentAmmoCount:6,GunFireMode:\"SEMI\",GunId:\"hamster:webley\",HasBulletInBarrel:1b,RepairCost:0}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:2,GunCurrentAmmoCount:13,GunFireMode:\"SEMI\",GunId:\"hamster:win1873\",HasBulletInBarrel:1b,RepairCost:0}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:millstone",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bow",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:crossbow",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:fishing_rod",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glass_pane",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gunpowder",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_axe",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_hoe",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_pickaxe",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_shovel",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:shield",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:spyglass",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:stick",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:2,GunFireMode:\"SEMI\",GunId:\"murasamet:abe_pipe_gun\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:21,GunFireMode:\"AUTO\",GunId:\"murasamet:barstard\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:20,GunFireMode:\"AUTO\",GunId:\"murasamet:m1a1\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:32,GunCurrentAmmoCount:32,GunFireMode:\"AUTO\",GunId:\"murasamet:mp38\",HasBulletInBarrel:1b,RepairCost:0}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:25,GunFireMode:\"AUTO\",GunId:\"murasamet:ppsh\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:6,GunFireMode:\"SEMI\",GunId:\"murasamet:shambler\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:crowbar",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:defuser",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:steel_pipe",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:t_baton",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:american_fist",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:b_aseball_bat_with_nails_sword",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:batteries",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:brick_hammer",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:kitchen_knife",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:lance_wit_screwdriver",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:lance_with_knife",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:lever_mace",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:machete",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:nails_hammer",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:pipe_wrench_mace",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:sledge_great_hammer",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:steellium_pipe_mace",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:stop_sing_shield",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:tier_i_kevlar",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:wrench_mace",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:16,GunFireMode:\"AUTO\",GunId:\"tacz:cz75\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:2,GunFireMode:\"SEMI\",GunId:\"tacz:db_long\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:2,GunFireMode:\"BURST\",GunId:\"tacz:db_short\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:17,GunFireMode:\"SEMI\",GunId:\"tacz:glock_17\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:30,GunFireMode:\"AUTO\",GunId:\"tacz:hk_mp5a5\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:7,GunFireMode:\"SEMI\",GunId:\"tacz:m1911\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:1,GunFireMode:\"SEMI\",GunId:\"tacz:springfield1873\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:25,GunFireMode:\"AUTO\",GunId:\"tacz:ump45\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:20,GunFireMode:\"AUTO\",GunId:\"tacz:uzi\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:firecracker",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:netherite_rake",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

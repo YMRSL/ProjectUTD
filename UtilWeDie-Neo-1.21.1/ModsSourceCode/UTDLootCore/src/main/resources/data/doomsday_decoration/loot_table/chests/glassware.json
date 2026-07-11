@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 3,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 50,
+          "value": "utd_loot_core:utd/common/medical/tier0"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "value": "utd_loot_core:utd/common/medical/tier1"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "value": "utd_loot_core:utd/common/medical/tier2"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 0,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 80,
+          "value": "utd_loot_core:utd/directed/medical/tier3"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 20,
+          "value": "utd_loot_core:utd/directed/medical/tier4"
+        }
+      ]
+    }
+  ]
+}

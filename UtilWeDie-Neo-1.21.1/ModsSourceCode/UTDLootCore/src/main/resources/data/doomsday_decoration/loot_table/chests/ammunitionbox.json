@@ -1,0 +1,53 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 3,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 45,
+          "value": "utd_loot_core:utd/common/military/tier0"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "value": "utd_loot_core:utd/common/military/tier1"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 30,
+          "value": "utd_loot_core:utd/common/military/tier2"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 1,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 70,
+          "value": "utd_loot_core:utd/directed/military/tier3"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 24,
+          "value": "utd_loot_core:utd/directed/military/tier4"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 6,
+          "value": "utd_loot_core:utd/directed/military/tier5"
+        }
+      ]
+    }
+  ]
+}

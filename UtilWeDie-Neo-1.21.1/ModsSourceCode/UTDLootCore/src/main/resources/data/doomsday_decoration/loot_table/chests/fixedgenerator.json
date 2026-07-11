@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 3,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 45,
+          "value": "utd_loot_core:utd/common/utility_industrial/tier0"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "value": "utd_loot_core:utd/common/utility_industrial/tier1"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 30,
+          "value": "utd_loot_core:utd/common/utility_industrial/tier2"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 0,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 85,
+          "value": "utd_loot_core:utd/directed/utility_industrial/tier3"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 15,
+          "value": "utd_loot_core:utd/directed/utility_industrial/tier4"
+        }
+      ]
+    }
+  ]
+}

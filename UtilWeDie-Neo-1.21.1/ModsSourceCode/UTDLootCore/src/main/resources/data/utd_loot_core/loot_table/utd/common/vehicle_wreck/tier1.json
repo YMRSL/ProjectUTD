@@ -1,0 +1,375 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "create:crafter_slot_cover",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:desk_bell",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:goggles",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:nozzle",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:peculiar_bell",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:red_sand_paper",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:redstone_contact",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:sail_frame",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:sand_paper",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:turntable",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:white_sail",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "createdieselgenerators:track_layers_bag",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:book",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:bottle",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:bottle_2",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:cup",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:cup_2",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:desk",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:stove",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bengdai_a\",use_duration_ticks:82,nutrition:0,saturation:0.0f,max_stack_size:16,custom_effects:[{type:\"bandage\",value:3.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"经过简单缠绕后\"},{at_ticks:26,text:\"感受到轻微的压迫感\"},{at_ticks:56,text:\"伤口的刺痛与渗血得到了初步压制\"}]}]}},food_id:\"firstpersonfoodeating:i_bengdai_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jia_a\",use_duration_ticks:127,nutrition:0,saturation:0.0f,max_stack_size:1,custom_effects:[{type:\"armor_restore_durability\",value:0.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你穿戴完毕\"},{at_ticks:22,text:\"基础防护感传来\"},{at_ticks:48,text:\"动作略僵\"},{at_ticks:68,text:\"但你感到能抵挡轻微磕碰\"}]}]},use_selector:{mode:\"armor\",default_clip:\"level_1\",rules:[{min_amount:1,max_amount:40,clip:\"level_1\",duration_ticks:54},{min_amount:41,max_amount:70,clip:\"level_2\",duration_ticks:78},{min_amount:71,max_amount:130,clip:\"level_3\",duration_ticks:103},{min_amount:131,max_amount:200,clip:\"level_4\",duration_ticks:127}]},durability_use:{enabled:true,resource:\"armor\",max:70,current:70,per_point:1}},food_id:\"firstpersonfoodeating:i_jia_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jijiubao_a\",use_duration_ticks:115,nutrition:0,saturation:0.0f,max_stack_size:1,custom_effects:[{type:\"heal_gradual\",value:0.0f,duration_ticks:100,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你简易处理伤口\"},{at_ticks:26,text:\"你感到疼痛和出血得到了最基础的应急缓解\"}]}]},use_selector:{mode:\"hp\",default_clip:\"use1\",rules:[{min_amount:1,max_amount:15,clip:\"use1\",duration_ticks:115},{min_amount:16,max_amount:30,clip:\"use2\",duration_ticks:115}]},durability_use:{enabled:true,resource:\"hp\",max:30,current:30,per_point:1}},food_id:\"firstpersonfoodeating:i_jijiubao_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "just_barricades:acacia_barricade",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "just_barricades:bamboo_barricade",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "just_barricades:birch_barricade",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "just_barricades:cherry_barricade",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "just_barricades:dark_oak_barricade",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "just_barricades:jungle_barricade",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "just_barricades:mangrove_barricade",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "just_barricades:oak_barricade",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "just_barricades:spruce_barricade",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:enamel_basin",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:fruit_basket",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:kitchenware_racks",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:oil_pot",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:scarecrow",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:steamer",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bucket",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flint_and_steel",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:lead",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_leggings",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "spore:gas_mask",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:dog_tag",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:ge_helmet_m_35",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:iff",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:baseball_bat_sword",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:broken_bottle_sword",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:circular_saw",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:cloth_balaclava_helmet",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:coins",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:gas_mask_helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:homemade_impact_bomb",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:lance_pitchfork",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:money",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:nail",
+          "weight": 17,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:nails_box",
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:propane",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:stop_sing_head",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:wool_balaclava_helmet",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:barbed_wire",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:baseball_bat",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:rake",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:trap_cover",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:wrench",
+          "weight": 10
+        }
+      ]
+    }
+  ]
+}

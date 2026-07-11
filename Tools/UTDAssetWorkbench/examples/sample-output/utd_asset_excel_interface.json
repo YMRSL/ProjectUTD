@@ -1,0 +1,355 @@
+{
+  "generatedAt": "2026-07-11T00:00:00Z",
+  "schemaVersion": "utd-excel-export/v1",
+  "sheets": [
+    {
+      "columns": [
+        "key",
+        "value"
+      ],
+      "frozenRows": 1,
+      "name": "README",
+      "rows": [
+        {
+          "key": "schema",
+          "value": "utd-asset-workbench/v1"
+        },
+        {
+          "key": "project_id",
+          "value": "utd_workbench_sample"
+        },
+        {
+          "key": "generated_at",
+          "value": "2026-07-11T00:00:00Z"
+        },
+        {
+          "key": "content_fingerprint",
+          "value": "c0728a591dfa8581"
+        },
+        {
+          "key": "editing_contract",
+          "value": "JSON is canonical; this workbook interface is a one-way review export."
+        }
+      ]
+    },
+    {
+      "columns": [
+        "asset_key",
+        "item_key",
+        "registry_id",
+        "identity_kind",
+        "variant_discriminator",
+        "components_canonical",
+        "components_snbt",
+        "identity_components_canonical",
+        "variant_key",
+        "client_name_zh_cn",
+        "translation_key",
+        "canonical_components",
+        "canonical_variant",
+        "catalogued",
+        "managed",
+        "human_selected",
+        "recipe_input",
+        "recipe_output",
+        "recipe_input_count",
+        "recipe_output_count",
+        "loot_enabled",
+        "loot_level",
+        "catalog_hash",
+        "deployed_hash",
+        "stale",
+        "sync_state",
+        "sync",
+        "issues"
+      ],
+      "filter": true,
+      "frozenRows": 1,
+      "name": "Items",
+      "rows": [
+        {
+          "asset_key": "zombiekit:baseball_bat",
+          "canonical_components": "{\"canonical\":\"\",\"encoding\":\"utd-nbt-canonical-v1\",\"snbt\":\"{}\"}",
+          "canonical_variant": "null",
+          "catalog_hash": "3f84c21cfe69a445",
+          "catalogued": true,
+          "client_name_zh_cn": "实木棒球棍",
+          "components_canonical": "",
+          "components_snbt": "{}",
+          "deployed_hash": null,
+          "human_selected": true,
+          "identity_components_canonical": "",
+          "identity_kind": "item",
+          "issues": "",
+          "item_key": "zombiekit:baseball_bat",
+          "loot_enabled": false,
+          "loot_level": null,
+          "managed": true,
+          "recipe_input": false,
+          "recipe_input_count": 0,
+          "recipe_output": true,
+          "recipe_output_count": 1,
+          "registry_id": "zombiekit:baseball_bat",
+          "stale": false,
+          "sync": "local_only",
+          "sync_state": "local_only",
+          "translation_key": "item.zombiekit.baseball_bat",
+          "variant_discriminator": "",
+          "variant_key": null
+        },
+        {
+          "asset_key": "sample:fpe-energy-a",
+          "canonical_components": "{\"canonical\":\"firstpersonfoodeating_profile.food_id=firstpersonfoodeating:i_bang_a\",\"encoding\":\"utd-nbt-canonical-v1\",\"snbt\":\"{firstpersonfoodeating_profile:{food_id:\\\"firstpersonfoodeating:i_bang_a\\\"}}\"}",
+          "canonical_variant": "null",
+          "catalog_hash": "6a3db5ab2d18c9f8",
+          "catalogued": true,
+          "client_name_zh_cn": "高能量棒",
+          "components_canonical": "firstpersonfoodeating_profile.food_id=firstpersonfoodeating:i_bang_a",
+          "components_snbt": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+          "deployed_hash": null,
+          "human_selected": true,
+          "identity_components_canonical": "food_id=firstpersonfoodeating:i_bang_a",
+          "identity_kind": "components",
+          "issues": "",
+          "item_key": "sample:fpe-energy-a",
+          "loot_enabled": true,
+          "loot_level": 1,
+          "managed": true,
+          "recipe_input": false,
+          "recipe_input_count": 0,
+          "recipe_output": false,
+          "recipe_output_count": 0,
+          "registry_id": "firstpersonfoodeating:pack_food",
+          "stale": false,
+          "sync": "local_only",
+          "sync_state": "local_only",
+          "translation_key": "item.firstpersonfoodeating.pack_food",
+          "variant_discriminator": "food_id=firstpersonfoodeating:i_bang_a",
+          "variant_key": "food-a"
+        },
+        {
+          "asset_key": "minecraft:oak_slab",
+          "canonical_components": "{}",
+          "canonical_variant": "null",
+          "catalog_hash": "661d2e32923c2c8b",
+          "catalogued": false,
+          "client_name_zh_cn": "Oak Slab",
+          "components_canonical": "",
+          "components_snbt": "",
+          "deployed_hash": null,
+          "human_selected": false,
+          "identity_components_canonical": "",
+          "identity_kind": "item",
+          "issues": "",
+          "item_key": "minecraft:oak_slab",
+          "loot_enabled": false,
+          "loot_level": null,
+          "managed": false,
+          "recipe_input": true,
+          "recipe_input_count": 1,
+          "recipe_output": false,
+          "recipe_output_count": 0,
+          "registry_id": "minecraft:oak_slab",
+          "stale": false,
+          "sync": "local_only",
+          "sync_state": "local_only",
+          "translation_key": "",
+          "variant_discriminator": "",
+          "variant_key": null
+        },
+        {
+          "asset_key": "zombiekit:iron_wire",
+          "canonical_components": "{}",
+          "canonical_variant": "null",
+          "catalog_hash": "5d93659b88924fa1",
+          "catalogued": false,
+          "client_name_zh_cn": "Iron Wire",
+          "components_canonical": "",
+          "components_snbt": "",
+          "deployed_hash": null,
+          "human_selected": false,
+          "identity_components_canonical": "",
+          "identity_kind": "item",
+          "issues": "",
+          "item_key": "zombiekit:iron_wire",
+          "loot_enabled": false,
+          "loot_level": null,
+          "managed": false,
+          "recipe_input": true,
+          "recipe_input_count": 1,
+          "recipe_output": false,
+          "recipe_output_count": 0,
+          "registry_id": "zombiekit:iron_wire",
+          "stale": false,
+          "sync": "local_only",
+          "sync_state": "local_only",
+          "translation_key": "",
+          "variant_discriminator": "",
+          "variant_key": null
+        }
+      ]
+    },
+    {
+      "columns": [
+        "recipe_id",
+        "ownership",
+        "editable",
+        "source_kind",
+        "recipe_type",
+        "station",
+        "station_key",
+        "station_scope",
+        "form",
+        "sheet",
+        "source_row",
+        "level",
+        "output_name",
+        "issues"
+      ],
+      "filter": true,
+      "frozenRows": 1,
+      "name": "Recipes",
+      "rows": [
+        {
+          "editable": true,
+          "form": "有序",
+          "issues": "",
+          "level": 0,
+          "output_name": "实木棒球棍",
+          "ownership": "utd",
+          "recipe_id": "kubejs:utd_sample/baseball_bat",
+          "recipe_type": "minecraft:crafting_shaped",
+          "sheet": "sample",
+          "source_kind": "shaped",
+          "source_row": 1,
+          "station": "徒手 / 书桌",
+          "station_key": "crafting",
+          "station_scope": "desk_crafting"
+        }
+      ]
+    },
+    {
+      "columns": [
+        "recipe_id",
+        "input_index",
+        "ref_kind",
+        "ref",
+        "identity_key",
+        "variant_discriminator",
+        "count",
+        "components_json",
+        "chance",
+        "consume"
+      ],
+      "filter": true,
+      "frozenRows": 1,
+      "name": "Recipe Inputs",
+      "rows": [
+        {
+          "chance": null,
+          "components_json": "{}",
+          "consume": null,
+          "count": 2,
+          "identity_key": "",
+          "input_index": 1,
+          "recipe_id": "kubejs:utd_sample/baseball_bat",
+          "ref": "minecraft:oak_slab",
+          "ref_kind": "item",
+          "variant_discriminator": ""
+        },
+        {
+          "chance": null,
+          "components_json": "{}",
+          "consume": null,
+          "count": 1,
+          "identity_key": "",
+          "input_index": 2,
+          "recipe_id": "kubejs:utd_sample/baseball_bat",
+          "ref": "zombiekit:iron_wire",
+          "ref_kind": "item",
+          "variant_discriminator": ""
+        }
+      ]
+    },
+    {
+      "columns": [
+        "recipe_id",
+        "output_index",
+        "ref_kind",
+        "ref",
+        "identity_key",
+        "variant_discriminator",
+        "count",
+        "components_json",
+        "chance"
+      ],
+      "filter": true,
+      "frozenRows": 1,
+      "name": "Recipe Outputs",
+      "rows": [
+        {
+          "chance": null,
+          "components_json": "{}",
+          "count": 1,
+          "identity_key": "",
+          "output_index": 1,
+          "recipe_id": "kubejs:utd_sample/baseball_bat",
+          "ref": "zombiekit:baseball_bat",
+          "ref_kind": "item",
+          "variant_discriminator": ""
+        }
+      ]
+    },
+    {
+      "columns": [
+        "identity_key",
+        "registry_id",
+        "variant_discriminator",
+        "loot_enabled",
+        "level",
+        "count",
+        "common_tags",
+        "common_base_weight",
+        "allowed_common_templates",
+        "directed_templates",
+        "directed_weight",
+        "replace_priority",
+        "legacy_nbt"
+      ],
+      "filter": true,
+      "frozenRows": 1,
+      "name": "Loot",
+      "rows": [
+        {
+          "allowed_common_templates": "",
+          "common_base_weight": 3,
+          "common_tags": "food_packaged",
+          "count": 1,
+          "directed_templates": "",
+          "directed_weight": 0,
+          "identity_key": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+          "legacy_nbt": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+          "level": 1,
+          "loot_enabled": true,
+          "registry_id": "firstpersonfoodeating:pack_food",
+          "replace_priority": 1,
+          "variant_discriminator": "food_id=firstpersonfoodeating:i_bang_a"
+        }
+      ]
+    },
+    {
+      "columns": [
+        "severity",
+        "code",
+        "entity_type",
+        "entity_id",
+        "message"
+      ],
+      "filter": true,
+      "frozenRows": 1,
+      "name": "Issues",
+      "rows": []
+    }
+  ],
+  "workbookName": "utd_workbench_sample_asset_workbench.xlsx"
+}

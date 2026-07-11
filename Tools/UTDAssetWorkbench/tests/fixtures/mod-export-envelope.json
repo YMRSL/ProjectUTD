@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "utd-asset-snapshot/legacy",
+  "generatedAt": "2026-07-10T12:00:00Z",
+  "entries": [
+    {
+      "asset": {
+        "assetKey": "legacy:wrapped_asset",
+        "variantKey": "legacy-v1",
+        "registryId": "legacy:wrapped_asset",
+        "identityKind": "components",
+        "clientNameZhCn": "旧包络资产",
+        "translationKey": "item.legacy.wrapped_asset",
+        "componentsCanonical": "GunId=tacz:legacy_test",
+        "componentsSnbt": "{GunId:\"tacz:legacy_test\"}"
+      },
+      "status": {
+        "catalogHash": "legacy-catalog",
+        "deployedHash": "legacy-deployed",
+        "syncState": "stale"
+      }
+    }
+  ]
+}

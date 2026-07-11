@@ -1,0 +1,7 @@
+node_modules/
+dist/
+artifacts/
+public/data/workbench.json
+output/
+.playwright-cli/
+*.tsbuildinfo

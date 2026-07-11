@@ -1,0 +1,378 @@
+{
+  "graph": {
+    "cycles": [],
+    "edges": [
+      {
+        "count": 1,
+        "from": "recipe:kubejs:utd_sample/baseball_bat",
+        "id": "recipe:kubejs:utd_sample/baseball_bat->item:zombiekit:baseball_bat:produces",
+        "relation": "produces",
+        "to": "item:zombiekit:baseball_bat"
+      },
+      {
+        "count": 2,
+        "from": "item:minecraft:oak_slab",
+        "id": "item:minecraft:oak_slab->recipe:kubejs:utd_sample/baseball_bat:requires",
+        "relation": "requires",
+        "to": "recipe:kubejs:utd_sample/baseball_bat"
+      },
+      {
+        "count": 1,
+        "from": "item:zombiekit:iron_wire",
+        "id": "item:zombiekit:iron_wire->recipe:kubejs:utd_sample/baseball_bat:requires",
+        "relation": "requires",
+        "to": "recipe:kubejs:utd_sample/baseball_bat"
+      }
+    ],
+    "nodes": [
+      {
+        "cycle": false,
+        "id": "item:zombiekit:baseball_bat",
+        "issueCount": 0,
+        "kind": "item",
+        "label": "实木棒球棍",
+        "managed": true,
+        "ownership": "utd",
+        "ref": "zombiekit:baseball_bat",
+        "subtitle": "zombiekit:baseball_bat"
+      },
+      {
+        "cycle": false,
+        "id": "item:sample:fpe-energy-a",
+        "issueCount": 0,
+        "kind": "item",
+        "label": "高能量棒",
+        "managed": true,
+        "ownership": "utd",
+        "ref": "sample:fpe-energy-a",
+        "subtitle": "food_id=firstpersonfoodeating:i_bang_a"
+      },
+      {
+        "cycle": false,
+        "id": "recipe:kubejs:utd_sample/baseball_bat",
+        "issueCount": 0,
+        "kind": "recipe",
+        "label": "实木棒球棍",
+        "managed": true,
+        "ownership": "utd",
+        "ref": "kubejs:utd_sample/baseball_bat",
+        "subtitle": "徒手 / 书桌 · minecraft:crafting_shaped"
+      },
+      {
+        "cycle": false,
+        "id": "item:minecraft:oak_slab",
+        "issueCount": 0,
+        "kind": "item",
+        "label": "Oak Slab",
+        "managed": false,
+        "ownership": "external",
+        "ref": "minecraft:oak_slab",
+        "subtitle": "minecraft:oak_slab"
+      },
+      {
+        "cycle": false,
+        "id": "item:zombiekit:iron_wire",
+        "issueCount": 0,
+        "kind": "item",
+        "label": "Iron Wire",
+        "managed": false,
+        "ownership": "external",
+        "ref": "zombiekit:iron_wire",
+        "subtitle": "zombiekit:iron_wire"
+      }
+    ],
+    "rootItemKeys": [
+      "zombiekit:baseball_bat",
+      "sample:fpe-energy-a"
+    ]
+  },
+  "issues": [],
+  "items": [
+    {
+      "canonicalComponents": {
+        "canonical": "",
+        "encoding": "utd-nbt-canonical-v1",
+        "snbt": "{}"
+      },
+      "canonicalVariant": null,
+      "catalogHash": "3f84c21cfe69a445",
+      "clientNameZhCn": "实木棒球棍",
+      "componentsCanonical": "",
+      "componentsSnbt": "{}",
+      "deployedHash": null,
+      "humanSelected": true,
+      "identityComponentsCanonical": "",
+      "identityKind": "item",
+      "issues": [],
+      "itemKey": "zombiekit:baseball_bat",
+      "lootEnabled": false,
+      "lootLevel": null,
+      "managed": true,
+      "namespace": "zombiekit",
+      "ownership": "utd",
+      "recipeInput": false,
+      "recipeInputCount": 0,
+      "recipeOutput": true,
+      "recipeOutputCount": 1,
+      "registryId": "zombiekit:baseball_bat",
+      "source": "whitelist",
+      "sync": "local_only",
+      "translationKey": "item.zombiekit.baseball_bat",
+      "variantDiscriminator": "",
+      "variantKey": null
+    },
+    {
+      "canonicalComponents": {
+        "canonical": "firstpersonfoodeating_profile.food_id=firstpersonfoodeating:i_bang_a",
+        "encoding": "utd-nbt-canonical-v1",
+        "snbt": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}"
+      },
+      "canonicalVariant": null,
+      "catalogHash": "6a3db5ab2d18c9f8",
+      "clientNameZhCn": "高能量棒",
+      "componentsCanonical": "firstpersonfoodeating_profile.food_id=firstpersonfoodeating:i_bang_a",
+      "componentsSnbt": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+      "deployedHash": null,
+      "humanSelected": true,
+      "identityComponentsCanonical": "food_id=firstpersonfoodeating:i_bang_a",
+      "identityKind": "components",
+      "issues": [],
+      "itemKey": "sample:fpe-energy-a",
+      "lootEnabled": true,
+      "lootLevel": 1,
+      "managed": true,
+      "namespace": "firstpersonfoodeating",
+      "ownership": "utd",
+      "recipeInput": false,
+      "recipeInputCount": 0,
+      "recipeOutput": false,
+      "recipeOutputCount": 0,
+      "registryId": "firstpersonfoodeating:pack_food",
+      "source": "whitelist",
+      "sync": "local_only",
+      "translationKey": "item.firstpersonfoodeating.pack_food",
+      "variantDiscriminator": "food_id=firstpersonfoodeating:i_bang_a",
+      "variantKey": "food-a"
+    },
+    {
+      "canonicalComponents": {},
+      "canonicalVariant": null,
+      "catalogHash": "661d2e32923c2c8b",
+      "clientNameZhCn": "Oak Slab",
+      "componentsCanonical": "",
+      "componentsSnbt": "",
+      "deployedHash": null,
+      "humanSelected": false,
+      "identityComponentsCanonical": "",
+      "identityKind": "item",
+      "issues": [],
+      "itemKey": "minecraft:oak_slab",
+      "lootEnabled": false,
+      "lootLevel": null,
+      "managed": false,
+      "namespace": "minecraft",
+      "ownership": "external",
+      "recipeInput": true,
+      "recipeInputCount": 1,
+      "recipeOutput": false,
+      "recipeOutputCount": 0,
+      "registryId": "minecraft:oak_slab",
+      "source": "recipe_dependency",
+      "sync": "local_only",
+      "translationKey": "",
+      "variantDiscriminator": "",
+      "variantKey": null
+    },
+    {
+      "canonicalComponents": {},
+      "canonicalVariant": null,
+      "catalogHash": "5d93659b88924fa1",
+      "clientNameZhCn": "Iron Wire",
+      "componentsCanonical": "",
+      "componentsSnbt": "",
+      "deployedHash": null,
+      "humanSelected": false,
+      "identityComponentsCanonical": "",
+      "identityKind": "item",
+      "issues": [],
+      "itemKey": "zombiekit:iron_wire",
+      "lootEnabled": false,
+      "lootLevel": null,
+      "managed": false,
+      "namespace": "zombiekit",
+      "ownership": "external",
+      "recipeInput": true,
+      "recipeInputCount": 1,
+      "recipeOutput": false,
+      "recipeOutputCount": 0,
+      "registryId": "zombiekit:iron_wire",
+      "source": "recipe_dependency",
+      "sync": "local_only",
+      "translationKey": "",
+      "variantDiscriminator": "",
+      "variantKey": null
+    }
+  ],
+  "lootBalance": null,
+  "lootPolicies": [
+    {
+      "allowedCommonTemplates": [],
+      "commonBaseWeight": 3,
+      "commonTags": [
+        "food_packaged"
+      ],
+      "count": 1,
+      "directedTemplates": [],
+      "directedWeight": 0,
+      "identityKey": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+      "legacyNbt": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+      "level": 1,
+      "lootEnabled": true,
+      "raw": {
+        "commonBaseWeight": 3,
+        "commonTags": [
+          "food_packaged"
+        ],
+        "count": 1,
+        "directedWeight": 0,
+        "id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+        "level": 1,
+        "lootEnabled": true,
+        "lootItemId": "firstpersonfoodeating:pack_food",
+        "lootNbt": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+        "replacePriority": 1
+      },
+      "registryId": "firstpersonfoodeating:pack_food",
+      "replacePriority": 1,
+      "variantDiscriminator": "food_id=firstpersonfoodeating:i_bang_a"
+    }
+  ],
+  "manifest": {
+    "catalogHash": "c0728a591dfa8581",
+    "contentFingerprint": "c0728a591dfa8581",
+    "counts": {
+      "cycles": 0,
+      "dependencyItems": 2,
+      "issues": 0,
+      "lootPolicies": 1,
+      "managedItems": 2,
+      "recipes": 1
+    },
+    "deployedHash": null,
+    "generatedAt": "2026-07-11T00:00:00Z",
+    "projectId": "utd_workbench_sample",
+    "schemaVersion": "utd-asset-workbench/v1",
+    "source": {
+      "lootRegistry": {
+        "path": "examples/sample-loot-registry.json",
+        "sha256": "463e0f53d20d4c22c49ab93966704cc693e9f7c52d7c90ed444bba96f22ac9b3"
+      },
+      "recipes": {
+        "generatedAt": "2026-07-11T00:00:00Z",
+        "path": "examples/sample-recipe-data.json",
+        "sha256": "fdc7904f3444fee96cf6b7b1637b0f34f8522c685598d7e8f1c6cbba75763819"
+      },
+      "snapshot": {
+        "path": "examples/sample-snapshot.json",
+        "sha256": "a3322021db82dfae2433c6a63b0f8329819c7fbcccb5db67187b74dc0b8e94b6"
+      }
+    }
+  },
+  "recipes": [
+    {
+      "editable": true,
+      "form": "有序",
+      "id": "kubejs:utd_sample/baseball_bat",
+      "inputs": [
+        {
+          "count": 2,
+          "ref": "minecraft:oak_slab",
+          "refKind": "item"
+        },
+        {
+          "count": 1,
+          "ref": "zombiekit:iron_wire",
+          "refKind": "item"
+        }
+      ],
+      "issues": [],
+      "level": 0,
+      "outputName": "实木棒球棍",
+      "outputs": [
+        {
+          "count": 1,
+          "ref": "zombiekit:baseball_bat",
+          "refKind": "item"
+        }
+      ],
+      "ownership": "utd",
+      "pattern": [
+        "A ",
+        "A ",
+        " B"
+      ],
+      "raw": {
+        "id": "kubejs:utd_sample/baseball_bat",
+        "key": {
+          "A": {
+            "item": "minecraft:oak_slab"
+          },
+          "B": {
+            "item": "zombiekit:iron_wire"
+          }
+        },
+        "output": {
+          "count": 1,
+          "id": "zombiekit:baseball_bat"
+        },
+        "pattern": [
+          "A ",
+          "A ",
+          " B"
+        ],
+        "utd": {
+          "count": 1,
+          "form": "有序",
+          "level": 0,
+          "output": "zombiekit:baseball_bat",
+          "outputKeys": [
+            "zombiekit:baseball_bat"
+          ],
+          "outputName": "实木棒球棍",
+          "row": 1,
+          "sheet": "sample",
+          "station": "徒手 / 书桌",
+          "stationKey": "crafting",
+          "stationScope": "desk_crafting"
+        }
+      },
+      "recipeType": "minecraft:crafting_shaped",
+      "sheet": "sample",
+      "sourceKind": "shaped",
+      "sourceRow": 1,
+      "station": "徒手 / 书桌",
+      "stationKey": "crafting",
+      "stationScope": "desk_crafting",
+      "symbolMap": {
+        "A": {
+          "count": 1,
+          "ref": "minecraft:oak_slab",
+          "refKind": "item"
+        },
+        "B": {
+          "count": 1,
+          "ref": "zombiekit:iron_wire",
+          "refKind": "item"
+        }
+      }
+    }
+  ],
+  "schemaVersion": "utd-asset-workbench/v1",
+  "sourcePolicies": {
+    "removeOutputs": [
+      "zombiekit:baseball_bat"
+    ],
+    "removeRecipeIds": [],
+    "removeTypes": []
+  }
+}

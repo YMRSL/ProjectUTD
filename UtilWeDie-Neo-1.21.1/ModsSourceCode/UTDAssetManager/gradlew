@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+HOST_WRAPPER="$SCRIPT_DIR/../FirstPersonFoodEating/neoforge-1.21.1/gradlew"
+if [ ! -f "$HOST_WRAPPER" ]; then
+  echo "Workspace NeoForge wrapper not found: $HOST_WRAPPER" >&2
+  exit 1
+fi
+exec "$HOST_WRAPPER" -p "$SCRIPT_DIR" "$@"

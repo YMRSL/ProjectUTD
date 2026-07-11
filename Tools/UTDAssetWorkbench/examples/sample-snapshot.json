@@ -1,0 +1,31 @@
+{
+  "schema_version": "utd-asset-snapshot/v1",
+  "producer": "utd_workbench_sample",
+  "exported_at": "2026-07-11T00:00:00Z",
+  "items": [
+    {
+      "asset_key": "zombiekit:baseball_bat",
+      "variant_key": "",
+      "registry_id": "zombiekit:baseball_bat",
+      "identity_kind": "item",
+      "variant_discriminator": "",
+      "client_name_zh_cn": "实木棒球棍",
+      "translation_key": "item.zombiekit.baseball_bat",
+      "components_snbt": "{}",
+      "components_canonical": "",
+      "identity_components_canonical": ""
+    },
+    {
+      "asset_key": "sample:fpe-energy-a",
+      "variant_key": "food-a",
+      "registry_id": "firstpersonfoodeating:pack_food",
+      "identity_kind": "components",
+      "variant_discriminator": "food_id=firstpersonfoodeating:i_bang_a",
+      "client_name_zh_cn": "高能量棒",
+      "translation_key": "item.firstpersonfoodeating.pack_food",
+      "components_snbt": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+      "components_canonical": "firstpersonfoodeating_profile.food_id=firstpersonfoodeating:i_bang_a",
+      "identity_components_canonical": "food_id=firstpersonfoodeating:i_bang_a"
+    }
+  ]
+}

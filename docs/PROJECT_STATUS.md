@@ -43,10 +43,10 @@
 | Picasso | 唯一已实现的 Social Will MCP；22 tools | `407 passed, 1 skipped, 14 subtests passed` | DD marker 实机验证；随后实现 `mark` dispatcher/receipt |
 | MiroFish | 架构与 CNPC 探针已成形，主体实现尚未开始 | 无 MCP Server、无正式运行入口 | 完成 Spike Zero 六项游戏内验证，再冻结内容包格式 |
 | Chess | v0.1.4 规格较完整 | 明确无代码 | P0 外部能力探针；P1 纯 Java 核心；P2 event log |
-| 物品/配方 | 仓库 v1、外部 v1/v3、运行时快照已确认漂移；可读 v2 已生成 | 960 候选；30 缺项跳过、12 策略禁用、918 提交、0 注册异常 | 先抢救运行时源并冻结胜出规则，再建生成器 |
-| Loot | 多份数据源和部署 JSON 并存 | 当前存在解析失败与连锁 Unknown loot table | 修复 tier1 引用并对账清单/生成 JSON |
+| 物品/配方 | 资产工作台、游戏内标注 Mod、规范 JSON/KJS/status/Excel 生成链已完成并部署 MVP | 851 身份、316 旧种子根、960 配方；连续导出哈希一致；现有运行配方尚未被生成候选覆盖 | 实机标注补齐中文名/translation key；审查 280 物品回收循环后逐批 diff/deploy |
+| Loot | 798 条 registry、78 helper、280 容器表与 Java 保底已封装为单一 JAR | 自动校验全过；旧 365 个 KubeJS 文件已可回滚退休；完整客户端实机待验 | 冷启动、三类箱子、T4/T5 保底与持久化实机验收 |
 | CNPCScripts | 资料很多，活跃版本很少 | 222 个 JS 中仅少量面向 1.21.1 | 版本分区、manifest、源码/部署单向同步 |
-| 资产管理器 | 11-sheet 可读审计工作簿 v2 已完成；应用尚未创建 | 已有 440 物品、960 配方候选及问题关系视图 | 立即做只读 schema/indexer/validator；编辑/UI 后置 |
+| 资产管理器 | NeoForge 游戏内标注 Mod、三栏网页工作台、树状一层配方图和 10-sheet 正式 Excel 已完成 | 12 项 Mod 测试、12 项网页/数据测试、浏览器与 Excel 检查通过；JAR 已安装 | 用户验证 O 键、Tooltip、持久化、TaCZ/FPE 去重和导出 |
 
 仓库安全基线：公开分支 `codex/sprint-baseline-20260711` 已推送，分三批保存治理/仓库 v1、Picasso、Chess/MiroFish 规格。工作簿走 Git LFS；客户端、世界、缓存、构建物和来源未确认素材未公开。剩余 26 个待审未跟踪文件必须逐批审查，禁止整目录暂存。详细边界见 `docs/PROJECT_INVENTORY.md` 与 `docs/SNAPSHOT_MANIFEST.md`。
 
@@ -68,12 +68,12 @@
 | MIR-03 | 实现最小事实摄取、内容验证器、CNPC pack compiler、`nar_* mark` 输出 | 待办 | Codex | 同一 fixture 可确定性重建；输出带 `fact_refs` |
 | CHS-02 | 建最小工程并优先实现 P1/P2：纯 Java 核心、持久化/event log | 待办 | Codex | golden fixture 稳定；事件可被 MiroFish 消费 |
 | INT-01 | 三层测试世界薄切片联调 | 待办 | Codex + 用户 | NPC 内容引用 Chess 事实；marker 可见；receipt、幂等、失败和回滚全过 |
-| DATA-00 | 在修改前，把当前 runtime 配方/Loot 复制到受控审查区并记录哈希 | 待办 | Codex | 被 `.minecraft` 忽略的实际数据有可恢复副本；原部署不被覆盖 |
-| DATA-01 | 对账仓库 v1、外部 v1/v3、runtime，建立权威源与最小生成器 | 待办 | Codex | `validate → generate → diff → deploy` 可重复；产物禁止手改 |
+| DATA-00 | 在修改前，把当前 runtime 配方/Loot 复制到受控审查区并记录哈希 | 完成 | Codex | 完整 KubeJS 基线 ZIP 与 SHA-256 已记录；另保留旧 Loot 365 文件回滚目录 |
+| DATA-01 | 对账仓库 v1、外部 v1/v3、runtime，建立权威源与最小生成器 | 进行中 | Codex | 规范项目与确定性生成器已完成；旧工作簿 316 根与 280 物品循环仍需内容裁决 |
 | ASSET-01 | 生成可读、可筛选、可审计的物品/配方工作簿 v2 | 完成 | Codex | 11 sheets；440 物品、960 配方候选、来源与问题台账齐全 |
-| ASSET-02 | 资产管理器只读 schema、索引器与 validator MVP | 待办 | Codex | 能扫描规范源/JAR/部署物，输出缺失、重复、漂移与 diff；不写部署区 |
-| LOOT-01 | 清理/条件化 UTD 自管缺失引用，修复 4 个 tier1 与 175 条连锁报错 | 待办 | Codex | UTD 管理范围解析失败归零；第三方 Railways/ZSK/Tracks 等单列清单 |
-| LOOT-02 | 对账 DDF 清单、Loot registry/balance/family 与部署 JSON | 待办 | Codex | 数量差异逐项解释；影子 fallback 被删除或明确冻结 |
+| ASSET-02 | 资产管理器 schema、索引器、validator、网页/Excel 与游戏内标注 MVP | 待人工验证 | Codex + 用户 | 自动测试已完成且 JAR 已部署；待 O 键、持久化、变体去重与导出实机通过 |
+| LOOT-01 | 清理/条件化 UTD 自管缺失引用，修复 4 个 tier1 与 175 条连锁报错 | 待人工验证 | Codex + 用户 | 14 缺失模组条目已禁用、4 个错误引用已清；待完整客户端冷启动确认 UTD 报错归零 |
+| LOOT-02 | 对账并封装 registry/balance/helper/容器表与保底 | 待人工验证 | Codex + 用户 | 798/78/280 与 Java 保底已进 JAR，旧 KubeJS 已整体退休；待三类箱子和持久化验收 |
 
 ### 里程碑通过后的拉取队列
 
@@ -86,7 +86,7 @@
 
 ## 4. 物品与资产治理结论
 
-现有工作簿不是废稿，而是很有价值的种子数据；但它还不能直接充当运行时数据库：
+现有工作簿不是废稿，而是很有价值的种子数据；它已作为 316 条保守人工根进入首份规范项目，但仍不能直接充当运行时数据库：
 
 - 仓库 v1 的 `汇总` 有 439 条，但枪械分表 A1 的 M1911 被无表头汇总器漏掉；分类分表实际 440 条。原始 XML 中不存在 `153` 值，真实问题是 70 条空等级、`Equipment/equipment` 大小写漂移，以及跨表身份复用。
 - 55 条枪械在汇总中使用裸 `gun_id`，完整 `pack:id` 位于枪械字段；`ak47` 两行属于不同枪包，不应被误判为同一枪。
@@ -96,12 +96,14 @@
 - 仓库 v1 与可读 v2 已通过 Git LFS 跟踪；真正承载当前 960 候选的 runtime JS、Loot JS/JSON 仍位于被忽略的 `.minecraft`，尚未安全快照，也没有可重复生成链。
 - 可读 v2 是审计/策划界面，不是新的唯一真源；它已将 registry identity、变体、配方输入/输出、策略、来源与质量问题分表，供资产管理器 MVP 接入。
 
-因此资产管理器 MVP 的顺序固定为：
+资产管理器 MVP 已按下列顺序完成第一轮：
 
 1. **只读导入器**：扫描权威 JSON/CSV、工作簿、已安装 JAR、KubeJS/数据包产物。
 2. **规范化与校验**：item identity、版本/来源、名称、13 类、标签、NBT/1.21 components、模型/纹理、配方图、Loot、回收、启用/缺失状态、hash。
 3. **问题与差异视图**：缺失 ID、重复、命名空间漂移、源码与部署差异、生成预览。
-4. **稳定后再开放编辑**；美术化页面与组件包选型属于第二阶段。
+4. **受控编辑与导出**：UTD-owned 数据可在工作台修改并生成 KJS/status/Excel；外部依赖保持只读。当前不把生成候选自动覆盖到运行配方。
+
+正式发布记录、哈希、回滚位置和用户测试包见 `docs/RELEASE_20260711_ASSET_LOOT.md`。
 
 `Code/ItemsReFresh` 是旧 Spigot/Mohist 区域容器刷新插件，不是资产数据库；版本声明也有冲突，不能直接作为管理器基础。
 
@@ -126,14 +128,16 @@
 
 ## 7. 下一次需要用户参与的闸门
 
-1. Picasso DD 三 marker 与 MiroFish Spike Zero 两项必须在游戏客户端执行；Codex 会先合并成一个清晰测试包，再请用户验证。
-2. 若两周结束时存在不可妥协的完整功能清单，请补入本页；否则按“前置验收一过就继续拉取下一批”的规则推进。
+1. 先执行 `docs/RELEASE_20260711_ASSET_LOOT.md` 中的资产管理器与 Loot 合并测试包；失败项直接进入最高优先级修复。
+2. 数据闸门关闭后，再合并执行 Picasso DD 三 marker 与 MiroFish Spike Zero 的客户端测试。
+3. 若两周结束时存在不可妥协的完整功能清单，请补入本页；否则按“前置验收一过就继续拉取下一批”的规则推进。
 
 ## 8. 已确认决策
 
 - **2026-07-11 / 冲刺产能模型**：主要实现与修复由 Codex 完成；用户时间集中用于 Minecraft 实机验证和失败反馈。三层薄切片是最低里程碑，不是两周产出上限。
 - **2026-07-11 / 安全快照授权**：用户授权制作并推送安全快照；公开分支 `codex/sprint-baseline-20260711` 已建立并推送。
 - **2026-07-11 / 数据口径**：不把 960 候选误报为已注册；当前口径为 30 缺项、12 策略禁用、918 提交、0 注册异常。v2 工作簿保留原始证据并明确登记多源漂移。
+- **2026-07-11 / 资产与 Loot MVP 发布**：两只 JAR、网页工作台、规范输出和 10-sheet Excel 已完成；旧 Loot 365 文件可回滚退休。首份 status 保持 571 `local_only` + 280 `error` 的真实口径，不伪造 synced。
 
 ## 9. 收件箱
 

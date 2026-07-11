@@ -1,0 +1,251 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "create:precision_mechanism",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:hollowed_huge_projectile",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:100,GunFireMode:\"AUTO\",GunId:\"daffas_arsenal:migraine3\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:60,GunFireMode:\"BURST\",GunId:\"daffas_arsenal:uji\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jia_d\",use_duration_ticks:127,nutrition:0,saturation:0.0f,max_stack_size:1,custom_effects:[{type:\"armor_restore_durability\",value:0.0f,duration_ticks:0,interval_ticks:0,chance:1.0f},{type:\"extra_armor\",value:30.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你穿戴好这套盔甲\"},{at_ticks:28,text:\"轻便又坚固\"},{at_ticks:50,text:\"全方位防护让你感到冲击几乎被完全抵消\"}]}]},use_selector:{mode:\"armor\",default_clip:\"level_1\",rules:[{min_amount:1,max_amount:40,clip:\"level_1\",duration_ticks:54},{min_amount:41,max_amount:70,clip:\"level_2\",duration_ticks:78},{min_amount:71,max_amount:130,clip:\"level_3\",duration_ticks:103},{min_amount:131,max_amount:200,clip:\"level_4\",duration_ticks:127}]},durability_use:{enabled:true,resource:\"armor\",max:200,current:200,per_point:1}},food_id:\"firstpersonfoodeating:i_jia_d\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "spore:reaver",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:c4_bomb",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:ptkm_1r",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:ru_chest_6b43",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:tm_62",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:us_chest_iotv",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:artic_guillie_boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:artic_guillie_chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:artic_guillie_helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:artic_guillie_leggings",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:black_juggernaut_boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:black_juggernaut_chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:black_juggernaut_helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:black_juggernaut_leggings",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:desert_juggernaut_boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:desert_juggernaut_chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:desert_juggernaut_helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:desert_juggernaut_leggings",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:electric_baton_sword",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:electric_fist",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:electric_guitar_greataxe",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:glaive_chainsaw",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:green_juggernaut_boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:green_juggernaut_leggings",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:guillie_boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:guillie_leggings",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:hazmat_boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:hazmat_leggings",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:katana",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:spruce_guillie_boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:spruce_guillie_chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:spruce_guillie_helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:spruce_guillie_leggings",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:9,GunFireMode:\"SEMI\",GunId:\"tacz:deagle_golden\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:10,GunFireMode:\"SEMI\",GunId:\"tacz:m107\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:5,GunFireMode:\"SEMI\",GunId:\"tacz:m95\",HasBulletInBarrel:1b}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

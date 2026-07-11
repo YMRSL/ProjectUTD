@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 3,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 55,
+          "value": "utd_loot_core:utd/common/office/tier0"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "value": "utd_loot_core:utd/common/office/tier1"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 20,
+          "value": "utd_loot_core:utd/common/office/tier2"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 92,
+          "value": "utd_loot_core:utd/directed/office/tier3"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 8,
+          "value": "utd_loot_core:utd/directed/office/tier4"
+        }
+      ]
+    }
+  ]
+}

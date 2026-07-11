@@ -1,0 +1,24 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "utd_asset_manager"
+version = "0.1.0-mvp"
+displayName = "UTD Asset Manager"
+authors = "YMRSL / ProjectUTD"
+description = '''Client-side, human-curated item variant catalogue and status console for ProjectUTD. No registry-wide scan and no automatic deployment.'''
+
+[[dependencies.utd_asset_manager]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.utd_asset_manager]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"

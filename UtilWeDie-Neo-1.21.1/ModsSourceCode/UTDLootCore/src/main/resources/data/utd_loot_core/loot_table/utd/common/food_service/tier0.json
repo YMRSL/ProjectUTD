@@ -1,0 +1,278 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:jar",
+          "weight": 13
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:robloxjar",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:ziptopcan",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:bacon",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:chicken_cuts",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:cod_slice",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:ham",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:minced_beef",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:mutton_chops",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:onion",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:rice",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:rice_panicle",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:salmon_slice",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:green_chili",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:lettuce",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:raw_cow_offal",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:raw_cut_small_meats",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:raw_donkey_meat",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:raw_lamb_chops",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:raw_pork_belly",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:red_chili",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:rice_panicle",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:sashimi",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:tomato",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:wild_rice",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_tavern:empty_bottle",
+          "weight": 14
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:apple",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:beef",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:beetroot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:carrot",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chicken",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cod",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:egg",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:glow_berries",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:melon_slice",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:mutton",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:oak_slab",
+          "weight": 11,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:porkchop",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:potato",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:rabbit",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:salmon",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sweet_berries",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:can",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:empty_bag",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:empty_bottle",
+          "weight": 11,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:empty_can",
+          "weight": 13
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:garbage_bag",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:alcohol",
+          "weight": 11
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:plastics",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

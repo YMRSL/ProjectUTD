@@ -69,6 +69,7 @@ _inspect*/
 **/_jar_extract/
 **/_src_download/
 **/_backups/
+_local_snapshots/
 **/_tools/
 **/decompiled/
 **/_batches/
@@ -110,6 +111,8 @@ _inspect*/
 # Intentional project-source spreadsheets (small, reviewed, and versioned).
 !策划案以及文档相关/ItemNameCatch分类汇总_合成设计方案_v1.xlsx
 !outputs/projectutd-sprint-20260711/*.xlsx
+!outputs/projectutd-assets-20260711/excel/*.xlsx
+!outputs/projectutd-assets-20260711/mods/*.jar
 
 # Large project areas to review before importing into Git
 UntilWeDieOriginal/

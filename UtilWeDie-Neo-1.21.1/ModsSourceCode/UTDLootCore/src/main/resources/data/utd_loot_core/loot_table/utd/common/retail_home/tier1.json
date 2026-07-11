@@ -1,0 +1,673 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "create:cuckoo_clock",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:desk_bell",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:display_board",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:goggles",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:nixie_tube",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:nozzle",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:peculiar_bell",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:red_sand_paper",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:redstone_contact",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:rose_quartz_lamp",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:sail_frame",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:sand_paper",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:turntable",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:white_sail",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:book",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:bottle",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:bottle_2",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:cup",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:cup_2",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:desk",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:kettle",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:teapot",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:trophy",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:skillet",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:stove",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\",use_duration_ticks:66,nutrition:10,saturation:0.65f,max_stack_size:16,flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"干嚼了几口紧涩难啃的能量棒\"},{at_ticks:38,text:\"没有什么味道\"},{at_ticks:62,text:\"但嚼碎吞进去以后片刻你就感觉到体能的恢复和强烈的饱腹感\"}]}]}},food_id:\"firstpersonfoodeating:i_bang_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_b\",use_duration_ticks:66,nutrition:7,saturation:0.7142857142857143f,max_stack_size:16,thirst:{delta:0,water_delta:-3,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"吃下这根扎实的压缩棒\"},{at_ticks:32,text:\"嘴里有一股淡淡的咸味\"},{at_ticks:64,text:\"咽下去以后瞬间就没那么饿了\"}]}]}},food_id:\"firstpersonfoodeating:i_bang_b\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_c\",use_duration_ticks:66,nutrition:1,saturation:2.0f,max_stack_size:16,flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你含住糖果\"},{at_ticks:22,text:\"果味酸甜的有点腻歪和轻微的刺激\"},{at_ticks:64,text:\"嘎巴一下你就给他咬碎吃掉了\"}]}]}},food_id:\"firstpersonfoodeating:i_bang_c\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_d\",use_duration_ticks:66,nutrition:0,saturation:5.0f,max_stack_size:16,flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"轻微的巧克力味\"},{at_ticks:26,text:\"不对\"},{at_ticks:42,text:\"浓烈的巧克力奶香味\"},{at_ticks:72,text:\"呀\"},{at_ticks:86,text:\"你怎么嚼碎吃掉了\"}]}]}},food_id:\"firstpersonfoodeating:i_bang_d\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bengdai_a\",use_duration_ticks:82,nutrition:0,saturation:0.0f,max_stack_size:16,custom_effects:[{type:\"bandage\",value:3.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"经过简单缠绕后\"},{at_ticks:26,text:\"感受到轻微的压迫感\"},{at_ticks:56,text:\"伤口的刺痛与渗血得到了初步压制\"}]}]}},food_id:\"firstpersonfoodeating:i_bengdai_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_dai_a\",use_duration_ticks:112,nutrition:4,saturation:0.75f,max_stack_size:16,flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"咸香在口中散开\"},{at_ticks:26,text:\"咔滋\"},{at_ticks:42,text:\"咔滋\"},{at_ticks:58,text:\"咔滋\"},{at_ticks:74,text:\"卜兑\"},{at_ticks:90,text:\"我薯片呢？\"}]}]}},food_id:\"firstpersonfoodeating:i_dai_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_dai_b\",use_duration_ticks:112,nutrition:3,saturation:1.1666666666666667f,max_stack_size:16,flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"上乘美味的薯片\"},{at_ticks:26,text:\"精选之道\"},{at_ticks:46,text:\"口净香醇之道\"},{at_ticks:70,text:\"干脆之道\"},{at_ticks:90,text:\"土豆之道\"},{at_ticks:110,text:\"嘿土豆\"}]}]}},food_id:\"firstpersonfoodeating:i_dai_b\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_dai_c\",use_duration_ticks:112,nutrition:8,saturation:0.375f,max_stack_size:16,flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"第一口牛肉干\"},{at_ticks:24,text:\"嗯有点筋道\"},{at_ticks:46,text:\"味道嚼干了\"},{at_ticks:68,text:\"再来一口\"},{at_ticks:88,text:\"再来一口\"},{at_ticks:108,text:\"完蛋我嘴怎么被塞满了\"}]}]}},food_id:\"firstpersonfoodeating:i_dai_c\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_dai_d\",use_duration_ticks:112,nutrition:7,saturation:0.2857142857142857f,max_stack_size:16,flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"腰果嗯\"},{at_ticks:18,text:\"杏仁嗯\"},{at_ticks:36,text:\"核桃嗯\"},{at_ticks:54,text:\"核桃？瓜子嗯\"},{at_ticks:78,text:\"嗯\"},{at_ticks:92,text:\"？？？\"},{at_ticks:110,text:\"葡萄干嗯\"},{at_ticks:130,text:\"香蕉片嗯\"},{at_ticks:150,text:\"无花果干嗯\"},{at_ticks:172,text:\"榴莲干\"},{at_ticks:190,text:\"榴莲干\"},{at_ticks:208,text:\"？？？？\"},{at_ticks:228,text:\"好吃(╹ڡ╹ )\"}]}]}},food_id:\"firstpersonfoodeating:i_dai_d\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_guan_a\",use_duration_ticks:84,nutrition:4,saturation:0.5f,max_stack_size:16,thirst:{delta:6,water_delta:4,mode:\"compat\",compat_keep:[\"nutrition\",\"saturation\"]},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"咕噜咕噜咕噜\"},{at_ticks:24,text:\"——\"},{at_ticks:40,text:\"啊~\"},{at_ticks:56,text:\"我只喝可可！百时那个史一样的口味甜的我要发疯了\"}]}]}},food_id:\"firstpersonfoodeating:i_guan_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_guan_b\",use_duration_ticks:84,nutrition:4,saturation:0.5f,max_stack_size:16,thirst:{delta:6,water_delta:4,mode:\"compat\",compat_keep:[\"nutrition\",\"saturation\"]},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"咕噜咕噜咕噜\"},{at_ticks:24,text:\"——\"},{at_ticks:40,text:\"啊~\"},{at_ticks:56,text:\"我只喝百时！可可那个什么鬼调味倒厕所里我都嫌脏了粪坑\"}]}]}},food_id:\"firstpersonfoodeating:i_guan_b\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_guan_c\",use_duration_ticks:84,nutrition:4,saturation:0.5f,max_stack_size:16,thirst:{delta:6,water_delta:4,mode:\"compat\",compat_keep:[\"nutrition\",\"saturation\"]},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"咕噜咕噜咕噜\"},{at_ticks:24,text:\"——\"},{at_ticks:40,text:\"啊~\"},{at_ticks:56,text:\"，！？\"},{at_ticks:74,text:\"可乐\"},{at_ticks:90,text:\"？！，！？\"},{at_ticks:112,text:\"哔哔\"},{at_ticks:128,text:\"？！，\"}]}]}},food_id:\"firstpersonfoodeating:i_guan_c\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_guan_d\",use_duration_ticks:84,nutrition:4,saturation:1.0f,max_stack_size:16,thirst:{delta:6,water_delta:6,mode:\"compat\",compat_keep:[\"nutrition\",\"saturation\"]},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"橙色的液体\"},{at_ticks:22,text:\"带着一股奇异的香味被你一口咽下\"},{at_ticks:64,text:\"霍！有点酸爽\"},{at_ticks:88,text:\"十分提神\"}]}]}},food_id:\"firstpersonfoodeating:i_guan_d\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_guan_e\",use_duration_ticks:84,nutrition:4,saturation:0.75f,max_stack_size:16,thirst:{delta:8,water_delta:7,mode:\"compat\",compat_keep:[\"nutrition\",\"saturation\"]},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"碳酸在舌头上弹跳\"},{at_ticks:28,text:\"有些辣有些刺激\"},{at_ticks:54,text:\"还有些？气泡消弭以后不剩多少液体了\"},{at_ticks:100,text:\"带着柑橘青柠的清爽果香\"},{at_ticks:134,text:\"和适中的酸甜味被你喝下\"},{at_ticks:168,text:\"是有点子提神\"},{at_ticks:192,text:\"不过我应该不会想要用来拌饭\"}]}]}},food_id:\"firstpersonfoodeating:i_guan_e\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_he_a\",use_duration_ticks:112,nutrition:10,saturation:0.4f,max_stack_size:16,thirst:{delta:-2,water_delta:0,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"有些干巴\"},{at_ticks:20,text:\"吃起来脆脆的\"},{at_ticks:44,text:\"但带有着调味品带来的细微油香和葱香\"},{at_ticks:90,text:\"但无论怎么说\"},{at_ticks:114,text:\"吃了这东西你都觉得嘴里太干了\"},{at_ticks:154,text:\"必须弄点水喝\"}]}]}},food_id:\"firstpersonfoodeating:i_he_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_he_b\",use_duration_ticks:112,nutrition:6,saturation:0.6666666666666666f,max_stack_size:16,flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"扭一扭\"},{at_ticks:18,text:\"舔一舔\"},{at_ticks:36,text:\"遇到困难再泡一泡\"},{at_ticks:64,text:\"奥里给\"},{at_ticks:82,text:\"！！！！！\"},{at_ticks:104,text:\"干了啊兄弟们！嗯！美味的奥力给小饼干！\"}]}]}},food_id:\"firstpersonfoodeating:i_he_b\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jia_a\",use_duration_ticks:127,nutrition:0,saturation:0.0f,max_stack_size:1,custom_effects:[{type:\"armor_restore_durability\",value:0.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你穿戴完毕\"},{at_ticks:22,text:\"基础防护感传来\"},{at_ticks:48,text:\"动作略僵\"},{at_ticks:68,text:\"但你感到能抵挡轻微磕碰\"}]}]},use_selector:{mode:\"armor\",default_clip:\"level_1\",rules:[{min_amount:1,max_amount:40,clip:\"level_1\",duration_ticks:54},{min_amount:41,max_amount:70,clip:\"level_2\",duration_ticks:78},{min_amount:71,max_amount:130,clip:\"level_3\",duration_ticks:103},{min_amount:131,max_amount:200,clip:\"level_4\",duration_ticks:127}]},durability_use:{enabled:true,resource:\"armor\",max:70,current:70,per_point:1}},food_id:\"firstpersonfoodeating:i_jia_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jijiubao_a\",use_duration_ticks:115,nutrition:0,saturation:0.0f,max_stack_size:1,custom_effects:[{type:\"heal_gradual\",value:0.0f,duration_ticks:100,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你简易处理伤口\"},{at_ticks:26,text:\"你感到疼痛和出血得到了最基础的应急缓解\"}]}]},use_selector:{mode:\"hp\",default_clip:\"use1\",rules:[{min_amount:1,max_amount:15,clip:\"use1\",duration_ticks:115},{min_amount:16,max_amount:30,clip:\"use2\",duration_ticks:115}]},durability_use:{enabled:true,resource:\"hp\",max:30,current:30,per_point:1}},food_id:\"firstpersonfoodeating:i_jijiubao_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_a\",use_duration_ticks:97,nutrition:2,saturation:2.0f,max_stack_size:16,effects:[{id:\"minecraft:regeneration\",duration_ticks:200,amplifier:0,chance:1.0f},{id:\"minecraft:haste\",duration_ticks:200,amplifier:0,chance:1.0f}],thirst:{delta:10,water_delta:0,mode:\"only\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下酸甜清爽饮料\"},{at_ticks:30,text:\"嗯\"},{at_ticks:44,text:\"你感觉到你律动回来了！运动疲惫烟消云散\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_b\",use_duration_ticks:97,nutrition:6,saturation:0.0f,max_stack_size:16,thirst:{delta:14,water_delta:16,mode:\"only\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下清冽泉水\"},{at_ticks:26,text:\"干涩喉咙被瞬间滋润\"},{at_ticks:56,text:\"你感到口渴感彻底消失\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_b\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_c\",use_duration_ticks:97,nutrition:2,saturation:2.0f,max_stack_size:16,effects:[{id:\"minecraft:speed\",duration_ticks:200,amplifier:0,chance:1.0f},{id:\"minecraft:resistance\",duration_ticks:200,amplifier:0,chance:1.0f}],thirst:{delta:10,water_delta:0,mode:\"only\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你饮下凛冽饮品\"},{at_ticks:26,text:\"刺激感直冲大脑\"},{at_ticks:52,text:\"你感到精神瞬间亢奋\"},{at_ticks:82,text:\"嘬嘬嘬嘬嘬嘬\"},{at_ticks:106,text:\"可惜没有条件把它当调料瓶了\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_c\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_d\",use_duration_ticks:97,nutrition:6,saturation:2.0f,max_stack_size:16,thirst:{delta:12,water_delta:12,mode:\"only\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下气泡苏打水\"},{at_ticks:28,text:\"清爽口感缓解肠胃不适\"},{at_ticks:60,text:\"你感到腻闷感一扫而空\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_d\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_e\",use_duration_ticks:97,nutrition:2,saturation:1.5f,max_stack_size:16,thirst:{delta:10,water_delta:10,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下清甜苹果汁\"},{at_ticks:28,text:\"温润滑喉\"},{at_ticks:48,text:\"你感到身心都得到了舒缓\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_e\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_f\",use_duration_ticks:97,nutrition:2,saturation:1.5f,max_stack_size:16,thirst:{delta:10,water_delta:10,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下香甜草莓汁\"},{at_ticks:28,text:\"浓郁果香萦绕\"},{at_ticks:52,text:\"你感到甜润治愈感填满心头\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_f\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_g\",use_duration_ticks:97,nutrition:2,saturation:1.5f,max_stack_size:16,thirst:{delta:10,water_delta:10,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下酸甜橘子汁\"},{at_ticks:28,text:\"清新橙香散开\"},{at_ticks:52,text:\"你感到清爽解腻\"},{at_ticks:78,text:\"浑身舒畅\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_g\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_h\",use_duration_ticks:97,nutrition:2,saturation:1.5f,max_stack_size:16,thirst:{delta:10,water_delta:10,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下酸爽柠檬汁\"},{at_ticks:28,text:\"酸味刺激神经\"},{at_ticks:52,text:\"你感到瞬间清醒\"},{at_ticks:78,text:\"困意全无\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_h\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_i\",use_duration_ticks:97,nutrition:2,saturation:1.5f,max_stack_size:16,thirst:{delta:10,water_delta:10,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下清甜绿葡萄汁\"},{at_ticks:30,text:\"柔和果香沁脾\"},{at_ticks:54,text:\"你感到解渴又舒心\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_i\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_j\",use_duration_ticks:97,nutrition:2,saturation:1.5f,max_stack_size:16,thirst:{delta:10,water_delta:10,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下酸甜青苹果汁\"},{at_ticks:30,text:\"清新提神\"},{at_ticks:50,text:\"你感到困倦被彻底驱散\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_j\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_k\",use_duration_ticks:97,nutrition:2,saturation:1.5f,max_stack_size:16,thirst:{delta:10,water_delta:10,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下醇厚蓝莓汁\"},{at_ticks:28,text:\"酸甜适中润喉\"},{at_ticks:52,text:\"你感到口干完全消失\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_k\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_l\",use_duration_ticks:97,nutrition:2,saturation:1.5f,max_stack_size:16,thirst:{delta:10,water_delta:10,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下浓郁葡萄汁\"},{at_ticks:28,text:\"顺滑入喉\"},{at_ticks:48,text:\"你感到解渴又充满满足感\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_l\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_ping_m\",use_duration_ticks:97,nutrition:2,saturation:1.5f,max_stack_size:16,thirst:{delta:10,water_delta:10,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你喝下清甜火龙果汁\"},{at_ticks:30,text:\"顺滑清爽\"},{at_ticks:50,text:\"你感到腻感全消\"},{at_ticks:76,text:\"浑身轻松\"}]}]}},food_id:\"firstpersonfoodeating:i_ping_m\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:chopping_board",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:enamel_basin",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:fruit_basket",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:kitchen_shovel",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:kitchenware_racks",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:oil_pot",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:pot",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:scarecrow",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:steamer",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:stockpot_lid",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bucket",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flint_and_steel",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:lead",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:leather_leggings",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simpleradio:spuddie_talkie",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "spore:gas_mask",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:dog_tag",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:ge_helmet_m_35",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:iff",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:baseball_bat_sword",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:broken_bottle_sword",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:cloth_balaclava_helmet",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:coins",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:gas_mask_helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:homemade_impact_bomb",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:lance_pitchfork",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:money",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:nail",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:nails_box",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:stop_sing_head",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:wool_balaclava_helmet",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:baseball_bat",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:rake",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:wrench",
+          "weight": 8
+        }
+      ]
+    }
+  ]
+}

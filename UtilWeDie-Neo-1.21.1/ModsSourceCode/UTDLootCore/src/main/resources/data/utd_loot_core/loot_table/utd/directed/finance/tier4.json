@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "create:precision_mechanism",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create_new_age:blank_circuit",
+          "weight": 8
+        }
+      ]
+    }
+  ]
+}

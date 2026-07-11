@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:bookpile",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:bookpile_2",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:cashregister",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:folder_1",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:folder_2",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:radio",
+          "weight": 9
+        }
+      ]
+    }
+  ]
+}

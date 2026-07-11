@@ -1,0 +1,66 @@
+{
+  "artifacts": {
+    "status_manifest.json": {
+      "bytes": 4671,
+      "sha256": "2cadf68022293bed953cfcaf1bc31bd560c90c1fb68e69a7fd172f0d536a3ad1"
+    },
+    "utd_asset_excel_interface.json": {
+      "bytes": 10460,
+      "sha256": "e2148fa1e148833d0ce18db878b32d452b345cf1768753bdf391b296a6e2d4e6"
+    },
+    "utd_asset_status_manifest.js": {
+      "bytes": 5084,
+      "sha256": "2f601892e23d469b26913bcf86103d073fcfda7c6830340378edf2cb22e63e5e"
+    },
+    "utd_asset_status_manifest.json": {
+      "bytes": 4671,
+      "sha256": "2cadf68022293bed953cfcaf1bc31bd560c90c1fb68e69a7fd172f0d536a3ad1"
+    },
+    "utd_loot_registry_data.generated.js": {
+      "bytes": 681,
+      "sha256": "95e4554a87f58d55762290b27f2d674b8bd0b8420a0f374886552ee1291ec001"
+    },
+    "utd_recipe_data.generated.js": {
+      "bytes": 1173,
+      "sha256": "d9fc3f01213a0ece332ccc46ef87605ad5a76723489787c88fe61b3f1821721e"
+    },
+    "workbench.json": {
+      "bytes": 11017,
+      "sha256": "19f66e2f9e30fbb7dd484a145d520bbc9b9e1b77fb741627de4b9a191bdef586"
+    }
+  },
+  "catalog_hash": "c0728a591dfa8581",
+  "counts": {
+    "cycles": 0,
+    "dependencyItems": 2,
+    "issues": 0,
+    "lootPolicies": 1,
+    "managedItems": 2,
+    "recipes": 1
+  },
+  "deployed_hash": null,
+  "generated_at": "2026-07-11T00:00:00Z",
+  "graph_scope": {
+    "human_selected_roots": 2,
+    "tag_policy": "reference_only_no_expansion",
+    "visible_edges": 3,
+    "visible_nodes": 5
+  },
+  "project_id": "utd_workbench_sample",
+  "schema_version": "utd-artifact-manifest/v1",
+  "source": {
+    "lootRegistry": {
+      "path": "examples/sample-loot-registry.json",
+      "sha256": "463e0f53d20d4c22c49ab93966704cc693e9f7c52d7c90ed444bba96f22ac9b3"
+    },
+    "recipes": {
+      "generatedAt": "2026-07-11T00:00:00Z",
+      "path": "examples/sample-recipe-data.json",
+      "sha256": "fdc7904f3444fee96cf6b7b1637b0f34f8522c685598d7e8f1c6cbba75763819"
+    },
+    "snapshot": {
+      "path": "examples/sample-snapshot.json",
+      "sha256": "a3322021db82dfae2433c6a63b0f8329819c7fbcccb5db67187b74dc0b8e94b6"
+    }
+  }
+}

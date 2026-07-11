@@ -1,0 +1,45 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "adorablehamsterpets:cucumber",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "adorablehamsterpets:green_beans",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:coffee",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:pan",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cocoa_beans",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:milk_bucket",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sugar",
+          "weight": 8
+        }
+      ]
+    }
+  ]
+}

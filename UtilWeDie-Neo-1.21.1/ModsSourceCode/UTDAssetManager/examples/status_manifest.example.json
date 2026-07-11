@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-11T00:00:00Z",
+  "source_revision": "example-only",
+  "items": [
+    {
+      "asset_key": "asset_replace_with_exported_key",
+      "registry_id": "minecraft:stick",
+      "catalogued": true,
+      "recipe_input_count": 2,
+      "recipe_output_count": 1,
+      "loot_enabled": true,
+      "loot_level": 1,
+      "sync_state": "synced",
+      "catalog_hash": "sha256:example",
+      "deployed_hash": "sha256:example",
+      "stale": false,
+      "issues": []
+    }
+  ]
+}

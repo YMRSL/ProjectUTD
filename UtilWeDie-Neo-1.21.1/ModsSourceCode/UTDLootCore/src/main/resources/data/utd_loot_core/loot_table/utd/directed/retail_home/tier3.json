@@ -1,0 +1,748 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "adorablehamsterpets:cucumber",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "adorablehamsterpets:cucumber_seeds",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "adorablehamsterpets:green_beans",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "adorablehamsterpets:hamster_bedding",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "adorablehamsterpets:sunflower_seeds",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "adorablehamsterpets:wild_cucumber_bush",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "adorablehamsterpets:wild_green_bean_bush",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:backpack_alice",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:backpack_coyote",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:backpack_czech",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:backpack_czechpouch",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:backpack_patrolpack",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:gloves_0",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:gloves_1",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:gloves_2",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:pants_0",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:pants_1",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:pants_2",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:pants_3",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:pants_4",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:pants_5",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_0",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_1",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_10",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_11",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_12",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_13",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_14",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_2",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_3",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_4",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_5",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_6",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_7",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_8",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shirt_9",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shoes_0",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shoes_1",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shoes_2",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:shoes_3",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "blockz:vest_0",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:andesite_alloy",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "create:shaft",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:automatic_rifle_receiver",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:large_casing",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:large_magazine",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:lmg_magazine",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:machine_gun_box",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:medium_casing",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:medium_magazine",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:mg_receiver",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:pistol_receiver",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:revolver_receiver",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:smallmagazine",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:30,GunFireMode:\"AUTO\",GunId:\"daffas_arsenal:apacoba9\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:30,GunFireMode:\"AUTO\",GunId:\"daffas_arsenal:apacoba9_sup\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:30,GunFireMode:\"AUTO\",GunId:\"daffas_arsenal:harpa9\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:10,GunFireMode:\"SEMI\",GunId:\"daffas_arsenal:hk45\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:17,GunFireMode:\"SEMI\",GunId:\"daffas_arsenal:hk45_sup\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:30,GunFireMode:\"AUTO\",GunId:\"daffas_arsenal:samula3\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:5,GunFireMode:\"SEMI\",GunId:\"daffas_arsenal:ssg69\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:coffee",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:constanttemperatureincubator",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:drug",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:firstaidkit",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:ironrod",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:pan",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:plasticchair",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:cabbage_seeds",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "farmersdelight:netherite_knife",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jia_c\",use_duration_ticks:127,nutrition:0,saturation:0.0f,max_stack_size:1,custom_effects:[{type:\"armor_restore_durability\",value:0.0f,duration_ticks:0,interval_ticks:0,chance:1.0f},{type:\"extra_armor\",value:24.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你披挂整齐\"},{at_ticks:22,text:\"坚固防护遍布全身\"},{at_ticks:50,text:\"你感到外界冲击伤害被大幅减轻\"}]}]},use_selector:{mode:\"armor\",default_clip:\"level_1\",rules:[{min_amount:1,max_amount:40,clip:\"level_1\",duration_ticks:54},{min_amount:41,max_amount:70,clip:\"level_2\",duration_ticks:78},{min_amount:71,max_amount:130,clip:\"level_3\",duration_ticks:103},{min_amount:131,max_amount:200,clip:\"level_4\",duration_ticks:127}]},durability_use:{enabled:true,resource:\"armor\",max:170,current:170,per_point:1}},food_id:\"firstpersonfoodeating:i_jia_c\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "immersive_melodies:bagpipe",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:chili_seed",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:lettuce_seed",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "kaleidoscope_cookery:tomato_seed",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:amethyst_shard",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:beetroot_seeds",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:cocoa_beans",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:melon_seeds",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:milk_bucket",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:pumpkin_seeds",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:redstone",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sugar",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat_seeds",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:coal_powder",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "superbwarfare:knife",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:fire_axe",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:gasoline_can",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:glaive_circular_saw",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:glaive_with_machete",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:greataxe_stop_sign",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:hand_axe",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:hand_hammer",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:hunt_knife",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:metal_baseballbat_hammer",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:swat_shield",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "survival_instinct:tactical_knife",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:ammo_box",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:30,GunFireMode:\"AUTO\",GunId:\"tacz:aug\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:20,GunFireMode:\"BURST\",GunId:\"tacz:b93r\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:7,GunFireMode:\"SEMI\",GunId:\"tacz:deagle\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:gun_smith_table",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:6,GunFireMode:\"SEMI\",GunId:\"tacz:m1014\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:30,GunFireMode:\"AUTO\",GunId:\"tacz:m4a1\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:5,GunFireMode:\"SEMI\",GunId:\"tacz:m870\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:12,GunFireMode:\"SEMI\",GunId:\"tacz:p320\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:50,GunFireMode:\"AUTO\",GunId:\"tacz:p90\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:20,GunFireMode:\"SEMI\",GunId:\"tacz:scar_h\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:30,GunFireMode:\"AUTO\",GunId:\"tacz:scar_l\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:5,GunFireMode:\"SEMI\",GunId:\"tacz:spas_12\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:8,GunFireMode:\"SEMI\",GunId:\"tacz:timeless50\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:modern_kinetic_gun",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{Damage:0,GunCurrentAmmoCount:20,GunFireMode:\"AUTO\",GunId:\"tacz:vector45\",HasBulletInBarrel:1b}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:workbench_a",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{BlockId:\"tacz:ammo_workbench\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tacz:workbench_c",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{BlockId:\"tacz:attachment_workbench\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:chainsaw",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:knife",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:machete",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:smokeless_gunpowder",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:studded_baseball_bat",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:vacuum_packaging_machine",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

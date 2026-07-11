@@ -3,6 +3,16 @@
 > 只读盘点基线：2026-07-11。  
 > 本页回答“文件在哪里、扮演什么角色、做到哪一层、下一道闸门是什么”。项目优先级与任务状态仍由 PROJECT_STATUS.md 管理，模块技术设计仍以各自 ARCHITECTURE.md、HANDOFF.md 和修订日志为准。
 
+## 0. 盘点后的发布增量
+
+本页后续各节保留 2026-07-11 初次只读盘点的证据口径；当天稍后完成的资产/Loot 增量以 `docs/RELEASE_20260711_ASSET_LOOT.md` 和 `docs/PROJECT_STATUS.md` 为当前事实：
+
+- runtime KubeJS 已有完整本地基线 ZIP，修改前恢复点已关闭；
+- UTD Loot 的 798 registry、78 helper、280 容器表和 Java 保底已封装为 JAR，旧 365 个 KubeJS 文件已移入回滚目录；
+- NeoForge 游戏内资产标注 Mod、851 身份规范项目、960 配方/798 Loot 桌面工作台、状态清单、确定性 KJS 输出和正式 Excel 已完成；
+- 两只 JAR 与状态清单已安装到当前 NeoForge 21.1.233 客户端，完整客户端冷启动、开箱和标注持久化仍是待人工闸门；
+- 当前内容债务是 316 条旧种子缺 translation key、2 条孤立根和 1 个包含 280 物品的回收/互转循环；这些是后续配方审查输入，不应再描述为“资产管理器未开始”。
+
 ## 1. 扫描口径
 
 本次盘点覆盖：
@@ -85,12 +95,12 @@
 | MiroFish | 部分稳定：checkpoint-0 已关，子系统文档待补 | 探针：Spike Zero fixture；无 MCP/正式入口 | 无 | 待人工：测试 0-5 | 仅契约 |
 | SocialWill 三层薄切片 | 部分：契约已设计但有跨文档漂移 | Picasso 单边底座 | 仅 Picasso | 未联调 | 未闭环 |
 | NeoForge/Mod 移植 | 部分：各项目报告口径不统一 | 部分：22 个业务区有构建 JAR，20 个已同名或同哈希部署 | 弱：业务移植工程几乎无 tests | 部分：整合客户端可启动、进世界和正常退出 | 部分：仍有明确资源/兼容错误 |
-| KubeJS 配方 | 部分：多份工作簿与运行快照并存 | 可运行子集：960 候选、918 提交 | 无离线 validator | 最近运行已执行 | 部分：缺项与源漂移未清 |
-| Loot | 部分：registry/balance/family/tier 数据齐 | 静态 JSON 已部署 | 无离线引用校验 | 失败 | 阻塞：4 个 tier1 失效并扇出 175 条警告 |
+| KubeJS 配方 | 部分：多份工作簿仍待字段裁决 | 960 配方已进入规范工作台与确定性生成链；运行版本未被候选覆盖 | 稳定：解析、关系、循环、变体和连续导出测试 | 最近运行版本已执行；新生成候选待后续实机 | 部分：280 物品回收循环与旧种子翻译键待审 |
+| Loot | 稳定：798 registry、78 helper、280 容器与保底契约已冻结 | 单一 NeoForge JAR 已安装，旧 KubeJS 365 文件可回滚退休 | 稳定：4 Python + 6 JUnit + JAR/360 哈希校验 | 待人工：冷启动、三类箱子、T4/T5 保底 | 部分：代码与部署已闭环，实机回执未关 |
 | CNPCScripts | 部分：有安装/验证说明，无统一 manifest | 部分：Fungal 包可部署；大量脚本仍是旧版本参考 | 无 | 部分 | 部分：存在源码/部署漂移 |
-| 资产管理器 | 只有 MVP 原则 | 未开始 | 无 | 无 | 未接入数据管线 |
+| 资产管理器 | 稳定：游戏内标注、状态清单、桌面工作台和一层图契约已冻结 | NeoForge Mod、网页工作台、KJS/status/Excel 输出与双击启动器已完成 | 稳定：Mod 12 项、工作台 12 项、浏览器与 Excel 检查通过 | 待人工：O 键、Tooltip、持久化、TaCZ/FPE 去重 | 部分：JAR/status 已部署，真实游戏导出待回流 |
 | 世界/地图治理 | 无角色 manifest | 多份真实世界存在 | 无恢复演练 | 活跃使用 | 无私有备份闭环 |
-| Git/项目治理 | 稳定起步 | 已有分模块远端快照 | Picasso 已验，其余无 CI | 不适用 | 部分：运行数据和待审资产仍未快照 |
+| Git/项目治理 | 稳定起步 | 已有分模块远端快照与本地 runtime 基线 | Picasso、资产/Loot 自动验收已完成 | 不适用 | 部分：本轮发布待推送，CNPC/MiroFish 待审资产仍未纳入 |
 
 ## 5. 权威源、生成物与部署数据流
 
@@ -117,11 +127,11 @@
 | 外部 v1 更新版 | 比仓库内 v1 更新，未纳入当前公开快照 | 属待对账来源，不能静默覆盖 |
 | crafting_tables_v3_adjusted.xlsx | 外部的后续合成设计输入 | 与仓库 v1、运行时均有漂移 |
 | outputs 下 v2 | 面向阅读与审查的新产物 | 当前是 GENERATED/REVIEW，不自动成为权威源 |
-| runtime 的 utd_recipe_data.js | 2026-05-25 的 3 MB 生成快照 | 位于被忽略的 .minecraft，未进安全快照 |
-| runtime Loot JS/JSON | 6 月 28 日左右的 registry、balance、family、78 个 tier 和 280 个 DD 箱表 | 同样被 .minecraft 忽略，未进安全快照 |
+| runtime 的 utd_recipe_data.js | 2026-05-25 的 3 MB 生成快照；已进入完整本地 KubeJS 基线，并作为首份工作台输入 | 仍是当前运行配方；新生成候选必须先 diff，不能自动覆盖 |
+| runtime Loot JS/JSON | 已进入完整本地基线；旧 7 脚本、78 helper、280 箱表另存为 365 文件回滚包 | 运行时已切换到 UTD Loot Core JAR，旧数据不再参与加载 |
 | latest.log/KubeJS logs | 某次真实执行证据 | 不是源，也不能用于反向手工恢复全部设计 |
 
-在修改合成表前，必须先把仓库 v1、外部 v1 更新版、crafting_tables_v3_adjusted.xlsx、v2 审查产物和 runtime 快照做逐项对账，明确每个字段的胜出规则。资产管理器第一版应消费对账后的规范数据，而不是直接把任意一个工作簿当数据库。
+首份规范项目已保守使用 v2 中 316 条 READY 根，并把 runtime 960 配方作为现状证据；外部 v1 更新版、v3 adjusted 与剩余字段仍要逐项裁决。资产管理器不会把任意一个工作簿直接当数据库，游戏内真实标注将逐步替换旧种子。
 
 ## 6. SocialWill 三层
 
@@ -193,22 +203,13 @@ DATA-01 的完成标准：
 - validate → generate → diff → deploy 可重复；
 - 缺失 ID、重复 ID、命名空间漂移、旧模组引用和策略禁用均有机器可读报告。
 
-### 7.2 Loot 当前故障
+### 7.2 Loot 封盘状态
 
-已部署：
-
-- 78 个 UTD tier Loot JSON；
-- 280 个 DD 容器/箱表；
-- registry、balance、family 和 pity/runtime helper。
-
-最近实机日志中，以下 4 个 tier1 因 paraglider:paraglider 不存在而无法解析：
-
-- common/corpse_archive/tier1；
-- common/retail_home/tier1；
-- common/vehicle_civil/tier1；
-- common/vehicle_wreck/tier1。
-
-它们进一步造成 175 条 DD 箱表 Unknown loot table 警告。LOOT-01 必须先删除、替换或条件化缺失引用，再做全量注册表校验；不能只压掉日志。LOOT-02 随后对账 registry、balance、family、78 个 tier JSON、280 个 DD 箱表和 DDF 清单。
+- 798 条 registry 保留，678 启用；14 条缺失模组引用及其它策略禁用项仍保留审计记录，但不会成为新投放候选。
+- 4 个 `paraglider:paraglider` tier1 引用已移除，78 个 helper 与 280 个 `doomsday_decoration` 容器表通过闭包和哈希校验。
+- TaCZ `GunId`、FPE `food_id` 与工作台 `BlockId` 已用于保底扫描的稳定逻辑身份；禁用旧条目只参与已有物品等级识别。
+- Java 保底、命令、数据与元数据已封装为 `utd_loot_core-1.0.0-1.21.1.jar`；旧 365 个 KubeJS 文件已移入本地回滚目录。
+- 当前闸门不再是离线修复，而是完整客户端冷启动、三类箱子、T4/T5、重复开启与重启持久化实机验收。
 
 ## 8. CNPCScripts
 
@@ -268,7 +269,7 @@ DATA-01 的完成标准：
 
 ### 当前最重要的快照缺口
 
-真正被游戏使用的 utd_recipe_data.js、Loot registry/balance/family 数据和 78+280 个部署 JSON 位于被忽略的 .minecraft。它们目前可以帮助运行，却无法从远端安全快照恢复。对这些文件做任何修复前，必须先复制到受控审查区或私有备份，记录哈希，再建立新的权威源；不能直接修改后丢失旧状态。
+真正被游戏使用的 `utd_recipe_data.js` 仍位于被忽略的 `.minecraft`，但已进入带哈希的本地 KubeJS 基线并进入规范工作台。Loot 已由可构建源码/JAR接管，旧运行数据另有 365 文件回滚包；未通过实机验收前不得清理这些本地恢复点。
 
 ## 11. 已知漂移与冲突
 
@@ -279,7 +280,7 @@ DATA-01 的完成标准：
 | 安全快照状态曾落后于远端事实 | 容易误判项目仍不可整理 | 已把 SAFE-01 更新为完成；后续以 PROJECT_STATUS 为准 |
 | v1 汇总 439，但漏 M1911，实际分类 440 | 资产统计错误 | 修正导入与对账测试 |
 | 外部 v1 更新版、v3 adjusted、仓库 v1、runtime 相互漂移 | 无法确定哪份是设计真值 | 逐字段裁决后冻结权威源 |
-| runtime 配方/Loot 被 .minecraft ignore，未快照 | 修复前无可靠恢复点 | 先私有快照/受控复制 |
+| runtime 配方/Loot 被 .minecraft ignore | 普通 Git 不直接跟踪客户端 | 已完成本地基线 ZIP；Loot 另有 365 文件回滚包，配方进入规范项目但仍待内容裁决 |
 | 配方日志把输入数写成 registered from | 容易误报 960 已注册 | 改为五类精确计数 |
 | Fungal_Infected_Creep 源/部署哈希不同 | 双向同步风险 | 决定胜出版本并单向部署 |
 | GreenField 两个物理副本高度相似 | 占空间但误删风险高 | 外部备份与恢复演练后再判定 |
@@ -292,17 +293,17 @@ DATA-01 的完成标准：
 
 1. 更新项目台账，使快照、分支、提交和文档状态与事实一致。
 2. 审查剩余未跟踪文件；CNPC、MiroFish fixture、v2 和中间物分批决定。
-3. 在改数据前，私有保存当前实际 runtime 配方/Loot，并记录哈希。
+3. 已在改数据前私有保存当前 runtime KubeJS，并记录 ZIP 与 SHA-256。
 4. 对账仓库 v1、外部 v1 更新版、crafting_tables_v3_adjusted.xlsx、v2 与 runtime；修正 M1911 和所有计数差异。
-5. 修复 4 个 tier1 Loot 和 175 条连锁引用，建立 registry/namespace validator。
+5. 已修复 4 个 tier1 与连锁引用，建立 registry/namespace/hash validator 并封装 JAR；待实机回执。
 6. 完成 Picasso DD marker 与 MiroFish Spike Zero 两个人工闸门。
 7. 冻结统一 work-order 契约，实现 Picasso 最小 mark dispatcher/receipt。
 8. 启动 Chess 纯 Java core/event log 与 MiroFish 最小事实摄取/CNPC compiler，完成三层 fixture 薄切片。
 
 ### P1：稳定数据面与可用工具
 
-1. 资产管理器只读 MVP：导入、规范化、校验、搜索、问题视图、导出、diff；不先做重 UI。
-2. 配方/Loot 单向生成链接入 Git 快照与部署回执。
+1. 资产管理器 MVP 已完成：游戏内标注、导入、规范化、校验、搜索、问题视图、一层图、导出与 diff；待实机回流真实名称/变体。
+2. 配方/Loot 单向生成链和部署回执已完成第一轮；配方内容审查通过后再切换生成候选。
 3. CNPC active/archive/experimental 分区、manifest 和 source/deploy hash 检查。
 4. Picasso 在 mark 稳定后拉取 segmentation/registry，再选择 Room 或 Rail 的最有价值切片。
 5. Chess event log 稳定后接最小 NeoForge shell/headless 路径。

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "modId": "utd_loot_core",
+  "minecraftVersion": "1.21.1",
+  "neoForgeVersion": "21.1.233",
+  "generatorVersion": "1.0.0",
+  "generatedAtUtc": "2026-07-11T00:00:00Z",
+  "sourceBaseline": {
+    "archive": "_local_snapshots/runtime-kubejs-baseline-20260711.zip",
+    "sha256": "DED3D9882C5EA821E7FFBD602BB137AE9F0BF4784331951CA548569A1874042A",
+    "runtimeRoot": "UtilWeDie-Neo-1.21.1/.minecraft/versions/1.21.1-NeoForge_21.1.233/kubejs",
+    "files": {
+      "startup_scripts/utd_loot_registry_data.js": "D3BF3B54DF161FD89D8C0EBAD33BA404B5F4D152FE3D4020961B6362B0CE25BA",
+      "startup_scripts/utd_loot_balance_data.js": "369AF74BCEE5659797BD1C9FD0D6992CADDCC96AE081FFAC3DEC02B960EF1509",
+      "startup_scripts/utd_loot_registry.js": "4977E139962DA52793FE67EA582F8CECDB7830D9CFCE8A2885E225D8D4E79AA5",
+      "startup_scripts/utd_loot_families.js": "6D6420A4DBDD084F085AD566AD632AD6E9EE1D8CAE3D6C35E75919E432DE096C",
+      "server_scripts/utd_loot_pity.js": "43A004E472550D1A205FF6F7D641ED0E5F464181628F5043D859891836E9C910",
+      "server_scripts/utd_loot_utils.js": "04339DDEAE3DD65A2154D26BBBF36A47940276DB804C5A10E6242D3A98E96701",
+      "server_scripts/utd_loot_tables.js": "B166DEBB0D5ADB99DA13B1657680E691497346F8CD2791C64D091055187AF342"
+    }
+  },
+  "counts": {
+    "registrySeed": 798,
+    "registryEnabled": 678,
+    "disabledMissingMod": 14,
+    "helperTables": 78,
+    "chestTables": 280,
+    "containerConfig": 280,
+    "familyByLootTable": 280,
+    "templates": 13,
+    "removedMissingItemEntries": 4
+  },
+  "namespace": {
+    "container": "doomsday_decoration",
+    "helper": "utd_loot_core",
+    "legacy": "doomsday_functionality"
+  },
+  "disabledMissingModIds": [
+    "locks:diamond_lock_pick",
+    "locks:gold_lock_pick",
+    "locks:iron_lock",
+    "locks:iron_lock_pick",
+    "locks:key_blank",
+    "locks:key_ring",
+    "locks:steel_lock",
+    "locks:steel_lock_pick",
+    "locks:wood_lock",
+    "locks:wood_lock_pick",
+    "paraglider:paraglider",
+    "ropebridge:bridge_builder",
+    "ropebridge:ladder_builder",
+    "the_ravenous:anti_ravenous"
+  ],
+  "generatedDataAggregateSha256": "B6C3CB2610BA07EA949BE051AB8ADC57C997AB4C3922C97B60592E6B0CCA9D06"
+}

@@ -1,0 +1,70 @@
+{
+  "artifacts": {
+    "status_manifest.json": {
+      "bytes": 875687,
+      "sha256": "386026bab042147ad94ad646d66d09c1ae30d362f5636922606de79736fe0735"
+    },
+    "utd_asset_excel_interface.json": {
+      "bytes": 3731902,
+      "sha256": "453c7c45faf88fd9298d8c59c7b9acd4e5cd4cfcc990365b4508b55e1a8ae252"
+    },
+    "utd_asset_status_manifest.js": {
+      "bytes": 929172,
+      "sha256": "bbec25f03871ec7d409862185a711aedb2b05e62abae842cdf9c3b5e1551ccc9"
+    },
+    "utd_asset_status_manifest.json": {
+      "bytes": 875687,
+      "sha256": "386026bab042147ad94ad646d66d09c1ae30d362f5636922606de79736fe0735"
+    },
+    "utd_loot_registry_data.generated.js": {
+      "bytes": 361170,
+      "sha256": "f1d62addec94b1adcd1de656df5a03b74092cad208f6a86363b5633af735cbda"
+    },
+    "utd_recipe_data.generated.js": {
+      "bytes": 2799329,
+      "sha256": "7597b2938f5524c3c78e8645162718f428c14215043a3ead572fd3f32e9abf35"
+    },
+    "workbench.json": {
+      "bytes": 7528226,
+      "sha256": "58ba4493a75dcba63ad7171d6cd413810db8f3d2ec38360b61667d4644d67672"
+    }
+  },
+  "catalog_hash": "797b002a05c3dbbb",
+  "counts": {
+    "cycles": 1,
+    "dependencyItems": 5,
+    "issues": 319,
+    "lootPolicies": 798,
+    "managedItems": 846,
+    "recipes": 960
+  },
+  "deployed_hash": null,
+  "generated_at": "2026-07-11T19:53:57+08:00",
+  "graph_scope": {
+    "human_selected_roots": 316,
+    "tag_policy": "reference_only_no_expansion",
+    "visible_edges": 3538,
+    "visible_nodes": 1255
+  },
+  "project_id": "projectutd-20260711",
+  "schema_version": "utd-artifact-manifest/v1",
+  "source": {
+    "lootBalance": {
+      "path": "D:\\MC\\ProjectUTD\\UtilWeDie-Neo-1.21.1\\ModsSourceCode\\UTDLootCore\\src\\main\\resources\\data\\utd_loot_core\\loot\\balance.json",
+      "sha256": "a3f1622496e58b6cba2a0d479cef313a8bf5a336e580b04d0b5a1426a644e0f2"
+    },
+    "lootRegistry": {
+      "path": "D:\\MC\\ProjectUTD\\UtilWeDie-Neo-1.21.1\\ModsSourceCode\\UTDLootCore\\src\\main\\resources\\data\\utd_loot_core\\loot\\registry.json",
+      "sha256": "e76fcd759ac348f2cb7438345ec54cc1ffe5a6f1a3cc916501dc89251b0339c9"
+    },
+    "recipes": {
+      "generatedAt": "2026-05-25T21:52:13.385938",
+      "path": "D:\\MC\\ProjectUTD\\UtilWeDie-Neo-1.21.1\\.minecraft\\versions\\1.21.1-NeoForge_21.1.233\\kubejs\\startup_scripts\\utd_recipe_data.js",
+      "sha256": "b3171b5fea511eb3bcd8c7c29846fd5abed43255718a206223c471a629cfc75d"
+    },
+    "snapshot": {
+      "path": "D:\\MC\\ProjectUTD\\outputs\\projectutd-assets-20260711\\inputs\\legacy_whitelist_ready.json",
+      "sha256": "9a57f94a60ce51a1e9b7e07f48bf2926352879fae1d30227f9c26c91ce50b0c9"
+    }
+  }
+}

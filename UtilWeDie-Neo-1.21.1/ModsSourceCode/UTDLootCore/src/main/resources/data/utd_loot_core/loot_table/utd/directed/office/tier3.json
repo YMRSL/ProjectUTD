@@ -1,0 +1,65 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "blockz:backpack_czechpouch",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:bookpile",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:bookpile_2",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:cashregister",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:coffee",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:folder_1",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:folder_2",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:radio",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:recovery_compass",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:sugar",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "zombiekit:shortwave_radio",
+          "weight": 7
+        }
+      ]
+    }
+  ]
+}

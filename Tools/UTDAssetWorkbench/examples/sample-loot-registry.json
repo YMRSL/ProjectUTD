@@ -1,0 +1,14 @@
+[
+  {
+    "id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+    "lootItemId": "firstpersonfoodeating:pack_food",
+    "lootNbt": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bang_a\"}}",
+    "lootEnabled": true,
+    "level": 1,
+    "count": 1,
+    "commonTags": ["food_packaged"],
+    "commonBaseWeight": 3,
+    "directedWeight": 0,
+    "replacePriority": 1
+  }
+]

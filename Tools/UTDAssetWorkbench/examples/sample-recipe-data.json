@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-07-11T00:00:00Z",
+  "removeTypes": [],
+  "removeRecipeIds": [],
+  "removeOutputs": ["zombiekit:baseball_bat"],
+  "shaped": [
+    {
+      "id": "kubejs:utd_sample/baseball_bat",
+      "pattern": ["A ", "A ", " B"],
+      "key": {
+        "A": { "item": "minecraft:oak_slab" },
+        "B": { "item": "zombiekit:iron_wire" }
+      },
+      "output": { "id": "zombiekit:baseball_bat", "count": 1 },
+      "utd": {
+        "sheet": "sample",
+        "row": 1,
+        "station": "徒手 / 书桌",
+        "stationKey": "crafting",
+        "stationScope": "desk_crafting",
+        "form": "有序",
+        "outputName": "实木棒球棍",
+        "output": "zombiekit:baseball_bat",
+        "outputKeys": ["zombiekit:baseball_bat"],
+        "level": 0,
+        "count": 1
+      }
+    }
+  ],
+  "shapeless": [],
+  "custom": []
+}

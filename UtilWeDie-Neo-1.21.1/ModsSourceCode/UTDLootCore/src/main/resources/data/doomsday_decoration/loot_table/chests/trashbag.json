@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 3,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 60,
+          "value": "utd_loot_core:utd/common/trash_low/tier0"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "value": "utd_loot_core:utd/common/trash_low/tier1"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 15,
+          "value": "utd_loot_core:utd/common/trash_low/tier2"
+        }
+      ]
+    }
+  ]
+}

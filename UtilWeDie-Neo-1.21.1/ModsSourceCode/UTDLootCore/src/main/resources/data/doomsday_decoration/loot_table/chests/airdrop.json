@@ -1,0 +1,53 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 2,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 55,
+          "value": "utd_loot_core:utd/common/airdrop/tier0"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "value": "utd_loot_core:utd/common/airdrop/tier1"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 20,
+          "value": "utd_loot_core:utd/common/airdrop/tier2"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 2,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 45,
+          "value": "utd_loot_core:utd/directed/airdrop/tier3"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 35,
+          "value": "utd_loot_core:utd/directed/airdrop/tier4"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 20,
+          "value": "utd_loot_core:utd/directed/airdrop/tier5"
+        }
+      ]
+    }
+  ]
+}

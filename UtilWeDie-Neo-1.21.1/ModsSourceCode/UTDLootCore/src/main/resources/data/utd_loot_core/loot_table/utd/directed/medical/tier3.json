@@ -1,0 +1,96 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:medium_casing",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "crusty_chunks:medium_magazine",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:drug",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "doomsday_decoration:firstaidkit",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_bengdai_c\",use_duration_ticks:82,nutrition:0,saturation:0.0f,max_stack_size:16,custom_effects:[{type:\"bandage\",value:1.5f,duration_ticks:0,interval_ticks:0,chance:1.0f},{type:\"heal_gradual\",value:3.0f,duration_ticks:0,interval_ticks:0,chance:1.0f},{type:\"heal_instant\",value:2.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"另一只手翻上两番缠上高弹绷带\"},{at_ticks:40,text:\"紧致包覆感牢牢锁住伤口\"},{at_ticks:74,text:\"随着伤口被绷带所紧绷\"},{at_ticks:106,text:\"疼痛也逐渐开始消弭\"},{at_ticks:136,text:\"应该还能再撑一会儿\"}]}]}},food_id:\"firstpersonfoodeating:i_bengdai_c\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jijiubao_c\",use_duration_ticks:115,nutrition:0,saturation:0.0f,max_stack_size:1,custom_effects:[{type:\"heal_gradual\",value:0.0f,duration_ticks:100,interval_ticks:0,chance:1.0f},{type:\"emergency_painkiller\",value:20.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"你使用军用级急救包\"},{at_ticks:30,text:\"你感到剧痛被强效压制\"},{at_ticks:62,text:\"伤口快速修复\"},{at_ticks:86,text:\"感染风险被彻底遏制\"}]}]},use_selector:{mode:\"hp\",default_clip:\"use1\",rules:[{min_amount:1,max_amount:35,clip:\"use1\",duration_ticks:115},{min_amount:36,max_amount:70,clip:\"use2\",duration_ticks:115}]},durability_use:{enabled:true,resource:\"hp\",max:70,current:70,per_point:1}},food_id:\"firstpersonfoodeating:i_jijiubao_c\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_a\",use_duration_ticks:32,nutrition:0,saturation:0.0f,max_stack_size:16,effects:[{id:\"minecraft:haste\",duration_ticks:600,amplifier:0,chance:1.0f},{id:\"minecraft:speed\",duration_ticks:600,amplifier:1,chance:1.0f},{id:\"minecraft:resistance\",duration_ticks:600,amplifier:1,chance:1.0f},{id:\"minecraft:hunger\",duration_ticks:600,amplifier:1,chance:1.0f}],custom_effects:[{type:\"emergency_painkiller\",value:14.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],thirst:{delta:-4,water_delta:0,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"注射后你感到心跳骤然加速\"},{at_ticks:36,text:\"热血涌遍全身\"},{at_ticks:60,text:\"你充满爆发力\"},{at_ticks:84,text:\"反应快得惊人\"}]}]}},food_id:\"firstpersonfoodeating:i_zhenji_a\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_b\",use_duration_ticks:32,nutrition:0,saturation:5.0f,max_stack_size:16,custom_effects:[{type:\"heal_instant\",value:8.0f,duration_ticks:0,interval_ticks:0,chance:1.0f},{type:\"emergency_painkiller\",value:14.0f,duration_ticks:0,interval_ticks:0,chance:1.0f},{type:\"healthy\",value:10.0f,duration_ticks:200,interval_ticks:0,chance:1.0f}],thirst:{delta:-4,water_delta:0,mode:\"always\"},flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"注射后你感到肌肉酸胀瞬间消失\"},{at_ticks:40,text:\"体力快速回满\"},{at_ticks:64,text:\"疲惫被一扫而空\"}]}]}},food_id:\"firstpersonfoodeating:i_zhenji_b\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_e\",use_duration_ticks:32,nutrition:0,saturation:0.0f,max_stack_size:16,effects:[{id:\"minecraft:fire_resistance\",duration_ticks:2400,amplifier:0,chance:1.0f}],custom_effects:[{type:\"immune\",value:120.0f,duration_ticks:2400,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"注射后你感到体温恒定平稳\"},{at_ticks:36,text:\"严寒酷暑都再也无法影响你的身体\"}]}]}},food_id:\"firstpersonfoodeating:i_zhenji_e\"}"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "firstpersonfoodeating:pack_food",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": "{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_g\",use_duration_ticks:32,nutrition:0,saturation:0.0f,max_stack_size:16,effects:[{id:\"minecraft:strength\",duration_ticks:900,amplifier:2,chance:1.0f},{id:\"minecraft:speed\",duration_ticks:900,amplifier:1,chance:1.0f},{id:\"minecraft:resistance\",duration_ticks:900,amplifier:1,chance:1.0f},{id:\"minecraft:hunger\",duration_ticks:900,amplifier:2,chance:1.0f},{id:\"minecraft:nausea\",duration_ticks:300,amplifier:0,chance:1.0f}],custom_effects:[{type:\"extra_armor\",value:4.0f,duration_ticks:900,interval_ticks:0,chance:1.0f},{type:\"emergency_painkiller\",value:18.0f,duration_ticks:0,interval_ticks:0,chance:1.0f}],flavor_messages:{mode:\"actionbar\",pick:\"random_weighted\",cooldown_ticks:0,groups:[{id:\"default\",weight:1,segments:[{at_ticks:0,text:\"注射后你感到身体泛起异样麻痒\"},{at_ticks:40,text:\"体能疯狂暴涨\"},{at_ticks:64,text:\"但你察觉自己意识出现轻微恍惚\"}]}]}},food_id:\"firstpersonfoodeating:i_zhenji_g\"}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

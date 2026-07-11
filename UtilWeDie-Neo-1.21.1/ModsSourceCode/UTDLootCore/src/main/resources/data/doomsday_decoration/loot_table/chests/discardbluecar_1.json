@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 3,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 45,
+          "value": "utd_loot_core:utd/common/vehicle_wreck/tier0"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "value": "utd_loot_core:utd/common/vehicle_wreck/tier1"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 30,
+          "value": "utd_loot_core:utd/common/vehicle_wreck/tier2"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 0,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 84,
+          "value": "utd_loot_core:utd/directed/vehicle_wreck/tier3"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 16,
+          "value": "utd_loot_core:utd/directed/vehicle_wreck/tier4"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 3,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 55,
+          "value": "utd_loot_core:utd/common/finance/tier0"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "value": "utd_loot_core:utd/common/finance/tier1"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 20,
+          "value": "utd_loot_core:utd/common/finance/tier2"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 0,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 90,
+          "value": "utd_loot_core:utd/directed/finance/tier3"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 10,
+          "value": "utd_loot_core:utd/directed/finance/tier4"
+        }
+      ]
+    }
+  ]
+}
