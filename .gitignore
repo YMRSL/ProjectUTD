@@ -75,6 +75,7 @@ _inspect*/
 **/_fpepack_tmp*/
 **/_sample_in.json
 **/_sample_out.json
+*.inspect.ndjson
 
 # Large packaged artifacts and archives
 *.zip

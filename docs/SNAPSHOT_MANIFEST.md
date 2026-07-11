@@ -14,7 +14,7 @@
 
 ## 明确排除
 
-- `UtilWeDie-Neo-1.21.1/建筑存档/`：世界、Voxy、Distant Horizons 与地图缓存，约 1.1 GB。
+- `UtilWeDie-Neo-1.21.1/建筑存档/`：世界、Voxy、Distant Horizons 与地图缓存；本次按文件逻辑大小统计约 3.65 GB（GreenField 约 3.20 GB、Mosslorn 约 433.7 MB、Picasso 测试副本约 11.3 MB）。
 - `.minecraft/`、PCL、版本库、日志、崩溃报告、构建输出、Gradle/Python 缓存。
 - 根目录大型压缩包及 jar/zip/rar/7z 等分发物。
 - `CNPCScripts/CnpcScript/`：混合 1.12.2、1.20.1、1.21.1 的参考库，含第三方署名和危险示例，需先分类与确认公开许可。
