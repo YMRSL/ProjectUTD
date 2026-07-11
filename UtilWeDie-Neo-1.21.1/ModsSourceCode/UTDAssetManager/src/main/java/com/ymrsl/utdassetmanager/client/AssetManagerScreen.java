@@ -43,7 +43,7 @@ public final class AssetManagerScreen extends Screen {
     private int selectedCount;
     private long lastCandidateRefresh;
     private boolean compactHeight;
-    private String notice = "候选仅来自人工白名单、玩家背包与当前容器，不扫描全注册表。";
+    private String notice = "鼠标放在列表上滚动；候选来自人工白名单、背包与当前容器。";
 
     private int frameX;
     private int frameY;
@@ -160,6 +160,13 @@ public final class AssetManagerScreen extends Screen {
     }
 
     @Override
+    public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        // This screen paints an opaque full-screen background itself. Screen.render()
+        // must not apply the vanilla pause-menu blur over the custom panels before
+        // rendering widgets such as the search box.
+    }
+
+    @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         graphics.fill(0, 0, width, height, BG);
         graphics.fill(frameX, frameY, frameX + frameW, frameY + frameH, PANEL);
@@ -216,12 +223,12 @@ public final class AssetManagerScreen extends Screen {
         graphics.fill(centerX, bodyY, rightX - 1, bottom, PANEL);
         graphics.fill(rightX - 1, bodyY, rightX, bottom, LINE);
         graphics.drawString(font, "白名单 / 背包 / 当前容器", centerX + 12, bodyY + 12, TEXT, false);
-        String scope = "CURATED SCOPE";
-        graphics.drawString(font, scope, rightX - 12 - font.width(scope), bodyY + 12, MUTED, false);
+        int end = Math.min(visible.size(), scrollRows + visibleRowCount());
+        String range = visible.isEmpty() ? "0 / 0" : (scrollRows + 1) + "–" + end + " / " + visible.size();
+        graphics.drawString(font, range, rightX - 12 - font.width(range), bodyY + 12, MUTED, false);
         int listTop = bodyY + 32;
         int listBottom = bottom - 31;
         graphics.enableScissor(centerX + 1, listTop, rightX - 1, listBottom);
-        int end = Math.min(visible.size(), scrollRows + visibleRowCount());
         int y = listTop;
         for (int index = scrollRows; index < end; index++) {
             AssetRecord record = visible.get(index);
@@ -252,17 +259,33 @@ public final class AssetManagerScreen extends Screen {
         if (visible.isEmpty()) {
             graphics.drawCenteredString(font, "当前筛选没有记录", centerX + centerW / 2, listTop + 30, MUTED);
         }
+        renderScrollbar(graphics, listTop, listBottom);
         graphics.fill(centerX, bottom - 30, rightX - 1, bottom, 0xFF0F1214);
         graphics.drawString(font, ellipsize(notice, centerW - 24), centerX + 12, bottom - 20, MUTED, false);
     }
 
     private void renderBadges(GuiGraphics graphics, AssetStatus status, int x, int y) {
-        x = badge(graphics, "H", status.humanSelected(), x, y);
-        x = badge(graphics, "C", status.catalogued(), x, y);
-        x = badge(graphics, "I", status.recipeInput(), x, y);
-        x = badge(graphics, "O", status.recipeOutput(), x, y);
-        x = badge(graphics, "L", status.lootEnabled(), x, y);
-        badge(graphics, status.issues().isEmpty() ? "S" : "!", !status.needsSync() && status.issues().isEmpty(), x, y);
+        x = badge(graphics, "标", status.humanSelected(), x, y);
+        x = badge(graphics, "管", status.catalogued(), x, y);
+        x = badge(graphics, "材", status.recipeInput(), x, y);
+        x = badge(graphics, "产", status.recipeOutput(), x, y);
+        x = badge(graphics, "掉", status.lootEnabled(), x, y);
+        badge(graphics, status.issues().isEmpty() ? "同" : "!", !status.needsSync() && status.issues().isEmpty(), x, y);
+    }
+
+    private void renderScrollbar(GuiGraphics graphics, int listTop, int listBottom) {
+        int rows = visibleRowCount();
+        int maxScroll = Math.max(0, visible.size() - rows);
+        if (maxScroll == 0) {
+            return;
+        }
+        int trackX = rightX - 7;
+        int trackHeight = Math.max(1, listBottom - listTop);
+        int thumbHeight = Math.max(12, trackHeight * rows / visible.size());
+        int thumbTravel = Math.max(0, trackHeight - thumbHeight);
+        int thumbY = listTop + thumbTravel * scrollRows / maxScroll;
+        graphics.fill(trackX, listTop, trackX + 3, listBottom, 0xFF292C2F);
+        graphics.fill(trackX, thumbY, trackX + 3, thumbY + thumbHeight, AMBER);
     }
 
     private int badge(GuiGraphics graphics, String label, boolean active, int x, int y) {
@@ -291,14 +314,14 @@ public final class AssetManagerScreen extends Screen {
         y += 17;
         y = detail(graphics, "translation", record.translationKey, x, y, max);
         y = detail(graphics, "variant", record.variantKind + " / " + shortKey(record.variantKey), x, y, max);
-        y = statusLine(graphics, "human_selected", status.humanSelected(), "", x, y);
-        y = statusLine(graphics, "catalogued", status.catalogued(), "", x, y);
-        y = statusLine(graphics, "recipe_input", status.recipeInput(), Integer.toString(status.recipeInputCount()), x, y);
-        y = statusLine(graphics, "recipe_output", status.recipeOutput(), Integer.toString(status.recipeOutputCount()), x, y);
-        y = statusLine(graphics, "loot_enabled", status.lootEnabled(), "L" + status.lootLevel(), x, y);
+        y = statusLine(graphics, "人工标注", status.humanSelected(), "", x, y);
+        y = statusLine(graphics, "已纳管", status.catalogued(), "", x, y);
+        y = statusLine(graphics, "配方材料", status.recipeInput(), Integer.toString(status.recipeInputCount()), x, y);
+        y = statusLine(graphics, "配方产物", status.recipeOutput(), Integer.toString(status.recipeOutputCount()), x, y);
+        y = statusLine(graphics, "Loot 掉落", status.lootEnabled(), "L" + status.lootLevel(), x, y);
         boolean syncOk = status.syncState() == SyncState.SYNCED && !status.stale();
-        y = statusLine(graphics, "sync_state", syncOk, status.syncState().name().toLowerCase(), x, y);
-        y = statusLine(graphics, "issues", status.issues().isEmpty(), Integer.toString(status.issues().size()), x, y);
+        y = statusLine(graphics, "同步状态", syncOk, status.syncState().name().toLowerCase(), x, y);
+        y = statusLine(graphics, "异常", status.issues().isEmpty(), Integer.toString(status.issues().size()), x, y);
         if (status.needsSync()) {
             int pulse = 100 + (int) (90 * (0.5 + 0.5 * Math.sin(System.currentTimeMillis() / 220.0)));
             graphics.fill(rightX + rightW - 18, bodyY + 13, rightX + rightW - 13, bodyY + 18,
@@ -360,6 +383,12 @@ public final class AssetManagerScreen extends Screen {
         }
         int listTop = bodyY + 32;
         int listBottom = frameY + frameH - 31;
+        int maxScroll = Math.max(0, visible.size() - visibleRowCount());
+        if (maxScroll > 0 && inside(mouseX, mouseY, rightX - 10, listTop, 9, listBottom - listTop)) {
+            double ratio = Mth.clamp((mouseY - listTop) / Math.max(1.0, listBottom - listTop), 0.0, 1.0);
+            scrollRows = Mth.clamp((int) Math.round(ratio * maxScroll), 0, maxScroll);
+            return true;
+        }
         if (inside(mouseX, mouseY, centerX + 4, listTop, centerW - 8, listBottom - listTop)) {
             int local = (int) ((mouseY - listTop) / ROW_HEIGHT);
             int index = scrollRows + local;
