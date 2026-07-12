@@ -2,6 +2,9 @@ export const WORKBENCH_SCHEMA = "utd-asset-workbench/v1" as const;
 export const SNAPSHOT_SCHEMA = "utd-item-whitelist/v1" as const;
 export const STATUS_SCHEMA = "utd-asset-status/v1" as const;
 export const EXCEL_INTERFACE_SCHEMA = "utd-excel-export/v1" as const;
+export const PRESENTATION_SCHEMA = "utd-item-presentation/v1" as const;
+export const LANG_OVERLAY_SCHEMA = "utd-lang-overlays/v1" as const;
+export const BLOCK_TRANSFORM_SCHEMA = "utd-block-transforms/v1" as const;
 
 export type JsonPrimitive = string | number | boolean | null;
 export type JsonValue = JsonPrimitive | JsonObject | JsonValue[];
@@ -13,6 +16,11 @@ export type SyncState = "local_only" | "pending" | "synced" | "stale" | "error";
 export type RefKind = "item" | "tag" | "fluid" | "unknown";
 export type RecipeSourceKind = "shaped" | "shapeless" | "custom";
 export type IssueSeverity = "error" | "warning" | "info";
+export type PresentationApplyScope = "registry" | "identity";
+export type BlockTransformInputSource = "clicked_hand" | "inventory";
+export type BlockTransformHand = "main" | "off" | "any";
+export type BlockEntityPolicy = "reject";
+export type BlockStateProperties = Record<string, string>;
 
 export interface SourceFingerprint {
   path?: string;
@@ -103,6 +111,48 @@ export interface CanonicalLootPolicy {
   raw: JsonObject;
 }
 
+/**
+ * An authored language override. Observed clientNameZhCn/translationKey values
+ * remain immutable evidence from the game export; edits live here instead.
+ */
+export interface ItemPresentationOverride {
+  itemKey: string;
+  registryId: string;
+  variantDiscriminator: string;
+  applyScope: PresentationApplyScope;
+  enabled: boolean;
+  observedNameZhCn: string;
+  nameKey: string;
+  descriptionKey: string;
+  nameZhCn: string;
+  descriptionZhCn: string;
+  baseCatalogHash: string;
+  updatedAt: string;
+}
+
+/** A data-only right-click block replacement rule. Runtime deployment is separate. */
+export interface BlockTransform {
+  id: string;
+  enabled: boolean;
+  priority: number;
+  clickedBlock: string;
+  targetState: BlockStateProperties;
+  resultBlock: string;
+  resultState: BlockStateProperties;
+  copyProperties: string[];
+  catalyst: CanonicalRef;
+  catalystComponentsSnbt: string;
+  inputSource: BlockTransformInputSource;
+  hand: BlockTransformHand;
+  requireSneaking: boolean;
+  allowFakePlayer: boolean;
+  consumeInput: boolean;
+  cancelInteraction: boolean;
+  blockEntityPolicy: BlockEntityPolicy;
+  creativeRequireInput: boolean;
+  creativeConsume: boolean;
+}
+
 export interface GraphNode {
   id: string;
   kind: "item" | "recipe" | "tag" | "fluid" | "unknown";
@@ -134,7 +184,7 @@ export interface ValidationIssue {
   code: string;
   severity: IssueSeverity;
   message: string;
-  entityType: "project" | "item" | "recipe" | "loot";
+  entityType: "project" | "item" | "recipe" | "loot" | "block_transform";
   entityId: string;
 }
 
@@ -156,12 +206,15 @@ export interface WorkbenchManifest {
     recipes: SourceFingerprint;
     lootRegistry?: SourceFingerprint;
     lootBalance?: SourceFingerprint;
+    blockTransforms?: SourceFingerprint;
   };
   counts: {
     managedItems: number;
     dependencyItems: number;
     recipes: number;
     lootPolicies: number;
+    presentations: number;
+    blockTransforms: number;
     cycles: number;
     issues: number;
   };
@@ -173,6 +226,8 @@ export interface WorkbenchProject {
   items: CanonicalItem[];
   recipes: CanonicalRecipe[];
   lootPolicies: CanonicalLootPolicy[];
+  presentations: ItemPresentationOverride[];
+  blockTransforms: BlockTransform[];
   lootBalance: JsonObject | null;
   graph: FilteredGraph;
   issues: ValidationIssue[];

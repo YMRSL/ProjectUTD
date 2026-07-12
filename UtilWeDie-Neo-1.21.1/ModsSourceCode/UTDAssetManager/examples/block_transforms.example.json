@@ -1,0 +1,37 @@
+{
+  "schema_version": "utd-block-transforms/v1",
+  "rules": [
+    {
+      "id": "utd:block_transform/example_fire_clay_with_coal",
+      "enabled": false,
+      "priority": 100,
+      "target": {
+        "block": "minecraft:clay",
+        "state": {},
+        "blockEntityPolicy": "reject"
+      },
+      "catalyst": {
+        "registryId": "minecraft:coal",
+        "variantDiscriminator": "",
+        "componentsSnbt": "{}",
+        "count": 1,
+        "source": "clicked_hand",
+        "consume": true
+      },
+      "activation": {
+        "hand": "main",
+        "requireSneak": false,
+        "allowFakePlayer": false
+      },
+      "result": {
+        "block": "minecraft:terracotta",
+        "state": {},
+        "copyProperties": []
+      },
+      "creative": {
+        "requireInput": true,
+        "consume": false
+      }
+    }
+  ]
+}

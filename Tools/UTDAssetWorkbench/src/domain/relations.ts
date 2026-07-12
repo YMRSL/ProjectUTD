@@ -1,10 +1,15 @@
 import type { CanonicalItem, CanonicalLootPolicy, CanonicalRef } from "./schema";
 
 export function hasVariantIdentity(item: CanonicalItem): boolean {
+  const identityKind = item.identityKind.toLocaleLowerCase();
+  // Runtime captures use a stable SHA asset_key/variant_key even for a plain
+  // stack. An explicit plain/base kind is authoritative when no discriminator
+  // exists; otherwise recipe refs would create a second registry-id row.
+  if (!item.variantDiscriminator && ["plain", "base"].includes(identityKind)) return false;
   return Boolean(
     item.variantDiscriminator
     || item.variantKey
-    || !["item", "plain", "base"].includes(item.identityKind.toLocaleLowerCase())
+    || !["item", "plain", "base"].includes(identityKind)
   );
 }
 

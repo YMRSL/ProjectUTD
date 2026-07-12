@@ -6,14 +6,19 @@ import process from "node:process";
 import { buildWorkbenchProject } from "../src/domain/build";
 import {
   assertWorkbenchProject,
+  exportBlockTransformsJson,
   exportExcelInterfaceJson,
+  exportLangOverlaysJson,
   exportLootRegistryKjs,
+  exportPresentationJson,
   exportProjectJson,
   exportRecipeKjs,
   exportStatusJson,
-  exportStatusKjs
+  exportStatusKjs,
+  toLangOverlayEntries
 } from "../src/domain/exporters";
 import { parseJsonOrAssignment } from "../src/domain/parsers";
+import { applyBlockTransformDocument, applyPresentationDocument } from "../src/domain/projectCompat";
 import type { SourceFingerprint, WorkbenchProject } from "../src/domain/schema";
 import { stableStringify } from "../src/domain/stable";
 
@@ -39,7 +44,8 @@ async function importSources(argv: string[]): Promise<void> {
   const recipes = await loadSource(recipesPath, "recipe");
   const lootRegistry = options["loot-registry"] ? await loadSource(options["loot-registry"], "lootRegistry") : undefined;
   const lootBalance = options["loot-balance"] ? await loadSource(options["loot-balance"], "lootBalance") : undefined;
-  const project = buildWorkbenchProject({
+  const blockTransforms = options["block-transforms"] ? await loadSource(options["block-transforms"], "json") : undefined;
+  let project = buildWorkbenchProject({
     snapshot: snapshot.value,
     recipeData: recipes.value,
     lootRegistry: lootRegistry?.value,
@@ -50,9 +56,15 @@ async function importSources(argv: string[]): Promise<void> {
       snapshot: snapshot.fingerprint,
       recipes: recipes.fingerprint,
       lootRegistry: lootRegistry?.fingerprint,
-      lootBalance: lootBalance?.fingerprint
+      lootBalance: lootBalance?.fingerprint,
+      blockTransforms: blockTransforms?.fingerprint
     }
   });
+  if (options.presentations) {
+    const presentations = await loadSource(options.presentations, "json");
+    project = applyPresentationDocument(project, presentations.value);
+  }
+  if (blockTransforms) project = applyBlockTransformDocument(project, blockTransforms.value);
   await writeArtifactBundle(project, outDir);
   if (options.public) {
     const publicPath = path.resolve(options.public);
@@ -119,7 +131,14 @@ async function writeArtifactBundle(project: WorkbenchProject, outDir: string): P
     "status_manifest.json": exportStatusJson(project),
     "utd_asset_status_manifest.json": exportStatusJson(project),
     "utd_asset_status_manifest.js": exportStatusKjs(project),
-    "utd_asset_excel_interface.json": exportExcelInterfaceJson(project)
+    "utd_asset_excel_interface.json": exportExcelInterfaceJson(project),
+    "utd_item_presentations.json": exportPresentationJson(project),
+    "utd_lang_overlays.json": exportLangOverlaysJson(project),
+    "utd_block_transforms.json": exportBlockTransformsJson(project),
+    ...Object.fromEntries(Object.entries(toLangOverlayEntries(project)).map(([namespace, entries]) => [
+      `lang_overlays/${safeNamespace(namespace)}/zh_cn.json`,
+      stableStringify(entries, 2) + "\n"
+    ]))
   };
   for (const [filename, content] of Object.entries(files)) {
     await atomicWrite(path.join(outDir, filename), content);
@@ -185,11 +204,17 @@ function printSummary(project: WorkbenchProject, outDir: string): void {
   console.log(`  human selected ${project.graph.rootItemKeys.length}`);
   console.log(`  recipes        ${project.recipes.length}`);
   console.log(`  loot rows      ${project.lootPolicies.length}`);
+  console.log(`  presentations  ${project.presentations.length}`);
+  console.log(`  block rules    ${project.blockTransforms.length}`);
   console.log(`  graph nodes    ${project.graph.nodes.length}`);
   console.log(`  cycles         ${project.graph.cycles.length}`);
   console.log(`  issues         ${project.issues.length}`);
   console.log(`  catalog hash   ${project.manifest.catalogHash}`);
   console.log(`  output         ${outDir}\n`);
+}
+
+function safeNamespace(value: string): string {
+  return value.toLocaleLowerCase().replace(/[^a-z0-9_.-]+/g, "_") || "unknown";
 }
 
 function parseOptions(argv: string[]): Record<string, string> {
@@ -226,6 +251,8 @@ Import runtime sources:
     --recipes <utd_recipe_data.js> \\
     [--loot-registry <utd_loot_registry_data.js>] \\
     [--loot-balance <utd_loot_balance_data.js>] \\
+    [--presentations <presentation_drafts.json>] \\
+    [--block-transforms <utd_block_transforms.json>] \\
     --out <artifacts-dir> \\
     [--public <public/data/workbench.json>] \\
     [--generated-at <ISO-8601 release timestamp>]

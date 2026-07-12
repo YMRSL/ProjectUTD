@@ -4,6 +4,8 @@ import com.ymrsl.utdassetmanager.core.AssetFilter;
 import com.ymrsl.utdassetmanager.core.AssetStatus;
 import com.ymrsl.utdassetmanager.core.SyncState;
 import com.ymrsl.utdassetmanager.model.AssetRecord;
+import com.ymrsl.utdassetmanager.model.PresentationApplyScope;
+import com.ymrsl.utdassetmanager.model.PresentationDraft;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -13,11 +15,13 @@ import java.util.Map;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.MultiLineEditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import org.lwjgl.glfw.GLFW;
 
 public final class AssetManagerScreen extends Screen {
     private static final int BG = 0xFF0B0D0F;
@@ -34,10 +38,14 @@ public final class AssetManagerScreen extends Screen {
 
     private final Screen previous;
     private final AssetRepository repository = AssetRepository.get();
+    private final PresentationDraftRepository presentationRepository = PresentationDraftRepository.get();
     private final List<AssetRecord> visible = new ArrayList<>();
     private final Map<String, ItemStack> iconStacks = new LinkedHashMap<>();
     private final Map<String, String> localizedBaseNames = new LinkedHashMap<>();
+    private List<PresentationDraft> presentationDrafts = List.of();
     private EditBox search;
+    private EditBox presentationName;
+    private MultiLineEditBox presentationDescription;
     private AssetFilter filter = AssetFilter.ALL;
     private AssetScope scope = AssetScope.LOCAL;
     private String selectedKey = "";
@@ -46,7 +54,10 @@ public final class AssetManagerScreen extends Screen {
     private int manifestCount;
     private long lastCandidateRefresh;
     private long lastManifestRevision = Long.MIN_VALUE;
+    private long lastPresentationRevision = Long.MIN_VALUE;
     private boolean compactHeight;
+    private boolean presentationEditing;
+    private PresentationDraft presentationEditingDraft;
     private String notice = "鼠标放在列表上滚动；候选来自人工白名单、背包与当前容器。";
 
     private int frameX;
@@ -66,6 +77,8 @@ public final class AssetManagerScreen extends Screen {
     private Rect batchUnmarkButton = Rect.EMPTY;
     private Rect localScopeButton = Rect.EMPTY;
     private Rect projectScopeButton = Rect.EMPTY;
+    private Rect presentationActionButton = Rect.EMPTY;
+    private Rect presentationScopeButton = Rect.EMPTY;
 
     public AssetManagerScreen(Screen previous) {
         super(Component.translatable("screen.utd_asset_manager.title"));
@@ -79,8 +92,25 @@ public final class AssetManagerScreen extends Screen {
         search = new EditBox(font, frameX + 12, bodyY + 14, leftW - 24, 18,
                 Component.translatable("screen.utd_asset_manager.search"));
         search.setHint(Component.literal("搜索名称 / ID / variant"));
+        search.setMaxLength(512);
         search.setResponder(ignored -> refreshRows());
         addRenderableWidget(search);
+        presentationName = new EditBox(font, rightX + 12, bodyY + 83, rightW - 24, 18,
+                Component.literal("游戏内中文名"));
+        presentationName.setHint(Component.literal("留空则沿用原名"));
+        presentationName.setMaxLength(256);
+        presentationDescription = new MultiLineEditBox(
+                font,
+                rightX + 12,
+                bodyY + 119,
+                rightW - 24,
+                58,
+                Component.literal("每行一条物品介绍"),
+                Component.literal("物品介绍"));
+        presentationDescription.setCharacterLimit(2048);
+        setPresentationEditorsVisible(false);
+        addRenderableWidget(presentationName);
+        addRenderableWidget(presentationDescription);
         repository.forceReloadManifest();
         refreshRows();
     }
@@ -109,6 +139,8 @@ public final class AssetManagerScreen extends Screen {
         toggleButton = new Rect(rightX + 12, actionY, small, 20);
         exportButton = new Rect(toggleButton.x + small + 4, actionY, small, 20);
         reloadButton = new Rect(exportButton.x + small + 4, actionY, Math.max(24, inner - small * 2 - 8), 20);
+        presentationActionButton = new Rect(rightX + 12, actionY - 24, inner, 18);
+        presentationScopeButton = new Rect(rightX + 12, bodyY + 184, inner, 18);
         int filterStep = compactHeight ? 15 : 20;
         int filterEnd = bodyY + (compactHeight ? 48 : 56)
                 + (AssetFilter.values().length - 1) * filterStep + 14;
@@ -120,6 +152,13 @@ public final class AssetManagerScreen extends Screen {
     }
 
     private void refreshRows() {
+        long manifestRevision = repository.manifestRevision();
+        if (manifestRevision != lastManifestRevision) {
+            iconStacks.clear();
+            localizedBaseNames.clear();
+        }
+        presentationDrafts = presentationRepository.all();
+        lastPresentationRevision = presentationRepository.revision();
         List<AssetRecord> selectedRecords = repository.allSelected();
         selectedCount = selectedRecords.size();
         manifestCount = repository.manifestDirectorySize();
@@ -152,7 +191,8 @@ public final class AssetManagerScreen extends Screen {
             }
             String haystack = (displayName(record) + " " + safe(record.displayNameZhCn) + " "
                     + safe(record.registryId) + " " + safe(record.assetKey) + " "
-                    + safe(record.variantKind) + " " + safe(record.variantDiscriminator))
+                    + safe(record.variantKind) + " " + safe(record.variantDiscriminator) + " "
+                    + presentationSearchText(record))
                     .toLowerCase(Locale.ROOT);
             if (query.isEmpty() || haystack.contains(query)) {
                 visible.add(record);
@@ -164,7 +204,7 @@ public final class AssetManagerScreen extends Screen {
             selectedKey = visible.isEmpty() ? "" : visible.get(0).assetKey;
         }
         lastCandidateRefresh = System.currentTimeMillis();
-        lastManifestRevision = repository.manifestRevision();
+        lastManifestRevision = manifestRevision;
     }
 
     @Override
@@ -174,7 +214,9 @@ public final class AssetManagerScreen extends Screen {
         if (now - lastCandidateRefresh < 1_000L) {
             return;
         }
-        if (scope == AssetScope.LOCAL || repository.manifestRevision() != lastManifestRevision) {
+        if (scope == AssetScope.LOCAL
+                || repository.manifestRevision() != lastManifestRevision
+                || presentationRepository.revision() != lastPresentationRevision) {
             refreshRows();
         } else {
             lastCandidateRefresh = now;
@@ -283,9 +325,12 @@ public final class AssetManagerScreen extends Screen {
             int badgeWidth = Math.min(120, Math.max(84, centerW / 3));
             int maxText = Math.max(24, centerW - badgeWidth - 48);
             String name = ellipsize(displayName(record), maxText);
-            String identity = safe(record.registryId);
-            if (!safe(record.variantDiscriminator).isBlank()) {
-                identity += " · " + record.variantDiscriminator;
+            String identity = AssetStackCodec.supportsVariantPreview(record)
+                    ? compactDiscriminator(record.variantDiscriminator)
+                    : safe(record.registryId);
+            if (!AssetStackCodec.supportsVariantPreview(record)
+                    && !safe(record.variantDiscriminator).isBlank()) {
+                identity += " · " + compactDiscriminator(record.variantDiscriminator);
             }
             String id = ellipsize(identity, maxText);
             graphics.drawString(font, name.isBlank() ? "<unnamed>" : name, textX, y + 5, TEXT, false);
@@ -325,7 +370,8 @@ public final class AssetManagerScreen extends Screen {
 
     private void renderRowIcon(GuiGraphics graphics, AssetRecord record, int x, int y) {
         if (scope == AssetScope.PROJECT
-                && (!safe(record.variantDiscriminator).isBlank() || componentSensitiveBase(record))) {
+                && (!safe(record.variantDiscriminator).isBlank() || componentSensitiveBase(record))
+                && !AssetStackCodec.supportsVariantPreview(record)) {
             graphics.renderOutline(x, y, 16, 16, LINE);
             graphics.drawCenteredString(font, "变", x + 8, y + 4, MUTED);
             return;
@@ -380,6 +426,7 @@ public final class AssetManagerScreen extends Screen {
         AssetRecord record = selectedRecord();
         graphics.drawString(font, "检查器", rightX + 12, bodyY + 12, MUTED, false);
         if (record == null) {
+            setPresentationEditorsVisible(false);
             graphics.drawString(font, "请选择一条记录", rightX + 12, bodyY + 34, TEXT, false);
             return;
         }
@@ -391,6 +438,11 @@ public final class AssetManagerScreen extends Screen {
         y += 14;
         graphics.drawString(font, ellipsize(record.registryId, max), x, y, AMBER, false);
         y += 17;
+        if (presentationEditing && record.assetKey.equals(selectedKey)) {
+            renderPresentationEditor(graphics, record, mouseX, mouseY, x, max);
+            return;
+        }
+        setPresentationEditorsVisible(false);
         if (!compactHeight) {
             y = detailIfFits(graphics, "来源",
                     scope == AssetScope.PROJECT ? "项目目录（只读）" : "本机 / 身边物品", x, y, max);
@@ -398,7 +450,7 @@ public final class AssetManagerScreen extends Screen {
         }
         String variant = safe(record.variantDiscriminator).isBlank()
                 ? record.variantKind + " / " + shortKey(record.variantKey)
-                : record.variantDiscriminator;
+                : compactDiscriminator(record.variantDiscriminator);
         y = detailIfFits(graphics, "变体", variant, x, y, max);
         boolean localSelected = scope == AssetScope.PROJECT
                 ? repository.isSelectedIdentity(record)
@@ -406,7 +458,7 @@ public final class AssetManagerScreen extends Screen {
         boolean historicalSelected = repository.manifestHumanSelected(record);
         y = statusLineIfFits(graphics, "本机白名单", localSelected, "", x, y);
         y = statusLineIfFits(graphics, "项目历史标注", historicalSelected, "", x, y);
-        y = statusLineIfFits(graphics, "已纳管", status.catalogued(), "", x, y);
+        y = statusLineIfFits(graphics, "进入项目管理", status.catalogued(), "", x, y);
         y = statusLineIfFits(graphics, "配方材料", status.recipeInput(), Integer.toString(status.recipeInputCount()), x, y);
         y = statusLineIfFits(graphics, "配方产物", status.recipeOutput(), Integer.toString(status.recipeOutputCount()), x, y);
         y = statusLineIfFits(graphics, "Loot 掉落", status.lootEnabled(), "L" + status.lootLevel(), x, y);
@@ -418,7 +470,7 @@ public final class AssetManagerScreen extends Screen {
             graphics.fill(rightX + rightW - 18, bodyY + 13, rightX + rightW - 13, bodyY + 18,
                     (pulse << 24) | (AMBER & 0x00FFFFFF));
         }
-        if (!compactHeight && y < toggleButton.y - 48) {
+        if (!compactHeight && y < presentationActionButton.y - 48) {
             graphics.drawString(font, "COMPONENT PATCH", x, y + 3, MUTED, false);
             graphics.drawString(font, ellipsize(record.componentsSnbt, max), x, y + 17, 0xFF9A9181, false);
             graphics.drawString(font, "catalog " + shortKey(status.catalogHash()), x, y + 31, MUTED, false);
@@ -432,6 +484,36 @@ public final class AssetManagerScreen extends Screen {
         drawAction(graphics, exportButton, scope == AssetScope.PROJECT ? "导出本机" : "导出",
                 mouseX, mouseY, false);
         drawAction(graphics, reloadButton, "重载", mouseX, mouseY, false);
+        drawAction(graphics, presentationActionButton, "编辑名称 / 介绍", mouseX, mouseY, false,
+                !compactHeight && presentationRepository.isWritable());
+    }
+
+    private void renderPresentationEditor(
+            GuiGraphics graphics,
+            AssetRecord record,
+            int mouseX,
+        int mouseY,
+        int x,
+        int max
+    ) {
+        setPresentationEditorsVisible(true);
+        graphics.drawString(font, "采集：" + ellipsize(observedDisplayName(record), Math.max(20, max - 30)),
+                x, bodyY + 61, MUTED, false);
+        graphics.drawString(font, "游戏内中文名", x, bodyY + 72, MUTED, false);
+        graphics.drawString(font, "物品介绍（每行一条）", x, bodyY + 108, MUTED, false);
+        String scopeLabel = presentationEditingDraft != null
+                && presentationEditingDraft.applyScope == PresentationApplyScope.REGISTRY
+                ? "范围：整个物品"
+                : "范围：当前变体";
+        drawAction(graphics, presentationScopeButton, scopeLabel, mouseX, mouseY, false);
+        Rect save = presentationSaveButton();
+        Rect cancel = presentationCancelButton();
+        drawAction(graphics, save, save.w < 72 ? "保存" : "保存显示草稿", mouseX, mouseY, true);
+        drawAction(graphics, cancel, "取消", mouseX, mouseY, false);
+        drawAction(graphics, toggleButton, scope == AssetScope.LOCAL ? "标注暂锁" : "目录只读",
+                mouseX, mouseY, false, false);
+        drawAction(graphics, exportButton, "导出暂锁", mouseX, mouseY, false, false);
+        drawAction(graphics, reloadButton, "重载暂锁", mouseX, mouseY, false, false);
     }
 
     private int detail(GuiGraphics graphics, String label, String value, int x, int y, int max) {
@@ -441,7 +523,7 @@ public final class AssetManagerScreen extends Screen {
     }
 
     private int detailIfFits(GuiGraphics graphics, String label, String value, int x, int y, int max) {
-        return y + 14 > toggleButton.y - 3 ? y : detail(graphics, label, value, x, y, max);
+        return y + 14 > presentationActionButton.y - 3 ? y : detail(graphics, label, value, x, y, max);
     }
 
     private int statusLine(GuiGraphics graphics, String label, boolean active, String detail, int x, int y) {
@@ -461,7 +543,7 @@ public final class AssetManagerScreen extends Screen {
             int x,
             int y
     ) {
-        return y + 13 > toggleButton.y - 3 ? y : statusLine(graphics, label, active, detail, x, y);
+        return y + 13 > presentationActionButton.y - 3 ? y : statusLine(graphics, label, active, detail, x, y);
     }
 
     private void drawAction(GuiGraphics graphics, Rect rect, String label, int mouseX, int mouseY, boolean primary) {
@@ -498,6 +580,30 @@ public final class AssetManagerScreen extends Screen {
         if (button != 0) {
             return false;
         }
+        if (presentationEditing) {
+            if (presentationScopeButton.contains(mouseX, mouseY)) {
+                togglePresentationScope();
+                return true;
+            }
+            if (presentationSaveButton().contains(mouseX, mouseY)) {
+                savePresentationDraft();
+                return true;
+            }
+            if (presentationCancelButton().contains(mouseX, mouseY)) {
+                cancelPresentationEdit("已取消名称/介绍编辑");
+                return true;
+            }
+            if (localScopeButton.contains(mouseX, mouseY)
+                    || projectScopeButton.contains(mouseX, mouseY)) {
+                notice = "请先保存或取消名称/介绍编辑。";
+                return true;
+            }
+            if (presentationActionButton.contains(mouseX, mouseY)) {
+                return true;
+            }
+            // Keep the selected identity stable until the draft is saved or cancelled.
+            return true;
+        }
         if (localScopeButton.contains(mouseX, mouseY)) {
             switchScope(AssetScope.LOCAL);
             return true;
@@ -529,9 +635,17 @@ public final class AssetManagerScreen extends Screen {
             int local = (int) ((mouseY - listTop) / ROW_HEIGHT);
             int index = scrollRows + local;
             if (index >= 0 && index < visible.size()) {
+                if (presentationEditing) {
+                    notice = "请先保存或取消名称/介绍编辑。";
+                    return true;
+                }
                 selectedKey = visible.get(index).assetKey;
                 return true;
             }
+        }
+        if (presentationActionButton.contains(mouseX, mouseY)) {
+            beginPresentationEdit();
+            return true;
         }
         if (toggleButton.contains(mouseX, mouseY)) {
             toggleSelected();
@@ -558,6 +672,15 @@ public final class AssetManagerScreen extends Screen {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE && presentationEditing) {
+            cancelPresentationEdit("已取消名称/介绍编辑");
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     @Override
@@ -627,7 +750,9 @@ public final class AssetManagerScreen extends Screen {
     private void export() {
         try {
             Path output = repository.exportSnapshot();
-            notice = "已导出: " + output.getFileName();
+            Path presentationOutput = presentationRepository.exportSnapshot();
+            notice = "已导出物品与显示草稿: " + output.getFileName() + " / "
+                    + presentationOutput.getFileName();
         } catch (Exception error) {
             notice = "导出失败: " + error.getMessage();
         }
@@ -645,18 +770,230 @@ public final class AssetManagerScreen extends Screen {
         selectedKey = "";
         scrollRows = 0;
         notice = scope == AssetScope.PROJECT
-                ? "项目目录只读；标 / 管 / 材 / 产 / 掉显示桌面目录状态。"
+                ? "项目目录只读；管表示已进入项目管理范围，不等于已部署。"
                 : "本机页可标注；候选来自白名单、背包与当前容器。";
         refreshRows();
     }
 
     private String displayName(AssetRecord record) {
+        PresentationDraft presentation = resolvedPresentation(record);
+        if (presentation != null && presentation.enabled && !safe(presentation.nameZhCn).isBlank()) {
+            return presentation.nameZhCn;
+        }
+        return observedDisplayName(record);
+    }
+
+    private String observedDisplayName(AssetRecord record) {
         if (scope != AssetScope.PROJECT) {
             return safe(record.displayNameZhCn);
+        }
+        if (AssetStackCodec.supportsVariantPreview(record)) {
+            ItemStack preview = iconStacks.computeIfAbsent(
+                    scope.name() + "\n" + record.assetKey,
+                    ignored -> AssetStackCodec.restore(record));
+            if (!preview.isEmpty()) {
+                String variantName = preview.getHoverName().getString();
+                if (!variantName.isBlank()) {
+                    return variantName;
+                }
+            }
         }
         String localized = localizedBaseNames.computeIfAbsent(
                 safe(record.registryId), AssetStackCodec::localizedBaseName);
         return localized.isBlank() ? safe(record.displayNameZhCn) : localized;
+    }
+
+    private PresentationDraft resolvedPresentation(AssetRecord record) {
+        if (record == null) {
+            return null;
+        }
+        PresentationDraft semantic = null;
+        PresentationDraft registry = null;
+        for (PresentationDraft draft : presentationDrafts) {
+            if (!draft.enabled || !safe(draft.registryId).equals(safe(record.registryId))) {
+                continue;
+            }
+            if (draft.applyScope == PresentationApplyScope.IDENTITY
+                    && safe(draft.variantDiscriminator).equals(safe(record.variantDiscriminator))) {
+                if (safe(draft.assetKey).equals(safe(record.assetKey))) {
+                    return draft;
+                }
+                semantic = draft;
+            } else if (draft.applyScope == PresentationApplyScope.REGISTRY) {
+                registry = draft;
+            }
+        }
+        return semantic != null ? semantic : registry;
+    }
+
+    private String presentationSearchText(AssetRecord record) {
+        PresentationDraft draft = resolvedPresentation(record);
+        if (draft == null) {
+            return "";
+        }
+        return safe(draft.nameZhCn) + " " + String.join(" ", draft.descriptionZhCn);
+    }
+
+    private void beginPresentationEdit() {
+        if (compactHeight) {
+            notice = "当前窗口高度不足，放大窗口后可编辑中文名和介绍。";
+            return;
+        }
+        if (!presentationRepository.isWritable()) {
+            notice = "显示草稿处于只读保护: " + presentationRepository.lastError();
+            return;
+        }
+        AssetRecord record = selectedRecord();
+        if (record == null) {
+            return;
+        }
+        PresentationApplyScope defaultScope = safe(record.variantDiscriminator).isBlank()
+                ? PresentationApplyScope.REGISTRY
+                : PresentationApplyScope.IDENTITY;
+        PresentationDraft existing = draftForScope(record, defaultScope);
+        boolean fpeVariant = "firstpersonfoodeating:pack_food".equals(record.registryId)
+                && !safe(record.variantDiscriminator).isBlank();
+        if (existing == null && !fpeVariant) {
+            PresentationApplyScope fallback = defaultScope == PresentationApplyScope.IDENTITY
+                    ? PresentationApplyScope.REGISTRY
+                    : PresentationApplyScope.IDENTITY;
+            existing = draftForScope(record, fallback);
+        }
+        presentationEditingDraft = existing == null
+                ? newPresentationDraft(record, defaultScope)
+                : existing.copy();
+        presentationName.setValue(safe(presentationEditingDraft.nameZhCn).isBlank()
+                ? observedDisplayName(record)
+                : presentationEditingDraft.nameZhCn);
+        presentationDescription.setValue(String.join("\n", presentationEditingDraft.descriptionZhCn));
+        presentationEditing = true;
+        setPresentationEditorsVisible(true);
+        setFocused(presentationName);
+        presentationName.setFocused(true);
+        notice = "正在编辑显示草稿；不会改写 ItemStack Components。";
+    }
+
+    private PresentationDraft newPresentationDraft(AssetRecord record, PresentationApplyScope applyScope) {
+        PresentationDraft draft = new PresentationDraft();
+        draft.assetKey = record.assetKey;
+        draft.registryId = record.registryId;
+        draft.variantDiscriminator = record.variantDiscriminator;
+        draft.applyScope = applyScope;
+        draft.observedNameZhCn = observedDisplayName(record);
+        draft.nameZhCn = observedDisplayName(record);
+        draft.descriptionZhCn = new ArrayList<>();
+        draft.enabled = true;
+        draft.baseCatalogHash = statusForRecord(record).catalogHash();
+        return draft;
+    }
+
+    private PresentationDraft draftForScope(AssetRecord record, PresentationApplyScope applyScope) {
+        PresentationDraft semantic = null;
+        for (PresentationDraft draft : presentationDrafts) {
+            if (draft.applyScope != applyScope || !safe(draft.registryId).equals(safe(record.registryId))) {
+                continue;
+            }
+            if (applyScope == PresentationApplyScope.REGISTRY) {
+                return draft;
+            }
+            if (!safe(draft.variantDiscriminator).equals(safe(record.variantDiscriminator))) {
+                continue;
+            }
+            if (safe(draft.assetKey).equals(safe(record.assetKey))) {
+                return draft;
+            }
+            semantic = draft;
+        }
+        return semantic;
+    }
+
+    private void togglePresentationScope() {
+        AssetRecord record = selectedRecord();
+        if (record == null || presentationEditingDraft == null) {
+            return;
+        }
+        PresentationApplyScope next = presentationEditingDraft.applyScope == PresentationApplyScope.IDENTITY
+                ? PresentationApplyScope.REGISTRY
+                : PresentationApplyScope.IDENTITY;
+        if (next == PresentationApplyScope.REGISTRY
+                && "firstpersonfoodeating:pack_food".equals(record.registryId)
+                && !safe(record.variantDiscriminator).isBlank()) {
+            notice = "FPE 食品必须按 food_id 当前变体编辑，不能覆盖全部 pack_food。";
+            return;
+        }
+        PresentationDraft existing = draftForScope(record, next);
+        if (existing != null) {
+            presentationEditingDraft = existing.copy();
+            presentationName.setValue(safe(existing.nameZhCn).isBlank()
+                    ? observedDisplayName(record)
+                    : existing.nameZhCn);
+            presentationDescription.setValue(String.join("\n", existing.descriptionZhCn));
+        } else {
+            presentationEditingDraft.applyScope = next;
+        }
+        notice = next == PresentationApplyScope.REGISTRY
+                ? "范围已改为整个物品类型；保存后同 registry 物品都会受影响。"
+                : "范围已改为当前 Components 变体。";
+    }
+
+    private void savePresentationDraft() {
+        AssetRecord record = selectedRecord();
+        if (record == null || presentationEditingDraft == null) {
+            return;
+        }
+        presentationEditingDraft.registryId = record.registryId;
+        presentationEditingDraft.variantDiscriminator = record.variantDiscriminator;
+        presentationEditingDraft.observedNameZhCn = observedDisplayName(record);
+        presentationEditingDraft.nameZhCn = presentationName.getValue().trim();
+        presentationEditingDraft.descriptionZhCn = presentationDescription.getValue().lines()
+                .map(String::trim)
+                .filter(line -> !line.isBlank())
+                .toList();
+        presentationEditingDraft.enabled = true;
+        presentationEditingDraft.baseCatalogHash = statusForRecord(record).catalogHash();
+        try {
+            presentationRepository.upsert(presentationEditingDraft);
+            cancelPresentationEdit("名称/介绍草稿已保存；桌面工作台可生成部署文件。");
+            refreshRows();
+        } catch (RuntimeException error) {
+            notice = "显示草稿保存失败: " + safe(error.getMessage());
+        }
+    }
+
+    private void cancelPresentationEdit(String message) {
+        presentationEditing = false;
+        presentationEditingDraft = null;
+        setPresentationEditorsVisible(false);
+        setFocused(null);
+        notice = message;
+    }
+
+    private void setPresentationEditorsVisible(boolean visible) {
+        if (search != null) {
+            search.active = !visible;
+            if (visible) search.setFocused(false);
+        }
+        if (presentationName != null) {
+            presentationName.visible = visible;
+            presentationName.active = visible;
+            if (!visible) presentationName.setFocused(false);
+        }
+        if (presentationDescription != null) {
+            presentationDescription.visible = visible;
+            presentationDescription.active = visible;
+            if (!visible) presentationDescription.setFocused(false);
+        }
+    }
+
+    private Rect presentationSaveButton() {
+        int half = Math.max(1, (presentationActionButton.w - 4) / 2);
+        return new Rect(presentationActionButton.x, presentationActionButton.y, half, presentationActionButton.h);
+    }
+
+    private Rect presentationCancelButton() {
+        Rect save = presentationSaveButton();
+        return new Rect(save.x + save.w + 4, presentationActionButton.y,
+                Math.max(1, presentationActionButton.w - save.w - 4), presentationActionButton.h);
     }
 
     private AssetStatus statusForRecord(AssetRecord record) {
@@ -688,6 +1025,14 @@ public final class AssetManagerScreen extends Screen {
     private static String shortKey(String value) {
         String safe = safe(value);
         return safe.length() <= 16 ? safe : safe.substring(0, 16);
+    }
+
+    private static String compactDiscriminator(String value) {
+        String discriminator = safe(value);
+        String prefix = "food_id=firstpersonfoodeating:";
+        return discriminator.startsWith(prefix)
+                ? "food_id=" + discriminator.substring(prefix.length())
+                : discriminator;
     }
 
     private static String safe(String value) {

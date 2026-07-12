@@ -4,6 +4,7 @@ import com.ymrsl.utdassetmanager.core.AssetIdentity;
 import com.ymrsl.utdassetmanager.model.AssetRecord;
 import java.time.Instant;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -12,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 
 public final class AssetStackCodec {
     private AssetStackCodec() {
@@ -67,22 +69,73 @@ public final class AssetStackCodec {
         if (record == null || minecraft.level == null) {
             return ItemStack.EMPTY;
         }
-        try {
-            CompoundTag full = TagParser.parseTag(record.itemStackSnbt);
-            ItemStack restored = ItemStack.parse(minecraft.level.registryAccess(), full).orElse(ItemStack.EMPTY);
-            if (!restored.isEmpty()) {
-                return restored;
+        String itemStackSnbt = record.itemStackSnbt == null ? "" : record.itemStackSnbt.trim();
+        if (!itemStackSnbt.isBlank() && !"{}".equals(itemStackSnbt)) {
+            try {
+                CompoundTag full = TagParser.parseTag(itemStackSnbt);
+                ItemStack restored = ItemStack.parse(minecraft.level.registryAccess(), full).orElse(ItemStack.EMPTY);
+                if (!restored.isEmpty()) {
+                    return restored;
+                }
+            } catch (Exception ignored) {
+                // A status-manifest directory row may carry no exact stack
+                // snapshot. Fall through to a safe read-only preview.
             }
-        } catch (Exception ignored) {
-            // A status-manifest directory row intentionally has no exact stack
-            // snapshot. Fall through to a base registry icon when possible.
         }
         try {
             ItemStack base = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(record.registryId)));
-            return base.isEmpty() ? ItemStack.EMPTY : base;
+            if (base.isEmpty()) {
+                return ItemStack.EMPTY;
+            }
+            if (supportsVariantPreview(record)) {
+                applyFoodPreview(base, record);
+            }
+            return base;
         } catch (Exception invalidId) {
             return ItemStack.EMPTY;
         }
+    }
+
+    public static boolean supportsVariantPreview(AssetRecord record) {
+        return record != null
+                && "firstpersonfoodeating:pack_food".equals(record.registryId)
+                && foodId(record).contains(":");
+    }
+
+    private static void applyFoodPreview(ItemStack stack, AssetRecord record) {
+        CompoundTag customData = parseCustomData(record.componentsSnbt);
+        String foodId = foodId(record);
+        customData.putString("food_id", foodId);
+        CompoundTag profile = customData.contains("firstpersonfoodeating_profile", Tag.TAG_COMPOUND)
+                ? customData.getCompound("firstpersonfoodeating_profile")
+                : new CompoundTag();
+        profile.putString("food_id", foodId);
+        customData.put("firstpersonfoodeating_profile", profile);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(customData));
+    }
+
+    private static CompoundTag parseCustomData(String componentsSnbt) {
+        String snbt = componentsSnbt == null ? "" : componentsSnbt.trim();
+        if (snbt.isBlank() || "{}".equals(snbt)) {
+            return new CompoundTag();
+        }
+        try {
+            CompoundTag parsed = TagParser.parseTag(snbt);
+            if (parsed.contains("minecraft:custom_data", Tag.TAG_COMPOUND)) {
+                return parsed.getCompound("minecraft:custom_data").copy();
+            }
+            return parsed.copy();
+        } catch (Exception ignored) {
+            return new CompoundTag();
+        }
+    }
+
+    private static String foodId(AssetRecord record) {
+        String discriminator = record == null || record.variantDiscriminator == null
+                ? ""
+                : record.variantDiscriminator.trim();
+        String prefix = "food_id=";
+        return discriminator.startsWith(prefix) ? discriminator.substring(prefix.length()).trim() : "";
     }
 
     public static String localizedBaseName(String registryId) {

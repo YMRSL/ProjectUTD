@@ -28,6 +28,7 @@ export interface BuildWorkbenchInput {
     recipes?: SourceFingerprint;
     lootRegistry?: SourceFingerprint;
     lootBalance?: SourceFingerprint;
+    blockTransforms?: SourceFingerprint;
   };
 }
 
@@ -77,7 +78,9 @@ export function buildWorkbenchProject(input: BuildWorkbenchInput): WorkbenchProj
       catalogHash: item.catalogHash
     })),
     recipes: recipes.map((recipe) => ({ id: recipe.id, inputs: recipe.inputs, outputs: recipe.outputs, station: recipe.station, level: recipe.level })),
-    lootPolicies: lootPolicies.map((policy) => ({ identityKey: policy.identityKey, registryId: policy.registryId, variantDiscriminator: policy.variantDiscriminator, enabled: policy.lootEnabled, level: policy.level, count: policy.count }))
+    lootPolicies: lootPolicies.map((policy) => ({ identityKey: policy.identityKey, registryId: policy.registryId, variantDiscriminator: policy.variantDiscriminator, enabled: policy.lootEnabled, level: policy.level, count: policy.count })),
+    presentations: [],
+    blockTransforms: []
   });
   return {
     schemaVersion: WORKBENCH_SCHEMA,
@@ -92,13 +95,16 @@ export function buildWorkbenchProject(input: BuildWorkbenchInput): WorkbenchProj
         snapshot: input.source?.snapshot ?? {},
         recipes: { generatedAt: recipeSource.generatedAt, ...input.source?.recipes },
         lootRegistry: input.source?.lootRegistry,
-        lootBalance: input.source?.lootBalance
+        lootBalance: input.source?.lootBalance,
+        blockTransforms: input.source?.blockTransforms
       },
       counts: {
         managedItems: items.filter((item) => item.managed).length,
         dependencyItems: items.filter((item) => !item.managed).length,
         recipes: recipes.length,
         lootPolicies: lootPolicies.length,
+        presentations: 0,
+        blockTransforms: 0,
         cycles: graph.cycles.length,
         issues: issues.length
       }
@@ -106,6 +112,8 @@ export function buildWorkbenchProject(input: BuildWorkbenchInput): WorkbenchProj
     items,
     recipes,
     lootPolicies,
+    presentations: [],
+    blockTransforms: [],
     lootBalance: input.lootBalance === undefined ? null : asJsonObject(input.lootBalance),
     graph,
     issues,
@@ -155,6 +163,14 @@ function buildStatusCatalog(
 
 function ensureRefItem(items: CanonicalItem[], ref: CanonicalRef, source: ItemSource): void {
   if (items.some((item) => refMatchesItem(ref, item))) return;
+  if (!ref.variantDiscriminator) {
+    const capturedPlain = items.filter((item) =>
+      item.registryId === ref.ref
+      && !item.variantDiscriminator
+      && ["plain", "base"].includes(item.identityKind.toLocaleLowerCase())
+    );
+    if (capturedPlain.length === 1) return;
+  }
   const discriminator = ref.variantDiscriminator ?? "";
   const itemKey = discriminator ? `recipe:${ref.ref}::${discriminator}` : ref.ref;
   if (items.some((item) => item.itemKey === itemKey)) return;
@@ -165,12 +181,34 @@ function ensureRefItem(items: CanonicalItem[], ref: CanonicalRef, source: ItemSo
     item.variantDiscriminator = discriminator;
     item.identityComponentsCanonical = discriminator;
     item.canonicalVariant = { recipe_identity: ref.identityKey ?? discriminator };
+    const legacyNbt = typeof ref.components?.legacy_nbt === "string" ? ref.components.legacy_nbt : "";
+    if (legacyNbt) {
+      item.componentsCanonical = ref.identityKey ?? discriminator;
+      item.componentsSnbt = legacyNbt;
+      item.canonicalComponents = { legacy_nbt: legacyNbt };
+    }
   }
   items.push(item);
 }
 
 function ensureLootItem(items: CanonicalItem[], policy: CanonicalLootPolicy): void {
-  if (items.some((item) => lootMatchesItem(policy, item))) return;
+  const existing = items.find((item) => lootMatchesItem(policy, item));
+  if (existing) {
+    // Recipe discovery often creates the logical FPE variant first. Enrich that
+    // same row with the deployable legacy SNBT instead of discarding Loot data.
+    if (policy.legacyNbt) {
+      const preferLootEncoding = existing.source !== "whitelist";
+      if (preferLootEncoding || !existing.componentsCanonical) existing.componentsCanonical = policy.identityKey;
+      if (preferLootEncoding || !existing.componentsSnbt) existing.componentsSnbt = policy.legacyNbt;
+      if (preferLootEncoding || !Object.keys(existing.canonicalComponents).length) {
+        existing.canonicalComponents = {
+          ...existing.canonicalComponents,
+          legacy_nbt: policy.legacyNbt
+        };
+      }
+    }
+    return;
+  }
   const discriminator = policy.variantDiscriminator;
   const itemKey = discriminator ? `loot:${policy.registryId}::${discriminator}` : policy.identityKey;
   if (items.some((item) => item.itemKey === itemKey)) return;

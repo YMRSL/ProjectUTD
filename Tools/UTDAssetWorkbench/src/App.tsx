@@ -4,8 +4,11 @@ import { Inspector, type InspectorTab } from "./components/Inspector";
 import { sampleProject } from "./data/sample";
 import {
   assertWorkbenchProject,
+  exportBlockTransformsJson,
   exportExcelInterfaceJson,
+  exportLangOverlaysJson,
   exportLootRegistryKjs,
+  exportPresentationJson,
   exportProjectJson,
   exportRecipeKjs,
   exportStatusJson,
@@ -80,7 +83,7 @@ export default function App() {
     }
   };
 
-  const save = (kind: "project" | "recipes" | "loot" | "status" | "statusKjs" | "excel") => {
+  const save = (kind: "project" | "recipes" | "loot" | "status" | "statusKjs" | "excel" | "presentation" | "lang" | "transforms") => {
     const base = project.manifest.projectId.replace(/[^a-zA-Z0-9_-]+/g, "_");
     const exports = {
       project: [`${base}.workbench.json`, exportProjectJson(project), "application/json"],
@@ -88,7 +91,10 @@ export default function App() {
       loot: ["utd_loot_registry_data.filtered.js", exportLootRegistryKjs(project), "text/javascript"],
       status: ["status_manifest.json", exportStatusJson(project), "application/json"],
       statusKjs: ["utd_asset_status_manifest.js", exportStatusKjs(project), "text/javascript"],
-      excel: ["utd_asset_excel_interface.json", exportExcelInterfaceJson(project), "application/json"]
+      excel: ["utd_asset_excel_interface.json", exportExcelInterfaceJson(project), "application/json"],
+      presentation: ["utd_item_presentations.json", exportPresentationJson(project), "application/json"],
+      lang: ["utd_lang_overlays.json", exportLangOverlaysJson(project), "application/json"],
+      transforms: ["utd_block_transforms.json", exportBlockTransformsJson(project), "application/json"]
     } as const;
     const [filename, text, mime] = exports[kind];
     download(filename, text, mime);
@@ -132,6 +138,9 @@ export default function App() {
               <button type="button" onClick={() => save("loot")}><span>Loot KJS</span><small>完整载荷</small></button>
               <button type="button" onClick={() => save("status")}><span>状态 JSON</span><small>Tooltip / UI</small></button>
               <button type="button" onClick={() => save("statusKjs")}><span>状态 KJS</span><small>global.UTD</small></button>
+              <button type="button" onClick={() => save("presentation")}><span>物品显示覆盖</span><small>独立草稿 JSON</small></button>
+              <button type="button" onClick={() => save("lang")}><span>中文语言覆盖</span><small>按 namespace 分组</small></button>
+              <button type="button" onClick={() => save("transforms")}><span>方块替换规则</span><small>独立草稿 JSON</small></button>
               <button type="button" onClick={() => save("excel")}><span>Excel 接口</span><small>单向审阅 JSON</small></button>
             </div>
           </details>

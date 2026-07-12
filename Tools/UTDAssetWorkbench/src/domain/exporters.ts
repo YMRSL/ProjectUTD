@@ -1,5 +1,8 @@
 import {
+  BLOCK_TRANSFORM_SCHEMA,
   EXCEL_INTERFACE_SCHEMA,
+  LANG_OVERLAY_SCHEMA,
+  PRESENTATION_SCHEMA,
   STATUS_SCHEMA,
   WORKBENCH_SCHEMA,
   type CanonicalLootPolicy,
@@ -11,16 +14,118 @@ import {
   type StatusManifest,
   type WorkbenchProject
 } from "./schema";
+import { hydrateWorkbenchProject } from "./projectCompat";
+import { normalizeBlockTransformRuleId, planBlockTransformExport } from "./blockTransforms";
 import { cloneJson, stableStringify } from "./stable";
 
 export function assertWorkbenchProject(value: unknown): asserts value is WorkbenchProject {
-  if (!value || typeof value !== "object" || (value as { schemaVersion?: unknown }).schemaVersion !== WORKBENCH_SCHEMA) {
-    throw new Error(`Expected ${WORKBENCH_SCHEMA} project JSON.`);
-  }
+  hydrateWorkbenchProject(value);
 }
 
 export function exportProjectJson(project: WorkbenchProject): string {
   return stableStringify(project, 2) + "\n";
+}
+
+export function toPresentationDocument(project: WorkbenchProject): JsonObject {
+  return {
+    schema_version: PRESENTATION_SCHEMA,
+    producer: "utd_asset_workbench",
+    project_id: project.manifest.projectId,
+    updated_at: project.manifest.generatedAt,
+    drafts: project.presentations.map((entry) => {
+      const item = project.items.find((candidate) => candidate.itemKey === entry.itemKey);
+      return {
+        asset_key: entry.itemKey,
+        registry_id: entry.registryId,
+        variant_discriminator: entry.variantDiscriminator,
+        apply_scope: entry.applyScope,
+        observed_name_zh_cn: entry.observedNameZhCn || item?.clientNameZhCn || "",
+        name_zh_cn: entry.nameZhCn,
+        description_zh_cn: presentationDescriptionLines(entry.descriptionZhCn),
+        enabled: entry.enabled,
+        base_catalog_hash: entry.baseCatalogHash || item?.catalogHash || "",
+        updated_at: entry.updatedAt || project.manifest.generatedAt,
+        name_key: entry.nameKey,
+        description_key: entry.descriptionKey
+      };
+    })
+  };
+}
+
+export function exportPresentationJson(project: WorkbenchProject): string {
+  return stableStringify(toPresentationDocument(project), 2) + "\n";
+}
+
+export function toLangOverlayEntries(project: WorkbenchProject): Record<string, JsonObject> {
+  const namespaces: Record<string, JsonObject> = {};
+  const active = [...project.presentations]
+    .filter((entry) => entry.enabled)
+    .sort((a, b) => a.itemKey.localeCompare(b.itemKey));
+  for (const entry of active) {
+    const namespace = languageNamespace(entry.nameKey, entry.registryId);
+    const values = namespaces[namespace] ?? {};
+    if (entry.nameZhCn.trim()) values[entry.nameKey] = entry.nameZhCn;
+    if (entry.descriptionZhCn.trim()) values[entry.descriptionKey] = entry.descriptionZhCn;
+    namespaces[namespace] = values;
+  }
+  return namespaces;
+}
+
+export function exportLangOverlaysJson(project: WorkbenchProject): string {
+  return stableStringify({
+    schema_version: LANG_OVERLAY_SCHEMA,
+    project_id: project.manifest.projectId,
+    generated_at: project.manifest.generatedAt,
+    language: "zh_cn",
+    namespaces: toLangOverlayEntries(project)
+  }, 2) + "\n";
+}
+
+export function toBlockTransformDocument(project: WorkbenchProject): JsonObject {
+  const plan = planBlockTransformExport(project.blockTransforms);
+  if (plan.blocking.length) {
+    const ids = [...new Set(plan.blocking.map((entry) => entry.id))].join(", ");
+    throw new Error(`Cannot export enabled or ambiguous block transform rule(s): ${ids}. Fix the reported issues or disable the rules first.`);
+  }
+  return {
+    schema_version: BLOCK_TRANSFORM_SCHEMA,
+    rules: plan.deployable.map((entry) => ({
+      id: normalizeBlockTransformRuleId(entry.id),
+      enabled: entry.enabled,
+      priority: entry.priority,
+      target: {
+        block: entry.clickedBlock,
+        state: entry.targetState,
+        blockEntityPolicy: entry.blockEntityPolicy
+      },
+      catalyst: {
+        registryId: entry.catalyst.ref,
+        variantDiscriminator: entry.catalyst.variantDiscriminator ?? "",
+        componentsSnbt: entry.catalystComponentsSnbt || "{}",
+        count: entry.catalyst.count,
+        source: entry.inputSource,
+        consume: entry.consumeInput
+      },
+      activation: {
+        hand: entry.hand,
+        requireSneak: entry.requireSneaking,
+        allowFakePlayer: entry.allowFakePlayer
+      },
+      result: {
+        block: entry.resultBlock,
+        state: entry.resultState,
+        copyProperties: entry.copyProperties
+      },
+      creative: {
+        requireInput: entry.creativeRequireInput,
+        consume: entry.creativeConsume
+      }
+    }))
+  };
+}
+
+export function exportBlockTransformsJson(project: WorkbenchProject): string {
+  return stableStringify(toBlockTransformDocument(project), 2) + "\n";
 }
 
 export function toStatusManifest(project: WorkbenchProject): StatusManifest {
@@ -202,6 +307,51 @@ export function toExcelExportInterface(project: WorkbenchProject): ExcelExportIn
       { name: "Recipe Outputs", columns: Object.keys(outputRows[0] ?? {}), rows: outputRows, frozenRows: 1, filter: true },
       { name: "Loot", columns: Object.keys(lootRows[0] ?? {}), rows: lootRows, frozenRows: 1, filter: true },
       {
+        name: "Presentation",
+        columns: ["item_key", "registry_id", "variant_discriminator", "apply_scope", "enabled", "name_key", "description_key", "name_zh_cn", "description_zh_cn"],
+        rows: project.presentations.map((entry) => ({
+          item_key: entry.itemKey,
+          registry_id: entry.registryId,
+          variant_discriminator: entry.variantDiscriminator,
+          apply_scope: entry.applyScope,
+          enabled: entry.enabled,
+          name_key: entry.nameKey,
+          description_key: entry.descriptionKey,
+          name_zh_cn: entry.nameZhCn,
+          description_zh_cn: entry.descriptionZhCn
+        })),
+        frozenRows: 1,
+        filter: true
+      },
+      {
+        name: "Block Transforms",
+        columns: ["id", "enabled", "priority", "clicked_block", "target_state", "result_block", "result_state", "copy_properties", "catalyst", "variant_discriminator", "components_snbt", "count", "input_source", "hand", "require_sneaking", "allow_fake_player", "consume_input", "block_entity_policy", "creative_require_input", "creative_consume"],
+        rows: project.blockTransforms.map((entry) => ({
+          id: entry.id,
+          enabled: entry.enabled,
+          priority: entry.priority,
+          clicked_block: entry.clickedBlock,
+          target_state: stableStringify(entry.targetState),
+          result_block: entry.resultBlock,
+          result_state: stableStringify(entry.resultState),
+          copy_properties: entry.copyProperties.join(" | "),
+          catalyst: entry.catalyst.ref,
+          variant_discriminator: entry.catalyst.variantDiscriminator ?? "",
+          components_snbt: entry.catalystComponentsSnbt,
+          count: entry.catalyst.count,
+          input_source: entry.inputSource,
+          hand: entry.hand,
+          require_sneaking: entry.requireSneaking,
+          allow_fake_player: entry.allowFakePlayer,
+          consume_input: entry.consumeInput,
+          block_entity_policy: entry.blockEntityPolicy,
+          creative_require_input: entry.creativeRequireInput,
+          creative_consume: entry.creativeConsume
+        })),
+        frozenRows: 1,
+        filter: true
+      },
+      {
         name: "Issues",
         columns: ["severity", "code", "entity_type", "entity_id", "message"],
         rows: project.issues.map((issue) => ({ severity: issue.severity, code: issue.code, entity_type: issue.entityType, entity_id: issue.entityId, message: issue.message })),
@@ -228,4 +378,19 @@ export function exportExcelInterfaceJson(project: WorkbenchProject): string {
 function indentAfterFirst(text: string, spaces: number): string {
   const prefix = " ".repeat(spaces);
   return text.replaceAll("\n", `\n${prefix}`);
+}
+
+function languageNamespace(nameKey: string, registryId: string): string {
+  const keyParts = nameKey.split(".");
+  if ((keyParts[0] === "item" || keyParts[0] === "block" || keyParts[0] === "tooltip") && keyParts[1]) {
+    return keyParts[1];
+  }
+  return registryId.includes(":") ? registryId.slice(0, registryId.indexOf(":")) : "unknown";
+}
+
+function presentationDescriptionLines(value: string): string[] {
+  return value
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
 }

@@ -3,6 +3,7 @@ package com.ymrsl.utdassetmanager.client;
 import com.ymrsl.utdassetmanager.UTDAssetManagerMod;
 import com.ymrsl.utdassetmanager.core.AssetStatus;
 import com.ymrsl.utdassetmanager.model.AssetRecord;
+import com.ymrsl.utdassetmanager.model.PresentationDraft;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -45,7 +46,23 @@ public final class AssetTooltipEvents {
             return;
         }
         List<Component> tooltip = event.getToolTip();
-        String headline = status.catalogued() ? "已纳管" : status.humanSelected() ? "已标注 / 待纳管" : "未管理";
+        PresentationDraft presentation = PresentationDraftRepository.get().resolveEnabled(
+                record.assetKey, record.registryId, record.variantDiscriminator);
+        if (presentation != null) {
+            if (!presentation.nameZhCn.isBlank() && !tooltip.isEmpty()) {
+                Component originalName = tooltip.getFirst();
+                tooltip.set(0, Component.literal(presentation.nameZhCn).withStyle(originalName.getStyle()));
+            }
+            int insertAt = Math.min(1, tooltip.size());
+            for (String line : presentation.descriptionZhCn) {
+                if (!line.isBlank()) {
+                    tooltip.add(insertAt++, Component.literal(line).withStyle(ChatFormatting.GRAY));
+                }
+            }
+        }
+        String headline = status.catalogued()
+                ? "已进入项目管理"
+                : status.humanSelected() ? "已标注 / 待进入项目" : "未管理";
         tooltip.add(Component.literal("UTD // " + headline).withStyle(ChatFormatting.GOLD));
         tooltip.add(Component.literal("human_selected: " + status.humanSelected()
                 + "  catalogued: " + status.catalogued()).withStyle(ChatFormatting.GRAY));

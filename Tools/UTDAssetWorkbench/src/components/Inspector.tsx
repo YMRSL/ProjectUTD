@@ -1,6 +1,20 @@
 import type { Dispatch, SetStateAction } from "react";
-import { updateManagedItem, updateManagedLoot, updateManagedRecipe } from "../domain/mutations";
-import type { CanonicalItem, CanonicalRecipe, WorkbenchProject } from "../domain/schema";
+import {
+  addBlockTransform,
+  removeBlockTransform,
+  updateBlockTransform,
+  updateItemPresentation,
+  updateManagedLoot,
+  updateManagedRecipe
+} from "../domain/mutations";
+import { defaultPresentation, isFpePresentationVariant, presentationForItem } from "../domain/presentation";
+import type {
+  BlockTransform,
+  CanonicalItem,
+  CanonicalRecipe,
+  ItemPresentationOverride,
+  WorkbenchProject
+} from "../domain/schema";
 import { lootMatchesItem, refMatchesItem } from "../domain/relations";
 import { stableStringify } from "../domain/stable";
 import type { EntitySelection } from "./GraphCanvas";
@@ -26,13 +40,15 @@ export function Inspector({ project, rootItemKey, selection, tab, onTab, onSelec
     ? project.recipes.find((recipe) => recipe.id === selection.id)
     : recipes[0];
   const loot = project.lootPolicies.filter((policy) => lootMatchesItem(policy, rootItem));
+  const presentation = presentationForItem(project, contextItem) ?? defaultPresentation(contextItem);
+  const transforms = transformsFor(project, contextItem);
   const issueCount = relevantIssues(project, contextItem, recipes).length;
 
   return (
     <aside className="inspector">
       <div className="inspector-tabs" role="tablist" aria-label="检查器">
         <Tab active={tab === "record"} onClick={() => onTab("record")}>档案</Tab>
-        <Tab active={tab === "recipe"} count={recipes.length} onClick={() => onTab("recipe")}>配方</Tab>
+        <Tab active={tab === "recipe"} count={recipes.length + transforms.length} onClick={() => onTab("recipe")}>配方</Tab>
         <Tab active={tab === "loot"} count={loot.length} onClick={() => onTab("loot")}>Loot</Tab>
         <Tab active={tab === "issues"} count={issueCount} onClick={() => onTab("issues")}>问题</Tab>
       </div>
@@ -41,15 +57,21 @@ export function Inspector({ project, rootItemKey, selection, tab, onTab, onSelec
         {tab === "record" && (
           <RecordPanel
             item={contextItem}
-            onChange={(patch) => setProject((current) => updateManagedItem(current, contextItem.itemKey, patch))}
+            presentation={presentation}
+            onPresentationChange={(patch) => setProject((current) => updateItemPresentation(current, contextItem.itemKey, patch))}
           />
         )}
         {tab === "recipe" && (
           <RecipePanel
             recipes={recipes}
             selected={selectedRecipe}
+            catalyst={contextItem}
+            transforms={transforms}
             onSelect={(recipe) => onSelection({ kind: "recipe", id: recipe.id })}
             onChange={(recipeId, patch) => setProject((current) => updateManagedRecipe(current, recipeId, patch))}
+            onAddTransform={() => setProject((current) => addBlockTransform(current, contextItem.itemKey))}
+            onTransformChange={(id, patch) => setProject((current) => updateBlockTransform(current, id, patch))}
+            onRemoveTransform={(id) => setProject((current) => removeBlockTransform(current, id))}
           />
         )}
         {tab === "loot" && (
@@ -73,8 +95,13 @@ function Tab({ active, count, onClick, children }: { active: boolean; count?: nu
   );
 }
 
-function RecordPanel({ item, onChange }: { item: CanonicalItem; onChange: (patch: Partial<Pick<CanonicalItem, "clientNameZhCn" | "translationKey">>) => void }) {
+function RecordPanel({ item, presentation, onPresentationChange }: {
+  item: CanonicalItem;
+  presentation: ItemPresentationOverride;
+  onPresentationChange: (patch: Partial<Pick<ItemPresentationOverride, "enabled" | "nameZhCn" | "descriptionZhCn" | "applyScope">>) => void;
+}) {
   const editable = item.ownership === "utd" && item.managed;
+  const fpeVariant = isFpePresentationVariant(item);
   return (
     <div className="inspector-panel">
       <PanelKicker>{item.humanSelected ? "HUMAN SELECTED" : item.managed ? "UTD CATALOG" : "DEPENDENCY LEAF"}</PanelKicker>
@@ -85,13 +112,47 @@ function RecordPanel({ item, onChange }: { item: CanonicalItem; onChange: (patch
         <small>{editable ? "修改会进入 pending 状态" : "外部依赖不会被导出器改写"}</small>
       </div>
 
-      <SectionTitle>客户端目录</SectionTitle>
-      <Field label="中文名称">
-        <input value={item.clientNameZhCn} disabled={!editable} onChange={(event) => onChange({ clientNameZhCn: event.target.value })} />
+      <SectionTitle>游戏观察值（只读证据）</SectionTitle>
+      <KeyValue label="客户端中文名" value={item.clientNameZhCn || "—"} />
+      <KeyValue label="translation_key" value={item.translationKey || "—"} />
+
+      <SectionTitle>显示覆盖</SectionTitle>
+      <p className="panel-note">这里只记录待发布的语言覆盖，不会改写游戏导出的原始观察值，也不会直接写入运行目录。</p>
+      <label className="switch presentation-switch">
+        <input
+          type="checkbox"
+          checked={presentation.enabled}
+          disabled={!editable}
+          onChange={(event) => onPresentationChange({ enabled: event.target.checked })}
+        />
+        <i />
+        {presentation.enabled ? "启用覆盖" : "保留草稿"}
+      </label>
+      <Field label="应用范围">
+        <select
+          value={presentation.applyScope}
+          disabled={!editable || !item.variantDiscriminator || fpeVariant}
+          onChange={(event) => onPresentationChange({ applyScope: event.target.value as ItemPresentationOverride["applyScope"] })}
+        >
+          <option value="identity">当前精确身份</option>
+          <option value="registry">整个 registry 物品</option>
+        </select>
       </Field>
-      <Field label="Translation key">
-        <input className="mono" value={item.translationKey} disabled={!editable} placeholder="缺失" onChange={(event) => onChange({ translationKey: event.target.value })} />
+      {fpeVariant && <p className="panel-note">FPE 食品固定按当前 food_id 精确覆盖，不能改写全部 pack_food。</p>}
+      <Field label="游戏内中文名称">
+        <input value={presentation.nameZhCn} disabled={!editable} onChange={(event) => onPresentationChange({ nameZhCn: event.target.value })} />
       </Field>
+      <Field label="物品介绍（可多行）">
+        <textarea
+          rows={5}
+          value={presentation.descriptionZhCn}
+          disabled={!editable}
+          placeholder="每行都会原样保留在语言覆盖值中"
+          onChange={(event) => onPresentationChange({ descriptionZhCn: event.target.value })}
+        />
+      </Field>
+      <KeyValue label="name key" value={presentation.nameKey} />
+      <KeyValue label="tooltip key" value={presentation.descriptionKey} />
 
       <SectionTitle>状态回写</SectionTitle>
       <dl className="status-ledger">
@@ -128,20 +189,33 @@ function RecordPanel({ item, onChange }: { item: CanonicalItem; onChange: (patch
 function RecipePanel({
   recipes,
   selected,
+  catalyst,
+  transforms,
   onSelect,
-  onChange
+  onChange,
+  onAddTransform,
+  onTransformChange,
+  onRemoveTransform
 }: {
   recipes: CanonicalRecipe[];
   selected?: CanonicalRecipe;
+  catalyst: CanonicalItem;
+  transforms: BlockTransform[];
   onSelect: (recipe: CanonicalRecipe) => void;
   onChange: (id: string, patch: Partial<Pick<CanonicalRecipe, "station" | "stationKey" | "stationScope" | "form" | "level">>) => void;
+  onAddTransform: () => void;
+  onTransformChange: (id: string, patch: Partial<Pick<BlockTransform, "enabled" | "priority" | "clickedBlock" | "resultBlock" | "inputSource" | "hand" | "requireSneaking" | "consumeInput"> & { catalystCount: number }>) => void;
+  onRemoveTransform: (id: string) => void;
 }) {
-  if (!recipes.length) return <EmptyPanel code="NO_RECIPE" text="当前白名单根没有配方产出。" />;
-  const recipe = selected && recipes.some((entry) => entry.id === selected.id) ? selected : recipes[0];
+  const recipe = recipes.length
+    ? selected && recipes.some((entry) => entry.id === selected.id) ? selected : recipes[0]
+    : undefined;
+  const editableCatalyst = catalyst.ownership === "utd" && catalyst.managed;
   return (
     <div className="inspector-panel">
       <PanelKicker>OUTPUT RECIPES · {recipes.length}</PanelKicker>
-      {recipes.length > 1 && (
+      {!recipe && <EmptyPanel code="NO_RECIPE" text="当前白名单根没有普通配方产出；仍可在下方建立方块替换规则。" />}
+      {recipe && recipes.length > 1 && (
         <div className="recipe-switcher">
           {recipes.map((entry, index) => (
             <button type="button" className={entry.id === recipe.id ? "is-active" : ""} key={entry.id} onClick={() => onSelect(entry)}>
@@ -150,59 +224,121 @@ function RecipePanel({
           ))}
         </div>
       )}
-      <h2>{recipe.outputName || "未命名配方"}</h2>
-      <p className="mono inspector-id">{recipe.id}</p>
-      <div className={`edit-boundary ${recipe.editable ? "is-editable" : "is-locked"}`}>
-        <span>{recipe.editable ? "UTD RECIPE · 可编辑" : "EXTERNAL RECIPE · 只读"}</span>
-        <small>{recipe.recipeType}</small>
-      </div>
-      <SectionTitle>工艺参数</SectionTitle>
-      <Field label="工作站">
-        <input value={recipe.station} disabled={!recipe.editable} onChange={(event) => onChange(recipe.id, { station: event.target.value })} />
-      </Field>
-      <div className="field-pair">
-        <Field label="等级">
-          <input type="number" min="0" max="9" value={recipe.level ?? ""} disabled={!recipe.editable} onChange={(event) => onChange(recipe.id, { level: event.target.value === "" ? null : Number(event.target.value) })} />
-        </Field>
-        <Field label="形态">
-          <input value={recipe.form} disabled={!recipe.editable} onChange={(event) => onChange(recipe.id, { form: event.target.value })} />
-        </Field>
-      </div>
-      <KeyValue label="station_key" value={recipe.stationKey} />
-      <KeyValue label="station_scope" value={recipe.stationScope} />
-      <KeyValue label="source" value={`${recipe.sheet}:${recipe.sourceRow ?? "generated"}`} />
+      {recipe && <RecipeDetails recipe={recipe} onChange={onChange} />}
 
-      <SectionTitle>投入 / 产出</SectionTitle>
-      <div className="material-ledger">
-        {recipe.inputs.map((input, index) => (
-          <div key={`${input.refKind}:${input.ref}:${index}`}>
-            <span className={`ref-kind ref-kind--${input.refKind}`}>{input.refKind}</span>
-            <code>{input.refKind === "tag" ? "#" : ""}{input.ref}</code>
-            <strong>×{input.count}</strong>
+      <SectionTitle>方块替换制造</SectionTitle>
+      <p className="panel-note">右键目标方块时取消原交互，消耗 catalyst 并替换为结果方块。规则这里只生成草稿数据。</p>
+      <button type="button" className="button button--primary transform-add" disabled={!editableCatalyst} onClick={onAddTransform}>
+        新建方块替换规则
+      </button>
+      {transforms.map((rule, index) => (
+        <section className="loot-policy block-transform" key={rule.id}>
+          <div className="loot-policy__head">
+            <span>TRANSFORM {String(index + 1).padStart(2, "0")}</span>
+            <label className="switch">
+              <input type="checkbox" checked={rule.enabled} onChange={(event) => onTransformChange(rule.id, { enabled: event.target.checked })} />
+              <i />
+              {rule.enabled ? "启用" : "草稿"}
+            </label>
           </div>
-        ))}
-        <div className="material-arrow">↓ OUTPUT</div>
-        {recipe.outputs.map((output, index) => (
-          <div className="is-output" key={`${output.refKind}:${output.ref}:${index}`}>
-            <span className={`ref-kind ref-kind--${output.refKind}`}>{output.refKind}</span>
-            <code>{output.ref}</code>
-            <strong>×{output.count}</strong>
+          <p className="mono loot-identity">{rule.id}</p>
+          <Field label="目标方块（被右键）">
+            <input className="mono" value={rule.clickedBlock} placeholder="minecraft:stone" onChange={(event) => onTransformChange(rule.id, { clickedBlock: event.target.value.trim() })} />
+          </Field>
+          <Field label="结果方块（替换后）">
+            <input className="mono" value={rule.resultBlock} placeholder="minecraft:cobblestone" onChange={(event) => onTransformChange(rule.id, { resultBlock: event.target.value.trim() })} />
+          </Field>
+          <div className="field-pair">
+            <Field label="消耗数量">
+              <input type="number" min="1" value={rule.catalyst.count} onChange={(event) => onTransformChange(rule.id, { catalystCount: Number(event.target.value) })} />
+            </Field>
+            <Field label="优先级">
+              <input type="number" value={rule.priority} onChange={(event) => onTransformChange(rule.id, { priority: Number(event.target.value) })} />
+            </Field>
           </div>
-        ))}
-      </div>
-      {recipe.pattern && (
-        <div className="pattern-grid" aria-label="有序配方图案">
-          {recipe.pattern.flatMap((row, rowIndex) => [...row.padEnd(3)].map((symbol, columnIndex) => (
-            <span key={`${rowIndex}-${columnIndex}`}>{symbol.trim() || "·"}</span>
-          )))}
-        </div>
-      )}
-      <details className="raw-details">
-        <summary>原始配方载荷（保留导出）</summary>
-        <pre>{stableStringify(recipe.raw, 2)}</pre>
-      </details>
+          <div className="field-pair">
+            <Field label="材料来源">
+              <select value={rule.inputSource} onChange={(event) => onTransformChange(rule.id, { inputSource: event.target.value === "inventory" ? "inventory" : "clicked_hand" })}>
+                <option value="clicked_hand">右键手持物品</option>
+                <option value="inventory">玩家背包</option>
+              </select>
+            </Field>
+            <Field label="潜行要求">
+              <select value={rule.requireSneaking ? "required" : "any"} onChange={(event) => onTransformChange(rule.id, { requireSneaking: event.target.value === "required" })}>
+                <option value="any">无需潜行</option>
+                <option value="required">必须潜行</option>
+              </select>
+            </Field>
+          </div>
+          {rule.inputSource === "inventory" && !rule.requireSneaking && (
+            <p className="panel-note">背包取材且无需潜行容易误触；建议设为必须潜行。</p>
+          )}
+          <KeyValue label="catalyst" value={`${rule.catalyst.ref} ×${rule.catalyst.count}`} />
+          <KeyValue label="interaction" value={`${rule.inputSource} / ${rule.hand}`} />
+          <KeyValue label="block entity" value={rule.blockEntityPolicy} />
+          <button type="button" className="button button--quiet transform-delete" onClick={() => onRemoveTransform(rule.id)}>删除草稿规则</button>
+        </section>
+      ))}
     </div>
   );
+}
+
+function RecipeDetails({ recipe, onChange }: {
+  recipe: CanonicalRecipe;
+  onChange: (id: string, patch: Partial<Pick<CanonicalRecipe, "station" | "stationKey" | "stationScope" | "form" | "level">>) => void;
+}) {
+  return <>
+    <h2>{recipe.outputName || "未命名配方"}</h2>
+    <p className="mono inspector-id">{recipe.id}</p>
+    <div className={`edit-boundary ${recipe.editable ? "is-editable" : "is-locked"}`}>
+      <span>{recipe.editable ? "UTD RECIPE · 可编辑" : "EXTERNAL RECIPE · 只读"}</span>
+      <small>{recipe.recipeType}</small>
+    </div>
+    <SectionTitle>工艺参数</SectionTitle>
+    <Field label="工作站">
+      <input value={recipe.station} disabled={!recipe.editable} onChange={(event) => onChange(recipe.id, { station: event.target.value })} />
+    </Field>
+    <div className="field-pair">
+      <Field label="等级">
+        <input type="number" min="0" max="9" value={recipe.level ?? ""} disabled={!recipe.editable} onChange={(event) => onChange(recipe.id, { level: event.target.value === "" ? null : Number(event.target.value) })} />
+      </Field>
+      <Field label="形态">
+        <input value={recipe.form} disabled={!recipe.editable} onChange={(event) => onChange(recipe.id, { form: event.target.value })} />
+      </Field>
+    </div>
+    <KeyValue label="station_key" value={recipe.stationKey} />
+    <KeyValue label="station_scope" value={recipe.stationScope} />
+    <KeyValue label="source" value={`${recipe.sheet}:${recipe.sourceRow ?? "generated"}`} />
+    <SectionTitle>投入 / 产出</SectionTitle>
+    <div className="material-ledger">
+      {recipe.inputs.map((input, index) => (
+        <div key={`${input.refKind}:${input.ref}:${index}`}>
+          <span className={`ref-kind ref-kind--${input.refKind}`}>{input.refKind}</span>
+          <code>{input.refKind === "tag" ? "#" : ""}{input.ref}</code>
+          <strong>×{input.count}</strong>
+        </div>
+      ))}
+      <div className="material-arrow">↓ OUTPUT</div>
+      {recipe.outputs.map((output, index) => (
+        <div className="is-output" key={`${output.refKind}:${output.ref}:${index}`}>
+          <span className={`ref-kind ref-kind--${output.refKind}`}>{output.refKind}</span>
+          <code>{output.ref}</code>
+          <strong>×{output.count}</strong>
+        </div>
+      ))}
+    </div>
+    {recipe.pattern && (
+      <div className="pattern-grid" aria-label="有序配方图案">
+        {recipe.pattern.flatMap((row, rowIndex) => [...row.padEnd(3)].map((symbol, columnIndex) => (
+          <span key={`${rowIndex}-${columnIndex}`}>{symbol.trim() || "·"}</span>
+        )))}
+      </div>
+    )}
+    <details className="raw-details">
+      <summary>原始配方载荷（保留导出）</summary>
+      <pre>{stableStringify(recipe.raw, 2)}</pre>
+    </details>
+  </>;
 }
 
 function LootPanel({ root, policies, onChange }: {
@@ -282,9 +418,17 @@ function recipesFor(project: WorkbenchProject, item: CanonicalItem): CanonicalRe
   return project.recipes.filter((recipe) => recipe.outputs.some((output) => refMatchesItem(output, item)));
 }
 
+function transformsFor(project: WorkbenchProject, item: CanonicalItem): BlockTransform[] {
+  return project.blockTransforms.filter((entry) => refMatchesItem(entry.catalyst, item));
+}
+
 function relevantIssues(project: WorkbenchProject, item: CanonicalItem, recipes: CanonicalRecipe[]) {
   const recipeIds = new Set(recipes.map((recipe) => recipe.id));
-  return project.issues.filter((issue) => issue.entityId === item.itemKey || (issue.entityType === "recipe" && recipeIds.has(issue.entityId)) || issue.entityId.split("|").includes(item.itemKey));
+  const transformIds = new Set(transformsFor(project, item).map((rule) => rule.id));
+  return project.issues.filter((issue) => issue.entityId === item.itemKey
+    || (issue.entityType === "recipe" && recipeIds.has(issue.entityId))
+    || (issue.entityType === "block_transform" && transformIds.has(issue.entityId))
+    || issue.entityId.split("|").includes(item.itemKey));
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {

@@ -60,4 +60,38 @@ class AssetManagerScreenContractTest {
         assertTrue(source.contains("if (scope != AssetScope.LOCAL)"));
         assertTrue(source.contains("componentSensitiveBase(record)"));
     }
+
+    @Test
+    void longVariantSearchAndFoodPreviewAreSupported() throws Exception {
+        Path screenPath = Path.of(
+                "src/main/java/com/ymrsl/utdassetmanager/client/AssetManagerScreen.java");
+        String screen = Files.readString(screenPath);
+        Path codecPath = Path.of(
+                "src/main/java/com/ymrsl/utdassetmanager/client/AssetStackCodec.java");
+        String codec = Files.readString(codecPath);
+
+        assertTrue(screen.contains("search.setMaxLength(512)"));
+        assertTrue(screen.contains("compactDiscriminator(record.variantDiscriminator)"));
+        assertTrue(screen.contains("AssetStackCodec.supportsVariantPreview(record)"));
+        assertTrue(codec.contains("firstpersonfoodeating:pack_food"));
+        assertTrue(codec.contains("DataComponents.CUSTOM_DATA"));
+        assertTrue(codec.contains("!\"{}\".equals(itemStackSnbt)"));
+    }
+
+    @Test
+    void inspectorEditsPresentationWithoutMutatingItemStackComponents() throws Exception {
+        Path screenPath = Path.of(
+                "src/main/java/com/ymrsl/utdassetmanager/client/AssetManagerScreen.java");
+        String screen = Files.readString(screenPath);
+        Path tooltipPath = Path.of(
+                "src/main/java/com/ymrsl/utdassetmanager/client/AssetTooltipEvents.java");
+        String tooltip = Files.readString(tooltipPath);
+
+        assertTrue(screen.contains("MultiLineEditBox"));
+        assertTrue(screen.contains("编辑名称 / 介绍"));
+        assertTrue(screen.contains("presentationRepository.upsert"));
+        assertTrue(screen.contains("不会改写 ItemStack Components"));
+        assertTrue(tooltip.contains("PresentationDraftRepository.get().resolveEnabled"));
+        assertTrue(tooltip.contains("已进入项目管理"));
+    }
 }

@@ -1,0 +1,22 @@
+{
+  "schema_version": "utd-item-presentation/v1",
+  "producer": "utd_asset_manager",
+  "updated_at": "2026-07-12T02:00:00Z",
+  "drafts": [
+    {
+      "asset_key": "sample-runtime-key-that-differs",
+      "registry_id": "firstpersonfoodeating:pack_food",
+      "variant_discriminator": "food_id=firstpersonfoodeating:i_bang_a",
+      "apply_scope": "identity",
+      "observed_name_zh_cn": "高能量棒",
+      "name_zh_cn": "示例高能量棒",
+      "description_zh_cn": [
+        "第一行介绍",
+        "第二行介绍"
+      ],
+      "enabled": true,
+      "base_catalog_hash": "sample-runtime-catalog-hash",
+      "updated_at": "2026-07-12T01:59:00Z"
+    }
+  ]
+}

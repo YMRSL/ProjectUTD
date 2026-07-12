@@ -268,15 +268,30 @@ function normalizeRef(value: unknown, inheritedCount: number): CanonicalRef | nu
   const count = numberOr(value.count, inheritedCount);
   const chance = typeof value.chance === "number" ? value.chance : undefined;
   const consume = typeof value.consume === "boolean" ? value.consume : undefined;
-  const components = isRecord(value.components) ? (value.components as JsonObject) : undefined;
+  const legacyNbt = typeof value.nbt === "string"
+    ? value.nbt
+    : isRecord(value.nbt)
+      ? stableStringify(value.nbt)
+      : "";
+  const components = isRecord(value.components) || legacyNbt
+    ? {
+        ...(isRecord(value.components) ? value.components as JsonObject : {}),
+        ...(legacyNbt ? { legacy_nbt: legacyNbt } : {})
+      }
+    : undefined;
   const withMeta = (ref: CanonicalRef): CanonicalRef => ({ ...ref, count, chance, consume, components });
-  if (typeof value.item === "string") return withMeta(itemRef(value.item, count));
+  if (typeof value.item === "string") return withMeta(withLegacyNbt(itemRef(value.item, count), legacyNbt));
   if (typeof value.tag === "string") return withMeta({ refKind: "tag", ref: value.tag.replace(/^#/, ""), count });
   if (typeof value.fluid === "string") return withMeta({ refKind: "fluid", ref: value.fluid, count });
   for (const key of ["item", "ingredient", "stack", "value"] as const) {
     if (isRecord(value[key])) {
       const nested = normalizeRef(value[key], count);
-      if (nested) return { ...nested, chance, consume, components: components ?? nested.components };
+      if (nested) return {
+        ...withLegacyNbt(nested, legacyNbt),
+        chance,
+        consume,
+        components: components ?? nested.components
+      };
     }
   }
   for (const key of ["id", "gun", "ammo"] as const) {
@@ -285,6 +300,17 @@ function normalizeRef(value: unknown, inheritedCount: number): CanonicalRef | nu
     }
   }
   return null;
+}
+
+function withLegacyNbt(ref: CanonicalRef, legacyNbt: string): CanonicalRef {
+  if (!legacyNbt || ref.refKind !== "item") return ref;
+  const discriminator = variantDiscriminator(legacyNbt);
+  if (!discriminator) return ref;
+  return {
+    ...ref,
+    identityKey: `${ref.ref}${legacyNbt}`,
+    variantDiscriminator: discriminator
+  };
 }
 
 function aggregateRefs(refs: CanonicalRef[]): CanonicalRef[] {

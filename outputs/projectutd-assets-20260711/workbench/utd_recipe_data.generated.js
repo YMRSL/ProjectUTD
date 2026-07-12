@@ -87712,7 +87712,7 @@ global.UTD = global.UTD || {};
         }
       }
     ],
-    "generatedAt": "2026-07-11T19:53:57+08:00",
+    "generatedAt": "2026-07-12T09:55:00+08:00",
     "removeOutputs": [
       "blockz:backpack_alice",
       "blockz:backpack_coyote",

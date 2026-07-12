@@ -1,20 +1,32 @@
 {
   "artifacts": {
     "status_manifest.json": {
-      "bytes": 875687,
-      "sha256": "386026bab042147ad94ad646d66d09c1ae30d362f5636922606de79736fe0735"
+      "bytes": 1014533,
+      "sha256": "d94e529505456834c9a7913db8cb3efa0eb86167a022ab10c06721d9709193ec"
     },
     "utd_asset_excel_interface.json": {
-      "bytes": 3731902,
-      "sha256": "453c7c45faf88fd9298d8c59c7b9acd4e5cd4cfcc990365b4508b55e1a8ae252"
+      "bytes": 4002970,
+      "sha256": "e2dc4eb847381bb173d2b26db3ffea60e30ce02498657c5cc5cb551450eec849"
     },
     "utd_asset_status_manifest.js": {
-      "bytes": 929172,
-      "sha256": "bbec25f03871ec7d409862185a711aedb2b05e62abae842cdf9c3b5e1551ccc9"
+      "bytes": 1071000,
+      "sha256": "90b16a5980e5390da3b228956c2498f84b6e525f57dfde6aaa69dbe78c1aed30"
     },
     "utd_asset_status_manifest.json": {
-      "bytes": 875687,
-      "sha256": "386026bab042147ad94ad646d66d09c1ae30d362f5636922606de79736fe0735"
+      "bytes": 1014533,
+      "sha256": "d94e529505456834c9a7913db8cb3efa0eb86167a022ab10c06721d9709193ec"
+    },
+    "utd_block_transforms.json": {
+      "bytes": 65,
+      "sha256": "5d75628bc2c9ace0698a6f244a72154571f086250a1ae6e20735f73e32205b51"
+    },
+    "utd_item_presentations.json": {
+      "bytes": 194,
+      "sha256": "7216502cec4e04b7eeeb26cf256f10d5374a6cd2c9b391ab9c34d36a122d5fb4"
+    },
+    "utd_lang_overlays.json": {
+      "bytes": 182,
+      "sha256": "9ef5af92d05772ffce56cf1a370efa44afc0ae9136ee36ba1d7a0a24de5f6bb3"
     },
     "utd_loot_registry_data.generated.js": {
       "bytes": 361170,
@@ -22,31 +34,33 @@
     },
     "utd_recipe_data.generated.js": {
       "bytes": 2799329,
-      "sha256": "7597b2938f5524c3c78e8645162718f428c14215043a3ead572fd3f32e9abf35"
+      "sha256": "09974d1aac3af84b1394edffab70b04c20ee62a95308213bec1d8c49cc3a9e85"
     },
     "workbench.json": {
-      "bytes": 7528226,
-      "sha256": "58ba4493a75dcba63ad7171d6cd413810db8f3d2ec38360b61667d4644d67672"
+      "bytes": 7871859,
+      "sha256": "e669916f4207c9a160998101b1105baf6a93d0d04ee59cad5597596f8955a4eb"
     }
   },
-  "catalog_hash": "797b002a05c3dbbb",
+  "catalog_hash": "70ef492230004521",
   "counts": {
+    "blockTransforms": 0,
     "cycles": 1,
-    "dependencyItems": 5,
-    "issues": 319,
+    "dependencyItems": 39,
+    "issues": 321,
     "lootPolicies": 798,
-    "managedItems": 846,
+    "managedItems": 851,
+    "presentations": 0,
     "recipes": 960
   },
   "deployed_hash": null,
-  "generated_at": "2026-07-11T19:53:57+08:00",
+  "generated_at": "2026-07-12T09:55:00+08:00",
   "graph_scope": {
-    "human_selected_roots": 316,
+    "human_selected_roots": 327,
     "tag_policy": "reference_only_no_expansion",
-    "visible_edges": 3538,
-    "visible_nodes": 1255
+    "visible_edges": 3545,
+    "visible_nodes": 1406
   },
-  "project_id": "projectutd-20260711",
+  "project_id": "projectutd-20260712-test4",
   "schema_version": "utd-artifact-manifest/v1",
   "source": {
     "lootBalance": {
@@ -63,8 +77,8 @@
       "sha256": "b3171b5fea511eb3bcd8c7c29846fd5abed43255718a206223c471a629cfc75d"
     },
     "snapshot": {
-      "path": "D:\\MC\\ProjectUTD\\outputs\\projectutd-assets-20260711\\inputs\\legacy_whitelist_ready.json",
-      "sha256": "9a57f94a60ce51a1e9b7e07f48bf2926352879fae1d30227f9c26c91ce50b0c9"
+      "path": "D:\\MC\\ProjectUTD\\outputs\\projectutd-assets-20260711\\inputs\\whitelist_union_20260712.json",
+      "sha256": "85b30b9eb585d293fe4cd2189bd18d9fc4c595a71229df267c9d5759b3851c7d"
     }
   }
 }
