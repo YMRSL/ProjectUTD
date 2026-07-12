@@ -9,7 +9,7 @@
 - Mod SHA-256：`42E1EFD15F16B8F145A3BA78354B367BF68A04385908888CB4EAC004356B0ACD`
 - 状态清单 SHA-256：`D94E529505456834C9A7913DB8CB3EFA0EB86167A022AB10C06721D9709193EC`
 - 当前目录：890 个精确身份，其中 327 个来自人工标注；配方 960 条，Loot 记录 798 条。
-- 运行目录内只有一个 UTD Asset Manager JAR；当前没有 `block_transforms.json`，因此没有启用方块替换规则。
+- 运行目录内只有一个 UTD Asset Manager JAR；`block_transforms.json` 保持合法的 `rules: []` 安全空配置，因此没有启用方块替换规则。
 
 旧 test3 JAR、旧状态清单、最近一次游戏导出与白名单已保存在：
 

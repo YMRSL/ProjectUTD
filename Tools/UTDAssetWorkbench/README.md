@@ -33,6 +33,19 @@ npm.cmd run preview
 
 若 `public/data/workbench.json` 存在，页面会自动载入；否则显示内置小样本。也可以在页面右上角手动载入任意 `utd-asset-workbench/v1` 项目 JSON。
 
+### 浏览器草稿与候选包
+
+页面会按载入时固定的 `projectId + catalogHash` 自动保存轻量 `v2` 草稿。草稿只包含物品显示、方块替换、配方可编辑字段和 Loot 可编辑字段，不保存完整物品目录、配方 `raw` 或整份项目；刷新页面会按 `recipe.id` 与 `loot.identityKey` 精确恢复，身份集合不一致时拒绝模糊回放。写入前使用与恢复时相同的 2 MB 上限，超限不会覆盖上一份可恢复草稿。当前真实 890/960/798 项目的草稿约 316 KB。
+
+右上角“候选包 ZIP”会在全部校验通过后一次下载 `<projectId>.candidate.zip`，其中固定包含：
+
+- `workbench.json`：本次编辑后的规范项目；
+- `utd_block_transforms.json`：方块替换运行候选；
+- `utd_item_presentations.json`：名称/介绍候选；
+- `manifest.json`：上述三个文件的 WebCrypto SHA-256 和 UTF-8 字节数。
+
+启用但不完整、重复 ID、创造模式策略错误，或相同目标状态与优先级冲突的规则都会阻止 ZIP 生成。单项导出按钮仍保留给诊断使用，但正式发布必须保留 ZIP、规范项目和差异报告。
+
 ## 从真实运行数据导入
 
 CLI 能直接解析纯 JSON，也能安全抽取当前约 3 MB 的 KJS 赋值格式，例如 `global.UTD... utd.recipeData = { ... };`。
@@ -58,6 +71,27 @@ npm.cmd run cli -- import `
 npm.cmd run cli -- export --project "artifacts\current\workbench.json" --out "artifacts\regenerated"
 npm.cmd run cli -- validate --project "artifacts\regenerated\workbench.json"
 ```
+
+正式发布方块替换规则时，可以只让这一类规则的 `error` 决定校验退出码；历史配方循环等其它内容问题仍会保留在项目中，但不会阻断本次规则发布：
+
+```powershell
+npm.cmd run cli -- validate `
+  --project "artifacts\regenerated\workbench.json" `
+  --only block_transform
+```
+
+发布前可将当前运行配置与候选 Workbench（或另一份运行配置）做确定性差异比较：
+
+```powershell
+npm.cmd run cli -- diff-block-transforms `
+  --baseline "D:\server\config\utd_asset_manager\block_transforms.json" `
+  --candidate "artifacts\regenerated\workbench.json" `
+  --out "artifacts\regenerated\utd_block_transform_diff.json"
+```
+
+`--baseline` 和 `--candidate` 均接受 `utd-asset-workbench/v1` 或 `utd-block-transforms/v1`。Workbench 项目始终先经过正式运行配置导出器；直接输入的运行配置则严格按 Java v1 解析器校验并规范化。必填对象、字符串/布尔值/32 位整数类型、注册名与规则 ID、状态属性、枚举、`copyProperties` 去重和创造模式取材关系只要有一项非法，命令就以非零状态退出，不会把错误值补成默认值继续比较。
+
+差异 JSON 的 `summary` 记录两个原文件的 SHA-256、两侧规则总数和启用数，随后固定按 Java 归一化规则 ID 排序，列出完整的新增、删除和修改规则。`enabled / disabled` 只表示两侧都存在的规则发生启停切换；`modified` 包含这些启停变化，因此计数可能重叠。比较字段为 `id / enabled / priority / target / catalyst / activation / result / creative`。省略 `--out` 时，JSON 直接输出到标准输出；指定文件时，控制台也会打印候选 SHA-256、规则总数和启用数。`--out` 经路径规范化和可用的真实路径解析后，不得与 `--baseline` 或 `--candidate` 指向同一文件；Windows 下比较不区分大小写，以免误覆盖部署配置或候选源文件。
 
 仓库内的可复现小样本：
 
@@ -158,8 +192,10 @@ tooltip.firstpersonfoodeating.i_bang_a.desc
 ```text
 input_source=clicked_hand, hand=main,
 cancel_interaction=true, consume_input=true,
-block_entity_policy=reject
+block_entity_policy=reject, priority=100
 ```
+
+`100` 是普通正式规则的默认优先级；`1000` 以上保留给短期测试或紧急覆盖。旧项目迁移仍按旧契约补 `priority=0`，不会悄悄改变既有规则顺序。
 
 切换为从 `inventory` 取材时，页面会自动启用“必须潜行”；导入的旧规则若为“背包取材且无需潜行”也会产生 warning。启用规则的目标方块、结果方块和 catalyst 必须使用 `namespace:path`，数量至少为 1；同一目标状态、同一优先级的多条启用规则会被标为冲突。
 
@@ -173,7 +209,7 @@ block_entity_policy=reject
   "rules": [{
     "id": "utd:block_transform/example",
     "enabled": true,
-    "priority": 0,
+    "priority": 100,
     "target": { "block": "minecraft:stone", "state": {}, "blockEntityPolicy": "reject" },
     "catalyst": { "registryId": "minecraft:coal", "variantDiscriminator": "", "componentsSnbt": "{}", "count": 1, "source": "clicked_hand", "consume": true },
     "activation": { "hand": "main", "requireSneak": false, "allowFakePlayer": false },
@@ -197,7 +233,7 @@ block_entity_policy=reject
 npm.cmd run check
 ```
 
-测试覆盖：Mod 平铺/旧包络 snapshot、canonical/SNBT 无损保留、SHA-key plain 捕获与 base 配方语义合并、组件变体不降级、FPE/TaCZ 同 registry id 变体隔离、56 条 FPE partial-NBT 回收配方、Loot SNBT 合并、显示覆盖/语言键、Java 方块替换协议往返与校验、v1 增量字段兼容、discriminator 优先级、全量状态目录、一层过滤图、Tag 不展开、循环检测、冻结状态字段、KJS 往返解析。
+当前 53 项测试覆盖：Mod 平铺/旧包络 snapshot、canonical/SNBT 无损保留、SHA-key plain 捕获与 base 配方语义合并、组件变体不降级、FPE/TaCZ 同 registry id 变体隔离、56 条 FPE partial-NBT 回收配方、Loot SNBT 合并、显示覆盖/语言键、Java 方块替换协议往返与严格差异、v1 增量字段兼容、轻量草稿恢复/上限保护、候选 ZIP 哈希、输出路径保护、Windows 原子写回退、全量状态目录、一层过滤图、Tag 不展开、循环检测、冻结状态字段和 KJS 往返解析。
 
 ## 目录
 

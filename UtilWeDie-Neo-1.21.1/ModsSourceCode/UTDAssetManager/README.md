@@ -2,7 +2,7 @@
 
 面向 ProjectUTD 的 NeoForge 1.21.1 资产档案台；界面与采集在客户端运行，同时附带默认无规则的公共侧方块替换制造运行器。它继承旧 ItemNameCatch 的“由人明确选择物品”原则，但不扫描完整物品注册表，也不修改 KubeJS、Loot 或客户端部署目录。
 
-**发布状态（2026-07-12）：** `0.1.2-test2` 已通过用户完整实机验收；`0.1.3-test3` 的项目目录主体已通过实机测试，并暴露 FPE 预览与长搜索问题；`0.1.4-test4` 已通过 43 项自动测试，等待本轮定向实机验收。
+**发布状态（2026-07-12）：** `0.1.4-test4` 的资产目录、显示编辑与方块替换三阶段薄切片已通过用户实机验收；`0.1.5-test5` 已通过 55 项自动测试，等待候选校验/原子晋升命令的定向实机验收。
 
 ## 当前能力
 
@@ -13,7 +13,7 @@
 - 项目目录会按 FPE `food_id` 构造只读预览栈，直接显示资源包中的实际中文名与贴图；界面用 `food_id=i_bang_a` 短标识展示，完整值仍可搜索和导出；
 - 在检查器内标注/取消标注，并可按当前搜索与状态筛选批量标注/取消；支持重载外部状态、导出 JSON；
 - 检查器可编辑游戏内中文名和多行物品介绍，草稿即时用于资产界面与 Tooltip 预览，并与物品 Components 身份隔离；
-- `/utdasset markhand`、`unmarkhand`、`export`、`reload`；
+- `/utdasset markhand`、`unmarkhand`、`export`、`reload`；方块规则另有只读状态与受权限保护的候选校验/晋升命令；
 - 所有物品 Tooltip 实时显示本机 `human_selected`、`catalogued`、`recipe_input`、`recipe_output`、`loot_enabled`、`sync_state`、`stale`、`issues`；项目历史人工标注在只读目录中单独显示；
 - 保存客户端当前显示名、translation key、registry id、完整 ItemStack SNBT、原始 components SNBT、确定性 observed/identity canonical forms、asset key 和 variant key；非 `zh_cn` 客户端禁止标注与正式导出。
 
@@ -25,6 +25,8 @@
 - `status_manifest.json`：外部资产管理器原子写回的只读状态（文件名必须完全一致）；
 - `presentation_drafts.json`：游戏内检查器保存的中文名称/介绍编辑草稿，schema 固定为 `utd-item-presentation/v1`；
 - `block_transforms.json`：可选的方块右键替换制造规则，`schema_version` 固定为 `utd-block-transforms/v1`（兼容旧 `schema` 字段）；首次运行只创建空 `rules`，不会自动启用示例；
+- `block_transforms.candidate.json`：固定的候选规则文件；写入或覆盖它不会自动影响游戏中的活动规则；
+- `block_transforms.json.bak`：每次候选成功晋升前，以同目录原子替换保存的上一份活动文件；
 - `exports/utd-assets-*.json`：显式导出的白名单与合并状态；
 - `exports/utd-presentation-drafts-*.json`：显式导出的名称/介绍草稿，供桌面工具审查和生成资源文件。
 
@@ -35,6 +37,15 @@
 ## 方块右键替换制造（P0）
 
 `block_transforms.json` 的完整禁用示例位于 `examples/block_transforms.example.json`。规则按 `priority` 从高到低匹配，只有显式写成 `enabled: true` 才会运行。`target.state` 是目标方块状态的部分匹配；`result.copyProperties` 先从目标复制同名兼容属性，再由 `result.state` 的显式值覆盖。默认激活方式是主手右键，材料来源是当前点击手，数量为 1，并在成功后消耗。`source: inventory` 会改为检查并消耗玩家 36 格主背包（包括快捷栏，不包括盔甲栏和副手栏）。
+
+活动规则在 Mod 启动时只读取一次；状态查询、普通右键和磁盘时间变化都不会热加载新内容。正式发布流程如下：
+
+1. 桌面工具把待发布内容写入固定路径 `config/utd_asset_manager/block_transforms.candidate.json`；
+2. 管理员执行 `/utdasset transforms validate`，命令严格解析候选文件、对当前游戏注册表进行编译，并返回候选原始字节的 64 位小写 SHA-256；此步骤不会改变活动 generation；
+3. 管理员核对差异后执行 `/utdasset transforms promote <sha256>`；Mod 会重新读取候选、核对哈希并再次解析/编译，通过后先原子更新 `.bak`，再原子替换活动文件并加载新 generation；
+4. `/utdasset transforms status` 仅报告当前内存中的活动 generation，所有玩家都只会看到固定相对路径；`/utdasset transforms reload` 是受管理权限保护、明确绕过 candidate/hash staging 的活动文件强制重载，只供人工回滚或应急维护使用。
+
+`validate`、`promote` 和 `reload` 需要权限等级 2，或由单人世界所有者执行；`status` 可由普通玩家执行。晋升只接受精确的 64 位小写 SHA-256。活动文件与备份的替换必须由同目录原子移动支持；平台不支持时晋升会失败关闭，不会退化成可能破坏活动文件的普通覆盖。
 
 材料始终先匹配 `registryId`；非空 `variantDiscriminator` 再匹配 TaCZ/FPE 的稳定变体标识，非空且不为 `{}` 的 `componentsSnbt` 则精确匹配完整 `components` Compound。创造模式以 `creative.requireInput` 和 `creative.consume` 单独决定是否需要、是否消耗材料；为避免无法兑现的规则，`consume: true` 不允许与 `requireInput: false` 同时出现。
 

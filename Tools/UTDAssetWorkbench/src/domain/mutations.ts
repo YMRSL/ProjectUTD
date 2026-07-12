@@ -25,7 +25,7 @@ type RecipePatch = Pick<CanonicalRecipe, "station" | "stationKey" | "stationScop
 type LootPatch = Pick<CanonicalLootPolicy, "lootEnabled" | "level" | "count" | "commonTags" | "commonBaseWeight" | "directedWeight" | "replacePriority">;
 type PresentationPatch = Pick<ItemPresentationOverride, "enabled" | "nameZhCn" | "descriptionZhCn" | "applyScope">;
 type BlockTransformPatch = Pick<BlockTransform,
-  "enabled" | "priority" | "clickedBlock" | "targetState" | "resultBlock" | "resultState" | "copyProperties"
+  "id" | "enabled" | "priority" | "clickedBlock" | "targetState" | "resultBlock" | "resultState" | "copyProperties"
   | "inputSource" | "hand" | "requireSneaking" | "allowFakePlayer" | "consumeInput"
   | "creativeRequireInput" | "creativeConsume"
 > & {
@@ -144,7 +144,7 @@ export function addBlockTransform(project: WorkbenchProject, catalystItemKey: st
   next.blockTransforms.push({
     id,
     enabled: false,
-    priority: 0,
+    priority: 100,
     clickedBlock: "",
     targetState: {},
     resultBlock: "",

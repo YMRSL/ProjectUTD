@@ -1,4 +1,11 @@
-import type { Dispatch, SetStateAction } from "react";
+import { useEffect, useMemo, useState, type Dispatch, type SetStateAction } from "react";
+import {
+  formatBlockStateInput,
+  parseBlockStateInput,
+  parseCopyPropertiesInput,
+  validateBlockTransformIdInput
+} from "../domain/authoringInputs";
+import { describeBlockTransformIssueZhCn, normalizeBlockTransformRuleId } from "../domain/blockTransforms";
 import {
   addBlockTransform,
   removeBlockTransform,
@@ -13,6 +20,7 @@ import type {
   CanonicalItem,
   CanonicalRecipe,
   ItemPresentationOverride,
+  ValidationIssue,
   WorkbenchProject
 } from "../domain/schema";
 import { lootMatchesItem, refMatchesItem } from "../domain/relations";
@@ -67,6 +75,7 @@ export function Inspector({ project, rootItemKey, selection, tab, onTab, onSelec
             selected={selectedRecipe}
             catalyst={contextItem}
             transforms={transforms}
+            validationIssues={project.issues.filter((issue) => issue.entityType === "block_transform")}
             onSelect={(recipe) => onSelection({ kind: "recipe", id: recipe.id })}
             onChange={(recipeId, patch) => setProject((current) => updateManagedRecipe(current, recipeId, patch))}
             onAddTransform={() => setProject((current) => addBlockTransform(current, contextItem.itemKey))}
@@ -191,6 +200,7 @@ function RecipePanel({
   selected,
   catalyst,
   transforms,
+  validationIssues,
   onSelect,
   onChange,
   onAddTransform,
@@ -201,16 +211,22 @@ function RecipePanel({
   selected?: CanonicalRecipe;
   catalyst: CanonicalItem;
   transforms: BlockTransform[];
+  validationIssues: ValidationIssue[];
   onSelect: (recipe: CanonicalRecipe) => void;
   onChange: (id: string, patch: Partial<Pick<CanonicalRecipe, "station" | "stationKey" | "stationScope" | "form" | "level">>) => void;
   onAddTransform: () => void;
-  onTransformChange: (id: string, patch: Partial<Pick<BlockTransform, "enabled" | "priority" | "clickedBlock" | "resultBlock" | "inputSource" | "hand" | "requireSneaking" | "consumeInput"> & { catalystCount: number }>) => void;
+  onTransformChange: (id: string, patch: Partial<Pick<BlockTransform,
+    "id" | "enabled" | "priority" | "clickedBlock" | "targetState" | "resultBlock" | "resultState" | "copyProperties"
+    | "inputSource" | "hand" | "requireSneaking" | "allowFakePlayer" | "consumeInput"
+    | "creativeRequireInput" | "creativeConsume"
+  > & { catalystCount: number }>) => void;
   onRemoveTransform: (id: string) => void;
 }) {
   const recipe = recipes.length
     ? selected && recipes.some((entry) => entry.id === selected.id) ? selected : recipes[0]
     : undefined;
   const editableCatalyst = catalyst.ownership === "utd" && catalyst.managed;
+  const blockingIssues = validationIssues.filter((issue) => issue.severity === "error");
   return (
     <div className="inspector-panel">
       <PanelKicker>OUTPUT RECIPES · {recipes.length}</PanelKicker>
@@ -228,11 +244,17 @@ function RecipePanel({
 
       <SectionTitle>方块替换制造</SectionTitle>
       <p className="panel-note">右键目标方块时取消原交互，消耗 catalyst 并替换为结果方块。规则这里只生成草稿数据。</p>
+      {blockingIssues.length > 0 && (
+        <div className="rule-validation is-blocking" role="alert">
+          <strong>候选包已被 {blockingIssues.length} 个方块替换错误阻止</strong>
+          <span>请修复下方对应规则；相同目标与优先级的跨规则冲突也会在各条规则中显示。</span>
+        </div>
+      )}
       <button type="button" className="button button--primary transform-add" disabled={!editableCatalyst} onClick={onAddTransform}>
         新建方块替换规则
       </button>
       {transforms.map((rule, index) => (
-        <section className="loot-policy block-transform" key={rule.id}>
+        <section className="loot-policy block-transform" key={`${rule.catalyst.ref}:${index}`}>
           <div className="loot-policy__head">
             <span>TRANSFORM {String(index + 1).padStart(2, "0")}</span>
             <label className="switch">
@@ -241,13 +263,33 @@ function RecipePanel({
               {rule.enabled ? "启用" : "草稿"}
             </label>
           </div>
-          <p className="mono loot-identity">{rule.id}</p>
+          <RuleIdField
+            rule={rule}
+            siblingIds={transforms.filter((entry) => entry !== rule).map((entry) => entry.id)}
+            onCommit={(id) => onTransformChange(rule.id, { id })}
+          />
           <Field label="目标方块（被右键）">
             <input className="mono" value={rule.clickedBlock} placeholder="minecraft:stone" onChange={(event) => onTransformChange(rule.id, { clickedBlock: event.target.value.trim() })} />
           </Field>
+          <BlockStateField
+            label="目标方块状态（JSON 对象）"
+            value={rule.targetState}
+            onChange={(value) => onTransformChange(rule.id, { targetState: value })}
+          />
           <Field label="结果方块（替换后）">
             <input className="mono" value={rule.resultBlock} placeholder="minecraft:cobblestone" onChange={(event) => onTransformChange(rule.id, { resultBlock: event.target.value.trim() })} />
           </Field>
+          <BlockStateField
+            label="结果方块状态（JSON 对象）"
+            value={rule.resultState}
+            onChange={(value) => onTransformChange(rule.id, { resultState: value })}
+          />
+          <CommaListField
+            label="复制状态属性（逗号分隔）"
+            value={rule.copyProperties}
+            placeholder="facing, waterlogged"
+            onChange={(value) => onTransformChange(rule.id, { copyProperties: value })}
+          />
           <div className="field-pair">
             <Field label="消耗数量">
               <input type="number" min="1" value={rule.catalyst.count} onChange={(event) => onTransformChange(rule.id, { catalystCount: Number(event.target.value) })} />
@@ -270,15 +312,181 @@ function RecipePanel({
               </select>
             </Field>
           </div>
+          <div className="field-pair">
+            <Field label="触发手">
+              <select value={rule.hand} onChange={(event) => onTransformChange(rule.id, { hand: event.target.value as BlockTransform["hand"] })}>
+                <option value="main">仅主手</option>
+                <option value="off">仅副手</option>
+                <option value="any">任意手</option>
+              </select>
+            </Field>
+            <BooleanField
+              label="允许 FakePlayer"
+              value={rule.allowFakePlayer}
+              onChange={(value) => onTransformChange(rule.id, { allowFakePlayer: value })}
+            />
+          </div>
+          <div className="field-pair">
+            <BooleanField
+              label="生存模式消耗材料"
+              value={rule.consumeInput}
+              onChange={(value) => onTransformChange(rule.id, { consumeInput: value })}
+            />
+            <BooleanField
+              label="创造模式需要材料"
+              value={rule.creativeRequireInput}
+              onChange={(value) => onTransformChange(rule.id, { creativeRequireInput: value })}
+            />
+          </div>
+          <BooleanField
+            label="创造模式消耗材料"
+            value={rule.creativeConsume}
+            onChange={(value) => onTransformChange(rule.id, { creativeConsume: value })}
+          />
           {rule.inputSource === "inventory" && !rule.requireSneaking && (
             <p className="panel-note">背包取材且无需潜行容易误触；建议设为必须潜行。</p>
           )}
+          <RuleValidation
+            rule={rule}
+            issues={validationIssues.filter((issue) => issue.entityId === rule.id)}
+          />
           <KeyValue label="catalyst" value={`${rule.catalyst.ref} ×${rule.catalyst.count}`} />
           <KeyValue label="interaction" value={`${rule.inputSource} / ${rule.hand}`} />
           <KeyValue label="block entity" value={rule.blockEntityPolicy} />
           <button type="button" className="button button--quiet transform-delete" onClick={() => onRemoveTransform(rule.id)}>删除草稿规则</button>
         </section>
       ))}
+    </div>
+  );
+}
+
+function RuleIdField({ rule, siblingIds, onCommit }: {
+  rule: BlockTransform;
+  siblingIds: string[];
+  onCommit: (id: string) => void;
+}) {
+  const [raw, setRaw] = useState(rule.id);
+  useEffect(() => setRaw(rule.id), [rule.id]);
+  const error = validateBlockTransformIdInput(raw, rule, siblingIds);
+  const commit = () => {
+    if (error) {
+      setRaw(rule.id);
+      return;
+    }
+    const normalized = normalizeBlockTransformRuleId(raw);
+    if (normalized !== rule.id) onCommit(normalized);
+    else setRaw(normalized);
+  };
+  return (
+    <Field label="规则 ID（运行配置唯一身份）">
+      <input
+        className={`mono ${error ? "is-invalid" : ""}`}
+        value={raw}
+        spellCheck={false}
+        onChange={(event) => setRaw(event.target.value)}
+        onBlur={commit}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") event.currentTarget.blur();
+          if (event.key === "Escape") {
+            setRaw(rule.id);
+            event.currentTarget.blur();
+          }
+        }}
+      />
+      {error && <small className="field-error" role="alert">{error} 该值尚未写入草稿。</small>}
+    </Field>
+  );
+}
+
+function BlockStateField({ label, value, onChange }: {
+  label: string;
+  value: BlockTransform["targetState"];
+  onChange: (value: BlockTransform["targetState"]) => void;
+}) {
+  const formatted = useMemo(() => formatBlockStateInput(value), [value]);
+  const [raw, setRaw] = useState(formatted);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    if (!error) setRaw(formatted);
+  }, [error, formatted]);
+  return (
+    <Field label={label}>
+      <textarea
+        className={`mono state-json-input ${error ? "is-invalid" : ""}`}
+        rows={3}
+        value={raw}
+        spellCheck={false}
+        onBlur={() => {
+          if (!error) return;
+          setRaw(formatted);
+          setError("");
+        }}
+        onChange={(event) => {
+          const nextRaw = event.target.value;
+          setRaw(nextRaw);
+          const parsed = parseBlockStateInput(nextRaw);
+          if (!parsed.ok) {
+            setError(parsed.error);
+            return;
+          }
+          setError("");
+          onChange(parsed.value);
+        }}
+      />
+      {error && <small className="field-error" role="alert">{error} 此内容尚未写入草稿，离开输入框会恢复上次有效值。</small>}
+    </Field>
+  );
+}
+
+function CommaListField({ label, value, placeholder, onChange }: {
+  label: string;
+  value: string[];
+  placeholder?: string;
+  onChange: (value: string[]) => void;
+}) {
+  const formatted = value.join(", ");
+  const [raw, setRaw] = useState(formatted);
+  useEffect(() => setRaw(formatted), [formatted]);
+  return (
+    <Field label={label}>
+      <input
+        className="mono"
+        value={raw}
+        placeholder={placeholder}
+        onChange={(event) => {
+          setRaw(event.target.value);
+          onChange(parseCopyPropertiesInput(event.target.value));
+        }}
+      />
+    </Field>
+  );
+}
+
+function BooleanField({ label, value, onChange }: { label: string; value: boolean; onChange: (value: boolean) => void }) {
+  return (
+    <Field label={label}>
+      <select value={value ? "yes" : "no"} onChange={(event) => onChange(event.target.value === "yes")}>
+        <option value="no">否</option>
+        <option value="yes">是</option>
+      </select>
+    </Field>
+  );
+}
+
+function RuleValidation({ rule, issues }: { rule: BlockTransform; issues: ValidationIssue[] }) {
+  if (!issues.length) {
+    return <div className="rule-validation is-clear"><strong>规则结构可导出</strong><span>仍需在测试世界验证实际交互。</span></div>;
+  }
+  const errors = issues.filter((issue) => issue.severity === "error");
+  const blocking = errors.length > 0;
+  return (
+    <div className={`rule-validation ${blocking ? "is-blocking" : "is-draft"}`} role={blocking ? "alert" : "status"}>
+      <strong>{blocking ? "当前规则阻止候选包导出" : rule.enabled ? "规则可导出，但有安全提醒" : "停用草稿或安全提醒"}</strong>
+      <ul>
+        {issues.map((issue, index) => (
+          <li key={`${issue.code}:${issue.message}:${index}`}>{describeBlockTransformIssueZhCn(issue.code, issue.message)}</li>
+        ))}
+      </ul>
     </div>
   );
 }

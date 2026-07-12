@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.107'
 }
 
-version = '0.1.4-test4'
+version = '0.1.5-test5'
 group = 'com.ymrsl.utdassetmanager'
 base { archivesName = 'utd_asset_manager' }
 

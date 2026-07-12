@@ -15,7 +15,12 @@ import {
   type WorkbenchProject
 } from "./schema";
 import { hydrateWorkbenchProject } from "./projectCompat";
-import { normalizeBlockTransformRuleId, planBlockTransformExport } from "./blockTransforms";
+import {
+  describeBlockTransformIssueZhCn,
+  normalizeBlockTransformRuleId,
+  planBlockTransformExport,
+  validateBlockTransforms
+} from "./blockTransforms";
 import { cloneJson, stableStringify } from "./stable";
 
 export function assertWorkbenchProject(value: unknown): asserts value is WorkbenchProject {
@@ -82,10 +87,19 @@ export function exportLangOverlaysJson(project: WorkbenchProject): string {
 }
 
 export function toBlockTransformDocument(project: WorkbenchProject): JsonObject {
+  const errors = validateBlockTransforms(project.blockTransforms)
+    .filter((issue) => issue.severity === "error");
+  if (errors.length) {
+    const details = errors.slice(0, 5)
+      .map((issue) => `${issue.entityId}：${describeBlockTransformIssueZhCn(issue.code, issue.message)}`)
+      .join("；");
+    const remainder = errors.length > 5 ? `；另有 ${errors.length - 5} 个错误` : "";
+    throw new Error(`方块替换规则存在 ${errors.length} 个阻断错误，候选包未生成：${details}${remainder}`);
+  }
   const plan = planBlockTransformExport(project.blockTransforms);
   if (plan.blocking.length) {
     const ids = [...new Set(plan.blocking.map((entry) => entry.id))].join(", ");
-    throw new Error(`Cannot export enabled or ambiguous block transform rule(s): ${ids}. Fix the reported issues or disable the rules first.`);
+    throw new Error(`方块替换规则仍有无法导出的启用项：${ids}。请先修复或停用。`);
   }
   return {
     schema_version: BLOCK_TRANSFORM_SCHEMA,

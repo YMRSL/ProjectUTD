@@ -12,6 +12,31 @@ export interface BlockTransformProblem {
   message: string;
 }
 
+/** User-facing descriptions shared by the rule editor and export guard. */
+export function describeBlockTransformIssueZhCn(code: string, fallback: string): string {
+  const messages: Record<string, string> = {
+    block_transform_invalid_rule_id: "规则 ID 只能使用 Java 支持的简单 ID 或 namespace:path。",
+    block_transform_invalid_priority: "优先级必须是 32 位整数。",
+    block_transform_invalid_target_id: "目标方块必须写成 namespace:id，例如 minecraft:stone。",
+    block_transform_invalid_result_id: "结果方块必须写成 namespace:id，例如 minecraft:cobblestone。",
+    block_transform_invalid_catalyst_id: "材料物品必须是有效的 namespace:id。",
+    block_transform_invalid_count: "材料数量必须是至少 1 的整数。",
+    block_transform_invalid_target_state_property: "目标方块状态包含无效属性名。",
+    block_transform_invalid_target_state_value: "目标方块状态值不能为空。",
+    block_transform_invalid_result_state_property: "结果方块状态包含无效属性名。",
+    block_transform_invalid_result_state_value: "结果方块状态值不能为空。",
+    block_transform_invalid_copy_property: "复制状态列表包含无效属性名。",
+    block_transform_duplicate_copy_property: "复制状态列表存在重复属性。",
+    block_transform_invalid_block_entity_policy: "v1 只允许拒绝替换方块实体。",
+    block_transform_invalid_creative_policy: "创造模式消耗材料时，必须同时要求玩家拥有材料。",
+    block_transform_duplicate_id: "规则 ID 与另一条规则重复；运行器会把大小写归一化后比较。",
+    block_transform_priority_conflict: "两条或更多已启用规则使用了相同目标方块、目标状态和优先级；请调整优先级或停用冲突规则。",
+    block_transform_inventory_without_sneak: "背包取材建议要求潜行，避免普通右键时误触替换。",
+    block_transform_draft_incomplete: "这条停用草稿尚不完整，运行配置会忽略它。"
+  };
+  return messages[code] ?? fallback;
+}
+
 /** Java canonicalizes rule ids to lowercase before validating them. */
 export function normalizeBlockTransformRuleId(value: string): string {
   return value.trim().toLowerCase();

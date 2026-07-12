@@ -398,7 +398,7 @@ describe("presentation overrides and block transforms", () => {
     const exported = JSON.parse(exportBlockTransformsJson(edited));
     expect(exported.block_transforms).toBeUndefined();
     expect(exported.rules[0]).toMatchObject({
-      priority: 0,
+      priority: 100,
       target: { block: "minecraft:dirt", state: {}, blockEntityPolicy: "reject" },
       result: { block: "minecraft:grass_block", state: {}, copyProperties: [] },
       activation: { requireSneak: true, hand: "main", allowFakePlayer: false },
@@ -436,7 +436,7 @@ describe("presentation overrides and block transforms", () => {
     expect(codes).toContain("block_transform_invalid_target_id");
     expect(codes).toContain("block_transform_invalid_result_id");
     expect(codes).not.toContain("block_transform_draft_incomplete");
-    expect(() => exportBlockTransformsJson(enabled)).toThrow(/Cannot export enabled or ambiguous block transform/);
+    expect(() => exportBlockTransformsJson(enabled)).toThrow(/方块替换规则存在 2 个阻断错误/);
   });
 
   it("uses Java rule-id normalization for validation, duplicate detection, and export", () => {

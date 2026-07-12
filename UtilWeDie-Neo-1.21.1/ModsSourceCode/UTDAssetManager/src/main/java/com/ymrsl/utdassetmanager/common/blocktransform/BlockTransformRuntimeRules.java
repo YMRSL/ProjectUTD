@@ -42,10 +42,7 @@ final class BlockTransformRuntimeRules {
             return compiled;
         }
         try {
-            List<CompiledRule> rules = new ArrayList<>();
-            for (BlockTransformRule rule : source.rules()) {
-                if (rule.enabled()) rules.add(compile(rule));
-            }
+            List<CompiledRule> rules = compileEnabled(source.rules());
             compiled = new CompiledSet(source.generation(), rules, "");
             LOGGER.info("Enabled {} UTD block transform rule(s)", rules.size());
         } catch (RuntimeException invalid) {
@@ -54,6 +51,24 @@ final class BlockTransformRuntimeRules {
             LOGGER.error("UTD block transforms disabled: {}", compiled.error());
         }
         return compiled;
+    }
+
+    /** Compiles a detached candidate against live registries without changing the active cache. */
+    static ValidationResult validate(List<BlockTransformRule> sourceRules) {
+        try {
+            return new ValidationResult(compileEnabled(sourceRules).size(), "");
+        } catch (RuntimeException invalid) {
+            return new ValidationResult(0,
+                    "runtime validation failed: " + invalid.getMessage());
+        }
+    }
+
+    private static List<CompiledRule> compileEnabled(List<BlockTransformRule> sourceRules) {
+        List<CompiledRule> rules = new ArrayList<>();
+        for (BlockTransformRule rule : sourceRules) {
+            if (rule.enabled()) rules.add(compile(rule));
+        }
+        return rules;
     }
 
     private static CompiledRule compile(BlockTransformRule rule) {
@@ -171,6 +186,16 @@ final class BlockTransformRuntimeRules {
 
         static CompiledSet empty(String error) {
             return new CompiledSet(Long.MIN_VALUE, List.of(), error);
+        }
+
+        boolean usable() {
+            return error.isBlank();
+        }
+    }
+
+    record ValidationResult(int compiledEnabledCount, String error) {
+        ValidationResult {
+            error = error == null ? "" : error;
         }
 
         boolean usable() {

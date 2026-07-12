@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { createHash } from "node:crypto";
-import { mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, realpath, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 import { buildWorkbenchProject } from "../src/domain/build";
 import {
   assertWorkbenchProject,
@@ -19,20 +20,26 @@ import {
 } from "../src/domain/exporters";
 import { parseJsonOrAssignment } from "../src/domain/parsers";
 import { applyBlockTransformDocument, applyPresentationDocument } from "../src/domain/projectCompat";
+import { diffBlockTransformSources, exportBlockTransformDiffJson } from "../src/domain/blockTransformDiff";
 import type { SourceFingerprint, WorkbenchProject } from "../src/domain/schema";
 import { stableStringify } from "../src/domain/stable";
 
-const [, , command = "help", ...argv] = process.argv;
+if (isDirectExecution()) {
+  await runCli(process.argv.slice(2));
+}
 
-try {
-  if (command === "import") await importSources(argv);
-  else if (command === "export") await exportProject(argv);
-  else if (command === "validate") await validateProject(argv);
-  else if (command === "help" || command === "--help" || command === "-h") printHelp();
-  else throw new Error(`Unknown command: ${command}`);
-} catch (error) {
-  console.error(`\n[UTD Asset Workbench] ${error instanceof Error ? error.message : String(error)}\n`);
-  process.exitCode = 1;
+export async function runCli([command = "help", ...argv]: string[]): Promise<void> {
+  try {
+    if (command === "import") await importSources(argv);
+    else if (command === "export") await exportProject(argv);
+    else if (command === "validate") await validateProject(argv);
+    else if (command === "diff-block-transforms") await diffBlockTransforms(argv);
+    else if (command === "help" || command === "--help" || command === "-h") printHelp();
+    else throw new Error(`Unknown command: ${command}`);
+  } catch (error) {
+    console.error(`\n[UTD Asset Workbench] ${error instanceof Error ? error.message : String(error)}\n`);
+    process.exitCode = 1;
+  }
 }
 
 async function importSources(argv: string[]): Promise<void> {
@@ -88,14 +95,53 @@ async function exportProject(argv: string[]): Promise<void> {
 async function validateProject(argv: string[]): Promise<void> {
   const options = parseOptions(argv);
   const projectPath = required(options, "project");
+  const only = options.only;
+  if (only && only !== "block_transform") {
+    throw new Error(`Unsupported validate scope --only ${only}. Expected block_transform.`);
+  }
   const parsed: unknown = JSON.parse(await readFile(path.resolve(projectPath), "utf8"));
   assertWorkbenchProject(parsed);
   printSummary(parsed, path.dirname(path.resolve(projectPath)));
-  const errors = parsed.issues.filter((issue) => issue.severity === "error");
+  const errors = parsed.issues.filter((issue) =>
+    issue.severity === "error" && (!only || issue.entityType === only)
+  );
   if (errors.length) {
     for (const issue of errors.slice(0, 20)) console.error(`ERROR ${issue.code}: ${issue.entityId}`);
     process.exitCode = 2;
   }
+}
+
+async function diffBlockTransforms(argv: string[]): Promise<void> {
+  const options = parseOptions(argv);
+  const baselinePath = path.resolve(required(options, "baseline"));
+  const candidatePath = path.resolve(required(options, "candidate"));
+  const outPath = options.out ? path.resolve(options.out) : undefined;
+  if (outPath) await assertDistinctDiffOutputPaths(baselinePath, candidatePath, outPath);
+  const baselineText = await readFile(baselinePath, "utf8");
+  const candidateText = await readFile(candidatePath, "utf8");
+  const baseline: unknown = JSON.parse(baselineText);
+  const candidate: unknown = JSON.parse(candidateText);
+  const diff = diffBlockTransformSources(baseline, candidate, {
+    baselineSha256: sha256(baselineText),
+    candidateSha256: sha256(candidateText)
+  });
+  const json = exportBlockTransformDiffJson(diff);
+  if (outPath) {
+    await atomicWrite(outPath, json);
+    console.log(`Block transform diff: ${outPath}`);
+    console.log(`  baseline  sha256=${diff.summary.baseline_sha256}`);
+    console.log(`  candidate sha256=${diff.summary.candidate_sha256}`);
+    console.log(
+      `  candidate rules=${diff.summary.candidate_rules}`
+      + ` enabled=${diff.summary.candidate_enabled_rules}`
+    );
+    console.log(
+      `  +${diff.summary.added} -${diff.summary.removed} ~${diff.summary.modified}`
+      + ` enabled=${diff.summary.enabled} disabled=${diff.summary.disabled}`
+    );
+    return;
+  }
+  process.stdout.write(json);
 }
 
 async function loadSource(filePath: string, kind: "json" | "recipe" | "lootRegistry" | "lootBalance") {
@@ -167,11 +213,12 @@ async function writeArtifactBundle(project: WorkbenchProject, outDir: string): P
   await atomicWrite(path.join(outDir, "manifest.json"), stableStringify(manifest, 2) + "\n");
 }
 
-async function atomicWrite(target: string, content: string): Promise<void> {
+export async function atomicWrite(target: string, content: string): Promise<void> {
   await mkdir(path.dirname(target), { recursive: true });
+  const nonce = `${process.pid}.${Date.now()}.${Math.random().toString(16).slice(2)}`;
   const temp = path.join(
     path.dirname(target),
-    `.${path.basename(target)}.${process.pid}.${Date.now()}.${Math.random().toString(16).slice(2)}.tmp`
+    `.${path.basename(target)}.${nonce}.tmp`
   );
   await writeFile(temp, content, "utf8");
   try {
@@ -182,20 +229,107 @@ async function atomicWrite(target: string, content: string): Promise<void> {
       await rm(temp, { force: true });
       throw error;
     }
-    const backup = `${target}.${process.pid}.replace-backup`;
-    await rm(backup, { force: true });
-    try {
-      await rename(target, backup);
-    } catch (backupError) {
-      if ((backupError as NodeJS.ErrnoException).code !== "ENOENT") throw backupError;
-    }
-    try {
-      await rename(temp, target);
-    } finally {
-      await rm(backup, { force: true });
-      await rm(temp, { force: true });
+    const backup = path.join(path.dirname(target), `.${path.basename(target)}.${nonce}.replace-backup`);
+    await replaceAfterWindowsRenameConflict(target, temp, backup);
+  }
+}
+
+export interface AtomicReplaceOperations {
+  rename(from: string, to: string): Promise<unknown>;
+  rm(target: string, options: { force: true }): Promise<unknown>;
+}
+
+/** Completes the Windows replace fallback without ever deleting the only backup on failure. */
+export async function replaceAfterWindowsRenameConflict(
+  target: string,
+  temp: string,
+  backup: string,
+  operations: AtomicReplaceOperations = { rename, rm }
+): Promise<void> {
+  let backupCreated = false;
+  try {
+    await operations.rename(target, backup);
+    backupCreated = true;
+  } catch (backupError) {
+    if ((backupError as NodeJS.ErrnoException).code !== "ENOENT") {
+      await operations.rm(temp, { force: true });
+      throw backupError;
     }
   }
+
+  try {
+    await operations.rename(temp, target);
+  } catch (placementError) {
+    if (backupCreated) {
+      try {
+        await operations.rename(backup, target);
+        backupCreated = false;
+      } catch (restoreError) {
+        await operations.rm(temp, { force: true });
+        throw new AggregateError(
+          [placementError, restoreError],
+          `Failed to replace ${target} and restore its backup. Backup retained at ${backup}.`
+        );
+      }
+    }
+    await operations.rm(temp, { force: true });
+    throw placementError;
+  }
+
+  if (backupCreated) await operations.rm(backup, { force: true });
+  await operations.rm(temp, { force: true });
+}
+
+export async function assertDistinctDiffOutputPaths(
+  baseline: string,
+  candidate: string,
+  out: string,
+  platform: NodeJS.Platform = process.platform
+): Promise<void> {
+  const [canonicalBaseline, canonicalCandidate, canonicalOut] = await Promise.all([
+    canonicalPathForComparison(baseline),
+    canonicalPathForComparison(candidate),
+    canonicalPathForComparison(out)
+  ]);
+  if (pathsEqualForPlatform(canonicalOut, canonicalBaseline, platform)) {
+    throw new Error("--out must not overwrite --baseline.");
+  }
+  if (pathsEqualForPlatform(canonicalOut, canonicalCandidate, platform)) {
+    throw new Error("--out must not overwrite --candidate.");
+  }
+}
+
+export async function canonicalPathForComparison(value: string): Promise<string> {
+  const absolute = path.resolve(value);
+  try {
+    return path.normalize(await realpath(absolute));
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+  }
+  try {
+    const parent = await realpath(path.dirname(absolute));
+    return path.normalize(path.join(parent, path.basename(absolute)));
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    return path.normalize(absolute);
+  }
+}
+
+export function pathsEqualForPlatform(
+  left: string,
+  right: string,
+  platform: NodeJS.Platform = process.platform
+): boolean {
+  const normalizedLeft = path.normalize(left);
+  const normalizedRight = path.normalize(right);
+  return platform === "win32"
+    ? normalizedLeft.toLowerCase() === normalizedRight.toLowerCase()
+    : normalizedLeft === normalizedRight;
+}
+
+function isDirectExecution(): boolean {
+  const entry = process.argv[1];
+  return Boolean(entry) && pathsEqualForPlatform(fileURLToPath(import.meta.url), path.resolve(entry));
 }
 
 function printSummary(project: WorkbenchProject, outDir: string): void {
@@ -261,6 +395,12 @@ Regenerate exports from a canonical project:
   npm run cli -- export --project <workbench.json> --out <artifacts-dir>
 
 Validate a canonical project:
-  npm run cli -- validate --project <workbench.json>
+  npm run cli -- validate --project <workbench.json> [--only block_transform]
+
+Compare deployed and candidate block transform rules:
+  npm run cli -- diff-block-transforms \\
+    --baseline <utd_block_transforms.json|workbench.json> \\
+    --candidate <utd_block_transforms.json|workbench.json> \\
+    [--out <utd_block_transform_diff.json>]
 `);
 }

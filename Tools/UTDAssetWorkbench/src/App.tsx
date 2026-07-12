@@ -17,8 +17,30 @@ import {
 import type { CanonicalItem, WorkbenchProject } from "./domain/schema";
 import { lootMatchesItem, refMatchesItem } from "./domain/relations";
 import { catalogIdentityLabel, matchesCatalogQuery } from "./domain/catalogIdentity";
+import { buildCandidatePackage } from "./domain/candidateCore";
+import {
+  applyDraftSlices,
+  applyLocalDraft,
+  draftIdentityFor,
+  draftSlicesDigest,
+  extractDraftSlices,
+  loadLocalDraft,
+  removeLocalDraft,
+  saveLocalDraft,
+  type DraftIdentity,
+  type DraftSlices,
+  type StorageLike
+} from "./domain/draftStorage";
 
 type CatalogFilter = "selected" | "managed" | "dependency" | "issues" | "all";
+
+interface DraftUiState {
+  hasLocal: boolean;
+  restored: boolean;
+  unexported: boolean;
+  savedAt: string;
+  error: string;
+}
 
 export default function App() {
   const [project, setProject] = useState<WorkbenchProject>(sampleProject);
@@ -29,11 +51,60 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<CatalogFilter>("selected");
   const [notice, setNotice] = useState("示例档案已载入 · 可导入 CLI 生成的 workbench.json");
+  const [draftStatus, setDraftStatus] = useState<DraftUiState>({
+    hasLocal: false,
+    restored: false,
+    unexported: false,
+    savedAt: "",
+    error: ""
+  });
   const fileInput = useRef<HTMLInputElement>(null);
+  const draftIdentity = useRef<DraftIdentity>(draftIdentityFor(sampleProject));
+  const baseDraftSlices = useRef<DraftSlices>(extractDraftSlices(sampleProject));
+  const persistedDraftDigest = useRef(draftSlicesDigest(sampleProject));
+  const exportedDraftDigest = useRef(draftSlicesDigest(sampleProject));
+  const latestAuthoredDigest = useRef(draftSlicesDigest(sampleProject));
   const rootItem = project.items.find((item) => item.itemKey === rootItemKey) ?? project.items.find((item) => item.humanSelected)!;
   const visibleItems = useMemo(() => filterItems(project.items, filter, query), [project.items, filter, query]);
   const rootRecipes = project.recipes.filter((recipe) => recipe.outputs.some((output) => refMatchesItem(output, rootItem)));
   const rootLoot = project.lootPolicies.filter((policy) => lootMatchesItem(policy, rootItem));
+
+  const activateProject = (base: WorkbenchProject, sourceNotice: string) => {
+    const identity = draftIdentityFor(base);
+    const baselineSlices = extractDraftSlices(base);
+    const baselineDigest = draftSlicesDigest(baselineSlices);
+    let next = base;
+    let restored = false;
+    let savedAt = "";
+    let error = "";
+    const storage = browserStorage();
+    if (storage) {
+      try {
+        const local = loadLocalDraft(storage, identity);
+        if (local) {
+          next = applyLocalDraft(base, local);
+          restored = true;
+          savedAt = local.saved_at;
+        }
+      } catch (problem) {
+        error = problem instanceof Error ? problem.message : String(problem);
+      }
+    }
+    const restoredDigest = draftSlicesDigest(next);
+    draftIdentity.current = identity;
+    baseDraftSlices.current = baselineSlices;
+    persistedDraftDigest.current = restoredDigest;
+    exportedDraftDigest.current = baselineDigest;
+    setProject(next);
+    setDraftStatus({
+      hasLocal: restored,
+      restored,
+      unexported: restored && restoredDigest !== baselineDigest,
+      savedAt,
+      error
+    });
+    setNotice(`${sourceNotice}${restored ? " · 已恢复本地草稿" : ""}${error ? ` · 草稿未恢复：${error}` : ""}`);
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -45,14 +116,41 @@ export default function App() {
         if (cancelled) return;
         const nextRoot = parsed.items.find((item) => item.humanSelected)?.itemKey;
         if (!nextRoot) return;
-        setProject(parsed);
+        activateProject(parsed, `已自动载入 public/data/workbench.json · ${parsed.items.length} 个状态身份`);
         setRootItemKey(nextRoot);
         setSelection({ kind: "item", id: nextRoot });
-        setNotice(`已自动载入 public/data/workbench.json · ${parsed.items.length} 个状态身份`);
       })
       .catch(() => undefined);
     return () => { cancelled = true; };
   }, []);
+
+  const authoredDigest = draftSlicesDigest(project);
+  latestAuthoredDigest.current = authoredDigest;
+  useEffect(() => {
+    if (authoredDigest === persistedDraftDigest.current) return;
+    const storage = browserStorage();
+    if (!storage) {
+      setDraftStatus((current) => ({ ...current, error: "浏览器本地存储不可用，草稿未自动保存。", unexported: true }));
+      return;
+    }
+    try {
+      const document = saveLocalDraft(storage, draftIdentity.current, project);
+      persistedDraftDigest.current = authoredDigest;
+      setDraftStatus((current) => ({
+        ...current,
+        hasLocal: true,
+        unexported: authoredDigest !== exportedDraftDigest.current,
+        savedAt: document.saved_at,
+        error: ""
+      }));
+    } catch (problem) {
+      setDraftStatus((current) => ({
+        ...current,
+        error: problem instanceof Error ? problem.message : String(problem),
+        unexported: true
+      }));
+    }
+  }, [authoredDigest]);
 
   const chooseItem = (item: CanonicalItem) => {
     if (item.humanSelected) setRootItemKey(item.itemKey);
@@ -72,33 +170,71 @@ export default function App() {
       assertWorkbenchProject(parsed);
       const nextRoot = parsed.items.find((item) => item.humanSelected)?.itemKey;
       if (!nextRoot) throw new Error("Project has no human_selected whitelist root.");
-      setProject(parsed);
+      activateProject(parsed, `已载入 ${file.name} · ${parsed.manifest.counts.managedItems} 个纳管身份`);
       setRootItemKey(nextRoot);
       setSelection({ kind: "item", id: nextRoot });
       setFilter("selected");
       setTab("record");
-      setNotice(`已载入 ${file.name} · ${parsed.manifest.counts.managedItems} 个纳管身份`);
     } catch (error) {
       setNotice(`载入失败：${error instanceof Error ? error.message : String(error)}`);
     }
   };
 
   const save = (kind: "project" | "recipes" | "loot" | "status" | "statusKjs" | "excel" | "presentation" | "lang" | "transforms") => {
-    const base = project.manifest.projectId.replace(/[^a-zA-Z0-9_-]+/g, "_");
-    const exports = {
-      project: [`${base}.workbench.json`, exportProjectJson(project), "application/json"],
-      recipes: ["utd_recipe_data.filtered.js", exportRecipeKjs(project), "text/javascript"],
-      loot: ["utd_loot_registry_data.filtered.js", exportLootRegistryKjs(project), "text/javascript"],
-      status: ["status_manifest.json", exportStatusJson(project), "application/json"],
-      statusKjs: ["utd_asset_status_manifest.js", exportStatusKjs(project), "text/javascript"],
-      excel: ["utd_asset_excel_interface.json", exportExcelInterfaceJson(project), "application/json"],
-      presentation: ["utd_item_presentations.json", exportPresentationJson(project), "application/json"],
-      lang: ["utd_lang_overlays.json", exportLangOverlaysJson(project), "application/json"],
-      transforms: ["utd_block_transforms.json", exportBlockTransformsJson(project), "application/json"]
-    } as const;
-    const [filename, text, mime] = exports[kind];
-    download(filename, text, mime);
-    setNotice(`已生成 ${filename}`);
+    try {
+      const base = project.manifest.projectId.replace(/[^a-zA-Z0-9_-]+/g, "_");
+      const exports = {
+        project: [`${base}.workbench.json`, exportProjectJson(project), "application/json"],
+        recipes: ["utd_recipe_data.filtered.js", exportRecipeKjs(project), "text/javascript"],
+        loot: ["utd_loot_registry_data.filtered.js", exportLootRegistryKjs(project), "text/javascript"],
+        status: ["status_manifest.json", exportStatusJson(project), "application/json"],
+        statusKjs: ["utd_asset_status_manifest.js", exportStatusKjs(project), "text/javascript"],
+        excel: ["utd_asset_excel_interface.json", exportExcelInterfaceJson(project), "application/json"],
+        presentation: ["utd_item_presentations.json", exportPresentationJson(project), "application/json"],
+        lang: ["utd_lang_overlays.json", exportLangOverlaysJson(project), "application/json"],
+        transforms: ["utd_block_transforms.json", exportBlockTransformsJson(project), "application/json"]
+      } as const;
+      const [filename, text, mime] = exports[kind];
+      download(filename, text, mime);
+      setNotice(`已生成 ${filename}`);
+    } catch (error) {
+      setNotice(`生成失败：${error instanceof Error ? error.message : String(error)}`);
+    }
+  };
+
+  const saveCandidate = async () => {
+    const packagedDigest = authoredDigest;
+    setNotice("正在校验并生成候选包 ZIP…");
+    try {
+      const candidate = await buildCandidatePackage(project);
+      downloadBytes(candidate.filename, candidate.bytes, "application/zip");
+      exportedDraftDigest.current = packagedDigest;
+      const changedDuringBuild = latestAuthoredDigest.current !== packagedDigest;
+      setDraftStatus((current) => ({ ...current, unexported: changedDuringBuild }));
+      setNotice(changedDuringBuild
+        ? `已生成 ${candidate.filename}，但生成期间出现新修改；当前内容仍标记为未导出`
+        : `已生成候选包 ${candidate.filename} · 3 个核心 JSON + SHA-256 manifest`);
+    } catch (error) {
+      setNotice(`候选包生成失败：${error instanceof Error ? error.message : String(error)}`);
+    }
+  };
+
+  const clearDraft = () => {
+    if (!draftStatus.hasLocal && !draftStatus.error) return;
+    if (!window.confirm("清除当前目录的本地草稿，并恢复载入时的配方、Loot、名称/介绍与方块替换规则？")) return;
+    const storage = browserStorage();
+    try {
+      if (storage) removeLocalDraft(storage, draftIdentity.current);
+      const next = applyDraftSlices(project, baseDraftSlices.current);
+      const digest = draftSlicesDigest(next);
+      persistedDraftDigest.current = digest;
+      exportedDraftDigest.current = digest;
+      setProject(next);
+      setDraftStatus({ hasLocal: false, restored: false, unexported: false, savedAt: "", error: "" });
+      setNotice("本地草稿已清除 · 已恢复载入时的配方、Loot、名称/介绍与方块替换规则");
+    } catch (error) {
+      setDraftStatus((current) => ({ ...current, error: error instanceof Error ? error.message : String(error) }));
+    }
   };
 
   return (
@@ -118,6 +254,7 @@ export default function App() {
           <Metric label="ISSUES" value={project.manifest.counts.issues} alert={project.manifest.counts.issues > 0} />
         </div>
         <div className="topbar-actions">
+          <DraftBadge status={draftStatus} identity={draftIdentity.current} onClear={clearDraft} />
           <input
             ref={fileInput}
             type="file"
@@ -133,6 +270,8 @@ export default function App() {
           <details className="export-menu">
             <summary className="button button--primary">生成文件</summary>
             <div>
+              <button type="button" className="export-core" onClick={() => void saveCandidate()}><span>候选包 ZIP</span><small>一次下载 · 含校验清单</small></button>
+              <p className="export-warning">ZIP 内含规范项目、方块替换、物品显示和 manifest；清单记录每个核心文件的 SHA-256 与字节数。</p>
               <button type="button" onClick={() => save("project")}><span>规范项目</span><small>workbench.json</small></button>
               <button type="button" onClick={() => save("recipes")}><span>配方 KJS</span><small>完整载荷</small></button>
               <button type="button" onClick={() => save("loot")}><span>Loot KJS</span><small>完整载荷</small></button>
@@ -256,6 +395,28 @@ function FilterButton({ active, onClick, children }: { active: boolean; onClick:
   return <button type="button" className={active ? "is-active" : ""} onClick={onClick}>{children}</button>;
 }
 
+function DraftBadge({ status, identity, onClear }: { status: DraftUiState; identity: DraftIdentity; onClear: () => void }) {
+  const state = status.error
+    ? `草稿错误${status.unexported ? " / 未导出" : ""}`
+    : status.hasLocal
+    ? `本地草稿${status.unexported ? " / 未导出" : " / 已导出"}`
+    : status.unexported
+      ? "未保存 / 未导出"
+      : "无本地草稿";
+  return (
+    <div
+      className={`draft-badge ${status.unexported ? "has-pending" : ""} ${status.error ? "has-error" : ""}`}
+      title={`${identity.projectId}\n${identity.catalogHash}${status.savedAt ? `\n保存于 ${status.savedAt}` : ""}${status.error ? `\n${status.error}` : ""}`}
+      role="status"
+    >
+      <span>AUTHORING</span>
+      <strong>{state}</strong>
+      {status.restored && <i>已恢复</i>}
+      {(status.hasLocal || status.error) && <button type="button" onClick={onClear} aria-label="清除本地草稿">清除</button>}
+    </div>
+  );
+}
+
 function filterItems(items: CanonicalItem[], filter: CatalogFilter, query: string): CanonicalItem[] {
   return items
     .filter((item) => {
@@ -280,4 +441,22 @@ function download(filename: string, text: string, mime: string): void {
   anchor.download = filename;
   anchor.click();
   window.setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+function downloadBytes(filename: string, bytes: Uint8Array, mime: string): void {
+  const buffer = Uint8Array.from(bytes).buffer;
+  const url = URL.createObjectURL(new Blob([buffer], { type: mime }));
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = filename;
+  anchor.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+function browserStorage(): StorageLike | null {
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
 }
