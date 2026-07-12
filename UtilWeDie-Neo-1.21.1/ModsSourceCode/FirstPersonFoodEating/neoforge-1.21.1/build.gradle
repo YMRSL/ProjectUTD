@@ -6,7 +6,7 @@ plugins {
     id 'com.gradleup.shadow' version '8.3.5'
 }
 
-version = '0.1.0-neoforge-1.21.1'
+version = '0.1.1-test1-neoforge-1.21.1'
 group = 'io.github.ymrsl.firstpersonfoodeating'
 base { archivesName = 'firstpersonfoodeating' }
 

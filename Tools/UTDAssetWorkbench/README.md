@@ -11,6 +11,7 @@
 - FPE、TaCZ 等变体先按 `asset_key` 精确匹配，再按单一 `variant_discriminator` 匹配；变体绝不退化为 base registry id 匹配。
 - 游戏导出的 `clientNameZhCn / translationKey` 是只读观察证据；改名和物品介绍写入独立的 `presentations[]` 草稿，不覆盖原始档案。
 - 方块右键替换制造使用独立的 `blockTransforms[]` 草稿；工作台只生成审核文件，不直接改运行目录。
+- “属性”页使用独立的 `itemProperties[]` 草稿；启动器自动读取 RarityCore、BlockZ、TaCZ 枪包与 FPE 当前值，候选包按原生协议生成覆盖文件，不修改第三方 JAR。
 - Excel 目前是单向审阅接口 JSON；实际 `.xlsx` 由上层导出器生成，Excel 不是权威源。
 - 分类权威映射位于 `data/utd_item_categories.json`，由 `ItemNameCatch分类汇总_合成设计方案_v1.xlsx` 的“汇总”表机械提取；未命中的新物品明确显示“未分类”，不会按模组名猜测。
 
@@ -36,13 +37,14 @@ npm.cmd run preview
 
 ### 浏览器草稿与候选包
 
-页面会按载入时固定的 `projectId + catalogHash` 自动保存轻量 `v2` 草稿。草稿只包含物品显示、方块替换、配方可编辑字段和 Loot 可编辑字段，不保存完整物品目录、配方 `raw` 或整份项目；刷新页面会按 `recipe.id` 与 `loot.identityKey` 精确恢复，身份集合不一致时拒绝模糊回放。写入前使用与恢复时相同的 2 MB 上限，超限不会覆盖上一份可恢复草稿。当前真实 890/960/798 项目的草稿约 316 KB。
+页面会按载入时固定的 `projectId + catalogHash` 自动保存轻量 `v2` 草稿。草稿只包含物品显示、方块替换、属性覆盖、配方可编辑字段和 Loot 可编辑字段，不保存完整物品目录、配方 `raw` 或整份项目；刷新页面会按精确身份恢复，身份集合不一致时拒绝模糊回放。写入前使用与恢复时相同的 2 MB 上限，超限不会覆盖上一份可恢复草稿。当前真实目录连同 50 把枪的源参数约 453 KB。
 
 右上角“候选包 ZIP”会在全部校验通过后一次下载 `<projectId>.candidate.zip`，其中固定包含：
 
 - `workbench.json`：本次编辑后的规范项目；
 - `utd_block_transforms.json`：方块替换运行候选；
 - `utd_item_presentations.json`：名称/介绍候选；
+- `utd_item_properties.json`：统一属性候选；启用条目还会附带 `integrations/` 下的 RarityCore、BlockZ、TaCZ 与食品原生覆盖文件；
 - `manifest.json`：上述三个文件的 WebCrypto SHA-256 和 UTF-8 字节数。
 
 启用但不完整、重复 ID、创造模式策略错误，或相同目标状态与优先级冲突的规则都会阻止 ZIP 生成。单项导出按钮仍保留给诊断使用，但正式发布必须保留 ZIP、规范项目和差异报告。
@@ -158,6 +160,7 @@ npm.cmd run cli -- import `
 | `utd_lang_overlays.json` | 已启用显示覆盖的 `zh_cn` 条目，按 namespace 汇总 |
 | `lang_overlays/<namespace>/zh_cn.json` | 可逐 namespace 审核/复制的标准语言 JSON；工作台不会自动部署 |
 | `utd_block_transforms.json` | 可直接交给 Java 运行器的嵌套 `rules[]` 右键方块替换制造规则 |
+| `utd_item_properties.json` | 稀有度、占格/容量、枪械和食品属性的统一审核契约 |
 | `utd_asset_excel_interface.json` | README、Items、Recipes、Inputs、Outputs、Loot、Presentation、Block Transforms、Issues 工作表接口 |
 | `manifest.json` | 输入源哈希、每个生成物哈希、计数与图范围 |
 

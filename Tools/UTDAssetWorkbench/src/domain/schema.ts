@@ -6,6 +6,7 @@ export const PRESENTATION_SCHEMA = "utd-item-presentation/v1" as const;
 export const LANG_OVERLAY_SCHEMA = "utd-lang-overlays/v1" as const;
 export const BLOCK_TRANSFORM_SCHEMA = "utd-block-transforms/v1" as const;
 export const ITEM_CATEGORY_SCHEMA = "utd-item-categories/v1" as const;
+export const ITEM_PROPERTY_SCHEMA = "utd-item-properties/v1" as const;
 
 export type JsonPrimitive = string | number | boolean | null;
 export type JsonValue = JsonPrimitive | JsonObject | JsonValue[];
@@ -180,6 +181,72 @@ export interface BlockTransform {
   creativeConsume: boolean;
 }
 
+export interface RarityProperty {
+  value: number;
+}
+
+export interface BlockZProperty {
+  width: number;
+  height: number;
+  capacityWidth: number | null;
+  capacityHeight: number | null;
+}
+
+export interface TaczGunProperty {
+  gunId: string;
+  sourcePack: string;
+  sourceNamespace: string;
+  sourceDataId: string;
+  sourceData: JsonObject;
+  damage: number;
+  ammoAmount: number;
+  rpm: number;
+  reloadTacticalFeed: number;
+  reloadTacticalCooldown: number;
+  reloadEmptyFeed: number;
+  reloadEmptyCooldown: number;
+  inaccuracyStand: number;
+  inaccuracyMove: number;
+  inaccuracySneak: number;
+  inaccuracyLie: number;
+  inaccuracyAim: number;
+  armorIgnore: number;
+  pierce: number;
+  bulletSpeed: number;
+  gravity: number;
+}
+
+export interface FoodEffectProperty {
+  id: string;
+  durationTicks: number;
+  amplifier: number;
+  chance: number;
+}
+
+export interface FoodProperty {
+  foodId: string;
+  nutrition: number;
+  saturation: number;
+  thirstDelta: number;
+  waterDelta: number;
+  thirstMode: "always" | "only";
+  effects: FoodEffectProperty[];
+}
+
+/** Authored integration values. Original third-party files remain immutable evidence. */
+export interface ItemPropertyOverride {
+  itemKey: string;
+  registryId: string;
+  variantDiscriminator: string;
+  enabled: boolean;
+  rarity: RarityProperty | null;
+  blockz: BlockZProperty | null;
+  tacz: TaczGunProperty | null;
+  food: FoodProperty | null;
+  baseCatalogHash: string;
+  updatedAt: string;
+}
+
 export interface GraphNode {
   id: string;
   kind: "item" | "recipe" | "tag" | "fluid" | "unknown";
@@ -235,6 +302,7 @@ export interface WorkbenchManifest {
     lootRegistry?: SourceFingerprint;
     lootBalance?: SourceFingerprint;
     blockTransforms?: SourceFingerprint;
+    itemProperties?: SourceFingerprint;
     categories?: SourceFingerprint;
   };
   counts: {
@@ -244,6 +312,7 @@ export interface WorkbenchManifest {
     lootPolicies: number;
     presentations: number;
     blockTransforms: number;
+    itemProperties: number;
     cycles: number;
     issues: number;
   };
@@ -258,6 +327,7 @@ export interface WorkbenchProject {
   lootPolicies: CanonicalLootPolicy[];
   presentations: ItemPresentationOverride[];
   blockTransforms: BlockTransform[];
+  itemProperties: ItemPropertyOverride[];
   lootBalance: JsonObject | null;
   graph: FilteredGraph;
   issues: ValidationIssue[];

@@ -13,6 +13,7 @@ import {
 } from "./schema";
 import { isRecord, numberOr, stringOr } from "./stable";
 import { hydrateItemCategories } from "./categories";
+import { validateItemProperties } from "./itemProperties";
 
 /**
  * Hydrates additive v1 fields in place so old workbench/v1 files continue to
@@ -26,11 +27,13 @@ export function hydrateWorkbenchProject(value: unknown): WorkbenchProject {
   hydrateItemCategories(project);
   project.presentations = normalizePresentations(project);
   project.blockTransforms = normalizeBlockTransforms(project);
+  project.itemProperties = Array.isArray(project.itemProperties) ? project.itemProperties : [];
   project.manifest.counts.presentations = project.presentations.length;
   project.manifest.counts.blockTransforms = project.blockTransforms.length;
+  project.manifest.counts.itemProperties = project.itemProperties.length;
   project.issues = project.issues
-    .filter((issue) => issue.entityType !== "block_transform")
-    .concat(validateBlockTransforms(project.blockTransforms));
+    .filter((issue) => issue.entityType !== "block_transform" && !issue.code.startsWith("item_property_"))
+    .concat(validateBlockTransforms(project.blockTransforms), validateItemProperties(project.itemProperties));
   project.manifest.counts.issues = project.issues.length;
   return project;
 }

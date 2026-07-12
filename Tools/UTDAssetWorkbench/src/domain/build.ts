@@ -29,8 +29,9 @@ export interface BuildWorkbenchInput {
     recipes?: SourceFingerprint;
     lootRegistry?: SourceFingerprint;
     lootBalance?: SourceFingerprint;
-      blockTransforms?: SourceFingerprint;
-      categories?: SourceFingerprint;
+    blockTransforms?: SourceFingerprint;
+    itemProperties?: SourceFingerprint;
+    categories?: SourceFingerprint;
   };
 }
 
@@ -82,7 +83,8 @@ export function buildWorkbenchProject(input: BuildWorkbenchInput): WorkbenchProj
     recipes: recipes.map((recipe) => ({ id: recipe.id, inputs: recipe.inputs, outputs: recipe.outputs, station: recipe.station, level: recipe.level })),
     lootPolicies: lootPolicies.map((policy) => ({ identityKey: policy.identityKey, registryId: policy.registryId, variantDiscriminator: policy.variantDiscriminator, enabled: policy.lootEnabled, level: policy.level, count: policy.count })),
     presentations: [],
-    blockTransforms: []
+    blockTransforms: [],
+    itemProperties: []
   });
   return {
     schemaVersion: WORKBENCH_SCHEMA,
@@ -99,6 +101,7 @@ export function buildWorkbenchProject(input: BuildWorkbenchInput): WorkbenchProj
         lootRegistry: input.source?.lootRegistry,
         lootBalance: input.source?.lootBalance,
         blockTransforms: input.source?.blockTransforms,
+        itemProperties: input.source?.itemProperties,
         categories: input.source?.categories
       },
       counts: {
@@ -108,6 +111,7 @@ export function buildWorkbenchProject(input: BuildWorkbenchInput): WorkbenchProj
         lootPolicies: lootPolicies.length,
         presentations: 0,
         blockTransforms: 0,
+        itemProperties: 0,
         cycles: graph.cycles.length,
         issues: issues.length
       }
@@ -118,6 +122,7 @@ export function buildWorkbenchProject(input: BuildWorkbenchInput): WorkbenchProj
     lootPolicies,
     presentations: [],
     blockTransforms: [],
+    itemProperties: [],
     lootBalance: input.lootBalance === undefined ? null : asJsonObject(input.lootBalance),
     graph,
     issues,

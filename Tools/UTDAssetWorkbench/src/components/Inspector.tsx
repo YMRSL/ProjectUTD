@@ -10,6 +10,7 @@ import {
   addBlockTransform,
   removeBlockTransform,
   updateBlockTransform,
+  updateItemProperty,
   updateItemPresentation,
   updateManagedLoot,
   updateManagedRecipe
@@ -19,15 +20,17 @@ import type {
   BlockTransform,
   CanonicalItem,
   CanonicalRecipe,
+  ItemPropertyOverride,
   ItemPresentationOverride,
   ValidationIssue,
   WorkbenchProject
 } from "../domain/schema";
 import { lootMatchesItem, refMatchesItem } from "../domain/relations";
 import { stableStringify } from "../domain/stable";
+import { propertyForItem } from "../domain/itemProperties";
 import type { EntitySelection } from "./GraphCanvas";
 
-export type InspectorTab = "record" | "recipe" | "loot" | "issues";
+export type InspectorTab = "record" | "property" | "recipe" | "loot" | "issues";
 
 interface Props {
   project: WorkbenchProject;
@@ -49,6 +52,7 @@ export function Inspector({ project, rootItemKey, selection, tab, onTab, onSelec
     : recipes[0];
   const loot = project.lootPolicies.filter((policy) => lootMatchesItem(policy, rootItem));
   const presentation = presentationForItem(project, contextItem) ?? defaultPresentation(contextItem);
+  const itemProperty = propertyForItem(project, contextItem);
   const transforms = transformsFor(project, contextItem);
   const issueCount = relevantIssues(project, contextItem, recipes).length;
 
@@ -56,6 +60,7 @@ export function Inspector({ project, rootItemKey, selection, tab, onTab, onSelec
     <aside className="inspector">
       <div className="inspector-tabs" role="tablist" aria-label="检查器">
         <Tab active={tab === "record"} onClick={() => onTab("record")}>档案</Tab>
+        <Tab active={tab === "property"} count={itemProperty.enabled ? 1 : undefined} onClick={() => onTab("property")}>属性</Tab>
         <Tab active={tab === "recipe"} count={recipes.length + transforms.length} onClick={() => onTab("recipe")}>配方</Tab>
         <Tab active={tab === "loot"} count={loot.length} onClick={() => onTab("loot")}>Loot</Tab>
         <Tab active={tab === "issues"} count={issueCount} onClick={() => onTab("issues")}>问题</Tab>
@@ -67,6 +72,13 @@ export function Inspector({ project, rootItemKey, selection, tab, onTab, onSelec
             item={contextItem}
             presentation={presentation}
             onPresentationChange={(patch) => setProject((current) => updateItemPresentation(current, contextItem.itemKey, patch))}
+          />
+        )}
+        {tab === "property" && (
+          <PropertyPanel
+            item={contextItem}
+            property={itemProperty}
+            onChange={(patch) => setProject((current) => updateItemProperty(current, contextItem.itemKey, patch))}
           />
         )}
         {tab === "recipe" && (
@@ -195,6 +207,140 @@ function RecordPanel({ item, presentation, onPresentationChange }: {
       </details>
     </div>
   );
+}
+
+function PropertyPanel({ item, property, onChange }: {
+  item: CanonicalItem;
+  property: ItemPropertyOverride;
+  onChange: (patch: Partial<Pick<ItemPropertyOverride, "enabled" | "rarity" | "blockz" | "tacz" | "food">>) => void;
+}) {
+  const editable = item.ownership === "utd" && item.managed;
+  const patchTacz = (patch: Partial<NonNullable<ItemPropertyOverride["tacz"]>>) => {
+    if (property.tacz) onChange({ tacz: { ...property.tacz, ...patch } });
+  };
+  const patchFood = (patch: Partial<NonNullable<ItemPropertyOverride["food"]>>) => {
+    if (property.food) onChange({ food: { ...property.food, ...patch } });
+  };
+  return (
+    <div className="inspector-panel property-panel">
+      <PanelKicker>RUNTIME INTEGRATIONS</PanelKicker>
+      <h2>{item.clientNameZhCn}</h2>
+      <p className="mono inspector-id">{item.variantDiscriminator || item.registryId}</p>
+      <p className="panel-note">这里只生成带哈希的候选属性，不直接改第三方 JAR。关闭总开关会保留草稿但不参与晋升。</p>
+      <label className="switch presentation-switch">
+        <input type="checkbox" checked={property.enabled} disabled={!editable} onChange={(event) => onChange({ enabled: event.target.checked })} />
+        <i />
+        {property.enabled ? "参与候选发布" : "保留属性草稿"}
+      </label>
+
+      <SectionTitle>RarityCore 稀有度</SectionTitle>
+      <Field label="等级（1–7）">
+        <select
+          disabled={!editable}
+          value={property.rarity?.value ?? 0}
+          onChange={(event) => onChange({ rarity: Number(event.target.value) ? { value: Number(event.target.value) } : null })}
+        >
+          <option value={0}>未覆盖</option>
+          <option value={1}>1 · 普通</option><option value={2}>2 · 优良</option><option value={3}>3 · 稀有</option>
+          <option value={4}>4 · 史诗</option><option value={5}>5 · 传说</option><option value={6}>6 · 神话</option><option value={7}>7 · 唯一</option>
+        </select>
+      </Field>
+
+      <SectionTitle>BlockZ 占格 / 容量</SectionTitle>
+      <label className="switch presentation-switch">
+        <input
+          type="checkbox"
+          checked={property.blockz !== null}
+          disabled={!editable}
+          onChange={(event) => onChange({ blockz: event.target.checked
+            ? { width: 1, height: 1, capacityWidth: null, capacityHeight: null }
+            : null })}
+        />
+        <i />启用 BlockZ 覆盖
+      </label>
+      {property.blockz && <div className="property-grid">
+        <NumericField label="物品宽" value={property.blockz.width} min={1} max={20} disabled={!editable}
+          onChange={(width) => onChange({ blockz: { ...property.blockz!, width } })} />
+        <NumericField label="物品高" value={property.blockz.height} min={1} max={20} disabled={!editable}
+          onChange={(height) => onChange({ blockz: { ...property.blockz!, height } })} />
+        <NumericField label="背包列数" value={property.blockz.capacityWidth ?? 0} min={0} max={30} disabled={!editable}
+          onChange={(value) => onChange({ blockz: { ...property.blockz!, capacityWidth: value || null } })} />
+        <NumericField label="背包行数" value={property.blockz.capacityHeight ?? 0} min={0} max={30} disabled={!editable}
+          onChange={(value) => onChange({ blockz: { ...property.blockz!, capacityHeight: value || null } })} />
+      </div>}
+
+      {property.tacz && <>
+        <SectionTitle>TaCZ 枪械参数</SectionTitle>
+        {!property.tacz.sourcePack && <p className="panel-note warning-note">尚未关联枪包源文件；编辑值可以保存，但正式晋升前必须先扫描枪包。</p>}
+        <div className="property-grid">
+          <NumericField label="伤害" value={property.tacz.damage} min={0} max={100000} disabled={!editable} onChange={(damage) => patchTacz({ damage })} />
+          <NumericField label="弹匣容量" value={property.tacz.ammoAmount} min={1} max={10000} integer disabled={!editable} onChange={(ammoAmount) => patchTacz({ ammoAmount })} />
+          <NumericField label="射速 RPM" value={property.tacz.rpm} min={1} max={1200} integer disabled={!editable} onChange={(rpm) => patchTacz({ rpm })} />
+          <NumericField label="穿甲系数" value={property.tacz.armorIgnore} min={0} max={1} step={0.01} disabled={!editable} onChange={(armorIgnore) => patchTacz({ armorIgnore })} />
+          <NumericField label="穿透数" value={property.tacz.pierce} min={0} max={100} integer disabled={!editable} onChange={(pierce) => patchTacz({ pierce })} />
+          <NumericField label="弹速" value={property.tacz.bulletSpeed} min={0} max={10000} disabled={!editable} onChange={(bulletSpeed) => patchTacz({ bulletSpeed })} />
+          <NumericField label="重力" value={property.tacz.gravity} min={0} max={100} step={0.01} disabled={!editable} onChange={(gravity) => patchTacz({ gravity })} />
+          <NumericField label="战术入弹" value={property.tacz.reloadTacticalFeed} min={0} max={120} step={0.01} disabled={!editable} onChange={(reloadTacticalFeed) => patchTacz({ reloadTacticalFeed })} />
+          <NumericField label="战术完成" value={property.tacz.reloadTacticalCooldown} min={0} max={120} step={0.01} disabled={!editable} onChange={(reloadTacticalCooldown) => patchTacz({ reloadTacticalCooldown })} />
+          <NumericField label="空仓入弹" value={property.tacz.reloadEmptyFeed} min={0} max={120} step={0.01} disabled={!editable} onChange={(reloadEmptyFeed) => patchTacz({ reloadEmptyFeed })} />
+          <NumericField label="空仓完成" value={property.tacz.reloadEmptyCooldown} min={0} max={120} step={0.01} disabled={!editable} onChange={(reloadEmptyCooldown) => patchTacz({ reloadEmptyCooldown })} />
+          <NumericField label="站立散布" value={property.tacz.inaccuracyStand} min={0} max={180} step={0.01} disabled={!editable} onChange={(inaccuracyStand) => patchTacz({ inaccuracyStand })} />
+          <NumericField label="移动散布" value={property.tacz.inaccuracyMove} min={0} max={180} step={0.01} disabled={!editable} onChange={(inaccuracyMove) => patchTacz({ inaccuracyMove })} />
+          <NumericField label="潜行散布" value={property.tacz.inaccuracySneak} min={0} max={180} step={0.01} disabled={!editable} onChange={(inaccuracySneak) => patchTacz({ inaccuracySneak })} />
+          <NumericField label="趴下散布" value={property.tacz.inaccuracyLie} min={0} max={180} step={0.01} disabled={!editable} onChange={(inaccuracyLie) => patchTacz({ inaccuracyLie })} />
+          <NumericField label="瞄准散布" value={property.tacz.inaccuracyAim} min={0} max={180} step={0.01} disabled={!editable} onChange={(inaccuracyAim) => patchTacz({ inaccuracyAim })} />
+        </div>
+      </>}
+
+      <SectionTitle>食品 / 饮品效果</SectionTitle>
+      {!property.food && <button type="button" className="button" disabled={!editable} onClick={() => onChange({ food: {
+        foodId: item.variantDiscriminator.startsWith("food_id=") ? item.variantDiscriminator.slice(8) : item.registryId,
+        nutrition: 0, saturation: 0, thirstDelta: 0, waterDelta: 0, thirstMode: "always", effects: []
+      } })}>添加食品属性</button>}
+      {property.food && <>
+        <div className="property-grid">
+          <NumericField label="饱食度" value={property.food.nutrition} min={0} max={100} integer disabled={!editable} onChange={(nutrition) => patchFood({ nutrition })} />
+          <NumericField label="饱和度" value={property.food.saturation} min={0} max={100} step={0.1} disabled={!editable} onChange={(saturation) => patchFood({ saturation })} />
+          <NumericField label="口渴值" value={property.food.thirstDelta} min={-100} max={100} integer disabled={!editable} onChange={(thirstDelta) => patchFood({ thirstDelta })} />
+          <NumericField label="水分值" value={property.food.waterDelta} min={-100} max={100} integer disabled={!editable} onChange={(waterDelta) => patchFood({ waterDelta })} />
+        </div>
+        <Field label="口渴联动模式">
+          <select disabled={!editable} value={property.food.thirstMode} onChange={(event) => patchFood({ thirstMode: event.target.value as "always" | "only" })}>
+            <option value="always">同时应用食品与口渴效果</option><option value="only">仅应用口渴效果</option>
+          </select>
+        </Field>
+        <FoodEffectsEditor property={property} disabled={!editable} onChange={patchFood} />
+        <button type="button" className="button button--danger" disabled={!editable} onClick={() => onChange({ food: null })}>移除食品覆盖</button>
+      </>}
+    </div>
+  );
+}
+
+function NumericField({ label, value, min, max, step = 1, integer = false, disabled, onChange }: {
+  label: string; value: number; min: number; max: number; step?: number; integer?: boolean; disabled: boolean; onChange: (value: number) => void;
+}) {
+  return <Field label={label}><input type="number" value={value} min={min} max={max} step={step} disabled={disabled}
+    onChange={(event) => {
+      const value = Number(event.target.value);
+      onChange(integer ? Math.trunc(value) : value);
+    }} /></Field>;
+}
+
+function FoodEffectsEditor({ property, disabled, onChange }: {
+  property: ItemPropertyOverride;
+  disabled: boolean;
+  onChange: (patch: Partial<NonNullable<ItemPropertyOverride["food"]>>) => void;
+}) {
+  const effects = property.food?.effects ?? [];
+  const serialized = effects.map((entry) => `${entry.id} | ${entry.durationTicks} | ${entry.amplifier} | ${entry.chance}`).join("\n");
+  const [text, setText] = useState(serialized);
+  useEffect(() => setText(serialized), [serialized]);
+  return <Field label="状态效果（ID | tick | 等级 | 概率）"><textarea rows={5} value={text} disabled={disabled}
+    placeholder="minecraft:speed | 200 | 0 | 1"
+    onChange={(event) => setText(event.target.value)}
+    onBlur={() => onChange({ effects: text.split(/\r?\n/).map((line) => line.split("|").map((part) => part.trim())).filter((parts) => parts.length === 4 && parts[0]).map((parts) => ({
+      id: parts[0], durationTicks: Math.trunc(Number(parts[1])), amplifier: Math.trunc(Number(parts[2])), chance: Number(parts[3])
+    })) })} /></Field>;
 }
 
 function RecipePanel({

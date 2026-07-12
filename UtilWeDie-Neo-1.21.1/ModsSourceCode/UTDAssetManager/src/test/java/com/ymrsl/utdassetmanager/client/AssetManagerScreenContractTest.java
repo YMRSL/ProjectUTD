@@ -94,4 +94,18 @@ class AssetManagerScreenContractTest {
         assertTrue(tooltip.contains("PresentationDraftRepository.get().resolveEnabled"));
         assertTrue(tooltip.contains("已进入项目管理"));
     }
+
+    @Test
+    void projectDirectorySupportsExplicitMultiSelectAndSelectAllForIconExport() throws Exception {
+        Path sourcePath = Path.of(
+                "src/main/java/com/ymrsl/utdassetmanager/client/AssetManagerScreen.java");
+        String source = Files.readString(sourcePath);
+
+        assertTrue(source.contains("exportSelectionKeys"));
+        assertTrue(source.contains("toggleExportSelection"));
+        assertTrue(source.contains("全选可见"));
+        assertTrue(source.contains("清空导出选择"));
+        assertTrue(source.contains("repository.allManifestDirectory()"));
+        assertTrue(source.contains("repository.exportSnapshot(iconExportRecords"));
+    }
 }

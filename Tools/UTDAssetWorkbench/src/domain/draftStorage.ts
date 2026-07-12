@@ -4,6 +4,7 @@ import type {
   BlockTransform,
   CanonicalLootPolicy,
   CanonicalRecipe,
+  ItemPropertyOverride,
   ItemPresentationOverride,
   WorkbenchProject
 } from "./schema";
@@ -32,6 +33,7 @@ export interface DraftSlices {
   blockTransforms: BlockTransform[];
   recipes: RecipeDraftProjection[];
   lootPolicies: LootDraftProjection[];
+  itemProperties: ItemPropertyOverride[];
 }
 
 export interface LocalDraftDocument {
@@ -43,6 +45,7 @@ export interface LocalDraftDocument {
   block_transforms: BlockTransform[];
   recipe_edits: RecipeDraftProjection[];
   loot_edits: LootDraftProjection[];
+  item_properties?: ItemPropertyOverride[];
 }
 
 export interface StorageLike {
@@ -76,7 +79,8 @@ export function extractDraftSlices(project: WorkbenchProject): DraftSlices {
       .sort((a, b) => a.id.localeCompare(b.id, "en")),
     lootPolicies: editableLootPolicies(project)
       .map(lootProjection)
-      .sort((a, b) => a.identityKey.localeCompare(b.identityKey, "en"))
+      .sort((a, b) => a.identityKey.localeCompare(b.identityKey, "en")),
+    itemProperties: structuredClone(project.itemProperties)
   };
 }
 
@@ -86,7 +90,8 @@ export function draftSlicesDigest(value: WorkbenchProject | DraftSlices): string
     presentations: slices.presentations,
     blockTransforms: slices.blockTransforms,
     recipes: slices.recipes,
-    lootPolicies: slices.lootPolicies
+    lootPolicies: slices.lootPolicies,
+    itemProperties: slices.itemProperties
   });
 }
 
@@ -104,7 +109,8 @@ export function createLocalDraftDocument(
     presentations: slices.presentations,
     block_transforms: slices.blockTransforms,
     recipe_edits: slices.recipes,
-    loot_edits: slices.lootPolicies
+    loot_edits: slices.lootPolicies,
+    item_properties: slices.itemProperties
   };
 }
 
@@ -191,6 +197,10 @@ export function applyDraftSlices(project: WorkbenchProject, slices: DraftSlices)
   }
   next.presentations = structuredClone(slices.presentations);
   next.blockTransforms = structuredClone(slices.blockTransforms);
+  if (stableStringify(next.itemProperties) !== stableStringify(slices.itemProperties)) {
+    for (const row of next.itemProperties.concat(slices.itemProperties)) touched.add(row.itemKey);
+  }
+  next.itemProperties = structuredClone(slices.itemProperties);
 
   const recipesById = uniqueIndex(next.recipes, (recipe) => recipe.id, "规范项目配方 id");
   for (const edit of slices.recipes) {
@@ -227,7 +237,8 @@ export function applyLocalDraft(project: WorkbenchProject, document: LocalDraftD
     presentations: document.presentations,
     blockTransforms: document.block_transforms,
     recipes: document.recipe_edits,
-    lootPolicies: document.loot_edits
+    lootPolicies: document.loot_edits,
+    itemProperties: document.item_properties ?? structuredClone(project.itemProperties)
   });
 }
 
@@ -299,7 +310,9 @@ function isLocalDraftDocument(value: unknown): value is LocalDraftDocument {
   return value.presentations.every(isPresentation)
     && value.block_transforms.every(isBlockTransform)
     && value.recipe_edits.every(isRecipeProjection)
-    && value.loot_edits.every(isLootProjection);
+    && value.loot_edits.every(isLootProjection)
+    && (value.item_properties === undefined || (Array.isArray(value.item_properties)
+      && value.item_properties.every(isItemProperty)));
 }
 
 function isRecipeProjection(value: unknown): value is RecipeDraftProjection {
@@ -360,6 +373,17 @@ function isBlockTransform(value: unknown): value is BlockTransform {
     && ["requireSneaking", "allowFakePlayer", "consumeInput", "cancelInteraction", "creativeRequireInput", "creativeConsume"]
       .every((key) => typeof value[key] === "boolean")
     && value.blockEntityPolicy === "reject";
+}
+
+function isItemProperty(value: unknown): value is ItemPropertyOverride {
+  return isRecord(value)
+    && ["itemKey", "registryId", "variantDiscriminator", "baseCatalogHash", "updatedAt"]
+      .every((key) => typeof value[key] === "string")
+    && typeof value.enabled === "boolean"
+    && (value.rarity === null || isRecord(value.rarity))
+    && (value.blockz === null || isRecord(value.blockz))
+    && (value.tacz === null || isRecord(value.tacz))
+    && (value.food === null || isRecord(value.food));
 }
 
 function isStringRecord(value: unknown): value is Record<string, string> {

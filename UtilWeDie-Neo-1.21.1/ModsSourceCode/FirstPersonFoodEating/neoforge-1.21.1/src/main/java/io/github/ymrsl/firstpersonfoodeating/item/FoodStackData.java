@@ -136,6 +136,10 @@ public final class FoodStackData {
     }
 
     public static List<FoodEffect> getEffects(ItemStack stack) {
+        FoodPropertyOverrides.Profile override = FoodPropertyOverrides.find(stack);
+        if (override != null) {
+            return override.effects();
+        }
         CompoundTag root = getRoot(stack);
         if (root == null || !root.contains(EFFECTS_KEY, Tag.TAG_LIST)) {
             return List.of();
@@ -263,6 +267,14 @@ public final class FoodStackData {
     }
 
     public static Optional<ThirstSpec> getThirstSpec(ItemStack stack) {
+        FoodPropertyOverrides.Profile override = FoodPropertyOverrides.find(stack);
+        if (override != null) {
+            return Optional.of(new ThirstSpec(
+                    override.thirstDelta(),
+                    override.waterDelta(),
+                    override.thirstMode(),
+                    List.of()));
+        }
         CompoundTag root = getRoot(stack);
         if (root == null || !root.contains(THIRST_KEY, Tag.TAG_COMPOUND)) {
             return Optional.empty();
@@ -678,6 +690,10 @@ public final class FoodStackData {
     }
 
     public static int getNutrition(ItemStack stack, int fallback) {
+        FoodPropertyOverrides.Profile override = FoodPropertyOverrides.find(stack);
+        if (override != null) {
+            return override.nutrition();
+        }
         CompoundTag root = getRoot(stack);
         if (root == null || !root.contains(NUTRITION_KEY, Tag.TAG_INT)) {
             return Math.max(fallback, 0);
@@ -686,6 +702,10 @@ public final class FoodStackData {
     }
 
     public static float getSaturation(ItemStack stack, float fallback) {
+        FoodPropertyOverrides.Profile override = FoodPropertyOverrides.find(stack);
+        if (override != null) {
+            return override.saturation();
+        }
         CompoundTag root = getRoot(stack);
         if (root == null || !root.contains(SATURATION_KEY, Tag.TAG_FLOAT)) {
             return Math.max(fallback, 0.0f);

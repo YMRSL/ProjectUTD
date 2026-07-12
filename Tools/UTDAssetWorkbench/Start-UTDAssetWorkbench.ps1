@@ -9,6 +9,7 @@ $canonicalProject = Join-Path $repositoryRoot "outputs\projectutd-assets-2026071
 $publicProject = Join-Path $root "public\data\workbench.json"
 $categoryMap = Join-Path $root "data\utd_item_categories.json"
 $runtimeExports = Join-Path $repositoryRoot "UtilWeDie-Neo-1.21.1\.minecraft\versions\1.21.1-NeoForge_21.1.233\config\utd_asset_manager\exports"
+$instanceRoot = Join-Path $repositoryRoot "UtilWeDie-Neo-1.21.1\.minecraft\versions\1.21.1-NeoForge_21.1.233"
 
 function Test-WorkbenchReady {
     try {
@@ -58,6 +59,13 @@ if (Test-Path -LiteralPath $canonicalProject) {
     }
     else {
         Copy-Item -LiteralPath $canonicalProject -Destination $publicProject -Force
+    }
+    & npm.cmd run cli -- enrich-properties `
+        --project $publicProject `
+        --instance $instanceRoot `
+        --out $publicProject
+    if ($LASTEXITCODE -ne 0) {
+        throw "当前 RarityCore / BlockZ / TaCZ / 食品属性读取失败（退出码 $LASTEXITCODE）。"
     }
 }
 elseif (-not (Test-Path -LiteralPath $publicProject)) {

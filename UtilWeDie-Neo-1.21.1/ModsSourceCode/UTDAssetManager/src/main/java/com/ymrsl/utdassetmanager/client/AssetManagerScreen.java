@@ -9,9 +9,11 @@ import com.ymrsl.utdassetmanager.model.PresentationDraft;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
@@ -42,6 +44,7 @@ public final class AssetManagerScreen extends Screen {
     private final List<AssetRecord> visible = new ArrayList<>();
     private final Map<String, ItemStack> iconStacks = new LinkedHashMap<>();
     private final Map<String, String> localizedBaseNames = new LinkedHashMap<>();
+    private final Set<String> exportSelectionKeys = new LinkedHashSet<>();
     private List<PresentationDraft> presentationDrafts = List.of();
     private EditBox search;
     private EditBox presentationName;
@@ -58,6 +61,8 @@ public final class AssetManagerScreen extends Screen {
     private boolean compactHeight;
     private boolean presentationEditing;
     private AssetIconExportSession iconExportSession;
+    private List<AssetRecord> iconExportRecords = List.of();
+    private boolean iconExportIncludesProject;
     private PresentationDraft presentationEditingDraft;
     private String notice = "鼠标放在列表上滚动；候选来自人工白名单、背包与当前容器。";
 
@@ -287,10 +292,10 @@ public final class AssetManagerScreen extends Screen {
             y += filterStep;
         }
         boolean localWritable = scope == AssetScope.LOCAL;
-        drawAction(graphics, batchMarkButton, localWritable ? "标注可见" : "项目目录只读",
-                mouseX, mouseY, true, localWritable);
-        drawAction(graphics, batchUnmarkButton, localWritable ? "取消可见" : "不可批量修改",
-                mouseX, mouseY, false, localWritable);
+        drawAction(graphics, batchMarkButton, localWritable ? "标注可见" : "全选可见",
+                mouseX, mouseY, true);
+        drawAction(graphics, batchUnmarkButton, localWritable ? "取消可见" : "清空导出选择",
+                mouseX, mouseY, false);
         if (!compactHeight) {
             int noteY = bottom - 28;
             graphics.drawString(font, "O 打开 · /utdasset", frameX + 12, noteY, MUTED, false);
@@ -318,6 +323,7 @@ public final class AssetManagerScreen extends Screen {
             AssetRecord record = visible.get(index);
             AssetStatus status = statusForRecord(record);
             boolean selected = record.assetKey.equals(selectedKey);
+            boolean exportSelected = exportSelectionKeys.contains(record.assetKey);
             boolean hovered = inside(mouseX, mouseY, centerX + 4, y, centerW - 8, ROW_HEIGHT - 2);
             if (selected || hovered) {
                 graphics.fill(centerX + 4, y, rightX - 5, y + ROW_HEIGHT - 2, selected ? AMBER_DARK : PANEL_ALT);
@@ -325,10 +331,16 @@ public final class AssetManagerScreen extends Screen {
             if (selected) {
                 graphics.fill(centerX + 4, y, centerX + 7, y + ROW_HEIGHT - 2, AMBER);
             }
-            renderRowIcon(graphics, record, centerX + 12, y + 6);
-            int textX = centerX + 35;
+            int checkX = centerX + 10;
+            int checkY = y + 8;
+            graphics.renderOutline(checkX, checkY, 12, 12, exportSelected ? AMBER : LINE);
+            if (exportSelected) {
+                graphics.drawCenteredString(font, "✓", checkX + 6, checkY + 2, AMBER);
+            }
+            renderRowIcon(graphics, record, centerX + 28, y + 6);
+            int textX = centerX + 51;
             int badgeWidth = Math.min(120, Math.max(84, centerW / 3));
-            int maxText = Math.max(24, centerW - badgeWidth - 48);
+            int maxText = Math.max(24, centerW - badgeWidth - 64);
             String name = ellipsize(displayName(record), maxText);
             String identity = AssetStackCodec.supportsVariantPreview(record)
                     ? compactDiscriminator(record.variantDiscriminator)
@@ -352,7 +364,8 @@ public final class AssetManagerScreen extends Screen {
         }
         renderScrollbar(graphics, listTop, listBottom);
         graphics.fill(centerX, bottom - 30, rightX - 1, bottom, 0xFF0F1214);
-        String footer = rangeInHeader ? notice : range + " · " + notice;
+        String selection = exportSelectionKeys.isEmpty() ? "" : "已选 " + exportSelectionKeys.size() + " · ";
+        String footer = (rangeInHeader ? "" : range + " · ") + selection + notice;
         graphics.drawString(font, ellipsize(footer, centerW - 24), centerX + 12, bottom - 20, MUTED, false);
     }
 
@@ -486,7 +499,10 @@ public final class AssetManagerScreen extends Screen {
                 ? (localSelected ? (toggleButton.w < 50 ? "取消" : "取消标注") : "标注")
                 : "只读";
         drawAction(graphics, toggleButton, toggleLabel, mouseX, mouseY, true, localWritable);
-        drawAction(graphics, exportButton, scope == AssetScope.PROJECT ? "导出本机+图标" : "导出+图标",
+        String exportLabel = exportSelectionKeys.isEmpty()
+                ? (scope == AssetScope.PROJECT ? "导出本机+图标" : "导出+图标")
+                : (exportButton.w < 62 ? "已选 " : "导出已选 ") + exportSelectionKeys.size();
+        drawAction(graphics, exportButton, exportLabel,
                 mouseX, mouseY, false);
         drawAction(graphics, reloadButton, "重载", mouseX, mouseY, false);
         drawAction(graphics, presentationActionButton, "编辑名称 / 介绍", mouseX, mouseY, false,
@@ -644,7 +660,12 @@ public final class AssetManagerScreen extends Screen {
                     notice = "请先保存或取消名称/介绍编辑。";
                     return true;
                 }
-                selectedKey = visible.get(index).assetKey;
+                AssetRecord clicked = visible.get(index);
+                if (mouseX >= centerX + 7 && mouseX <= centerX + 25) {
+                    toggleExportSelection(clicked);
+                } else {
+                    selectedKey = clicked.assetKey;
+                }
                 return true;
             }
         }
@@ -726,7 +747,9 @@ public final class AssetManagerScreen extends Screen {
 
     private void batchMarkVisible() {
         if (scope != AssetScope.LOCAL) {
-            notice = "项目目录只读，未修改本机白名单。";
+            int before = exportSelectionKeys.size();
+            visible.forEach(record -> exportSelectionKeys.add(record.assetKey));
+            notice = "已选择 " + (exportSelectionKeys.size() - before) + " 条当前筛选记录用于图标导出";
             return;
         }
         try {
@@ -740,7 +763,9 @@ public final class AssetManagerScreen extends Screen {
 
     private void batchUnmarkVisible() {
         if (scope != AssetScope.LOCAL) {
-            notice = "项目目录只读，未修改本机白名单。";
+            int count = exportSelectionKeys.size();
+            exportSelectionKeys.clear();
+            notice = "已清空 " + count + " 条导出选择；未修改项目目录或本机白名单";
             return;
         }
         try {
@@ -752,20 +777,34 @@ public final class AssetManagerScreen extends Screen {
         refreshRows();
     }
 
+    private void toggleExportSelection(AssetRecord record) {
+        if (record == null || safe(record.assetKey).isBlank()) return;
+        if (!exportSelectionKeys.remove(record.assetKey)) {
+            exportSelectionKeys.add(record.assetKey);
+        }
+        selectedKey = record.assetKey;
+        notice = "已选择 " + exportSelectionKeys.size() + " 条用于本机 + 图标导出";
+    }
+
     private void export() {
         try {
-            iconExportSession = new AssetIconExportSession(repository.allSelected());
+            iconExportRecords = recordsForExport();
+            iconExportIncludesProject = !exportSelectionKeys.isEmpty()
+                    && iconExportRecords.stream().anyMatch(record -> !repository.isSelectedIdentity(record));
+            iconExportSession = new AssetIconExportSession(iconExportRecords);
             if (iconExportSession.total() == 0) {
-                Path output = repository.exportSnapshot();
+                Path output = exportAssetSnapshot(Map.of());
                 Path presentationOutput = presentationRepository.exportSnapshot();
                 iconExportSession = null;
-                notice = "已导出物品（无可渲染图标）与显示草稿: " + output.getFileName() + " / "
+                notice = "已导出 " + iconExportRecords.size() + " 条物品（无可渲染图标）与显示草稿: " + output.getFileName() + " / "
                         + presentationOutput.getFileName();
             } else {
-                notice = "正在从游戏客户端渲染 " + iconExportSession.total() + " 个物品图标…";
+                notice = "正在从游戏客户端渲染 " + iconExportSession.total() + " 个物品图标（共 "
+                        + iconExportRecords.size() + " 条导出记录）…";
             }
         } catch (Exception error) {
             iconExportSession = null;
+            iconExportRecords = List.of();
             notice = "导出失败: " + error.getMessage();
         }
     }
@@ -779,15 +818,37 @@ public final class AssetManagerScreen extends Screen {
                 notice = "正在导出图标 " + session.captured() + " / " + session.total();
                 return;
             }
-            Path output = repository.exportSnapshot(session.iconDataUrls());
+            Path output = exportAssetSnapshot(session.iconDataUrls());
             Path presentationOutput = presentationRepository.exportSnapshot();
-            notice = "已导出 " + session.captured() + " 个图标与物品数据: "
+            notice = "已导出 " + iconExportRecords.size() + " 条物品、" + session.captured() + " 个图标: "
                     + output.getFileName() + " / " + presentationOutput.getFileName();
         } catch (Exception error) {
             notice = "图标导出失败，未生成新的物品文件: " + error.getMessage();
         } finally {
-            if (session.finished() || notice.startsWith("图标导出失败")) iconExportSession = null;
+            if (session.finished() || notice.startsWith("图标导出失败")) {
+                iconExportSession = null;
+                iconExportRecords = List.of();
+            }
         }
+    }
+
+    private Path exportAssetSnapshot(Map<String, String> iconDataUrls) {
+        if (exportSelectionKeys.isEmpty()) return repository.exportSnapshot(iconDataUrls);
+        return repository.exportSnapshot(iconExportRecords, iconDataUrls, iconExportIncludesProject);
+    }
+
+    private List<AssetRecord> recordsForExport() {
+        if (exportSelectionKeys.isEmpty()) return repository.allSelected();
+        Map<String, AssetRecord> available = new LinkedHashMap<>();
+        repository.allSelected().forEach(record -> available.put(record.assetKey, record));
+        repository.allManifestDirectory().forEach(record -> available.putIfAbsent(record.assetKey, record));
+        visible.forEach(record -> available.putIfAbsent(record.assetKey, record));
+        List<AssetRecord> records = exportSelectionKeys.stream()
+                .map(available::get)
+                .filter(java.util.Objects::nonNull)
+                .toList();
+        if (records.isEmpty()) throw new IllegalStateException("导出选择已失效，请重载目录后重新选择。");
+        return records;
     }
 
     private AssetRecord selectedRecord() {

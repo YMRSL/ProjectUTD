@@ -54,7 +54,7 @@ final class AssetRepositoryTest {
     }
 
     @Test
-    void separatesLocalAndHistoricalSelectionAndNeverExportsDirectoryRows() throws Exception {
+    void separatesLocalAndHistoricalSelectionAndExportsDirectoryRowsOnlyWhenExplicitlyRequested() throws Exception {
         Files.writeString(
                 directory.resolve("status_manifest.json"),
                 manifest("minecraft:stick", "minecraft:stick", "木棍", true));
@@ -92,6 +92,18 @@ final class AssetRepositoryTest {
         JsonObject iconExport = JsonParser.parseString(Files.readString(
                 repository.exportSnapshot(Map.of("asset_local_stick", icon)))).getAsJsonObject();
         assertEquals(icon, iconExport.getAsJsonArray("items").get(0).getAsJsonObject()
+                .get("icon_data_url").getAsString());
+
+        JsonObject projectExport = JsonParser.parseString(Files.readString(repository.exportSnapshot(
+                List.of(directoryRecord),
+                Map.of("minecraft:stick", icon),
+                true))).getAsJsonObject();
+        assertEquals(1, projectExport.getAsJsonArray("items").size());
+        assertEquals("minecraft:stick", projectExport.getAsJsonArray("items").get(0).getAsJsonObject()
+                .get("asset_key").getAsString());
+        assertTrue(projectExport.getAsJsonArray("items").get(0).getAsJsonObject()
+                .get("human_selected").getAsBoolean());
+        assertEquals(icon, projectExport.getAsJsonArray("items").get(0).getAsJsonObject()
                 .get("icon_data_url").getAsString());
     }
 

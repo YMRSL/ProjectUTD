@@ -218,7 +218,7 @@ export default function App() {
       setDraftStatus((current) => ({ ...current, unexported: changedDuringBuild }));
       setNotice(changedDuringBuild
         ? `已生成 ${candidate.filename}，但生成期间出现新修改；当前内容仍标记为未导出`
-        : `已生成候选包 ${candidate.filename} · 3 个核心 JSON + SHA-256 manifest`);
+        : `已生成候选包 ${candidate.filename} · ${candidate.manifest.files.length} 个候选文件 + SHA-256 manifest`);
     } catch (error) {
       setNotice(`候选包生成失败：${error instanceof Error ? error.message : String(error)}`);
     }

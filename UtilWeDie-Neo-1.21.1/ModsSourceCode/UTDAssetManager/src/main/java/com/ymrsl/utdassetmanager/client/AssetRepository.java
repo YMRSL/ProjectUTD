@@ -273,13 +273,41 @@ public final class AssetRepository {
         requireWritableWhitelist();
         reloadManifestIfChanged();
         validateExportable();
+        return exportSnapshotRecords(allSelected(), iconDataUrls, false);
+    }
+
+    /** Exports an explicit UI selection, including read-only project-directory records. */
+    public synchronized Path exportSnapshot(
+            List<AssetRecord> recordsToExport,
+            Map<String, String> iconDataUrls,
+            boolean includeManifestHumanSelected
+    ) {
+        ensureLoaded();
+        requireWritableWhitelist();
+        reloadManifestIfChanged();
+        Map<String, AssetRecord> uniqueByKey = new LinkedHashMap<>();
+        for (AssetRecord record : recordsToExport == null ? List.<AssetRecord>of() : recordsToExport) {
+            if (record != null && record.assetKey != null && !record.assetKey.isBlank()) {
+                uniqueByKey.putIfAbsent(record.assetKey, record);
+            }
+        }
+        List<AssetRecord> unique = new ArrayList<>(uniqueByKey.values());
+        return exportSnapshotRecords(unique, iconDataUrls, includeManifestHumanSelected);
+    }
+
+    private Path exportSnapshotRecords(
+            List<AssetRecord> recordsToExport,
+            Map<String, String> iconDataUrls,
+            boolean includeManifestHumanSelected
+    ) {
         Map<String, Object> root = new LinkedHashMap<>();
         root.put("schema_version", 1);
         root.put("producer", "utd_asset_manager");
         root.put("exported_at", Instant.now().toString());
         List<Map<String, Object>> records = new ArrayList<>();
-        for (AssetRecord record : allSelected()) {
-            records.add(exportRecord(record, statusFor(record.assetKey), iconDataUrls.get(record.assetKey)));
+        for (AssetRecord record : recordsToExport) {
+            AssetStatus status = includeManifestHumanSelected ? projectStatusFor(record) : statusFor(record);
+            records.add(exportRecord(record, status, iconDataUrls.get(record.assetKey)));
         }
         root.put("items", records);
         Path exports = directory().resolve("exports");
@@ -317,7 +345,7 @@ public final class AssetRepository {
             exported.put("icon_data_url", iconDataUrl);
         }
         exported.put("captured_locale", record.capturedLocale);
-        exported.put("human_selected", true);
+        exported.put("human_selected", status.humanSelected());
         exported.put("selected_at", record.selectedAt);
         exported.put("updated_at", record.updatedAt);
         exported.put("catalogued", status.catalogued());

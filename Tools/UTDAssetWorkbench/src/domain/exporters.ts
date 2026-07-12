@@ -22,6 +22,7 @@ import {
   validateBlockTransforms
 } from "./blockTransforms";
 import { cloneJson, stableStringify } from "./stable";
+export { exportItemPropertiesJson } from "./itemProperties";
 
 export function assertWorkbenchProject(value: unknown): asserts value is WorkbenchProject {
   hydrateWorkbenchProject(value);

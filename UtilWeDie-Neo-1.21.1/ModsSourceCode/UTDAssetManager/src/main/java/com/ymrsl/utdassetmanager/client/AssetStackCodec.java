@@ -82,6 +82,22 @@ public final class AssetStackCodec {
                 // snapshot. Fall through to a safe read-only preview.
             }
         }
+        String componentsSnbt = record.componentsSnbt == null ? "" : record.componentsSnbt.trim();
+        if (!componentsSnbt.isBlank() && !"{}".equals(componentsSnbt)) {
+            try {
+                CompoundTag full = new CompoundTag();
+                full.putString("id", record.registryId);
+                full.putInt("count", 1);
+                full.put("components", TagParser.parseTag(componentsSnbt));
+                ItemStack restored = ItemStack.parse(minecraft.level.registryAccess(), full).orElse(ItemStack.EMPTY);
+                if (!restored.isEmpty()) {
+                    return restored;
+                }
+            } catch (Exception ignored) {
+                // Invalid or obsolete component evidence must not prevent a
+                // base registry preview from being exported.
+            }
+        }
         try {
             ItemStack base = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(record.registryId)));
             if (base.isEmpty()) {
@@ -97,9 +113,13 @@ public final class AssetStackCodec {
     }
 
     public static boolean supportsVariantPreview(AssetRecord record) {
-        return record != null
-                && "firstpersonfoodeating:pack_food".equals(record.registryId)
-                && foodId(record).contains(":");
+        if (record == null) return false;
+        String full = record.itemStackSnbt == null ? "" : record.itemStackSnbt.trim();
+        String components = record.componentsSnbt == null ? "" : record.componentsSnbt.trim();
+        return (!full.isBlank() && !"{}".equals(full))
+                || (!components.isBlank() && !"{}".equals(components))
+                || ("firstpersonfoodeating:pack_food".equals(record.registryId)
+                && foodId(record).contains(":"));
     }
 
     private static void applyFoodPreview(ItemStack stack, AssetRecord record) {

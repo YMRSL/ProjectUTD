@@ -9,11 +9,13 @@ import {
   presentationForItem
 } from "./presentation";
 import { lootMatchesItem, refMatchesItem } from "./relations";
+import { defaultItemProperty, validateItemProperties } from "./itemProperties";
 import type {
   BlockTransform,
   CanonicalItem,
   CanonicalLootPolicy,
   CanonicalRecipe,
+  ItemPropertyOverride,
   ItemPresentationOverride,
   ValidationIssue,
   WorkbenchProject
@@ -133,6 +135,29 @@ export function updateItemPresentation(
   return refreshProject(next, touched);
 }
 
+export function updateItemProperty(
+  project: WorkbenchProject,
+  itemKey: string,
+  patch: Partial<Pick<ItemPropertyOverride, "enabled" | "rarity" | "blockz" | "tacz" | "food">>
+): WorkbenchProject {
+  const next = structuredClone(project);
+  const item = next.items.find((candidate) => candidate.itemKey === itemKey);
+  if (!item?.managed || item.ownership !== "utd") return project;
+  let property = next.itemProperties.find((entry) => entry.itemKey === itemKey);
+  if (!property) {
+    property = defaultItemProperty(item);
+    next.itemProperties.push(property);
+  }
+  Object.assign(property, structuredClone(patch));
+  property.itemKey = item.itemKey;
+  property.registryId = item.registryId;
+  property.variantDiscriminator = item.variantDiscriminator;
+  property.baseCatalogHash ||= item.catalogHash;
+  property.updatedAt = new Date().toISOString();
+  item.sync = "pending";
+  return refreshProject(next, new Set([item.itemKey]));
+}
+
 export function addBlockTransform(project: WorkbenchProject, catalystItemKey: string): WorkbenchProject {
   const next = structuredClone(project);
   const item = next.items.find((candidate) => candidate.itemKey === catalystItemKey);
@@ -239,7 +264,8 @@ export function refreshProject(project: WorkbenchProject, touched: Set<string>):
       recipeOutputCount: item.recipeOutputCount,
       loot: loot.map((policy) => [policy.identityKey, policy.lootEnabled, policy.level, policy.count, policy.commonTags]),
       presentations: project.presentations.filter((entry) => entry.itemKey === item.itemKey || (entry.applyScope === "registry" && entry.registryId === item.registryId)),
-      blockTransforms: project.blockTransforms.filter((entry) => refMatchesItem(entry.catalyst, item))
+      blockTransforms: project.blockTransforms.filter((entry) => refMatchesItem(entry.catalyst, item)),
+      itemProperties: project.itemProperties.filter((entry) => entry.itemKey === item.itemKey)
     });
     if (touched.has(item.itemKey)) item.sync = "pending";
     else if (item.deployedHash) item.sync = item.catalogHash === item.deployedHash ? "synced" : "stale";
@@ -257,13 +283,15 @@ export function refreshProject(project: WorkbenchProject, touched: Set<string>):
     }
   }
   issues.push(...validateBlockTransforms(project.blockTransforms));
+  issues.push(...validateItemProperties(project.itemProperties));
   project.issues = issues;
   project.manifest.contentFingerprint = fingerprint({
     items: project.items,
     recipes: project.recipes,
     loot: project.lootPolicies,
     presentations: project.presentations,
-    blockTransforms: project.blockTransforms
+    blockTransforms: project.blockTransforms,
+    itemProperties: project.itemProperties
   });
   project.manifest.catalogHash = project.manifest.contentFingerprint;
   project.manifest.counts = {
@@ -273,6 +301,7 @@ export function refreshProject(project: WorkbenchProject, touched: Set<string>):
     lootPolicies: project.lootPolicies.length,
     presentations: project.presentations.length,
     blockTransforms: project.blockTransforms.length,
+    itemProperties: project.itemProperties.length,
     cycles: project.graph.cycles.length,
     issues: project.issues.length
   };

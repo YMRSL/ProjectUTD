@@ -14,7 +14,7 @@ import {
   saveLocalDraft,
   type StorageLike
 } from "../src/domain/draftStorage";
-import { addBlockTransform, updateBlockTransform, updateItemPresentation } from "../src/domain/mutations";
+import { addBlockTransform, updateBlockTransform, updateItemPresentation, updateItemProperty } from "../src/domain/mutations";
 import { sampleProject } from "../src/data/sample";
 
 class MemoryStorage implements StorageLike {
@@ -114,7 +114,7 @@ describe("lightweight browser drafts", () => {
 });
 
 describe("candidate core download set", () => {
-  it("includes the canonical project and both runtime-facing authored drafts", () => {
+  it("includes the canonical project and all runtime-facing authored drafts", () => {
     const itemKey = sampleProject.items.find((item) => item.ownership === "utd" && item.managed)!.itemKey;
     let changed = addBlockTransform(sampleProject, itemKey);
     const id = changed.blockTransforms[0].id;
@@ -135,7 +135,8 @@ describe("candidate core download set", () => {
     expect(files.map((file) => file.filename)).toEqual([
       "workbench.json",
       "utd_block_transforms.json",
-      "utd_item_presentations.json"
+      "utd_item_presentations.json",
+      "utd_item_properties.json"
     ]);
     const transforms = JSON.parse(files[1].content);
     expect(transforms.rules[0]).toMatchObject({
@@ -145,5 +146,22 @@ describe("candidate core download set", () => {
       result: { state: { waterlogged: "false" }, copyProperties: ["facing"] },
       creative: { requireInput: false, consume: false }
     });
+  });
+
+  it("emits concrete RarityCore and BlockZ adapter candidates", () => {
+    const item = sampleProject.items.find((entry) => entry.managed && entry.ownership === "utd" && !entry.variantDiscriminator)!;
+    const changed = updateItemProperty(sampleProject, item.itemKey, {
+      enabled: true,
+      rarity: { value: 4 },
+      blockz: { width: 2, height: 3, capacityWidth: 5, capacityHeight: 4 }
+    });
+    const files = candidateCoreFiles(changed);
+    const names = files.map((file) => file.filename);
+    expect(names).toContain("integrations/raritycore/FinalRarity.utd-overrides.json");
+    expect(names).toContain("integrations/blockz/grid_items.utd-overrides.json");
+    const rarity = JSON.parse(files.find((file) => file.filename.includes("FinalRarity"))!.content);
+    const blockz = JSON.parse(files.find((file) => file.filename.includes("grid_items"))!.content);
+    expect(rarity[item.registryId]).toBe(4);
+    expect(blockz.items[item.registryId]).toEqual({ width: 2, height: 3, cap_width: 5, cap_height: 4 });
   });
 });

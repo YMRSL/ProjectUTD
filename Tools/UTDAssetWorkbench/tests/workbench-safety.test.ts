@@ -113,12 +113,12 @@ describe("local draft v2 safety", () => {
     expect(document.recipe_edits).toHaveLength(960);
     expect(document.loot_edits).toHaveLength(798);
     expect(new TextEncoder().encode(raw).byteLength).toBeLessThan(MAX_LOCAL_DRAFT_BYTES);
-    expect(new TextEncoder().encode(raw).byteLength).toBeLessThan(400_000);
+    expect(new TextEncoder().encode(raw).byteLength).toBeLessThan(600_000);
   });
 });
 
 describe("candidate ZIP safety", () => {
-  it("writes one ZIP with three core files and independently verifiable SHA-256 metadata", async () => {
+  it("writes one ZIP with four core files and independently verifiable SHA-256 metadata", async () => {
     const candidate = await buildCandidatePackage(sampleProject, "2026-07-12T13:00:00.000Z");
     expect(candidate.filename).toBe("utd-assets-demo.candidate.zip");
     const zip = await JSZip.loadAsync(candidate.bytes);
@@ -126,6 +126,7 @@ describe("candidate ZIP safety", () => {
       "manifest.json",
       "utd_block_transforms.json",
       "utd_item_presentations.json",
+      "utd_item_properties.json",
       "workbench.json"
     ]);
     const manifest = JSON.parse(await zip.file("manifest.json")!.async("string"));
@@ -133,7 +134,8 @@ describe("candidate ZIP safety", () => {
     expect(manifest.files.map((entry: { path: string }) => entry.path)).toEqual([
       "workbench.json",
       "utd_block_transforms.json",
-      "utd_item_presentations.json"
+      "utd_item_presentations.json",
+      "utd_item_properties.json"
     ]);
     for (const entry of manifest.files as Array<{ path: string; sha256: string; bytes: number }>) {
       const bytes = await zip.file(entry.path)!.async("uint8array");

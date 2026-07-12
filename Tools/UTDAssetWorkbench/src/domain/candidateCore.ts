@@ -2,6 +2,7 @@ import JSZip from "jszip";
 import { exportBlockTransformsJson, exportPresentationJson, exportProjectJson } from "./exporters";
 import type { WorkbenchProject } from "./schema";
 import { stableStringify } from "./stable";
+import { exportItemPropertiesJson, itemPropertyIntegrationFiles } from "./itemProperties";
 
 export const CANDIDATE_PACKAGE_SCHEMA = "utd-browser-candidate-package/v1" as const;
 
@@ -34,7 +35,9 @@ export function candidateCoreFiles(project: WorkbenchProject): CandidateCoreFile
   return [
     { filename: "workbench.json", content: exportProjectJson(project), mime: "application/json" },
     { filename: "utd_block_transforms.json", content: exportBlockTransformsJson(project), mime: "application/json" },
-    { filename: "utd_item_presentations.json", content: exportPresentationJson(project), mime: "application/json" }
+    { filename: "utd_item_presentations.json", content: exportPresentationJson(project), mime: "application/json" },
+    { filename: "utd_item_properties.json", content: exportItemPropertiesJson(project), mime: "application/json" },
+    ...itemPropertyIntegrationFiles(project).map((file) => ({ ...file, mime: "application/json" as const }))
   ];
 }
 

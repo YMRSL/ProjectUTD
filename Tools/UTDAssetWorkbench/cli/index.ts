@@ -10,6 +10,7 @@ import {
   exportBlockTransformsJson,
   exportExcelInterfaceJson,
   exportLangOverlaysJson,
+  exportItemPropertiesJson,
   exportLootRegistryKjs,
   exportPresentationJson,
   exportProjectJson,
@@ -25,6 +26,8 @@ import type { SourceFingerprint, WorkbenchProject } from "../src/domain/schema";
 import { stableStringify } from "../src/domain/stable";
 import { applyItemCategoryDocument } from "../src/domain/categories";
 import { mergeSnapshotEvidence } from "../src/domain/snapshotMerge";
+import { enrichPropertiesFromRuntime } from "./runtimeProperties";
+import { itemPropertyIntegrationFiles } from "../src/domain/itemProperties";
 
 if (isDirectExecution()) {
   await runCli(process.argv.slice(2));
@@ -35,6 +38,7 @@ export async function runCli([command = "help", ...argv]: string[]): Promise<voi
     if (command === "import") await importSources(argv);
     else if (command === "export") await exportProject(argv);
     else if (command === "merge-snapshot") await mergeSnapshot(argv);
+    else if (command === "enrich-properties") await enrichProperties(argv);
     else if (command === "validate") await validateProject(argv);
     else if (command === "diff-block-transforms") await diffBlockTransforms(argv);
     else if (command === "help" || command === "--help" || command === "-h") printHelp();
@@ -43,6 +47,20 @@ export async function runCli([command = "help", ...argv]: string[]): Promise<voi
     console.error(`\n[UTD Asset Workbench] ${error instanceof Error ? error.message : String(error)}\n`);
     process.exitCode = 1;
   }
+}
+
+async function enrichProperties(argv: string[]): Promise<void> {
+  const options = parseOptions(argv);
+  const projectPath = required(options, "project");
+  const instancePath = path.resolve(required(options, "instance"));
+  const outPath = path.resolve(required(options, "out"));
+  const parsed: unknown = JSON.parse(await readFile(path.resolve(projectPath), "utf8"));
+  assertWorkbenchProject(parsed);
+  const result = await enrichPropertiesFromRuntime(parsed, instancePath);
+  await atomicWrite(outPath, exportProjectJson(result.project));
+  console.log(`Runtime properties: rarity=${result.summary.rarity}, blockz=${result.summary.blockz}, tacz=${result.summary.tacz}, food=${result.summary.food}`);
+  console.log(`Unresolved TaCZ guns: ${result.summary.unresolvedGuns.length}`);
+  console.log(`Web project: ${outPath}`);
 }
 
 async function mergeSnapshot(argv: string[]): Promise<void> {
@@ -214,6 +232,8 @@ async function writeArtifactBundle(project: WorkbenchProject, outDir: string): P
     "utd_item_presentations.json": exportPresentationJson(project),
     "utd_lang_overlays.json": exportLangOverlaysJson(project),
     "utd_block_transforms.json": exportBlockTransformsJson(project),
+    "utd_item_properties.json": exportItemPropertiesJson(project),
+    ...Object.fromEntries(itemPropertyIntegrationFiles(project).map((file) => [file.filename, file.content])),
     ...Object.fromEntries(Object.entries(toLangOverlayEntries(project)).map(([namespace, entries]) => [
       `lang_overlays/${safeNamespace(namespace)}/zh_cn.json`,
       stableStringify(entries, 2) + "\n"
@@ -431,6 +451,9 @@ Regenerate exports from a canonical project:
 Merge the latest game export icons into a canonical web directory:
   npm run cli -- merge-snapshot --project <workbench.json> --snapshot <utd-assets.json> \\
     [--categories <utd_item_categories.json>] --out <web-workbench.json>
+
+Enrich a web project with current RarityCore, BlockZ, TaCZ and FPE values:
+  npm run cli -- enrich-properties --project <workbench.json> --instance <game-instance-root> --out <web-workbench.json>
 
 Validate a canonical project:
   npm run cli -- validate --project <workbench.json> [--only block_transform]
