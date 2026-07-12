@@ -1,6 +1,6 @@
 # UTD Asset Workbench
 
-“誓死坚守”的本地物品、配方与 Loot 档案台。它把 Mod 导出的白名单 snapshot、当前 `utd_recipe_data.js`、Loot registry/balance 汇入一份规范项目，并提供三栏网页检查器、状态回写清单、KJS 和 Excel 单向接口。
+“誓死坚守”的本地物品、配方与 Loot 档案台。它把 Mod 导出的白名单 snapshot、当前 `utd_recipe_data.js`、Loot registry/balance 汇入一份规范项目，并提供三栏网页检查器、状态回写清单、KJS 和 Excel 单向接口。游戏端导出的客户端渲染图标会以内嵌 PNG 随 snapshot 携带；网页同时读取旧工作簿的 8 类物品映射。
 
 ## 当前边界
 
@@ -12,10 +12,11 @@
 - 游戏导出的 `clientNameZhCn / translationKey` 是只读观察证据；改名和物品介绍写入独立的 `presentations[]` 草稿，不覆盖原始档案。
 - 方块右键替换制造使用独立的 `blockTransforms[]` 草稿；工作台只生成审核文件，不直接改运行目录。
 - Excel 目前是单向审阅接口 JSON；实际 `.xlsx` 由上层导出器生成，Excel 不是权威源。
+- 分类权威映射位于 `data/utd_item_categories.json`，由 `ItemNameCatch分类汇总_合成设计方案_v1.xlsx` 的“汇总”表机械提取；未命中的新物品明确显示“未分类”，不会按模组名猜测。
 
 ## 本地启动
 
-在 Windows 中可直接双击 `打开UTD资产工作台.cmd`。它会从仓库 `outputs/projectutd-assets-20260711/workbench/workbench.json` 装载当前真实项目，自动检查依赖、构建最新页面、启动本地服务并打开浏览器；已经启动时只会复用现有页面。
+在 Windows 中可直接双击 `打开UTD资产工作台.cmd`。它会从仓库 `outputs/projectutd-assets-20260711/workbench/workbench.json` 装载当前真实项目，并把游戏 `config/utd_asset_manager/exports/` 中最新一次导出的图标按精确身份合并到网页副本；随后自动检查依赖、构建页面、启动本地服务并打开浏览器。已经启动时只会复用现有页面。
 
 手动启动方式：
 
@@ -58,12 +59,15 @@ npm.cmd run cli -- import `
   --loot-balance "D:\path\to\kubejs\startup_scripts\utd_loot_balance_data.js" `
   --presentations "D:\path\to\config\utd_asset_manager\presentation_drafts.json" `
   --block-transforms "D:\path\to\config\utd_asset_manager\block_transforms.json" `
+  --categories "data\utd_item_categories.json" `
   --out "artifacts\current" `
   --public "public\data\workbench.json" `
   --generated-at "2026-07-11T19:50:00+08:00"
 ```
 
 `generated_at` 表示本次工作台发布时刻；配方、snapshot 等各输入自己的旧时间仍单独保存在 `manifest.source`，不会混成发布日期。`--presentations` 和 `--block-transforms` 均可省略。前者读取游戏内检查器保存的 `utd-item-presentation/v1` 草稿：先按 `asset_key` 精确关联，键不一致时再按唯一的 `registry_id + variant_discriminator` 关联，无法唯一确定时会停止并明确报错。后者读取 Java 运行器使用的 `utd-block-transforms/v1` 嵌套 `rules[]` 文件，也兼容旧工作台的 `block_transforms[]` 平铺文件。
+
+网页启动器使用 `merge-snapshot` 只把最新游戏导出的 `icon_data_url` 合入现有完整目录，不会用本机少量标注覆盖 327 条历史人工根，也不会改写配方、Loot 或草稿。未能唯一匹配的新身份会在命令摘要中计为 `unmatched`，需下一次正式重建目录处理。
 
 也可从已编辑的规范项目重新生成所有输出：
 
@@ -124,7 +128,8 @@ npm.cmd run cli -- import `
       "translation_key": "item.tacz.modern_kinetic_gun",
       "components_snbt": "{GunId:\"tacz:ak47\"}",
       "components_canonical": "完整观察快照",
-      "identity_components_canonical": "GunId=tacz:ak47"
+      "identity_components_canonical": "GunId=tacz:ak47",
+      "icon_data_url": "data:image/png;base64,..."
     }
   ]
 }
@@ -166,6 +171,8 @@ stale, issues
 ```
 
 为旧消费者暂时附带 `item_key / managed / sync` 别名。新集成应使用上面的主字段。
+
+分类字段为 `category_key / category_label_zh_cn / category_level`；网页可以与白名单、纳管、依赖、问题筛选及名称/ID/变体搜索组合使用。当前映射覆盖旧表中的基础资源、组件、可制作近战武器、枪械、装备、实用物品、工作台、工具与玩具。组件等级继续保留，可用来区分基础组件与高级材料。
 
 `sync_state` 只允许：`local_only | pending | synced | stale | error`。外部依赖和孤儿状态分别通过 `source` 与 `issues` 表达，不占用 sync 枚举。
 

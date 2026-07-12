@@ -50,6 +50,7 @@ export default function App() {
   const [tab, setTab] = useState<InspectorTab>("record");
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<CatalogFilter>("selected");
+  const [categoryKey, setCategoryKey] = useState("all");
   const [notice, setNotice] = useState("示例档案已载入 · 可导入 CLI 生成的 workbench.json");
   const [draftStatus, setDraftStatus] = useState<DraftUiState>({
     hasLocal: false,
@@ -65,7 +66,10 @@ export default function App() {
   const exportedDraftDigest = useRef(draftSlicesDigest(sampleProject));
   const latestAuthoredDigest = useRef(draftSlicesDigest(sampleProject));
   const rootItem = project.items.find((item) => item.itemKey === rootItemKey) ?? project.items.find((item) => item.humanSelected)!;
-  const visibleItems = useMemo(() => filterItems(project.items, filter, query), [project.items, filter, query]);
+  const visibleItems = useMemo(
+    () => filterItems(project.items, filter, categoryKey, query),
+    [project.items, filter, categoryKey, query]
+  );
   const rootRecipes = project.recipes.filter((recipe) => recipe.outputs.some((output) => refMatchesItem(output, rootItem)));
   const rootLoot = project.lootPolicies.filter((policy) => lootMatchesItem(policy, rootItem));
 
@@ -174,6 +178,7 @@ export default function App() {
       setRootItemKey(nextRoot);
       setSelection({ kind: "item", id: nextRoot });
       setFilter("selected");
+      setCategoryKey("all");
       setTab("record");
     } catch (error) {
       setNotice(`载入失败：${error instanceof Error ? error.message : String(error)}`);
@@ -303,6 +308,16 @@ export default function App() {
             <FilterButton active={filter === "dependency"} onClick={() => setFilter("dependency")}>依赖</FilterButton>
             <FilterButton active={filter === "issues"} onClick={() => setFilter("issues")}>问题</FilterButton>
           </div>
+          <label className="category-filter">
+            <span>表格分类</span>
+            <select value={categoryKey} onChange={(event) => setCategoryKey(event.target.value)}>
+              <option value="all">全部分类 · {project.items.length}</option>
+              {project.categories.map((category) => {
+                const count = project.items.filter((item) => item.categoryKey === category.key).length;
+                return <option key={category.key} value={category.key}>{category.labelZhCn} · {count}</option>;
+              })}
+            </select>
+          </label>
           <div className="catalog-count"><span>{visibleItems.length}</span> / {project.items.length} RECORDS</div>
           <div className="catalog-list">
             {visibleItems.map((item, index) => {
@@ -317,9 +332,11 @@ export default function App() {
                   aria-label={`${item.clientNameZhCn}，${item.registryId}${identity ? `，${identity.exact}` : ""}`}
                 >
                   <span className="catalog-item__rail" />
+                  <ItemIcon item={item} />
                   <span className="catalog-item__body">
                     <strong title={item.clientNameZhCn}>{item.clientNameZhCn}</strong>
                     <small title={item.registryId}>{item.registryId}</small>
+                    <small className="catalog-item__category">{item.categoryLabelZhCn}{item.categoryLevel === null ? "" : ` · L${item.categoryLevel}`}</small>
                     {identity && (
                       <small className="catalog-item__identity" title={`${identity.exact}\nassetKey=${item.itemKey}`}>
                         <b>{identity.primary}</b>
@@ -347,7 +364,7 @@ export default function App() {
           <div className="workspace-heading">
             <div>
               <span>02 / ONE-HOP RECIPE GRAPH</span>
-              <h2>{rootItem.clientNameZhCn}</h2>
+              <div className="root-item-title"><ItemIcon item={rootItem} large /><h2>{rootItem.clientNameZhCn}</h2></div>
               <p className="mono">{rootItem.itemKey}</p>
             </div>
             <div className="workspace-summary">
@@ -417,7 +434,7 @@ function DraftBadge({ status, identity, onClear }: { status: DraftUiState; ident
   );
 }
 
-function filterItems(items: CanonicalItem[], filter: CatalogFilter, query: string): CanonicalItem[] {
+function filterItems(items: CanonicalItem[], filter: CatalogFilter, categoryKey: string, query: string): CanonicalItem[] {
   return items
     .filter((item) => {
       if (filter === "selected") return item.humanSelected;
@@ -426,12 +443,19 @@ function filterItems(items: CanonicalItem[], filter: CatalogFilter, query: strin
       if (filter === "issues") return item.issues.length > 0;
       return true;
     })
+    .filter((item) => categoryKey === "all" || item.categoryKey === categoryKey)
     .filter((item) => matchesCatalogQuery(item, query))
     .sort((a, b) => Number(b.humanSelected) - Number(a.humanSelected)
       || Number(b.managed) - Number(a.managed)
       || a.clientNameZhCn.localeCompare(b.clientNameZhCn, "zh-CN")
       || a.variantDiscriminator.localeCompare(b.variantDiscriminator)
       || a.itemKey.localeCompare(b.itemKey));
+}
+
+function ItemIcon({ item, large = false }: { item: CanonicalItem; large?: boolean }) {
+  const className = `item-icon ${large ? "item-icon--large" : ""}`;
+  if (item.iconDataUrl) return <span className={className}><img src={item.iconDataUrl} alt="" /></span>;
+  return <span className={`${className} item-icon--fallback`} aria-hidden="true">{item.namespace.slice(0, 1).toUpperCase()}</span>;
 }
 
 function download(filename: string, text: string, mime: string): void {

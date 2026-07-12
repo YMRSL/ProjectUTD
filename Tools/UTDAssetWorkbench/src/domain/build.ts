@@ -14,6 +14,7 @@ import type {
   WorkbenchProject
 } from "./schema";
 import { WORKBENCH_SCHEMA } from "./schema";
+import { UNCATEGORIZED_CATEGORY } from "./categories";
 import { asJsonObject, displayNameFromId, fingerprint, namespaceOf } from "./stable";
 
 export interface BuildWorkbenchInput {
@@ -28,7 +29,8 @@ export interface BuildWorkbenchInput {
     recipes?: SourceFingerprint;
     lootRegistry?: SourceFingerprint;
     lootBalance?: SourceFingerprint;
-    blockTransforms?: SourceFingerprint;
+      blockTransforms?: SourceFingerprint;
+      categories?: SourceFingerprint;
   };
 }
 
@@ -96,7 +98,8 @@ export function buildWorkbenchProject(input: BuildWorkbenchInput): WorkbenchProj
         recipes: { generatedAt: recipeSource.generatedAt, ...input.source?.recipes },
         lootRegistry: input.source?.lootRegistry,
         lootBalance: input.source?.lootBalance,
-        blockTransforms: input.source?.blockTransforms
+        blockTransforms: input.source?.blockTransforms,
+        categories: input.source?.categories
       },
       counts: {
         managedItems: items.filter((item) => item.managed).length,
@@ -110,6 +113,7 @@ export function buildWorkbenchProject(input: BuildWorkbenchInput): WorkbenchProj
       }
     },
     items,
+    categories: [UNCATEGORIZED_CATEGORY],
     recipes,
     lootPolicies,
     presentations: [],
@@ -239,6 +243,10 @@ function catalogItem(itemKey: string, registryId: string, source: ItemSource): C
     canonicalComponents: {},
     clientNameZhCn: displayNameFromId(registryId),
     translationKey: "",
+    iconDataUrl: "",
+    categoryKey: UNCATEGORIZED_CATEGORY.key,
+    categoryLabelZhCn: UNCATEGORIZED_CATEGORY.labelZhCn,
+    categoryLevel: null,
     namespace: namespaceOf(registryId),
     managed: false,
     humanSelected: false,

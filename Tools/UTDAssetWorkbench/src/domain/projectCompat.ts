@@ -12,6 +12,7 @@ import {
   type WorkbenchProject
 } from "./schema";
 import { isRecord, numberOr, stringOr } from "./stable";
+import { hydrateItemCategories } from "./categories";
 
 /**
  * Hydrates additive v1 fields in place so old workbench/v1 files continue to
@@ -22,6 +23,7 @@ export function hydrateWorkbenchProject(value: unknown): WorkbenchProject {
     throw new Error(`Expected ${WORKBENCH_SCHEMA} project JSON.`);
   }
   const project = value as unknown as WorkbenchProject;
+  hydrateItemCategories(project);
   project.presentations = normalizePresentations(project);
   project.blockTransforms = normalizeBlockTransforms(project);
   project.manifest.counts.presentations = project.presentations.length;

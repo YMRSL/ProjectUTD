@@ -1,0 +1,3085 @@
+{
+  "schema_version": "utd-item-categories/v1",
+  "source": {
+    "workbook": "策划案以及文档相关/ItemNameCatch分类汇总_合成设计方案_v1.xlsx",
+    "sheet": "汇总",
+    "header_row": 1
+  },
+  "categories": [
+    {
+      "key": "basic_resource",
+      "label_zh_cn": "基础资源",
+      "order": 10
+    },
+    {
+      "key": "component",
+      "label_zh_cn": "组件",
+      "order": 20
+    },
+    {
+      "key": "craftable_melee",
+      "label_zh_cn": "可制作近战武器",
+      "order": 30
+    },
+    {
+      "key": "gun",
+      "label_zh_cn": "枪械",
+      "order": 40
+    },
+    {
+      "key": "equipment",
+      "label_zh_cn": "装备",
+      "order": 50
+    },
+    {
+      "key": "utility",
+      "label_zh_cn": "实用物品",
+      "order": 60
+    },
+    {
+      "key": "workstation",
+      "label_zh_cn": "工作台",
+      "order": 70
+    },
+    {
+      "key": "tool_toy",
+      "label_zh_cn": "工具与玩具",
+      "order": 80
+    }
+  ],
+  "assignments": [
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "create:crushed_raw_iron",
+      "source_sheet": "汇总",
+      "source_row": 2
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "create:copper_nugget",
+      "source_sheet": "汇总",
+      "source_row": 3
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "kuayue:weathering_resistant_steel_pole",
+      "source_sheet": "汇总",
+      "source_row": 4
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "minecraft:oak_log",
+      "source_sheet": "汇总",
+      "source_row": 5
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "minecraft:leather",
+      "source_sheet": "汇总",
+      "source_row": 6
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "minecraft:iron_nugget",
+      "source_sheet": "汇总",
+      "source_row": 7
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "survival_instinct:cloth",
+      "source_sheet": "汇总",
+      "source_row": 8
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "survival_instinct:empty_bottle",
+      "source_sheet": "汇总",
+      "source_row": 9
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "survival_instinct:rope",
+      "source_sheet": "汇总",
+      "source_row": 10
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "crusty_chunks:steel_component",
+      "source_sheet": "汇总",
+      "source_row": 11
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "zombiekit:forest_camouflage_dye",
+      "source_sheet": "汇总",
+      "source_row": 12
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "zombiekit:plastics",
+      "source_sheet": "汇总",
+      "source_row": 13
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "zombiekit:alcohol",
+      "source_sheet": "汇总",
+      "source_row": 14
+    },
+    {
+      "category_key": "basic_resource",
+      "level": 0,
+      "registry_id": "zombiekit:iron_wire",
+      "source_sheet": "汇总",
+      "source_row": 15
+    },
+    {
+      "category_key": "component",
+      "level": 0,
+      "registry_id": "tacz_unidict:pistol",
+      "source_sheet": "汇总",
+      "source_row": 16
+    },
+    {
+      "category_key": "component",
+      "level": 0,
+      "registry_id": "tacz_unidict:shot",
+      "source_sheet": "汇总",
+      "source_row": 17
+    },
+    {
+      "category_key": "component",
+      "level": 0,
+      "registry_id": "minecraft:gunpowder",
+      "source_sheet": "汇总",
+      "source_row": 18
+    },
+    {
+      "category_key": "component",
+      "level": 1,
+      "registry_id": "crusty_chunks:revolver_receiver",
+      "source_sheet": "汇总",
+      "source_row": 19
+    },
+    {
+      "category_key": "component",
+      "level": 1,
+      "registry_id": "crusty_chunks:pistol_receiver",
+      "source_sheet": "汇总",
+      "source_row": 20
+    },
+    {
+      "category_key": "component",
+      "level": 1,
+      "registry_id": "crusty_chunks:smallmagazine",
+      "source_sheet": "汇总",
+      "source_row": 21
+    },
+    {
+      "category_key": "component",
+      "level": 1,
+      "registry_id": "kaleidoscope_tavern:empty_bottle",
+      "source_sheet": "汇总",
+      "source_row": 22
+    },
+    {
+      "category_key": "component",
+      "level": 1,
+      "registry_id": "create:andesite_alloy",
+      "source_sheet": "汇总",
+      "source_row": 23
+    },
+    {
+      "category_key": "component",
+      "level": 1,
+      "registry_id": "create:shaft",
+      "source_sheet": "汇总",
+      "source_row": 24
+    },
+    {
+      "category_key": "component",
+      "level": 1,
+      "registry_id": "create:cogwheel",
+      "source_sheet": "汇总",
+      "source_row": 25
+    },
+    {
+      "category_key": "component",
+      "level": 1,
+      "registry_id": "create:large_cogwheel",
+      "source_sheet": "汇总",
+      "source_row": 26
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "minecraft:stick",
+      "source_sheet": "汇总",
+      "source_row": 27
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "minecraft:oak_slab",
+      "source_sheet": "汇总",
+      "source_row": 28
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "minecraft:iron_ingot",
+      "source_sheet": "汇总",
+      "source_row": 29
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "create:iron_sheet",
+      "source_sheet": "汇总",
+      "source_row": 30
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "create:copper_sheet",
+      "source_sheet": "汇总",
+      "source_row": 31
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "create_new_age:copper_wire",
+      "source_sheet": "汇总",
+      "source_row": 32
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "create:belt_connector",
+      "source_sheet": "汇总",
+      "source_row": 33
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "minecraft:glass_pane",
+      "source_sheet": "汇总",
+      "source_row": 34
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "create:brass_ingot",
+      "source_sheet": "汇总",
+      "source_row": 35
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "crusty_chunks:smg_magazine",
+      "source_sheet": "汇总",
+      "source_row": 36
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "crusty_chunks:smg_receiver",
+      "source_sheet": "汇总",
+      "source_row": 37
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "crusty_chunks:bolt_action_receiver",
+      "source_sheet": "汇总",
+      "source_row": 38
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "crusty_chunks:shotgun_casing",
+      "source_sheet": "汇总",
+      "source_row": 39
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "crusty_chunks:small_casing",
+      "source_sheet": "汇总",
+      "source_row": 40
+    },
+    {
+      "category_key": "component",
+      "level": 2,
+      "registry_id": "survival_instinct:tier_i_kevlar",
+      "source_sheet": "汇总",
+      "source_row": 41
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "crusty_chunks:medium_casing",
+      "source_sheet": "汇总",
+      "source_row": 42
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "crusty_chunks:large_casing",
+      "source_sheet": "汇总",
+      "source_row": 43
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "crusty_chunks:mg_receiver",
+      "source_sheet": "汇总",
+      "source_row": 44
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "crusty_chunks:automatic_rifle_receiver",
+      "source_sheet": "汇总",
+      "source_row": 45
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "crusty_chunks:large_magazine",
+      "source_sheet": "汇总",
+      "source_row": 46
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "crusty_chunks:lmg_magazine",
+      "source_sheet": "汇总",
+      "source_row": 47
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "crusty_chunks:machine_gun_box",
+      "source_sheet": "汇总",
+      "source_row": 48
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "crusty_chunks:medium_magazine",
+      "source_sheet": "汇总",
+      "source_row": 49
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "minecraft:sugar",
+      "source_sheet": "汇总",
+      "source_row": 50
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "superbwarfare:coal_powder",
+      "source_sheet": "汇总",
+      "source_row": 51
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "tacz_unidict:rifle",
+      "source_sheet": "汇总",
+      "source_row": 52
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "tacz_unidict:sniper",
+      "source_sheet": "汇总",
+      "source_row": 53
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "zombiekit:smokeless_gunpowder",
+      "source_sheet": "汇总",
+      "source_row": 54
+    },
+    {
+      "category_key": "component",
+      "level": 4,
+      "registry_id": "create:precision_mechanism",
+      "source_sheet": "汇总",
+      "source_row": 55
+    },
+    {
+      "category_key": "component",
+      "level": 4,
+      "registry_id": "create_new_age:blank_circuit",
+      "source_sheet": "汇总",
+      "source_row": 56
+    },
+    {
+      "category_key": "component",
+      "level": 4,
+      "registry_id": "survival_instinct:body_armor_plate_ii",
+      "source_sheet": "汇总",
+      "source_row": 57
+    },
+    {
+      "category_key": "component",
+      "level": 4,
+      "registry_id": "crusty_chunks:hollowed_huge_projectile",
+      "source_sheet": "汇总",
+      "source_row": 58
+    },
+    {
+      "category_key": "component",
+      "level": 4,
+      "registry_id": "spore:compound_plate",
+      "source_sheet": "汇总",
+      "source_row": 59
+    },
+    {
+      "category_key": "component",
+      "level": 4,
+      "registry_id": "survival_instinct:tier_iv_kevlar",
+      "source_sheet": "汇总",
+      "source_row": 60
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "minecraft:redstone",
+      "source_sheet": "汇总",
+      "source_row": 61
+    },
+    {
+      "category_key": "component",
+      "level": 3,
+      "registry_id": "minecraft:amethyst_shard",
+      "source_sheet": "汇总",
+      "source_row": 62
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "minecraft:shield",
+      "source_sheet": "汇总",
+      "source_row": 63
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "minecraft:iron_axe",
+      "source_sheet": "汇总",
+      "source_row": 64
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:greataxe_stop_sign",
+      "source_sheet": "汇总",
+      "source_row": 65
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:stop_sing_shield",
+      "source_sheet": "汇总",
+      "source_row": 66
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:sledge_great_hammer",
+      "source_sheet": "汇总",
+      "source_row": 67
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:lance_with_knife",
+      "source_sheet": "汇总",
+      "source_row": 68
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:plank_with_nails_sword",
+      "source_sheet": "汇总",
+      "source_row": 69
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:b_aseball_bat_with_nails_sword",
+      "source_sheet": "汇总",
+      "source_row": 70
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:plank_sword",
+      "source_sheet": "汇总",
+      "source_row": 71
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:baseball_bat_sword",
+      "source_sheet": "汇总",
+      "source_row": 72
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:swat_shield",
+      "source_sheet": "汇总",
+      "source_row": 73
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:electric_fist",
+      "source_sheet": "汇总",
+      "source_row": 74
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:electric_baton_sword",
+      "source_sheet": "汇总",
+      "source_row": 75
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:glaive_chainsaw",
+      "source_sheet": "汇总",
+      "source_row": 76
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:machete",
+      "source_sheet": "汇总",
+      "source_row": 77
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:glaive_with_machete",
+      "source_sheet": "汇总",
+      "source_row": 78
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:lance_with_broken_bottle",
+      "source_sheet": "汇总",
+      "source_row": 79
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:broken_bottle_sword",
+      "source_sheet": "汇总",
+      "source_row": 80
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:american_fist",
+      "source_sheet": "汇总",
+      "source_row": 81
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:lance_wit_screwdriver",
+      "source_sheet": "汇总",
+      "source_row": 82
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:metal_baseballbat_hammer",
+      "source_sheet": "汇总",
+      "source_row": 83
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "survival_instinct:steellium_pipe_mace",
+      "source_sheet": "汇总",
+      "source_row": 84
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "zombiekit:baseball_bat",
+      "source_sheet": "汇总",
+      "source_row": 85
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "zombiekit:machete",
+      "source_sheet": "汇总",
+      "source_row": 86
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "zombiekit:chainsaw",
+      "source_sheet": "汇总",
+      "source_row": 87
+    },
+    {
+      "category_key": "craftable_melee",
+      "level": 153,
+      "registry_id": "zombiekit:studded_baseball_bat",
+      "source_sheet": "汇总",
+      "source_row": 88
+    },
+    {
+      "category_key": "gun",
+      "level": 1,
+      "variant_discriminator": "GunId=hamster:webley",
+      "source_sheet": "汇总",
+      "source_row": 89
+    },
+    {
+      "category_key": "gun",
+      "level": 1,
+      "variant_discriminator": "GunId=hamster:makarov",
+      "source_sheet": "汇总",
+      "source_row": 90
+    },
+    {
+      "category_key": "gun",
+      "level": 1,
+      "variant_discriminator": "GunId=hamster:lugerp08",
+      "source_sheet": "汇总",
+      "source_row": 91
+    },
+    {
+      "category_key": "gun",
+      "level": 1,
+      "variant_discriminator": "GunId=hamster:sw_mk2",
+      "source_sheet": "汇总",
+      "source_row": 92
+    },
+    {
+      "category_key": "gun",
+      "level": 1,
+      "variant_discriminator": "GunId=murasamet:abe_pipe_gun",
+      "source_sheet": "汇总",
+      "source_row": 93
+    },
+    {
+      "category_key": "gun",
+      "level": null,
+      "variant_discriminator": "GunId=hamster:one_barrel",
+      "source_sheet": "汇总",
+      "source_row": 94
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=tacz:springfield1873",
+      "source_sheet": "汇总",
+      "source_row": 95
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=hamster:gew98",
+      "source_sheet": "汇总",
+      "source_row": 96
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=hamster:m1garand",
+      "source_sheet": "汇总",
+      "source_row": 97
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=hamster:krag",
+      "source_sheet": "汇总",
+      "source_row": 98
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=hamster:smle_mk3",
+      "source_sheet": "汇总",
+      "source_row": 99
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=hamster:win1873",
+      "source_sheet": "汇总",
+      "source_row": 100
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=hamster:auto5",
+      "source_sheet": "汇总",
+      "source_row": 101
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=hamster:m1887_hc",
+      "source_sheet": "汇总",
+      "source_row": 102
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=murasamet:shambler",
+      "source_sheet": "汇总",
+      "source_row": 103
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=tacz:db_short",
+      "source_sheet": "汇总",
+      "source_row": 104
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=tacz:db_long",
+      "source_sheet": "汇总",
+      "source_row": 105
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=tacz:hk_mp5a5",
+      "source_sheet": "汇总",
+      "source_row": 106
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=tacz:ump45",
+      "source_sheet": "汇总",
+      "source_row": 107
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=tacz:uzi",
+      "source_sheet": "汇总",
+      "source_row": 108
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=hamster:mp18",
+      "source_sheet": "汇总",
+      "source_row": 109
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=murasamet:mp38",
+      "source_sheet": "汇总",
+      "source_row": 110
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=murasamet:barstard",
+      "source_sheet": "汇总",
+      "source_row": 111
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=murasamet:m1a1",
+      "source_sheet": "汇总",
+      "source_row": 112
+    },
+    {
+      "category_key": "gun",
+      "level": 2,
+      "variant_discriminator": "GunId=murasamet:ppsh",
+      "source_sheet": "汇总",
+      "source_row": 113
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:qbz_95",
+      "source_sheet": "汇总",
+      "source_row": 114
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:qbz_191",
+      "source_sheet": "汇总",
+      "source_row": 115
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:type_81",
+      "source_sheet": "汇总",
+      "source_row": 116
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:spr15hb",
+      "source_sheet": "汇总",
+      "source_row": 117
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=murasamet:dpm",
+      "source_sheet": "汇总",
+      "source_row": 118
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=daffas_arsenal:ak47",
+      "source_sheet": "汇总",
+      "source_row": 119
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:ak47",
+      "source_sheet": "汇总",
+      "source_row": 120
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:fn_fal",
+      "source_sheet": "汇总",
+      "source_row": 121
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:sks_tactical",
+      "source_sheet": "汇总",
+      "source_row": 122
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=hamster:mg1417",
+      "source_sheet": "汇总",
+      "source_row": 123
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=hamster:madsen",
+      "source_sheet": "汇总",
+      "source_row": 124
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:hk_g3",
+      "source_sheet": "汇总",
+      "source_row": 125
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:hk416d",
+      "source_sheet": "汇总",
+      "source_row": 126
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:m16a1",
+      "source_sheet": "汇总",
+      "source_row": 127
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:mk14",
+      "source_sheet": "汇总",
+      "source_row": 128
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:ai_awp",
+      "source_sheet": "汇总",
+      "source_row": 129
+    },
+    {
+      "category_key": "gun",
+      "level": 3,
+      "variant_discriminator": "GunId=tacz:m700",
+      "source_sheet": "汇总",
+      "source_row": 130
+    },
+    {
+      "category_key": "gun",
+      "level": 4,
+      "variant_discriminator": "GunId=tacz:fn_evolys",
+      "source_sheet": "汇总",
+      "source_row": 131
+    },
+    {
+      "category_key": "gun",
+      "level": 4,
+      "variant_discriminator": "GunId=tacz:minigun",
+      "source_sheet": "汇总",
+      "source_row": 132
+    },
+    {
+      "category_key": "gun",
+      "level": 4,
+      "variant_discriminator": "GunId=tacz:m249",
+      "source_sheet": "汇总",
+      "source_row": 133
+    },
+    {
+      "category_key": "gun",
+      "level": 4,
+      "variant_discriminator": "GunId=tacz:m320",
+      "source_sheet": "汇总",
+      "source_row": 134
+    },
+    {
+      "category_key": "gun",
+      "level": 4,
+      "variant_discriminator": "GunId=tacz:rpg7",
+      "source_sheet": "汇总",
+      "source_row": 135
+    },
+    {
+      "category_key": "gun",
+      "level": 4,
+      "variant_discriminator": "GunId=tacz:rpk",
+      "source_sheet": "汇总",
+      "source_row": 136
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:backpack_alice",
+      "source_sheet": "汇总",
+      "source_row": 143
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_0",
+      "source_sheet": "汇总",
+      "source_row": 144
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_1",
+      "source_sheet": "汇总",
+      "source_row": 145
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_10",
+      "source_sheet": "汇总",
+      "source_row": 146
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_11",
+      "source_sheet": "汇总",
+      "source_row": 147
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_12",
+      "source_sheet": "汇总",
+      "source_row": 148
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_13",
+      "source_sheet": "汇总",
+      "source_row": 149
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_14",
+      "source_sheet": "汇总",
+      "source_row": 150
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_2",
+      "source_sheet": "汇总",
+      "source_row": 151
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_3",
+      "source_sheet": "汇总",
+      "source_row": 152
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_4",
+      "source_sheet": "汇总",
+      "source_row": 153
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_5",
+      "source_sheet": "汇总",
+      "source_row": 154
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_6",
+      "source_sheet": "汇总",
+      "source_row": 155
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_7",
+      "source_sheet": "汇总",
+      "source_row": 156
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_8",
+      "source_sheet": "汇总",
+      "source_row": 157
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shirt_9",
+      "source_sheet": "汇总",
+      "source_row": 158
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:backpack_coyote",
+      "source_sheet": "汇总",
+      "source_row": 159
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:backpack_patrolpack",
+      "source_sheet": "汇总",
+      "source_row": 160
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:gloves_0",
+      "source_sheet": "汇总",
+      "source_row": 161
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:gloves_1",
+      "source_sheet": "汇总",
+      "source_row": 162
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:gloves_2",
+      "source_sheet": "汇总",
+      "source_row": 163
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:backpack_czechpouch",
+      "source_sheet": "汇总",
+      "source_row": 164
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:backpack_czech",
+      "source_sheet": "汇总",
+      "source_row": 165
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:vest_0",
+      "source_sheet": "汇总",
+      "source_row": 166
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:pants_0",
+      "source_sheet": "汇总",
+      "source_row": 167
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:pants_1",
+      "source_sheet": "汇总",
+      "source_row": 168
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:pants_2",
+      "source_sheet": "汇总",
+      "source_row": 169
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:pants_3",
+      "source_sheet": "汇总",
+      "source_row": 170
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:pants_4",
+      "source_sheet": "汇总",
+      "source_row": 171
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:pants_5",
+      "source_sheet": "汇总",
+      "source_row": 172
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shoes_0",
+      "source_sheet": "汇总",
+      "source_row": 173
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shoes_1",
+      "source_sheet": "汇总",
+      "source_row": 174
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shoes_2",
+      "source_sheet": "汇总",
+      "source_row": 175
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "blockz:shoes_3",
+      "source_sheet": "汇总",
+      "source_row": 176
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "create:goggles",
+      "source_sheet": "汇总",
+      "source_row": 177
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "minecraft:leather_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 178
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "minecraft:leather_helmet",
+      "source_sheet": "汇总",
+      "source_row": 179
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "minecraft:leather_leggings",
+      "source_sheet": "汇总",
+      "source_row": 180
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "minecraft:leather_boots",
+      "source_sheet": "汇总",
+      "source_row": 181
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "paraglider:paraglider",
+      "source_sheet": "汇总",
+      "source_row": 182
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "spore:gas_mask",
+      "source_sheet": "汇总",
+      "source_row": 183
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "superbwarfare:ge_helmet_m_35",
+      "source_sheet": "汇总",
+      "source_row": 184
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "superbwarfare:iff",
+      "source_sheet": "汇总",
+      "source_row": 185
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "superbwarfare:dog_tag",
+      "source_sheet": "汇总",
+      "source_row": 186
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "superbwarfare:parachute",
+      "source_sheet": "汇总",
+      "source_row": 187
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "survival_instinct:cloth_balaclava_helmet",
+      "source_sheet": "汇总",
+      "source_row": 188
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "survival_instinct:wool_balaclava_helmet",
+      "source_sheet": "汇总",
+      "source_row": 189
+    },
+    {
+      "category_key": "equipment",
+      "level": 1,
+      "registry_id": "survival_instinct:gas_mask_helmet",
+      "source_sheet": "汇总",
+      "source_row": 190
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:desert_recluit_armor_helmet",
+      "source_sheet": "汇总",
+      "source_row": 191
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:desert_recluit_armor_leggings",
+      "source_sheet": "汇总",
+      "source_row": 192
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:desert_recluit_armor_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 193
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:desert_recluit_armor_boots",
+      "source_sheet": "汇总",
+      "source_row": 194
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:green_recluit_armor_helmet",
+      "source_sheet": "汇总",
+      "source_row": 195
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:green_recluit_armor_leggings",
+      "source_sheet": "汇总",
+      "source_row": 196
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:green_recluit_armor_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 197
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:green_recluit_armor_boots",
+      "source_sheet": "汇总",
+      "source_row": 198
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:police_helmet",
+      "source_sheet": "汇总",
+      "source_row": 199
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:police_leggings",
+      "source_sheet": "汇总",
+      "source_row": 200
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:police_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 201
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:police_boots",
+      "source_sheet": "汇总",
+      "source_row": 202
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:black_rockie_armor_leggings",
+      "source_sheet": "汇总",
+      "source_row": 203
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:black_recluit_armor_helmet",
+      "source_sheet": "汇总",
+      "source_row": 204
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:black_recluit_armor_leggings",
+      "source_sheet": "汇总",
+      "source_row": 205
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:black_recluit_armor_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 206
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:black_recluit_armor_boots",
+      "source_sheet": "汇总",
+      "source_row": 207
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:black_rockie_armor_helmet",
+      "source_sheet": "汇总",
+      "source_row": 208
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:black_rockie_armor_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 209
+    },
+    {
+      "category_key": "equipment",
+      "level": 2,
+      "registry_id": "survival_instinct:black_rockie_armor_boots",
+      "source_sheet": "汇总",
+      "source_row": 210
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:military_helmet",
+      "source_sheet": "汇总",
+      "source_row": 211
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:military_leggings",
+      "source_sheet": "汇总",
+      "source_row": 212
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:military_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 213
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:military_boots",
+      "source_sheet": "汇总",
+      "source_row": 214
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:night_vision_goggles_helmet",
+      "source_sheet": "汇总",
+      "source_row": 215
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:desert_rockie_armor_helmet",
+      "source_sheet": "汇总",
+      "source_row": 216
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:desert_rockie_armor_leggings",
+      "source_sheet": "汇总",
+      "source_row": 217
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:desert_rockie_armor_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 218
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:desert_rockie_armor_boots",
+      "source_sheet": "汇总",
+      "source_row": 219
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:desert_hunter_helmet",
+      "source_sheet": "汇总",
+      "source_row": 220
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:green_rockie_armor_helmet",
+      "source_sheet": "汇总",
+      "source_row": 221
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:green_rockie_armor_leggings",
+      "source_sheet": "汇总",
+      "source_row": 222
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:green_rockie_armor_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 223
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:green_rockie_armor_boots",
+      "source_sheet": "汇总",
+      "source_row": 224
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:green_hunter_helmet",
+      "source_sheet": "汇总",
+      "source_row": 225
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "survival_instinct:black_hunter_helmet",
+      "source_sheet": "汇总",
+      "source_row": 226
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:forest_tactical_helmet",
+      "source_sheet": "汇总",
+      "source_row": 227
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:forest_tactical_leggings",
+      "source_sheet": "汇总",
+      "source_row": 228
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:forest_tactical_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 229
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:forest_tactical_boots",
+      "source_sheet": "汇总",
+      "source_row": 230
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:standard_tactical_helmet",
+      "source_sheet": "汇总",
+      "source_row": 231
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:standard_tactical_leggings",
+      "source_sheet": "汇总",
+      "source_row": 232
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:standard_tactical_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 233
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:standard_tactical_boots",
+      "source_sheet": "汇总",
+      "source_row": 234
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:standard_riot_helmet",
+      "source_sheet": "汇总",
+      "source_row": 235
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:standard_riot_leggings",
+      "source_sheet": "汇总",
+      "source_row": 236
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:standard_riot_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 237
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:standard_riot_boots",
+      "source_sheet": "汇总",
+      "source_row": 238
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:desert_tactical_helmet",
+      "source_sheet": "汇总",
+      "source_row": 239
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:desert_tactical_leggings",
+      "source_sheet": "汇总",
+      "source_row": 240
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:desert_tactical_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 241
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:desert_tactical_boots",
+      "source_sheet": "汇总",
+      "source_row": 242
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:bomb_helmet",
+      "source_sheet": "汇总",
+      "source_row": 243
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:bomb_leggings",
+      "source_sheet": "汇总",
+      "source_row": 244
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:bomb_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 245
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:bomb_boots",
+      "source_sheet": "汇总",
+      "source_row": 246
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:snow_tactical_helmet",
+      "source_sheet": "汇总",
+      "source_row": 247
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:snow_tactical_leggings",
+      "source_sheet": "汇总",
+      "source_row": 248
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:snow_tactical_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 249
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:snow_tactical_boots",
+      "source_sheet": "汇总",
+      "source_row": 250
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:snow_riot_helmet",
+      "source_sheet": "汇总",
+      "source_row": 251
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:snow_riot_leggings",
+      "source_sheet": "汇总",
+      "source_row": 252
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:snow_riot_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 253
+    },
+    {
+      "category_key": "equipment",
+      "level": 3,
+      "registry_id": "zombiekit:snow_riot_boots",
+      "source_sheet": "汇总",
+      "source_row": 254
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "superbwarfare:ru_chest_6b43",
+      "source_sheet": "汇总",
+      "source_row": 255
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "superbwarfare:ru_helmet_6b47",
+      "source_sheet": "汇总",
+      "source_row": 256
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "superbwarfare:us_chest_iotv",
+      "source_sheet": "汇总",
+      "source_row": 257
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "superbwarfare:us_helmet_pasgt",
+      "source_sheet": "汇总",
+      "source_row": 258
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:spruce_guillie_helmet",
+      "source_sheet": "汇总",
+      "source_row": 259
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:spruce_guillie_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 260
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:spruce_guillie_leggings",
+      "source_sheet": "汇总",
+      "source_row": 261
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:spruce_guillie_boots",
+      "source_sheet": "汇总",
+      "source_row": 262
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:artic_guillie_leggings",
+      "source_sheet": "汇总",
+      "source_row": 263
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:artic_guillie_helmet",
+      "source_sheet": "汇总",
+      "source_row": 264
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:artic_guillie_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 265
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:artic_guillie_boots",
+      "source_sheet": "汇总",
+      "source_row": 266
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:hazmat_helmet",
+      "source_sheet": "汇总",
+      "source_row": 267
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:hazmat_leggings",
+      "source_sheet": "汇总",
+      "source_row": 268
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:hazmat_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 269
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:hazmat_boots",
+      "source_sheet": "汇总",
+      "source_row": 270
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:guillie_helmet",
+      "source_sheet": "汇总",
+      "source_row": 271
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:guillie_leggings",
+      "source_sheet": "汇总",
+      "source_row": 272
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:guillie_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 273
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:guillie_boots",
+      "source_sheet": "汇总",
+      "source_row": 274
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:desert_juggernaut_helmet",
+      "source_sheet": "汇总",
+      "source_row": 275
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:desert_juggernaut_leggings",
+      "source_sheet": "汇总",
+      "source_row": 276
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:desert_juggernaut_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 277
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:desert_juggernaut_boots",
+      "source_sheet": "汇总",
+      "source_row": 278
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:green_juggernaut_helmet",
+      "source_sheet": "汇总",
+      "source_row": 279
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:green_juggernaut_leggings",
+      "source_sheet": "汇总",
+      "source_row": 280
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:green_juggernaut_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 281
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:green_juggernaut_boots",
+      "source_sheet": "汇总",
+      "source_row": 282
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:black_juggernaut_helmet",
+      "source_sheet": "汇总",
+      "source_row": 283
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:black_juggernaut_leggings",
+      "source_sheet": "汇总",
+      "source_row": 284
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:black_juggernaut_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 285
+    },
+    {
+      "category_key": "equipment",
+      "level": 4,
+      "registry_id": "survival_instinct:black_juggernaut_boots",
+      "source_sheet": "汇总",
+      "source_row": 286
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_black_boots",
+      "source_sheet": "汇总",
+      "source_row": 287
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_black_leggings",
+      "source_sheet": "汇总",
+      "source_row": 288
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_leggings",
+      "source_sheet": "汇总",
+      "source_row": 289
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_desert_leggings",
+      "source_sheet": "汇总",
+      "source_row": 290
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_desert_boots",
+      "source_sheet": "汇总",
+      "source_row": 291
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_green_leggings",
+      "source_sheet": "汇总",
+      "source_row": 292
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_green_boots",
+      "source_sheet": "汇总",
+      "source_row": 293
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_helmet",
+      "source_sheet": "汇总",
+      "source_row": 294
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_desert_helmet",
+      "source_sheet": "汇总",
+      "source_row": 295
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_desert_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 296
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_black_helmet",
+      "source_sheet": "汇总",
+      "source_row": 297
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_green_helmet",
+      "source_sheet": "汇总",
+      "source_row": 298
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_green_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 299
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_heavy_black_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 300
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_boots",
+      "source_sheet": "汇总",
+      "source_row": 301
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "survival_instinct:exo_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 302
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "zombiekit:exo_helmet",
+      "source_sheet": "汇总",
+      "source_row": 303
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "zombiekit:exo_leggings",
+      "source_sheet": "汇总",
+      "source_row": 304
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "zombiekit:exo_chestplate",
+      "source_sheet": "汇总",
+      "source_row": 305
+    },
+    {
+      "category_key": "equipment",
+      "level": 5,
+      "registry_id": "zombiekit:exo_boots",
+      "source_sheet": "汇总",
+      "source_row": 306
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "lrtactical:throwable",
+      "source_sheet": "汇总",
+      "source_row": 307
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "superbwarfare:blu_43_mine",
+      "source_sheet": "汇总",
+      "source_row": 308
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "superbwarfare:c4_bomb",
+      "source_sheet": "汇总",
+      "source_row": 309
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "superbwarfare:m18_smoke_grenade",
+      "source_sheet": "汇总",
+      "source_row": 310
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "superbwarfare:hand_grenade",
+      "source_sheet": "汇总",
+      "source_row": 311
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "superbwarfare:ptkm_1r",
+      "source_sheet": "汇总",
+      "source_row": 312
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "superbwarfare:rgo_grenade",
+      "source_sheet": "汇总",
+      "source_row": 313
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "superbwarfare:tm_62",
+      "source_sheet": "汇总",
+      "source_row": 314
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "superbwarfare:lunge_mine",
+      "source_sheet": "汇总",
+      "source_row": 315
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "superbwarfare:detonator",
+      "source_sheet": "汇总",
+      "source_row": 316
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "superbwarfare:claymore_mine",
+      "source_sheet": "汇总",
+      "source_row": 317
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "survival_instinct:bear_trap",
+      "source_sheet": "汇总",
+      "source_row": 318
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "survival_instinct:homemade_mine",
+      "source_sheet": "汇总",
+      "source_row": 319
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "crusty_chunks:grenade",
+      "source_sheet": "汇总",
+      "source_row": 320
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "crusty_chunks:smoke_grenade",
+      "source_sheet": "汇总",
+      "source_row": 321
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "crusty_chunks:incendiary_grenade",
+      "source_sheet": "汇总",
+      "source_row": 322
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "crusty_chunks:incendiary_bottle",
+      "source_sheet": "汇总",
+      "source_row": 323
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "zombiekit:wrench",
+      "source_sheet": "汇总",
+      "source_row": 324
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "zombiekit:bile_jar",
+      "source_sheet": "汇总",
+      "source_row": 325
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "zombiekit:potion_jar",
+      "source_sheet": "汇总",
+      "source_row": 326
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "zombiekit:firecracker",
+      "source_sheet": "汇总",
+      "source_row": 327
+    },
+    {
+      "category_key": "workstation",
+      "level": 3,
+      "registry_id": "create:railway_casing",
+      "source_sheet": "汇总",
+      "source_row": 328
+    },
+    {
+      "category_key": "workstation",
+      "level": 3,
+      "registry_id": "create:controls",
+      "source_sheet": "汇总",
+      "source_row": 329
+    },
+    {
+      "category_key": "workstation",
+      "level": 2,
+      "registry_id": "create:mechanical_press",
+      "source_sheet": "汇总",
+      "source_row": 330
+    },
+    {
+      "category_key": "workstation",
+      "level": 3,
+      "registry_id": "create:mechanical_roller",
+      "source_sheet": "汇总",
+      "source_row": 331
+    },
+    {
+      "category_key": "workstation",
+      "level": 3,
+      "registry_id": "create:mechanical_crafter",
+      "source_sheet": "汇总",
+      "source_row": 332
+    },
+    {
+      "category_key": "workstation",
+      "level": 2,
+      "registry_id": "create:mechanical_mixer",
+      "source_sheet": "汇总",
+      "source_row": 333
+    },
+    {
+      "category_key": "workstation",
+      "level": 3,
+      "registry_id": "create:mechanical_drill",
+      "source_sheet": "汇总",
+      "source_row": 334
+    },
+    {
+      "category_key": "workstation",
+      "level": 2,
+      "registry_id": "create:mechanical_saw",
+      "source_sheet": "汇总",
+      "source_row": 335
+    },
+    {
+      "category_key": "workstation",
+      "level": 2,
+      "registry_id": "create:basin",
+      "source_sheet": "汇总",
+      "source_row": 336
+    },
+    {
+      "category_key": "workstation",
+      "level": 3,
+      "registry_id": "create:deployer",
+      "source_sheet": "汇总",
+      "source_row": 337
+    },
+    {
+      "category_key": "workstation",
+      "level": 2,
+      "registry_id": "create:millstone",
+      "source_sheet": "汇总",
+      "source_row": 338
+    },
+    {
+      "category_key": "workstation",
+      "level": 3,
+      "registry_id": "create:crushing_wheel",
+      "source_sheet": "汇总",
+      "source_row": 339
+    },
+    {
+      "category_key": "workstation",
+      "level": 2,
+      "registry_id": "create:encased_fan",
+      "source_sheet": "汇总",
+      "source_row": 340
+    },
+    {
+      "category_key": "workstation",
+      "level": 2,
+      "registry_id": "createaddition:rolling_mill",
+      "source_sheet": "汇总",
+      "source_row": 341
+    },
+    {
+      "category_key": "workstation",
+      "level": 1,
+      "registry_id": "doomsday_decoration:desk",
+      "source_sheet": "汇总",
+      "source_row": 342
+    },
+    {
+      "category_key": "workstation",
+      "level": 2,
+      "registry_id": "tacz:workbench_b",
+      "source_sheet": "汇总",
+      "source_row": 343
+    },
+    {
+      "category_key": "workstation",
+      "level": 3,
+      "registry_id": "tacz:workbench_a",
+      "source_sheet": "汇总",
+      "source_row": 344
+    },
+    {
+      "category_key": "workstation",
+      "level": 3,
+      "registry_id": "tacz:gun_smith_table",
+      "source_sheet": "汇总",
+      "source_row": 345
+    },
+    {
+      "category_key": "workstation",
+      "level": 3,
+      "registry_id": "tacz:workbench_c",
+      "source_sheet": "汇总",
+      "source_row": 346
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "create:sand_paper",
+      "source_sheet": "汇总",
+      "source_row": 347
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "createdieselgenerators:track_layers_bag",
+      "source_sheet": "汇总",
+      "source_row": 348
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "just_barricades:jungle_barricade",
+      "source_sheet": "汇总",
+      "source_row": 349
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "just_barricades:spruce_barricade",
+      "source_sheet": "汇总",
+      "source_row": 350
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "just_barricades:cherry_barricade",
+      "source_sheet": "汇总",
+      "source_row": 351
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "just_barricades:oak_barricade",
+      "source_sheet": "汇总",
+      "source_row": 352
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "just_barricades:dark_oak_barricade",
+      "source_sheet": "汇总",
+      "source_row": 353
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "just_barricades:birch_barricade",
+      "source_sheet": "汇总",
+      "source_row": 354
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "just_barricades:bamboo_barricade",
+      "source_sheet": "汇总",
+      "source_row": 355
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "just_barricades:mangrove_barricade",
+      "source_sheet": "汇总",
+      "source_row": 356
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "just_barricades:acacia_barricade",
+      "source_sheet": "汇总",
+      "source_row": 357
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "locks:wood_lock_pick",
+      "source_sheet": "汇总",
+      "source_row": 358
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "minecraft:flint_and_steel",
+      "source_sheet": "汇总",
+      "source_row": 359
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "minecraft:lead",
+      "source_sheet": "汇总",
+      "source_row": 360
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "minecraft:bucket",
+      "source_sheet": "汇总",
+      "source_row": 361
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "simpleradio:spuddie_talkie",
+      "source_sheet": "汇总",
+      "source_row": 362
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "zombiekit:trap_cover",
+      "source_sheet": "汇总",
+      "source_row": 363
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 1,
+      "registry_id": "zombiekit:barbed_wire",
+      "source_sheet": "汇总",
+      "source_row": 364
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "create:extendo_grip",
+      "source_sheet": "汇总",
+      "source_row": 365
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "create:wrench",
+      "source_sheet": "汇总",
+      "source_row": 366
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "createdieselgenerators:wire_cutters",
+      "source_sheet": "汇总",
+      "source_row": 367
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "createdieselgenerators:oil_scanner",
+      "source_sheet": "汇总",
+      "source_row": 368
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "createdieselgenerators:hammer",
+      "source_sheet": "汇总",
+      "source_row": 369
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "handheldmoon:moonlight_lamp",
+      "source_sheet": "汇总",
+      "source_row": 370
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "kaleidoscope_cookery:sickle",
+      "source_sheet": "汇总",
+      "source_row": 371
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "locks:wood_lock",
+      "source_sheet": "汇总",
+      "source_row": 372
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "locks:key_blank",
+      "source_sheet": "汇总",
+      "source_row": 373
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "locks:steel_lock_pick",
+      "source_sheet": "汇总",
+      "source_row": 374
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "locks:steel_lock",
+      "source_sheet": "汇总",
+      "source_row": 375
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "locks:key_ring",
+      "source_sheet": "汇总",
+      "source_row": 376
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "locks:iron_lock_pick",
+      "source_sheet": "汇总",
+      "source_row": 377
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "locks:iron_lock",
+      "source_sheet": "汇总",
+      "source_row": 378
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "minecraft:shears",
+      "source_sheet": "汇总",
+      "source_row": 379
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "minecraft:compass",
+      "source_sheet": "汇总",
+      "source_row": 380
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "minecraft:clock",
+      "source_sheet": "汇总",
+      "source_row": 381
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "minecraft:spyglass",
+      "source_sheet": "汇总",
+      "source_row": 382
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "minecraft:fishing_rod",
+      "source_sheet": "汇总",
+      "source_row": 383
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "minecraft:iron_hoe",
+      "source_sheet": "汇总",
+      "source_row": 384
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "minecraft:iron_shovel",
+      "source_sheet": "汇总",
+      "source_row": 385
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "minecraft:iron_pickaxe",
+      "source_sheet": "汇总",
+      "source_row": 386
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "ropebridge:bridge_builder",
+      "source_sheet": "汇总",
+      "source_row": 387
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "ropebridge:ladder_builder",
+      "source_sheet": "汇总",
+      "source_row": 388
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "simpleradio:transceiver",
+      "source_sheet": "汇总",
+      "source_row": 389
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "superbwarfare:defuser",
+      "source_sheet": "汇总",
+      "source_row": 390
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "superbwarfare:crowbar",
+      "source_sheet": "汇总",
+      "source_row": 391
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "superbwarfare:vehicle_damage_analyzer",
+      "source_sheet": "汇总",
+      "source_row": 392
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "survival_instinct:wrench_mace",
+      "source_sheet": "汇总",
+      "source_row": 393
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "survival_instinct:lever_mace",
+      "source_sheet": "汇总",
+      "source_row": 394
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "survival_instinct:screwdriver_rapier",
+      "source_sheet": "汇总",
+      "source_row": 395
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "survival_instinct:nails_hammer",
+      "source_sheet": "汇总",
+      "source_row": 396
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "the_ravenous:anti_ravenous",
+      "source_sheet": "汇总",
+      "source_row": 397
+    },
+    {
+      "category_key": "tool_toy",
+      "level": null,
+      "registry_id": "tacz:ammo_box",
+      "source_sheet": "汇总",
+      "source_row": 398
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 2,
+      "registry_id": "zombiekit:pocket_radio",
+      "source_sheet": "汇总",
+      "source_row": 399
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "farmersdelight:netherite_knife",
+      "source_sheet": "汇总",
+      "source_row": 400
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:vielle",
+      "source_sheet": "汇总",
+      "source_row": 401
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:triangle",
+      "source_sheet": "汇总",
+      "source_row": 402
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:trumpet",
+      "source_sheet": "汇总",
+      "source_row": 403
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:tiny_drum",
+      "source_sheet": "汇总",
+      "source_row": 404
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:handpan",
+      "source_sheet": "汇总",
+      "source_row": 405
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:ender_bass",
+      "source_sheet": "汇总",
+      "source_row": 406
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:lute",
+      "source_sheet": "汇总",
+      "source_row": 407
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:didgeridoo",
+      "source_sheet": "汇总",
+      "source_row": 408
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:piano",
+      "source_sheet": "汇总",
+      "source_row": 409
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:flute",
+      "source_sheet": "汇总",
+      "source_row": 410
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "immersive_melodies:bagpipe",
+      "source_sheet": "汇总",
+      "source_row": 411
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "locks:gold_lock_pick",
+      "source_sheet": "汇总",
+      "source_row": 412
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "locks:diamond_lock_pick",
+      "source_sheet": "汇总",
+      "source_row": 413
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "minecraft:netherite_shovel",
+      "source_sheet": "汇总",
+      "source_row": 414
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "minecraft:netherite_pickaxe",
+      "source_sheet": "汇总",
+      "source_row": 415
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "minecraft:goat_horn",
+      "source_sheet": "汇总",
+      "source_row": 416
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "minecraft:recovery_compass",
+      "source_sheet": "汇总",
+      "source_row": 417
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "sculkhorde:infestation_purifier",
+      "source_sheet": "汇总",
+      "source_row": 418
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "sculkhorde:eye_of_purity",
+      "source_sheet": "汇总",
+      "source_row": 419
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "spore:scanner",
+      "source_sheet": "汇总",
+      "source_row": 420
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "superbwarfare:drone",
+      "source_sheet": "汇总",
+      "source_row": 421
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "superbwarfare:artillery_indicator",
+      "source_sheet": "汇总",
+      "source_row": 422
+    },
+    {
+      "category_key": "tool_toy",
+      "level": 3,
+      "registry_id": "superbwarfare:monitor",
+      "source_sheet": "汇总",
+      "source_row": 423
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jia_a\"}}",
+      "source_sheet": "汇总",
+      "source_row": 425
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jia_b\"}}",
+      "source_sheet": "汇总",
+      "source_row": 426
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jia_c\"}}",
+      "source_sheet": "汇总",
+      "source_row": 427
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jia_d\"}}",
+      "source_sheet": "汇总",
+      "source_row": 428
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jijiubao_a\"}}",
+      "source_sheet": "汇总",
+      "source_row": 429
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jijiubao_b\"}}",
+      "source_sheet": "汇总",
+      "source_row": 430
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_jijiubao_c\"}}",
+      "source_sheet": "汇总",
+      "source_row": 431
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_yaoping_a\"}}",
+      "source_sheet": "汇总",
+      "source_row": 432
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_yaoping_b\"}}",
+      "source_sheet": "汇总",
+      "source_row": 433
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_a\"}}",
+      "source_sheet": "汇总",
+      "source_row": 434
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_b\"}}",
+      "source_sheet": "汇总",
+      "source_row": 435
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_c\"}}",
+      "source_sheet": "汇总",
+      "source_row": 436
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_d\"}}",
+      "source_sheet": "汇总",
+      "source_row": 437
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_e\"}}",
+      "source_sheet": "汇总",
+      "source_row": 438
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_f\"}}",
+      "source_sheet": "汇总",
+      "source_row": 439
+    },
+    {
+      "category_key": "utility",
+      "level": 153,
+      "registry_id": "firstpersonfoodeating:pack_food{firstpersonfoodeating_profile:{food_id:\"firstpersonfoodeating:i_zhenji_g\"}}",
+      "source_sheet": "汇总",
+      "source_row": 440
+    }
+  ],
+  "level_conflicts": [
+    {
+      "selector": "registry:tacz:ammo_box",
+      "rows": [
+        398,
+        424
+      ]
+    }
+  ]
+}

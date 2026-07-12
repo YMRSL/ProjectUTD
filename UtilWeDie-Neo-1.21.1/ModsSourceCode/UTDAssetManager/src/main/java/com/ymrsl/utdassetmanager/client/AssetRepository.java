@@ -265,6 +265,10 @@ public final class AssetRepository {
     }
 
     public synchronized Path exportSnapshot() {
+        return exportSnapshot(Map.of());
+    }
+
+    public synchronized Path exportSnapshot(Map<String, String> iconDataUrls) {
         ensureLoaded();
         requireWritableWhitelist();
         reloadManifestIfChanged();
@@ -275,7 +279,7 @@ public final class AssetRepository {
         root.put("exported_at", Instant.now().toString());
         List<Map<String, Object>> records = new ArrayList<>();
         for (AssetRecord record : allSelected()) {
-            records.add(exportRecord(record, statusFor(record.assetKey)));
+            records.add(exportRecord(record, statusFor(record.assetKey), iconDataUrls.get(record.assetKey)));
         }
         root.put("items", records);
         Path exports = directory().resolve("exports");
@@ -292,6 +296,10 @@ public final class AssetRepository {
     }
 
     static Map<String, Object> exportRecord(AssetRecord record, AssetStatus status) {
+        return exportRecord(record, status, null);
+    }
+
+    static Map<String, Object> exportRecord(AssetRecord record, AssetStatus status, String iconDataUrl) {
         Map<String, Object> exported = new LinkedHashMap<>();
         exported.put("asset_key", record.assetKey);
         exported.put("variant_key", record.variantKey);
@@ -305,6 +313,9 @@ public final class AssetRepository {
         exported.put("item_stack_snbt", record.itemStackSnbt);
         exported.put("translation_key", record.translationKey);
         exported.put("client_name_zh_cn", record.displayNameZhCn);
+        if (iconDataUrl != null && iconDataUrl.startsWith("data:image/png;base64,")) {
+            exported.put("icon_data_url", iconDataUrl);
+        }
         exported.put("captured_locale", record.capturedLocale);
         exported.put("human_selected", true);
         exported.put("selected_at", record.selectedAt);

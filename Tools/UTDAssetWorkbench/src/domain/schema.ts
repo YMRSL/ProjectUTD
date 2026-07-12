@@ -5,6 +5,7 @@ export const EXCEL_INTERFACE_SCHEMA = "utd-excel-export/v1" as const;
 export const PRESENTATION_SCHEMA = "utd-item-presentation/v1" as const;
 export const LANG_OVERLAY_SCHEMA = "utd-lang-overlays/v1" as const;
 export const BLOCK_TRANSFORM_SCHEMA = "utd-block-transforms/v1" as const;
+export const ITEM_CATEGORY_SCHEMA = "utd-item-categories/v1" as const;
 
 export type JsonPrimitive = string | number | boolean | null;
 export type JsonValue = JsonPrimitive | JsonObject | JsonValue[];
@@ -44,6 +45,10 @@ export interface CanonicalIdentity {
 export interface CanonicalItem extends CanonicalIdentity {
   clientNameZhCn: string;
   translationKey: string;
+  iconDataUrl: string;
+  categoryKey: string;
+  categoryLabelZhCn: string;
+  categoryLevel: number | null;
   namespace: string;
   managed: boolean;
   humanSelected: boolean;
@@ -59,6 +64,28 @@ export interface CanonicalItem extends CanonicalIdentity {
   deployedHash: string | null;
   sync: SyncState;
   issues: string[];
+}
+
+export interface ItemCategory {
+  key: string;
+  labelZhCn: string;
+  order: number;
+}
+
+export interface ItemCategoryAssignment {
+  categoryKey: string;
+  level: number | null;
+  itemKey?: string;
+  registryId?: string;
+  variantDiscriminator?: string;
+  sourceSheet?: string;
+  sourceRow?: number;
+}
+
+export interface ItemCategoryDocument {
+  schema_version: typeof ITEM_CATEGORY_SCHEMA;
+  categories: ItemCategory[];
+  assignments: ItemCategoryAssignment[];
 }
 
 export interface CanonicalRef {
@@ -163,6 +190,7 @@ export interface GraphNode {
   issueCount: number;
   cycle: boolean;
   ref?: string;
+  iconDataUrl?: string;
 }
 
 export interface GraphEdge {
@@ -207,6 +235,7 @@ export interface WorkbenchManifest {
     lootRegistry?: SourceFingerprint;
     lootBalance?: SourceFingerprint;
     blockTransforms?: SourceFingerprint;
+    categories?: SourceFingerprint;
   };
   counts: {
     managedItems: number;
@@ -224,6 +253,7 @@ export interface WorkbenchProject {
   schemaVersion: typeof WORKBENCH_SCHEMA;
   manifest: WorkbenchManifest;
   items: CanonicalItem[];
+  categories: ItemCategory[];
   recipes: CanonicalRecipe[];
   lootPolicies: CanonicalLootPolicy[];
   presentations: ItemPresentationOverride[];
@@ -246,6 +276,9 @@ export interface ItemStatusRecord {
   variant_key: string | null;
   client_name_zh_cn: string;
   translation_key: string;
+  category_key: string;
+  category_label_zh_cn: string;
+  category_level: number | null;
   canonical_components: JsonObject;
   canonical_variant: JsonValue | null;
   catalogued: boolean;

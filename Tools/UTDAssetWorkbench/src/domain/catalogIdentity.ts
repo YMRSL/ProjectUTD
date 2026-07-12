@@ -49,6 +49,9 @@ export function matchesCatalogQuery(item: CanonicalItem, query: string): boolean
     item.identityComponentsCanonical,
     item.componentsCanonical,
     item.componentsSnbt,
-    item.variantKey ?? ""
+    item.variantKey ?? "",
+    item.categoryLabelZhCn,
+    item.categoryKey,
+    item.categoryLevel === null ? "" : String(item.categoryLevel)
   ].some((value) => value.toLocaleLowerCase().includes(needle));
 }

@@ -23,6 +23,8 @@ import { applyBlockTransformDocument, applyPresentationDocument } from "../src/d
 import { diffBlockTransformSources, exportBlockTransformDiffJson } from "../src/domain/blockTransformDiff";
 import type { SourceFingerprint, WorkbenchProject } from "../src/domain/schema";
 import { stableStringify } from "../src/domain/stable";
+import { applyItemCategoryDocument } from "../src/domain/categories";
+import { mergeSnapshotEvidence } from "../src/domain/snapshotMerge";
 
 if (isDirectExecution()) {
   await runCli(process.argv.slice(2));
@@ -32,6 +34,7 @@ export async function runCli([command = "help", ...argv]: string[]): Promise<voi
   try {
     if (command === "import") await importSources(argv);
     else if (command === "export") await exportProject(argv);
+    else if (command === "merge-snapshot") await mergeSnapshot(argv);
     else if (command === "validate") await validateProject(argv);
     else if (command === "diff-block-transforms") await diffBlockTransforms(argv);
     else if (command === "help" || command === "--help" || command === "-h") printHelp();
@@ -40,6 +43,25 @@ export async function runCli([command = "help", ...argv]: string[]): Promise<voi
     console.error(`\n[UTD Asset Workbench] ${error instanceof Error ? error.message : String(error)}\n`);
     process.exitCode = 1;
   }
+}
+
+async function mergeSnapshot(argv: string[]): Promise<void> {
+  const options = parseOptions(argv);
+  const projectPath = required(options, "project");
+  const snapshotPath = required(options, "snapshot");
+  const outPath = path.resolve(required(options, "out"));
+  const parsed: unknown = JSON.parse(await readFile(path.resolve(projectPath), "utf8"));
+  assertWorkbenchProject(parsed);
+  const snapshot = await loadSource(snapshotPath, "json");
+  let result = mergeSnapshotEvidence(parsed, snapshot.value);
+  if (options.categories) {
+    const categories = await loadSource(options.categories, "json");
+    result = { ...result, project: applyItemCategoryDocument(result.project, categories.value) };
+    result.project.manifest.source.categories = categories.fingerprint;
+  }
+  await atomicWrite(outPath, exportProjectJson(result.project));
+  console.log(`Merged snapshot: matched=${result.matched}, icons=${result.icons}, unmatched=${result.unmatched.length}`);
+  console.log(`Web project: ${outPath}`);
 }
 
 async function importSources(argv: string[]): Promise<void> {
@@ -52,6 +74,7 @@ async function importSources(argv: string[]): Promise<void> {
   const lootRegistry = options["loot-registry"] ? await loadSource(options["loot-registry"], "lootRegistry") : undefined;
   const lootBalance = options["loot-balance"] ? await loadSource(options["loot-balance"], "lootBalance") : undefined;
   const blockTransforms = options["block-transforms"] ? await loadSource(options["block-transforms"], "json") : undefined;
+  const categories = options.categories ? await loadSource(options.categories, "json") : undefined;
   let project = buildWorkbenchProject({
     snapshot: snapshot.value,
     recipeData: recipes.value,
@@ -71,6 +94,10 @@ async function importSources(argv: string[]): Promise<void> {
     const presentations = await loadSource(options.presentations, "json");
     project = applyPresentationDocument(project, presentations.value);
   }
+  if (categories) {
+    project = applyItemCategoryDocument(project, categories.value);
+    project.manifest.source.categories = categories.fingerprint;
+  }
   if (blockTransforms) project = applyBlockTransformDocument(project, blockTransforms.value);
   await writeArtifactBundle(project, outDir);
   if (options.public) {
@@ -88,8 +115,14 @@ async function exportProject(argv: string[]): Promise<void> {
   const outDir = path.resolve(options.out ?? "artifacts");
   const parsed: unknown = JSON.parse(await readFile(path.resolve(projectPath), "utf8"));
   assertWorkbenchProject(parsed);
-  await writeArtifactBundle(parsed, outDir);
-  printSummary(parsed, outDir);
+  let project = parsed;
+  if (options.categories) {
+    const categories = await loadSource(options.categories, "json");
+    project = applyItemCategoryDocument(project, categories.value);
+    project.manifest.source.categories = categories.fingerprint;
+  }
+  await writeArtifactBundle(project, outDir);
+  printSummary(project, outDir);
 }
 
 async function validateProject(argv: string[]): Promise<void> {
@@ -387,12 +420,17 @@ Import runtime sources:
     [--loot-balance <utd_loot_balance_data.js>] \\
     [--presentations <presentation_drafts.json>] \\
     [--block-transforms <utd_block_transforms.json>] \\
+    [--categories <utd_item_categories.json>] \\
     --out <artifacts-dir> \\
     [--public <public/data/workbench.json>] \\
     [--generated-at <ISO-8601 release timestamp>]
 
 Regenerate exports from a canonical project:
-  npm run cli -- export --project <workbench.json> --out <artifacts-dir>
+  npm run cli -- export --project <workbench.json> [--categories <utd_item_categories.json>] --out <artifacts-dir>
+
+Merge the latest game export icons into a canonical web directory:
+  npm run cli -- merge-snapshot --project <workbench.json> --snapshot <utd-assets.json> \\
+    [--categories <utd_item_categories.json>] --out <web-workbench.json>
 
 Validate a canonical project:
   npm run cli -- validate --project <workbench.json> [--only block_transform]

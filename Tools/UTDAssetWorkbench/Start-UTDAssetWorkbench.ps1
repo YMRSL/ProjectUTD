@@ -7,6 +7,8 @@ $address = "http://127.0.0.1:4173"
 $repositoryRoot = (Resolve-Path (Join-Path $root "..\..")).Path
 $canonicalProject = Join-Path $repositoryRoot "outputs\projectutd-assets-20260711\workbench\workbench.json"
 $publicProject = Join-Path $root "public\data\workbench.json"
+$categoryMap = Join-Path $root "data\utd_item_categories.json"
+$runtimeExports = Join-Path $repositoryRoot "UtilWeDie-Neo-1.21.1\.minecraft\versions\1.21.1-NeoForge_21.1.233\config\utd_asset_manager\exports"
 
 function Test-WorkbenchReady {
     try {
@@ -41,7 +43,22 @@ if (-not (Test-Path -LiteralPath (Join-Path $root "node_modules"))) {
 if (Test-Path -LiteralPath $canonicalProject) {
     $publicDirectory = Split-Path -Parent $publicProject
     New-Item -ItemType Directory -Path $publicDirectory -Force | Out-Null
-    Copy-Item -LiteralPath $canonicalProject -Destination $publicProject -Force
+    $latestGameExport = Get-ChildItem -LiteralPath $runtimeExports -Filter "utd-assets-*.json" -File -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTime -Descending |
+        Select-Object -First 1
+    if ($null -ne $latestGameExport -and (Test-Path -LiteralPath $categoryMap)) {
+        & npm.cmd run cli -- merge-snapshot `
+            --project $canonicalProject `
+            --snapshot $latestGameExport.FullName `
+            --categories $categoryMap `
+            --out $publicProject
+        if ($LASTEXITCODE -ne 0) {
+            throw "游戏导出图标与工作台目录合并失败（退出码 $LASTEXITCODE）。"
+        }
+    }
+    else {
+        Copy-Item -LiteralPath $canonicalProject -Destination $publicProject -Force
+    }
 }
 elseif (-not (Test-Path -LiteralPath $publicProject)) {
     Add-Type -AssemblyName PresentationFramework

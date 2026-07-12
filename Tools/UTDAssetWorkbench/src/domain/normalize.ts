@@ -9,6 +9,7 @@ import type {
   SourcePolicies
 } from "./schema";
 import { unwrapSnapshot } from "./parsers";
+import { safeIconDataUrl, UNCATEGORIZED_CATEGORY } from "./categories";
 import { variantDiscriminator } from "./identity";
 import {
   asJsonObject,
@@ -76,6 +77,7 @@ function normalizeSnapshotItem(entry: unknown, index: number): CanonicalItem {
     displayNameFromId(registryId)
   );
   const translationKey = stringOr(record.translationKey ?? record.translation_key);
+  const iconDataUrl = safeIconDataUrl(record.iconDataUrl ?? record.icon_data_url);
   const catalogHash = stringOr(record.catalogHash ?? record.catalog_hash ?? status.catalogHash ?? status.catalog_hash) || fingerprint({
     itemKey,
     registryId,
@@ -104,6 +106,10 @@ function normalizeSnapshotItem(entry: unknown, index: number): CanonicalItem {
     canonicalComponents,
     clientNameZhCn,
     translationKey,
+    iconDataUrl,
+    categoryKey: UNCATEGORIZED_CATEGORY.key,
+    categoryLabelZhCn: UNCATEGORIZED_CATEGORY.labelZhCn,
+    categoryLevel: null,
     namespace: namespaceOf(registryId),
     managed: true,
     humanSelected: true,

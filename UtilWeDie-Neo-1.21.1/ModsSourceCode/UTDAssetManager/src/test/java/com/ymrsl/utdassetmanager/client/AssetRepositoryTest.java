@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -86,6 +87,12 @@ final class AssetRepositoryTest {
         assertEquals(
                 "asset_local_stick",
                 exported.getAsJsonArray("items").get(0).getAsJsonObject().get("asset_key").getAsString());
+
+        String icon = "data:image/png;base64,iVBORw0KGgo=";
+        JsonObject iconExport = JsonParser.parseString(Files.readString(
+                repository.exportSnapshot(Map.of("asset_local_stick", icon)))).getAsJsonObject();
+        assertEquals(icon, iconExport.getAsJsonArray("items").get(0).getAsJsonObject()
+                .get("icon_data_url").getAsString());
     }
 
     private static String manifest(String assetKey, String registryId, String name, boolean humanSelected) {

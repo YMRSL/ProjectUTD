@@ -92,7 +92,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .workbench-grid { min-height: 0; display: grid; grid-template-columns: 292px minmax(500px, 1fr) 374px; }
 .catalog-rail, .inspector, .graph-workspace { min-height: 0; }
 
-.catalog-rail { display: grid; grid-template-rows: auto auto auto auto minmax(0, 1fr) auto; border-right: 1px solid var(--line); background: rgba(22,22,18,.96); }
+.catalog-rail { display: grid; grid-template-rows: auto auto auto auto auto minmax(0, 1fr) auto; border-right: 1px solid var(--line); background: rgba(22,22,18,.96); }
 .rail-heading { padding: 18px 18px 14px; border-bottom: 1px solid var(--line-soft); }
 .rail-heading span, .workspace-heading > div:first-child > span { display: block; color: var(--brass); font: 9px var(--mono); letter-spacing: .14em; }
 .rail-heading strong { display: block; margin-top: 6px; font: 600 17px "Bahnschrift", "Microsoft YaHei UI", sans-serif; letter-spacing: .04em; }
@@ -103,10 +103,13 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .catalog-filters { display: grid; grid-template-columns: repeat(4, 1fr); padding: 0 14px 8px; gap: 2px; }
 .catalog-filters button { height: 28px; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--faint); font-size: 10px; cursor: pointer; }
 .catalog-filters button.is-active { color: var(--brass-bright); border-bottom-color: var(--brass); background: #201e18; }
+.category-filter { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 9px; margin: 0 14px 8px; }
+.category-filter > span { color: #77756a; font-size: 9px; }
+.category-filter select { min-width: 0; height: 28px; border: 1px solid #3d3c34; background: #141411; color: #bbb7aa; padding: 0 7px; font-size: 10px; }
 .catalog-count { padding: 2px 15px 8px; color: var(--faint); font: 8px var(--mono); letter-spacing: .1em; }
 .catalog-count span { color: #bbb7aa; }
 .catalog-list { min-height: 0; overflow: auto; scrollbar-color: #4d4c41 transparent; scrollbar-width: thin; }
-.catalog-list > button { position: relative; width: 100%; min-height: 58px; display: grid; grid-template-columns: 3px minmax(0,1fr) auto; gap: 11px; align-items: stretch; padding: 0 12px 0 0; border: 0; border-top: 1px solid #23231d; background: transparent; text-align: left; cursor: pointer; animation: list-in .25s ease-out both; transition: background .14s, color .14s; }
+.catalog-list > button { position: relative; width: 100%; min-height: 66px; display: grid; grid-template-columns: 3px 32px minmax(0,1fr) auto; gap: 9px; align-items: stretch; padding: 0 10px 0 0; border: 0; border-top: 1px solid #23231d; background: transparent; text-align: left; cursor: pointer; animation: list-in .25s ease-out both; transition: background .14s, color .14s; }
 .catalog-list > button:hover { background: #202019; }
 .catalog-list > button.is-selected { background: #28261e; }
 .catalog-list > button.is-root { background: #24231c; }
@@ -120,6 +123,13 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .catalog-item__identity { display: flex !important; align-items: baseline; gap: 6px; min-width: 0; color: #918b78 !important; }
 .catalog-item__identity b { min-width: 0; overflow: hidden; text-overflow: ellipsis; color: var(--brass-bright); font: 600 9px var(--mono); }
 .catalog-item__identity em { flex: 0 0 auto; color: #68665c; font: normal 7px var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+.catalog-item__category { color: #8a8068 !important; font-family: "Segoe UI", "Microsoft YaHei UI", sans-serif !important; font-size: 8px !important; }
+.item-icon { width: 32px; height: 32px; align-self: center; display: grid; place-items: center; border: 1px solid #3b3930; background: #11110e; image-rendering: pixelated; overflow: hidden; }
+.item-icon img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; image-rendering: pixelated; }
+.item-icon--fallback { color: #726c5b; font: 700 10px var(--mono); }
+.item-icon--large { width: 38px; height: 38px; flex: 0 0 auto; }
+.root-item-title { min-width: 0; display: flex; align-items: center; gap: 10px; }
+.root-item-title h2 { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .catalog-item__status { display: flex; align-items: center; gap: 3px; }
 .catalog-item__status i { min-width: 18px; height: 18px; display: grid; place-items: center; border: 1px solid #4d4b3f; color: var(--brass); font: normal 8px var(--mono); }
 .catalog-item__status i.is-issue { border-color: #794d43; color: #d07865; }
@@ -156,6 +166,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .graph-node--recipe { border-left: 2px solid var(--green); }
 .graph-node.has-cycle { border-color: var(--red); }
 .graph-node__index { width: 34px; flex: 0 0 auto; display: grid; place-items: center; border-right: 1px solid #3b3a32; color: var(--brass); background: #151512; font: 700 11px var(--mono); }
+.graph-node__index.has-icon { padding: 4px; }
+.graph-node__index img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; image-rendering: pixelated; }
 .graph-node.is-external .graph-node__index { color: #6f6e65; }
 .graph-node__body { min-width: 0; flex: 1; align-self: center; padding: 9px 10px; }
 .graph-node__body strong { display: block; color: #d7d3c7; font-size: 11px; font-weight: 600; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
@@ -176,6 +188,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .inspector-panel { padding: 18px 18px 30px; animation: inspector-in .22s ease-out both; }
 .panel-kicker { color: var(--brass); font: 9px var(--mono); letter-spacing: .14em; }
 .inspector-panel h2 { margin: 7px 0 3px; color: #dfdbcf; font: 600 20px "Bahnschrift", "Microsoft YaHei UI", sans-serif; }
+.inspector-item-icon { width: 54px; height: 54px; margin: 12px 0 4px; display: grid; place-items: center; border: 1px solid #49463a; background: #11110e; }
+.inspector-item-icon img { max-width: 100%; max-height: 100%; object-fit: contain; image-rendering: pixelated; }
 .inspector-id { margin: 0; color: #69685e; font-size: 9px; line-height: 1.5; word-break: break-all; }
 .edit-boundary { margin: 14px 0 18px; padding: 9px 10px; border-left: 2px solid; background: #151512; }
 .edit-boundary span, .edit-boundary small { display: block; }.edit-boundary span { font: 8px var(--mono); letter-spacing: .1em; }.edit-boundary small { margin-top: 4px; color: #64635a; font-size: 9px; }

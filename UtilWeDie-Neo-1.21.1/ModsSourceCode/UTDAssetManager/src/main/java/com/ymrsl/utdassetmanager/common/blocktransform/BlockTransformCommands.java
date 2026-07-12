@@ -3,9 +3,12 @@ package com.ymrsl.utdassetmanager.common.blocktransform;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.ymrsl.utdassetmanager.UTDAssetManagerMod;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -56,9 +59,22 @@ public final class BlockTransformCommands {
 
     private static int validate(CommandSourceStack source) {
         BlockTransformDiagnostics.Validation validation = BlockTransformDiagnostics.validate();
-        return send(source, "UTD transforms validate candidate", BlockTransformPaths.display(true),
-                validation.sha256(), null,
-                validation.total(), validation.enabled(), validation.usable(), validation.error());
+        String message = diagnosticMessage("UTD transforms validate candidate", BlockTransformPaths.display(true),
+                validation.sha256(), null, validation.total(), validation.enabled(), validation.usable(), validation.error());
+        MutableComponent output = Component.literal(message);
+        if (validation.usable() && validation.sha256().matches("[0-9a-f]{64}")) {
+            String promoteCommand = "/utdasset transforms promote " + validation.sha256();
+            output.append(Component.literal(" [点击填入晋升命令]").withStyle(style -> style
+                    .withColor(ChatFormatting.GOLD)
+                    .withUnderlined(true)
+                    .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, promoteCommand))));
+        }
+        if (!validation.usable()) {
+            source.sendFailure(output);
+            return 0;
+        }
+        source.sendSuccess(() -> output, false);
+        return Command.SINGLE_SUCCESS;
     }
 
     private static int promote(CommandSourceStack source, String expectedSha256) {
@@ -92,6 +108,25 @@ public final class BlockTransformCommands {
             int enabled,
             boolean usable,
             String error) {
+        Component output = Component.literal(diagnosticMessage(
+                operation, displayPath, sha256, generation, total, enabled, usable, error));
+        if (!usable) {
+            source.sendFailure(output);
+            return 0;
+        }
+        source.sendSuccess(() -> output, false);
+        return Command.SINGLE_SUCCESS;
+    }
+
+    private static String diagnosticMessage(
+            String operation,
+            String displayPath,
+            String sha256,
+            Long generation,
+            int total,
+            int enabled,
+            boolean usable,
+            String error) {
         StringBuilder message = new StringBuilder(operation)
                 .append(": path=").append(displayPath);
         if (!sha256.isBlank()) message.append(", sha256=").append(sha256);
@@ -100,13 +135,7 @@ public final class BlockTransformCommands {
                 .append(", enabled=").append(enabled)
                 .append(", usable=").append(usable)
                 .append(", error=").append(error.isBlank() ? "<none>" : singleLine(error));
-        Component output = Component.literal(message.toString());
-        if (!usable) {
-            source.sendFailure(output);
-            return 0;
-        }
-        source.sendSuccess(() -> output, false);
-        return Command.SINGLE_SUCCESS;
+        return message.toString();
     }
 
     private static String singleLine(String value) {

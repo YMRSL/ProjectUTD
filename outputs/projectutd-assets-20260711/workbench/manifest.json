@@ -1,20 +1,20 @@
 {
   "artifacts": {
     "status_manifest.json": {
-      "bytes": 1014533,
-      "sha256": "d94e529505456834c9a7913db8cb3efa0eb86167a022ab10c06721d9709193ec"
+      "bytes": 1111404,
+      "sha256": "f569faf7325b9677db9d3ee9a97d1e9b6d8e2dc1c8072972bab342922ad55f38"
     },
     "utd_asset_excel_interface.json": {
-      "bytes": 4002970,
-      "sha256": "e2dc4eb847381bb173d2b26db3ffea60e30ce02498657c5cc5cb551450eec849"
+      "bytes": 4110603,
+      "sha256": "2790c599450233827010a5b8881bba43d5c7d0ea9085a45f5eaa64e80e80a837"
     },
     "utd_asset_status_manifest.js": {
-      "bytes": 1071000,
-      "sha256": "90b16a5980e5390da3b228956c2498f84b6e525f57dfde6aaa69dbe78c1aed30"
+      "bytes": 1173211,
+      "sha256": "7cd1b93e30c02128396aca395c59148e0e8945d9e6c591d55ad29a82c685d519"
     },
     "utd_asset_status_manifest.json": {
-      "bytes": 1014533,
-      "sha256": "d94e529505456834c9a7913db8cb3efa0eb86167a022ab10c06721d9709193ec"
+      "bytes": 1111404,
+      "sha256": "f569faf7325b9677db9d3ee9a97d1e9b6d8e2dc1c8072972bab342922ad55f38"
     },
     "utd_block_transforms.json": {
       "bytes": 65,
@@ -37,8 +37,8 @@
       "sha256": "09974d1aac3af84b1394edffab70b04c20ee62a95308213bec1d8c49cc3a9e85"
     },
     "workbench.json": {
-      "bytes": 7871859,
-      "sha256": "e669916f4207c9a160998101b1105baf6a93d0d04ee59cad5597596f8955a4eb"
+      "bytes": 7987543,
+      "sha256": "d6b27b2123ce48c115ef1707ace19ff3d40ee7c25d26f1ec5af2d68a34151c46"
     }
   },
   "catalog_hash": "70ef492230004521",
@@ -63,6 +63,10 @@
   "project_id": "projectutd-20260712-test4",
   "schema_version": "utd-artifact-manifest/v1",
   "source": {
+    "categories": {
+      "path": "data/utd_item_categories.json",
+      "sha256": "7005695001e21782124b14e892919c8ca26505b39c0fe23ba494bdadf71e7ba4"
+    },
     "lootBalance": {
       "path": "D:\\MC\\ProjectUTD\\UtilWeDie-Neo-1.21.1\\ModsSourceCode\\UTDLootCore\\src\\main\\resources\\data\\utd_loot_core\\loot\\balance.json",
       "sha256": "a3f1622496e58b6cba2a0d479cef313a8bf5a336e580b04d0b5a1426a644e0f2"

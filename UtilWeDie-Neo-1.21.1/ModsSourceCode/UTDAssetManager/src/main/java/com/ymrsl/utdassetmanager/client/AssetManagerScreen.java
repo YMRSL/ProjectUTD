@@ -57,6 +57,7 @@ public final class AssetManagerScreen extends Screen {
     private long lastPresentationRevision = Long.MIN_VALUE;
     private boolean compactHeight;
     private boolean presentationEditing;
+    private AssetIconExportSession iconExportSession;
     private PresentationDraft presentationEditingDraft;
     private String notice = "鼠标放在列表上滚动；候选来自人工白名单、背包与当前容器。";
 
@@ -239,6 +240,10 @@ public final class AssetManagerScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        if (iconExportSession != null) {
+            renderIconExport(graphics);
+            return;
+        }
         graphics.fill(0, 0, width, height, BG);
         graphics.fill(frameX, frameY, frameX + frameW, frameY + frameH, PANEL);
         graphics.renderOutline(frameX, frameY, frameW, frameH, LINE);
@@ -481,7 +486,7 @@ public final class AssetManagerScreen extends Screen {
                 ? (localSelected ? (toggleButton.w < 50 ? "取消" : "取消标注") : "标注")
                 : "只读";
         drawAction(graphics, toggleButton, toggleLabel, mouseX, mouseY, true, localWritable);
-        drawAction(graphics, exportButton, scope == AssetScope.PROJECT ? "导出本机" : "导出",
+        drawAction(graphics, exportButton, scope == AssetScope.PROJECT ? "导出本机+图标" : "导出+图标",
                 mouseX, mouseY, false);
         drawAction(graphics, reloadButton, "重载", mouseX, mouseY, false);
         drawAction(graphics, presentationActionButton, "编辑名称 / 介绍", mouseX, mouseY, false,
@@ -749,12 +754,39 @@ public final class AssetManagerScreen extends Screen {
 
     private void export() {
         try {
-            Path output = repository.exportSnapshot();
-            Path presentationOutput = presentationRepository.exportSnapshot();
-            notice = "已导出物品与显示草稿: " + output.getFileName() + " / "
-                    + presentationOutput.getFileName();
+            iconExportSession = new AssetIconExportSession(repository.allSelected());
+            if (iconExportSession.total() == 0) {
+                Path output = repository.exportSnapshot();
+                Path presentationOutput = presentationRepository.exportSnapshot();
+                iconExportSession = null;
+                notice = "已导出物品（无可渲染图标）与显示草稿: " + output.getFileName() + " / "
+                        + presentationOutput.getFileName();
+            } else {
+                notice = "正在从游戏客户端渲染 " + iconExportSession.total() + " 个物品图标…";
+            }
         } catch (Exception error) {
+            iconExportSession = null;
             notice = "导出失败: " + error.getMessage();
+        }
+    }
+
+    private void renderIconExport(GuiGraphics graphics) {
+        AssetIconExportSession session = iconExportSession;
+        if (session == null) return;
+        try {
+            session.renderAndCapturePage(graphics, width, height);
+            if (!session.finished()) {
+                notice = "正在导出图标 " + session.captured() + " / " + session.total();
+                return;
+            }
+            Path output = repository.exportSnapshot(session.iconDataUrls());
+            Path presentationOutput = presentationRepository.exportSnapshot();
+            notice = "已导出 " + session.captured() + " 个图标与物品数据: "
+                    + output.getFileName() + " / " + presentationOutput.getFileName();
+        } catch (Exception error) {
+            notice = "图标导出失败，未生成新的物品文件: " + error.getMessage();
+        } finally {
+            if (session.finished() || notice.startsWith("图标导出失败")) iconExportSession = null;
         }
     }
 

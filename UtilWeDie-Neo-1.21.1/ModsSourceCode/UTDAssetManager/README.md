@@ -2,7 +2,7 @@
 
 面向 ProjectUTD 的 NeoForge 1.21.1 资产档案台；界面与采集在客户端运行，同时附带默认无规则的公共侧方块替换制造运行器。它继承旧 ItemNameCatch 的“由人明确选择物品”原则，但不扫描完整物品注册表，也不修改 KubeJS、Loot 或客户端部署目录。
 
-**发布状态（2026-07-12）：** `0.1.4-test4` 的资产目录、显示编辑与方块替换三阶段薄切片已通过用户实机验收；`0.1.5-test5` 已通过 55 项自动测试，等待候选校验/原子晋升命令的定向实机验收。
+**发布状态（2026-07-12）：** `0.1.5-test5` 除“正确哈希晋升”因手抄操作不便外均按预期通过；`0.1.6-test6` 增加游戏内物品图标导出、网页自动合并，以及 validate 结果一键填入晋升命令，等待安装后的定向实机验收。
 
 ## 当前能力
 
@@ -11,7 +11,7 @@
 - 只读“项目目录”页浏览完整 `status_manifest.json`，并把项目历史标注与本机白名单明确分开；
 - 搜索名称、registry id、asset key、variant 类型和稳定 discriminator，搜索框支持 512 字符并对长 `food_id` 自动横向滚动；按人工标注、项目管理范围、配方、Loot、同步、异常分组；
 - 项目目录会按 FPE `food_id` 构造只读预览栈，直接显示资源包中的实际中文名与贴图；界面用 `food_id=i_bang_a` 短标识展示，完整值仍可搜索和导出；
-- 在检查器内标注/取消标注，并可按当前搜索与状态筛选批量标注/取消；支持重载外部状态、导出 JSON；
+- 在检查器内标注/取消标注，并可按当前搜索与状态筛选批量标注/取消；支持重载外部状态、导出 JSON；界面“导出+图标”会把本机标注物品按真实客户端 `ItemStack` 渲染为透明 PNG，并以内嵌 `icon_data_url` 写入同一份 JSON；
 - 检查器可编辑游戏内中文名和多行物品介绍，草稿即时用于资产界面与 Tooltip 预览，并与物品 Components 身份隔离；
 - `/utdasset markhand`、`unmarkhand`、`export`、`reload`；方块规则另有只读状态与受权限保护的候选校验/晋升命令；
 - 所有物品 Tooltip 实时显示本机 `human_selected`、`catalogued`、`recipe_input`、`recipe_output`、`loot_enabled`、`sync_state`、`stale`、`issues`；项目历史人工标注在只读目录中单独显示；
@@ -46,6 +46,8 @@
 4. `/utdasset transforms status` 仅报告当前内存中的活动 generation，所有玩家都只会看到固定相对路径；`/utdasset transforms reload` 是受管理权限保护、明确绕过 candidate/hash staging 的活动文件强制重载，只供人工回滚或应急维护使用。
 
 `validate`、`promote` 和 `reload` 需要权限等级 2，或由单人世界所有者执行；`status` 可由普通玩家执行。晋升只接受精确的 64 位小写 SHA-256。活动文件与备份的替换必须由同目录原子移动支持；平台不支持时晋升会失败关闭，不会退化成可能破坏活动文件的普通覆盖。
+
+test6 起，validate 成功消息末尾提供“点击填入晋升命令”；点击后完整 64 位 SHA 会自动进入聊天输入框，仍保留完整哈希钉扎，不再要求人工抄写。命令行 `/utdasset export` 保持无图标快速导出，图标采集只由游戏内界面触发。
 
 材料始终先匹配 `registryId`；非空 `variantDiscriminator` 再匹配 TaCZ/FPE 的稳定变体标识，非空且不为 `{}` 的 `componentsSnbt` 则精确匹配完整 `components` Compound。创造模式以 `creative.requireInput` 和 `creative.consume` 单独决定是否需要、是否消耗材料；为避免无法兑现的规则，`consume: true` 不允许与 `requireInput: false` 同时出现。
 

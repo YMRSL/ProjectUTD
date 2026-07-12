@@ -116,6 +116,7 @@ function RecordPanel({ item, presentation, onPresentationChange }: {
       <PanelKicker>{item.humanSelected ? "HUMAN SELECTED" : item.managed ? "UTD CATALOG" : "DEPENDENCY LEAF"}</PanelKicker>
       <h2>{item.clientNameZhCn}</h2>
       <p className="mono inspector-id">{item.registryId}</p>
+      {item.iconDataUrl && <div className="inspector-item-icon"><img src={item.iconDataUrl} alt="" /></div>}
       <div className={`edit-boundary ${editable ? "is-editable" : "is-locked"}`}>
         <span>{editable ? "UTD OWNED · 可编辑" : "EXTERNAL · 只读"}</span>
         <small>{editable ? "修改会进入 pending 状态" : "外部依赖不会被导出器改写"}</small>
@@ -124,6 +125,7 @@ function RecordPanel({ item, presentation, onPresentationChange }: {
       <SectionTitle>游戏观察值（只读证据）</SectionTitle>
       <KeyValue label="客户端中文名" value={item.clientNameZhCn || "—"} />
       <KeyValue label="translation_key" value={item.translationKey || "—"} />
+      <KeyValue label="表格分类" value={`${item.categoryLabelZhCn}${item.categoryLevel === null ? "" : ` · L${item.categoryLevel}`}`} />
 
       <SectionTitle>显示覆盖</SectionTitle>
       <p className="panel-note">这里只记录待发布的语言覆盖，不会改写游戏导出的原始观察值，也不会直接写入运行目录。</p>

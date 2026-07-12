@@ -77,7 +77,11 @@ export function GraphCanvas({ project, rootItemKey, selection, onSelect }: Props
               }}
               onClick={() => onSelect(toSelection(positioned.node))}
             >
-              <span className="graph-node__index">{nodeMarker(positioned.node)}</span>
+              <span className={`graph-node__index ${positioned.node.iconDataUrl ? "has-icon" : ""}`}>
+                {positioned.node.iconDataUrl
+                  ? <img src={positioned.node.iconDataUrl} alt="" />
+                  : nodeMarker(positioned.node)}
+              </span>
               <span className="graph-node__body">
                 <strong>{positioned.node.label}</strong>
                 <small>{positioned.node.subtitle}</small>
@@ -165,7 +169,8 @@ function fallbackRoot(project: WorkbenchProject, itemKey: string): GraphNode {
     managed: true,
     issueCount: item?.issues.length ?? 0,
     cycle: false,
-    ref: itemKey
+    ref: itemKey,
+    iconDataUrl: item?.iconDataUrl || undefined
   };
 }
 

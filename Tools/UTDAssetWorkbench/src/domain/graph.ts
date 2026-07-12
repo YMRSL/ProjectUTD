@@ -84,7 +84,8 @@ function itemNode(item: CanonicalItem): GraphNode {
     managed: item.managed,
     issueCount: item.issues.length,
     cycle: false,
-    ref: item.itemKey
+    ref: item.itemKey,
+    iconDataUrl: item.iconDataUrl || undefined
   };
 }
 

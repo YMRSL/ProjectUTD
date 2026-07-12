@@ -19,8 +19,74 @@ import { applyBlockTransformDocument, applyPresentationDocument } from "../src/d
 import { catalogIdentityLabel, matchesCatalogQuery } from "../src/domain/catalogIdentity";
 import { addBlockTransform, updateBlockTransform, updateItemPresentation } from "../src/domain/mutations";
 import { presentationForItem } from "../src/domain/presentation";
+import { applyItemCategoryDocument } from "../src/domain/categories";
+import { mergeSnapshotEvidence } from "../src/domain/snapshotMerge";
 
 const fixture = (name: string) => JSON.parse(readFileSync(fileURLToPath(new URL(`./fixtures/${name}`, import.meta.url)), "utf8"));
+
+describe("item icons and spreadsheet categories", () => {
+  it("preserves safe PNG data URLs and applies exact variant categories before registry categories", () => {
+    const png = "data:image/png;base64,iVBORw0KGgo=";
+    const base = buildWorkbenchProject({
+      snapshot: { items: [{
+        asset_key: "asset:tacz-ak47",
+        registry_id: "tacz:modern_kinetic_gun",
+        variant_discriminator: "GunId=tacz:ak47",
+        client_name_zh_cn: "AK-47",
+        icon_data_url: png
+      }] },
+      recipeData: { shaped: [], shapeless: [], custom: [] }
+    });
+    const project = applyItemCategoryDocument(base, {
+      schema_version: "utd-item-categories/v1",
+      categories: [
+        { key: "generic", label_zh_cn: "通用", order: 1 },
+        { key: "gun", label_zh_cn: "枪械", order: 2 }
+      ],
+      assignments: [
+        { category_key: "generic", registry_id: "tacz:modern_kinetic_gun", level: 0 },
+        { category_key: "gun", variant_discriminator: "GunId=tacz:ak47", level: 3 }
+      ]
+    });
+    const item = project.items[0];
+    expect(item.iconDataUrl).toBe(png);
+    expect(item.categoryKey).toBe("gun");
+    expect(item.categoryLabelZhCn).toBe("枪械");
+    expect(item.categoryLevel).toBe(3);
+    expect(matchesCatalogQuery(item, "枪械")).toBe(true);
+    expect(toStatusManifest(project).items[0].category_key).toBe("gun");
+  });
+
+  it("drops non-PNG and oversized icon payloads", () => {
+    const normalized = normalizeSnapshot({ items: [{
+      registry_id: "minecraft:stick",
+      client_name_zh_cn: "木棍",
+      icon_data_url: "data:text/html;base64,PHNjcmlwdD4="
+    }] });
+    expect(normalized.items[0].iconDataUrl).toBe("");
+  });
+
+  it("merges game icons by semantic identity without shrinking the canonical directory", () => {
+    const base = buildWorkbenchProject({
+      snapshot: { items: [
+        { asset_key: "canonical-stick", registry_id: "minecraft:stick", client_name_zh_cn: "木棍" },
+        { asset_key: "canonical-stone", registry_id: "minecraft:stone", client_name_zh_cn: "石头" }
+      ] },
+      recipeData: { shaped: [], shapeless: [], custom: [] }
+    });
+    const icon = "data:image/png;base64,iVBORw0KGgo=";
+    const merged = mergeSnapshotEvidence(base, { items: [{
+      asset_key: "runtime-different-key",
+      registry_id: "minecraft:stick",
+      client_name_zh_cn: "木棍",
+      icon_data_url: icon
+    }] });
+    expect(merged.matched).toBe(1);
+    expect(merged.icons).toBe(1);
+    expect(merged.project.items).toHaveLength(2);
+    expect(merged.project.items.find((item) => item.registryId === "minecraft:stick")?.iconDataUrl).toBe(icon);
+  });
+});
 
 const shaped = (
   id: string,
