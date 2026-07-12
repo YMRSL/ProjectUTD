@@ -43,10 +43,10 @@
 | Picasso | 唯一已实现的 Social Will MCP；22 tools | `407 passed, 1 skipped, 14 subtests passed` | DD marker 实机验证；随后实现 `mark` dispatcher/receipt |
 | MiroFish | 架构与 CNPC 探针已成形，主体实现尚未开始 | 无 MCP Server、无正式运行入口 | 完成 Spike Zero 六项游戏内验证，再冻结内容包格式 |
 | Chess | v0.1.4 规格较完整 | 明确无代码 | P0 外部能力探针；P1 纯 Java 核心；P2 event log |
-| 物品/配方 | 资产工作台、游戏内标注 Mod、规范 JSON/KJS/status/Excel 与方块规则候选链已完成；运行端仍为 test4，test5 已构建 | 890 个精确物品身份、327 个人工标注根、960 条配方；连续导出哈希一致；现有运行配方尚未被生成候选覆盖 | 完成 test5 候选校验/原子晋升实机闸门，再审查配方循环并逐批 diff/deploy |
+| 物品/配方 | 资产工作台、游戏内标注 Mod、规范 JSON/KJS/status/Excel 与方块规则候选链已完成；test5 已安装 | 890 个精确物品身份、327 个人工标注根、960 条配方；连续导出哈希一致；现有运行配方尚未被生成候选覆盖 | 完成 test5 候选校验/原子晋升实机闸门，再审查配方循环并逐批 diff/deploy |
 | Loot | 798 条 registry、78 helper、280 容器表与 Java 保底已封装为单一 JAR | 自动校验全过；旧 365 个 KubeJS 文件已可回滚退休；完整客户端实机待验 | 冷启动、三类箱子、T4/T5 保底与持久化实机验收 |
 | CNPCScripts | 资料很多，活跃版本很少 | 222 个 JS 中仅少量面向 1.21.1 | 版本分区、manifest、源码/部署单向同步 |
-| 资产管理器 | test4 实机功能已通过；test5 正式规则编辑、轻量草稿、严格差异、候选 ZIP 与 SHA 钉扎原子晋升已完成，待安装 | 55 项 Mod、53 项网页/数据测试全绿；真实浏览器与 890/960/798 项目通过；test4 的 O 键、FPE、显示编辑和方块替换三阶段均已实机通过 | test5 空候选 validate/promote/reload 实机验收；随后才录入首条正式规则 |
+| 资产管理器 | test4 实机功能已通过；test5 正式规则编辑、轻量草稿、严格差异、候选 ZIP 与 SHA 钉扎原子晋升已完成并安装 | 55 项 Mod、53 项网页/数据测试全绿；真实浏览器与 890/960/798 项目通过；运行目录仅一个 test5 JAR，活动/候选均为 0 规则安全空配置 | test5 空候选 validate/promote/reload 实机验收；随后才录入首条正式规则 |
 
 仓库安全基线：公开分支 `codex/sprint-baseline-20260711` 已推送，分三批保存治理/仓库 v1、Picasso、Chess/MiroFish 规格。工作簿走 Git LFS；客户端、世界、缓存、构建物和来源未确认素材未公开。剩余 26 个待审未跟踪文件必须逐批审查，禁止整目录暂存。详细边界见 `docs/PROJECT_INVENTORY.md` 与 `docs/SNAPSHOT_MANIFEST.md`。
 
@@ -144,6 +144,7 @@
 - **2026-07-11 / 资产与 Loot MVP 发布**：两只 JAR、网页工作台、规范输出和 10-sheet Excel 已完成；旧 Loot 365 文件可回滚退休。首份 status 保持 571 `local_only` + 280 `error` 的真实口径，不伪造 synced。
 - **2026-07-12 / 资产管理器 test4 与方块替换薄切片验收**：资产目录、长 `food_id`、FPE 精确预览、名称/介绍和既有标注流程已实机通过；方块替换的主手持材、可交互工作台取消和 36 格背包取材/潜行三条路径通过。临时黏土球规则已清空，正式内容仍须逐条录入和受控部署。
 - **2026-07-12 / test5 正式发布护栏**：网页草稿覆盖配方/Loot/显示/方块规则并保持轻量；候选改为单 ZIP 哈希清单；CLI 严格镜像 Java 解析并禁止输出覆盖输入；游戏端固定 candidate、validate 不激活、`promote <sha256>` 原子备份晋升，普通右键与 status 不再热加载磁盘改动。
+- **2026-07-12 / test5 安全部署**：客户端退出后快照 test4 JAR、活动配置、白名单、显示草稿、状态目录、规范项目和 latest.log；安装 test5 单一 JAR，并复制活动空配置为固定空候选。两者哈希均为 `D3DE974...E8027EE0`，未预造 `.bak`。
 
 ## 9. 收件箱
 

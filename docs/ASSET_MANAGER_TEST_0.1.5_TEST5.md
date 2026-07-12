@@ -14,9 +14,18 @@
 - 真实 890/960/798 项目：浏览器草稿约 316 KB；候选 ZIP 约 340 KB；ZIP 内三个核心文件的 SHA-256 与字节数复核一致。
 - test5 构建 JAR SHA-256：`F75A1DC2FCF9607AFBE36FF0B9F9A6E7F94EFD32A6E23AFE9DE1A2C2323ADE50`。
 
+## 部署记录
+
+- 已安装：`utd_asset_manager-0.1.5-test5.jar`；运行目录内 UTD Asset Manager JAR 数量为 `1`。
+- 已安装 JAR SHA-256：`F75A1DC2FCF9607AFBE36FF0B9F9A6E7F94EFD32A6E23AFE9DE1A2C2323ADE50`；JAR 内嵌版本为 `0.1.5-test5`。
+- 回滚快照：`_local_snapshots/utd_asset_manager-0.1.5-test5-deploy-20260712-202805/`。
+- 快照清单 SHA-256：`4DAFFE6AF0DEC2122872E2CDB6997941430B2F3DD9FBC292BE6F1BEB007030F2`。
+- 活动配置与固定候选均为 66 字节安全空配置，SHA-256 均为 `D3DE974F0CEF51DA31A863BFBFD714AE54F16299906883CF2B4CBA50E8027EE0`。
+- 初始没有 `block_transforms.json.bak`；它应只在 T4 的首次成功晋升时生成。
+
 ## 前置状态
 
-1. 完全退出 Minecraft，确认启动器不再显示游戏运行中，再安装 test5。
+1. test5 已安装。开始测试时请重新启动 Minecraft，避免复用旧 test4 进程。
 2. 活动文件：`config/utd_asset_manager/block_transforms.json`。
 3. 固定候选：`config/utd_asset_manager/block_transforms.candidate.json`。
 4. 两份文件初始都应为合法空配置，活动文件 SHA-256 为 `D3DE974F0CEF51DA31A863BFBFD714AE54F16299906883CF2B4CBA50E8027EE0`。

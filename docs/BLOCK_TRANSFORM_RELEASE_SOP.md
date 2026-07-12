@@ -7,11 +7,12 @@
 - 当前规则：`0`；当前启用：`0`
 - 空配置 SHA-256：`D3DE974F0CEF51DA31A863BFBFD714AE54F16299906883CF2B4CBA50E8027EE0`
 - 固定候选：`UtilWeDie-Neo-1.21.1/.minecraft/versions/1.21.1-NeoForge_21.1.233/config/utd_asset_manager/block_transforms.candidate.json`
+- 当前候选：与活动文件相同的 66 字节安全空配置；SHA-256 同为 `D3DE974F0CEF51DA31A863BFBFD714AE54F16299906883CF2B4CBA50E8027EE0`
 - 自动备份：同目录 `block_transforms.json.bak`
 - 规范项目：`outputs/projectutd-assets-20260711/workbench/workbench.json`
 - 规范生成物：`outputs/projectutd-assets-20260711/workbench/utd_block_transforms.json`
 
-资产管理器 test4 已实机通过三条运行器薄切片：主手持材替换普通方块、正确材料取消工作台原交互后替换、36 格玩家背包取材并要求潜行。测试用黏土球规则已全部清除，不是正式内容。
+资产管理器 test4 已实机通过三条运行器薄切片：主手持材替换普通方块、正确材料取消工作台原交互后替换、36 格玩家背包取材并要求潜行。测试用黏土球规则已全部清除，不是正式内容。test5 已安装，等待以相同空候选完成 validate/promote/reload 闸门。
 
 ## 规则生命周期
 
