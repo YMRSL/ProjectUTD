@@ -14,6 +14,16 @@ import {
 } from "../cli/propertyDeployment";
 
 describe("property deployment", () => {
+  it("refuses an empty property deployment instead of reporting false success", async () => {
+    const instance = createInstance();
+    await expect(deployPropertyCandidate(
+      { project: sampleProject, sha256: "0".repeat(64), source: "test" },
+      instance,
+      { dryRun: true }
+    )).rejects.toThrow(/enabled=0/);
+    expect(existsSync(path.join(instance, "config"))).toBe(false);
+  });
+
   it("verifies and loads the browser candidate ZIP before deployment", async () => {
     const directory = mkdtempSync(path.join(tmpdir(), "utd-property-candidate-"));
     const candidate = await buildCandidatePackage(sampleProject, "2026-07-13T11:00:00.000Z");

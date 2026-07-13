@@ -27,7 +27,9 @@ function Stop-IfGameRunning {
 
 if (-not $Candidate) {
     $downloads = Join-Path $HOME "Downloads"
-    $latest = Get-ChildItem -LiteralPath $downloads -Filter "*.candidate.zip" -File -ErrorAction SilentlyContinue |
+    # Repeated browser downloads are named "name.candidate (1).zip".
+    $latest = Get-ChildItem -LiteralPath $downloads -Filter "*.zip" -File -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -match '\.candidate(?: \(\d+\))?\.zip$' } |
         Sort-Object LastWriteTime -Descending |
         Select-Object -First 1
     if ($null -ne $latest) {

@@ -113,6 +113,28 @@ describe("lightweight browser drafts", () => {
   });
 });
 
+describe("item property publication guardrails", () => {
+  it("auto-enables a property when a runtime field is edited", () => {
+    const item = sampleProject.items.find((entry) => entry.managed && entry.ownership === "utd")!;
+    const changed = updateItemProperty(sampleProject, item.itemKey, { rarity: { value: 4 } });
+    expect(changed.itemProperties.find((entry) => entry.itemKey === item.itemKey)).toMatchObject({
+      enabled: true,
+      rarity: { value: 4 }
+    });
+  });
+
+  it("keeps an explicit withdrawal disabled until another runtime edit", () => {
+    const item = sampleProject.items.find((entry) => entry.managed && entry.ownership === "utd")!;
+    const enabled = updateItemProperty(sampleProject, item.itemKey, { rarity: { value: 3 } });
+    const disabled = updateItemProperty(enabled, item.itemKey, { enabled: false });
+    expect(disabled.itemProperties.find((entry) => entry.itemKey === item.itemKey)?.enabled).toBe(false);
+    const edited = updateItemProperty(disabled, item.itemKey, {
+      blockz: { width: 2, height: 2, capacityWidth: null, capacityHeight: null }
+    });
+    expect(edited.itemProperties.find((entry) => entry.itemKey === item.itemKey)?.enabled).toBe(true);
+  });
+});
+
 describe("candidate core download set", () => {
   it("includes the canonical project and all runtime-facing authored drafts", () => {
     const itemKey = sampleProject.items.find((item) => item.ownership === "utd" && item.managed)!.itemKey;

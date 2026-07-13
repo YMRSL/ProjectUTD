@@ -179,6 +179,13 @@ export async function deployPropertyCandidate(
 ): Promise<{ plan: PropertyDeploymentPlan; manifest?: DeploymentManifest }> {
   const instance = await assertInstanceRoot(instanceRoot);
   const plan = await planPropertyDeployment(loaded.project, instance);
+  if (plan.counts.enabled === 0) {
+    throw new Error(
+      "候选包中没有任何已启用属性（enabled=0），部署已取消。"
+      + "请在网页属性页编辑并确认条目显示‘参与候选发布’后重新导出；"
+      + "如需撤销上一批属性，请使用回滚脚本。"
+    );
+  }
   if (options.dryRun) return { plan };
 
   const deployedAt = options.deployedAt ?? new Date().toISOString();

@@ -148,6 +148,13 @@ export function updateItemProperty(
     property = defaultItemProperty(item);
     next.itemProperties.push(property);
   }
+  // Editing any runtime field is an intent to publish it. An explicit
+  // enabled=false patch still withdraws an override, while a later edit
+  // automatically opts it back into the candidate.
+  if (!("enabled" in patch)
+      && ("rarity" in patch || "blockz" in patch || "tacz" in patch || "food" in patch)) {
+    property.enabled = true;
+  }
   Object.assign(property, structuredClone(patch));
   property.itemKey = item.itemKey;
   property.registryId = item.registryId;
