@@ -255,8 +255,18 @@ export function refreshProject(project: WorkbenchProject, touched: Set<string>):
     const levels = loot.filter((policy) => policy.lootEnabled).map((policy) => policy.level);
     item.lootLevel = levels.length ? Math.max(...levels) : null;
     item.issues = item.issues.filter((code) => !["translation_key_missing", "managed_item_orphan", "recipe_cycle"].includes(code));
-    if (item.humanSelected && !item.translationKey) addItemIssue(item, issues, "translation_key_missing", "Human-selected item has no translation_key.");
-    if (item.humanSelected && !item.recipeOutput && !item.lootEnabled) addItemIssue(item, issues, "managed_item_orphan", "Human-selected item has neither a recipe output nor enabled Loot.");
+    if (item.humanSelected && !item.translationKey && !item.clientNameZhCn) {
+      addItemIssue(item, issues, "translation_key_missing", "Human-selected item has neither a translation_key nor a captured display name.");
+    }
+    const hasProperty = project.itemProperties.some((entry) => entry.itemKey === item.itemKey);
+    const hasPresentation = project.presentations.some((entry) =>
+      entry.itemKey === item.itemKey || (entry.applyScope === "registry" && entry.registryId === item.registryId));
+    const hasTransform = project.blockTransforms.some((entry) => refMatchesItem(entry.catalyst, item));
+    const isWorkstation = item.categoryKey === "workstation";
+    if (item.humanSelected && !item.recipeOutput && !item.lootEnabled
+        && !hasProperty && !hasPresentation && !hasTransform && !isWorkstation) {
+      addItemIssue(item, issues, "managed_item_orphan", "Human-selected item is not connected to recipes, Loot, properties, presentation, or a block transform.");
+    }
     item.catalogHash = fingerprint({
       identity: [
         item.itemKey,

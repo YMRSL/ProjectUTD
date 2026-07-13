@@ -340,6 +340,77 @@ describe("cycle detection", () => {
     expect(project.graph.cycles).toEqual([["demo:a", "demo:b"]]);
     expect(project.items.filter((item) => item.humanSelected).every((item) => item.sync === "error")).toBe(true);
   });
+
+  it("does not treat recycling return edges as production cycles", () => {
+    const snapshot = {
+      items: [
+        { asset_key: "demo:a", registry_id: "demo:a", client_name_zh_cn: "A" },
+        { asset_key: "demo:b", registry_id: "demo:b", client_name_zh_cn: "B" }
+      ]
+    };
+    const forward = shaped("kubejs:utd_cycle/forward", "demo:a", { item: "demo:b" });
+    const recycling = shaped("kubejs:utd_cycle/recycling", "demo:b", { item: "demo:a" });
+    recycling.utd.stationScope = "recycling";
+    const project = buildWorkbenchProject({
+      snapshot,
+      recipeData: { shaped: [forward, recycling], shapeless: [], custom: [] }
+    });
+    expect(project.graph.cycles).toEqual([]);
+    expect(project.issues.some((issue) => issue.code === "recipe_cycle")).toBe(false);
+  });
+
+  it("does not treat a shared carrier component upgrade as a self-cycle", () => {
+    const project = buildWorkbenchProject({
+      snapshot: { items: [{ asset_key: "demo:carrier", registry_id: "demo:carrier", client_name_zh_cn: "共用载体" }] },
+      recipeData: {
+        shaped: [],
+        shapeless: [],
+        custom: [{
+          id: "kubejs:utd_cycle/component_upgrade",
+          json: {
+            type: "demo:upgrade",
+            ingredients: [{ item: "demo:carrier", nbt: { BlockId: "demo:old" } }],
+            result: { item: "demo:carrier", nbt: { BlockId: "demo:new" } }
+          },
+          utd: {
+            station: "升级台",
+            stationKey: "upgrade",
+            stationScope: "upgrade",
+            sheet: "workstations",
+            outputName: "新工作台",
+            output: "demo:carrier{BlockId:\"demo:new\"}",
+            outputKeys: ["demo:carrier"],
+            count: 1
+          }
+        }]
+      }
+    });
+    expect(project.graph.cycles).toEqual([]);
+    expect(project.issues.some((issue) => issue.code === "recipe_cycle")).toBe(false);
+  });
+});
+
+describe("actionable issue policy", () => {
+  it("accepts a captured display name when the translation key was not exported", () => {
+    const project = buildWorkbenchProject({
+      snapshot: { items: [{ asset_key: "demo:named", registry_id: "demo:named", client_name_zh_cn: "已捕获名称" }] },
+      recipeData: { shaped: [], shapeless: [], custom: [] }
+    });
+    expect(project.issues.some((issue) => issue.code === "translation_key_missing")).toBe(false);
+  });
+
+  it("does not report a categorized workstation as an orphan asset", () => {
+    const base = buildWorkbenchProject({
+      snapshot: { items: [{ asset_key: "demo:station", registry_id: "demo:station", client_name_zh_cn: "测试工作台" }] },
+      recipeData: { shaped: [], shapeless: [], custom: [] }
+    });
+    const project = applyItemCategoryDocument(base, {
+      schema_version: "utd-item-categories/v1",
+      categories: [{ key: "workstation", label_zh_cn: "工作台", order: 1 }],
+      assignments: [{ category_key: "workstation", registry_id: "demo:station", level: 1 }]
+    });
+    expect(project.issues.some((issue) => issue.code === "managed_item_orphan")).toBe(false);
+  });
 });
 
 describe("deployment contract", () => {

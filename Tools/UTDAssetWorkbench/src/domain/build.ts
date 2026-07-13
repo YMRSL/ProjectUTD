@@ -324,7 +324,9 @@ function addStructuralIssues(items: CanonicalItem[], recipes: CanonicalRecipe[],
   const itemCounts = countBy(items.map((item) => item.itemKey));
   for (const item of items.filter((candidate) => candidate.humanSelected)) {
     if ((itemCounts.get(item.itemKey) ?? 0) > 1) pushItemIssue(item, issues, "duplicate_item_key", "error", "Whitelist contains a duplicate item_key.");
-    if (!item.translationKey) pushItemIssue(item, issues, "translation_key_missing", "warning", "Human-selected item has no translation_key.");
+    if (!item.translationKey && !item.clientNameZhCn) {
+      pushItemIssue(item, issues, "translation_key_missing", "warning", "Human-selected item has neither a translation_key nor a captured display name.");
+    }
     if (!item.recipeOutput && !item.lootEnabled) pushItemIssue(item, issues, "managed_item_orphan", "warning", "Human-selected item has neither a matching recipe output nor enabled Loot.");
     if (item.issues.includes("loot_variant_unmatched")) {
       issues.push({

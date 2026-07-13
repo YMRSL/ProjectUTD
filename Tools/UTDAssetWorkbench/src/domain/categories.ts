@@ -7,6 +7,7 @@ import {
   type WorkbenchProject
 } from "./schema";
 import { isRecord, numberOr, stringOr } from "./stable";
+import { refreshProject } from "./mutations";
 
 export const UNCATEGORIZED_CATEGORY: ItemCategory = {
   key: "uncategorized",
@@ -85,7 +86,7 @@ export function applyItemCategoryDocument(project: WorkbenchProject, value: unkn
     item.categoryLabelZhCn = category?.labelZhCn ?? UNCATEGORIZED_CATEGORY.labelZhCn;
     item.categoryLevel = assignment?.level ?? null;
   }
-  return next;
+  return refreshProject(next, new Set());
 }
 
 function matchScore(item: CanonicalItem, assignment: ItemCategoryAssignment): number {

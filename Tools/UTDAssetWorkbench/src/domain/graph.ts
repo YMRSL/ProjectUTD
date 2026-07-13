@@ -1,6 +1,6 @@
 import { refMatchesItem } from "./relations";
 import type { CanonicalItem, CanonicalRecipe, CanonicalRef, FilteredGraph, GraphEdge, GraphNode } from "./schema";
-import { displayNameFromId } from "./stable";
+import { displayNameFromId, stableStringify } from "./stable";
 
 /** Full catalog in, whitelist-root one-hop graph out. */
 export function buildFilteredGraph(items: CanonicalItem[], allRecipes: CanonicalRecipe[]): FilteredGraph {
@@ -30,13 +30,19 @@ export function buildFilteredGraph(items: CanonicalItem[], allRecipes: Canonical
     }
   }
 
-  const cycles = detectRootCycles(roots, recipes);
+  // Recycling and dismantling intentionally point from finished goods back to
+  // ingredients. Including those reverse edges makes almost every healthy
+  // production chain look like one giant cycle, so only forward-production
+  // recipes participate in blocking cycle detection.
+  const productionRecipes = recipes.filter((recipe) => recipe.stationScope !== "recycling");
+  const cycles = detectRootCycles(roots, productionRecipes);
   const cycleKeys = new Set(cycles.flat());
   for (const key of cycleKeys) {
     const node = nodes.get(`item:${key}`);
     if (node) node.cycle = true;
   }
   for (const recipe of recipes) {
+    if (recipe.stationScope === "recycling") continue;
     const outputs = recipe.outputs.flatMap((ref) => roots.filter((item) => refMatchesItem(ref, item)).map((item) => item.itemKey));
     const inputs = recipe.inputs.flatMap((ref) => roots.filter((item) => refMatchesItem(ref, item)).map((item) => item.itemKey));
     if (outputs.some((key) => cycleKeys.has(key)) && inputs.some((key) => cycleKeys.has(key))) {
@@ -128,11 +134,30 @@ function detectRootCycles(roots: CanonicalItem[], recipes: CanonicalRecipe[]): s
   const adjacency = new Map<string, Set<string>>();
   for (const item of roots) adjacency.set(item.itemKey, new Set());
   for (const recipe of recipes) {
-    const outputs = recipe.outputs.flatMap((ref) => roots.filter((item) => refMatchesItem(ref, item)).map((item) => item.itemKey));
-    const inputs = recipe.inputs.flatMap((ref) => roots.filter((item) => refMatchesItem(ref, item)).map((item) => item.itemKey));
-    for (const output of outputs) for (const input of inputs) adjacency.get(output)?.add(input);
+    for (const outputRef of recipe.outputs) {
+      const outputs = roots.filter((item) => refMatchesItem(outputRef, item));
+      for (const inputRef of recipe.inputs) {
+        const inputs = roots.filter((item) => refMatchesItem(inputRef, item));
+        for (const output of outputs) for (const input of inputs) {
+          // Shared carrier items (notably TaCZ workbenches) can represent two
+          // different blocks through components. A component-changing upgrade
+          // is a forward transformation even when both registry ids match.
+          if (output.itemKey === input.itemKey && refsDescribeDifferentVariants(outputRef, inputRef)) continue;
+          adjacency.get(output.itemKey)?.add(input.itemKey);
+        }
+      }
+    }
   }
   return stronglyConnectedCycles(adjacency);
+}
+
+function refsDescribeDifferentVariants(left: CanonicalRef, right: CanonicalRef): boolean {
+  if (left.refKind !== "item" || right.refKind !== "item" || left.ref !== right.ref) return false;
+  if (left.variantDiscriminator || right.variantDiscriminator) {
+    return (left.variantDiscriminator ?? "") !== (right.variantDiscriminator ?? "");
+  }
+  if (left.identityKey || right.identityKey) return (left.identityKey ?? "") !== (right.identityKey ?? "");
+  return stableStringify(left.components ?? {}) !== stableStringify(right.components ?? {});
 }
 
 function stronglyConnectedCycles(adjacency: Map<string, Set<string>>): string[][] {

@@ -1,6 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { customDataPath, defaultItemProperty } from "../src/domain/itemProperties";
+import { refreshProject } from "../src/domain/mutations";
 import type { FoodProperty, ItemPropertyOverride, JsonObject, TaczGunProperty, WorkbenchProject } from "../src/domain/schema";
 
 export interface RuntimePropertyScanSummary {
@@ -73,7 +74,7 @@ export async function enrichPropertiesFromRuntime(
   }
   next.itemProperties = [...existing.values()].sort((left, right) => left.itemKey.localeCompare(right.itemKey, "en"));
   next.manifest.counts.itemProperties = next.itemProperties.length;
-  return { project: next, summary };
+  return { project: refreshProject(next, new Set()), summary };
 }
 
 async function scanTaczGuns(taczRoot: string): Promise<Map<string, TaczGunProperty>> {
