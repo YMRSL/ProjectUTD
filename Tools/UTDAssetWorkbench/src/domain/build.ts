@@ -136,8 +136,15 @@ function remapLogicalLootIdentities(
 ): CanonicalLootPolicy[] {
   const recipeIdentityMap = new Map<string, CanonicalRef>();
   for (const recipe of recipes) {
-    for (const output of recipe.outputs) {
-      if (output.refKind === "item" && output.identityKey) recipeIdentityMap.set(output.identityKey, output);
+    // A logical TaCZ/FPE identity may only appear as a recipe input (for
+    // example a dismantling recipe). Inputs are just as authoritative as
+    // outputs for resolving the shared carrier item + stable discriminator.
+    for (const ref of [...recipe.inputs, ...recipe.outputs]) {
+      if (ref.refKind !== "item") continue;
+      if (ref.identityKey) recipeIdentityMap.set(ref.identityKey, ref);
+      if (ref.variantDiscriminator?.startsWith("GunId=")) {
+        recipeIdentityMap.set(ref.variantDiscriminator.slice("GunId=".length), ref);
+      }
     }
   }
   return policies.map((policy) => {

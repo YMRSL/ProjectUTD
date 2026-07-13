@@ -1,0 +1,29 @@
+{
+  "schema_version": "utd-retired-items/v1",
+  "decision": "confirmed_remove_2026-07-13",
+  "retired_registry_ids": [
+    "backstabreforged:diamond_dagger",
+    "backstabreforged:iron_dagger",
+    "backstabreforged:netherite_dagger",
+    "kuayue:weathering_resistant_steel_pole",
+    "lategamegolems:lgg_axe_iron",
+    "lategamegolems:lgg_mace_iron",
+    "lategamegolems:lgg_spear_iron",
+    "lategamegolems:lgg_sword_iron",
+    "locks:diamond_lock_pick",
+    "locks:gold_lock_pick",
+    "locks:iron_lock",
+    "locks:iron_lock_pick",
+    "locks:key_blank",
+    "locks:key_ring",
+    "locks:steel_lock",
+    "locks:steel_lock_pick",
+    "locks:wood_lock",
+    "locks:wood_lock_pick",
+    "lrtactical:flash_shield",
+    "paraglider:paraglider",
+    "ropebridge:bridge_builder",
+    "ropebridge:ladder_builder",
+    "the_ravenous:anti_ravenous"
+  ]
+}

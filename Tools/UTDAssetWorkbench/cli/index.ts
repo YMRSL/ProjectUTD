@@ -28,6 +28,7 @@ import { applyItemCategoryDocument } from "../src/domain/categories";
 import { mergeSnapshotEvidence } from "../src/domain/snapshotMerge";
 import { enrichPropertiesFromRuntime } from "./runtimeProperties";
 import { itemPropertyIntegrationFiles } from "../src/domain/itemProperties";
+import { cleanIdentityCatalog } from "../src/domain/identityCleanup";
 
 if (isDirectExecution()) {
   await runCli(process.argv.slice(2));
@@ -39,6 +40,7 @@ export async function runCli([command = "help", ...argv]: string[]): Promise<voi
     else if (command === "export") await exportProject(argv);
     else if (command === "merge-snapshot") await mergeSnapshot(argv);
     else if (command === "enrich-properties") await enrichProperties(argv);
+    else if (command === "cleanup-identities") await cleanupIdentities(argv);
     else if (command === "validate") await validateProject(argv);
     else if (command === "diff-block-transforms") await diffBlockTransforms(argv);
     else if (command === "help" || command === "--help" || command === "-h") printHelp();
@@ -47,6 +49,28 @@ export async function runCli([command = "help", ...argv]: string[]): Promise<voi
     console.error(`\n[UTD Asset Workbench] ${error instanceof Error ? error.message : String(error)}\n`);
     process.exitCode = 1;
   }
+}
+
+async function cleanupIdentities(argv: string[]): Promise<void> {
+  const options = parseOptions(argv);
+  const projectPath = path.resolve(required(options, "project"));
+  const decisionsPath = path.resolve(required(options, "decisions"));
+  const outPath = path.resolve(required(options, "out"));
+  const parsed: unknown = JSON.parse(await readFile(projectPath, "utf8"));
+  assertWorkbenchProject(parsed);
+  const decisions: unknown = JSON.parse(await readFile(decisionsPath, "utf8"));
+  if (!decisions || typeof decisions !== "object" || Array.isArray(decisions)) {
+    throw new Error("Retired-item decisions must be a JSON object.");
+  }
+  const rawIds = (decisions as Record<string, unknown>).retired_registry_ids;
+  if (!Array.isArray(rawIds) || rawIds.some((value) => typeof value !== "string")) {
+    throw new Error("Retired-item decisions must contain retired_registry_ids:string[].");
+  }
+  const result = cleanIdentityCatalog(parsed, rawIds);
+  await atomicWrite(outPath, exportProjectJson(result.project));
+  console.log(`Identity cleanup: retired=${result.summary.retiredRegistryIds}, removed_items=${result.summary.removedItems}, removed_recipes=${result.summary.removedRecipes}`);
+  console.log(`Gun identity merge: policies=${result.summary.remappedLogicalPolicies}, aliases=${result.summary.mergedAliasItems}, promoted=${result.summary.promotedVariantItems}`);
+  console.log(`Clean project: ${outPath}`);
 }
 
 async function enrichProperties(argv: string[]): Promise<void> {
@@ -454,6 +478,10 @@ Merge the latest game export icons into a canonical web directory:
 
 Enrich a web project with current RarityCore, BlockZ, TaCZ and FPE values:
   npm run cli -- enrich-properties --project <workbench.json> --instance <game-instance-root> --out <web-workbench.json>
+
+Apply confirmed retired-item decisions and merge logical TaCZ gun aliases:
+  npm run cli -- cleanup-identities --project <workbench.json> \\
+    --decisions <utd_retired_items.json> --out <clean-workbench.json>
 
 Validate a canonical project:
   npm run cli -- validate --project <workbench.json> [--only block_transform]
