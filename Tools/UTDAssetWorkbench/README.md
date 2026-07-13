@@ -12,6 +12,7 @@
 - 游戏导出的 `clientNameZhCn / translationKey` 是只读观察证据；改名和物品介绍写入独立的 `presentations[]` 草稿，不覆盖原始档案。
 - 方块右键替换制造使用独立的 `blockTransforms[]` 草稿；工作台只生成审核文件，不直接改运行目录。
 - “属性”页使用独立的 `itemProperties[]` 草稿；启动器自动读取 RarityCore、BlockZ、TaCZ 枪包与 FPE 当前值，候选包按原生协议生成覆盖文件，不修改第三方 JAR；独立部署器负责哈希校验、备份、应用与回滚。
+- TaCZ 的基础伤害会同步缩放 `damage_adjust` 距离曲线，基础弹匣会保持扩容弹匣的原有增量，脚本型枪械的换弹参数会同步写入 `script_param`；FPE 动态食品覆盖会同步原版 FOOD 组件，确保 Jade 与实际食用数值一致。
 - Excel 目前是单向审阅接口 JSON；实际 `.xlsx` 由上层导出器生成，Excel 不是权威源。
 - 分类权威映射位于 `data/utd_item_categories.json`，由 `ItemNameCatch分类汇总_合成设计方案_v1.xlsx` 的“汇总”表机械提取；未命中的新物品明确显示“未分类”，不会按模组名猜测。
 

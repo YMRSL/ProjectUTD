@@ -13,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Mth;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.food.FoodConstants;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -101,6 +103,43 @@ public final class FoodStackData {
             root.putFloat(SATURATION_KEY, Math.max(saturation, 0.0f));
             root.putInt(MAX_STACK_SIZE_KEY, Mth.clamp(maxStackSize, 1, 64));
         });
+        synchronizeVanillaFoodComponent(stack);
+    }
+
+    /**
+     * Keep the vanilla FOOD component aligned with the reviewed runtime
+     * override. FPE consumption already reads the dynamic profile directly,
+     * while Jade and other compatibility mods read this component instead.
+     */
+    public static boolean synchronizeVanillaFoodComponent(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) {
+            return false;
+        }
+        FoodPropertyOverrides.Profile override = FoodPropertyOverrides.find(stack);
+        if (override == null) {
+            return false;
+        }
+        int nutrition = Math.max(override.nutrition(), 0);
+        float saturationPoints = FoodConstants.saturationByModifier(
+                nutrition,
+                Math.max(override.saturation(), 0.0f)
+        );
+        FoodProperties current = stack.get(DataComponents.FOOD);
+        if (current != null
+                && current.nutrition() == nutrition
+                && Math.abs(current.saturation() - saturationPoints) < 1.0e-5f) {
+            return false;
+        }
+        FoodProperties synchronizedFood = new FoodProperties(
+                nutrition,
+                saturationPoints,
+                current == null || current.canAlwaysEat(),
+                current == null ? 1.6f : current.eatSeconds(),
+                current == null ? Optional.empty() : current.usingConvertsTo(),
+                current == null ? List.of() : current.effects()
+        );
+        stack.set(DataComponents.FOOD, synchronizedFood);
+        return true;
     }
 
     public static void setEffects(ItemStack stack, List<FoodEffect> effects) {

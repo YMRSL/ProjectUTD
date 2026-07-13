@@ -225,15 +225,19 @@ export function itemPropertyIntegrationFiles(project: WorkbenchProject): ItemPro
     const [namespace, dataPath] = splitResource(gun.sourceDataId);
     if (!namespace || !dataPath || !Object.keys(gun.sourceData).length) continue;
     const data = structuredClone(gun.sourceData);
+    const originalAmmoAmount = finiteNumber(data.ammo_amount) ?? gun.ammoAmount;
     data.ammo_amount = gun.ammoAmount;
+    preserveExtendedMagazineDeltas(data, originalAmmoAmount, gun.ammoAmount);
     data.rpm = gun.rpm;
     const bullet = ensureObject(data, "bullet");
+    const originalDamage = finiteNumber(bullet.damage) ?? gun.damage;
     bullet.damage = gun.damage;
     bullet.speed = gun.bulletSpeed;
     bullet.gravity = gun.gravity;
     bullet.pierce = gun.pierce;
     const extra = ensureObject(bullet, "extra_damage");
     extra.armor_ignore = gun.armorIgnore;
+    scaleDamageCurve(extra, originalDamage, gun.damage);
     const reload = ensureObject(data, "reload");
     const feed = ensureObject(reload, "feed");
     feed.tactical = gun.reloadTacticalFeed;
@@ -241,6 +245,7 @@ export function itemPropertyIntegrationFiles(project: WorkbenchProject): ItemPro
     const cooldown = ensureObject(reload, "cooldown");
     cooldown.tactical = gun.reloadTacticalCooldown;
     cooldown.empty = gun.reloadEmptyCooldown;
+    synchronizeScriptReload(data, gun);
     const inaccuracy = ensureObject(data, "inaccuracy");
     inaccuracy.stand = gun.inaccuracyStand;
     inaccuracy.move = gun.inaccuracyMove;
@@ -276,6 +281,46 @@ export function itemPropertyIntegrationFiles(project: WorkbenchProject): ItemPro
     }));
   }
   return files.sort((left, right) => left.filename.localeCompare(right.filename, "en"));
+}
+
+function finiteNumber(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function rounded(value: number): number {
+  return Number(value.toFixed(6));
+}
+
+/** TaCZ damage_adjust is the effective distance curve for many gun packs. */
+function scaleDamageCurve(extra: JsonObject, originalDamage: number, targetDamage: number): void {
+  if (!Array.isArray(extra.damage_adjust)) return;
+  const ratio = originalDamage > 0 ? targetDamage / originalDamage : null;
+  for (const row of extra.damage_adjust) {
+    if (!row || typeof row !== "object" || Array.isArray(row)) continue;
+    const current = finiteNumber((row as JsonObject).damage);
+    if (current === null) continue;
+    (row as JsonObject).damage = ratio === null ? targetDamage : rounded(current * ratio);
+  }
+}
+
+/** Keep extended magazines useful when the base magazine is edited. */
+function preserveExtendedMagazineDeltas(data: JsonObject, original: number, target: number): void {
+  if (!Array.isArray(data.extended_mag_ammo_amount)) return;
+  data.extended_mag_ammo_amount = data.extended_mag_ammo_amount.map((value) => {
+    const amount = finiteNumber(value);
+    return amount === null ? value : Math.max(1, Math.trunc(target + (amount - original)));
+  });
+}
+
+/** xmag_reload_logic reads these script parameters instead of reload.*. */
+function synchronizeScriptReload(data: JsonObject, gun: TaczGunProperty): void {
+  const params = data.script_param;
+  if (!params || typeof params !== "object" || Array.isArray(params)) return;
+  const values = params as JsonObject;
+  values.reload_feed = gun.reloadTacticalFeed;
+  values.reload_cooldown = gun.reloadTacticalCooldown;
+  values.empty_feed = gun.reloadEmptyFeed;
+  values.empty_cooldown = gun.reloadEmptyCooldown;
 }
 
 function defaultTacz(gunId: string): TaczGunProperty {

@@ -236,6 +236,11 @@ public final class UtdVariantRarityResolver {
    private static void loadConfigMaps() throws IOException {
       Path var0 = FMLPaths.CONFIGDIR.get().resolve("raritycore");
       loadItemFallbacks(var0.resolve("FinalRarityConfig").resolve("utd_loot_levels.json"));
+      // Asset Workbench plain-item overrides use the same native RarityCore
+      // folder.  Include them in the compatibility fallback as well so items
+      // with their own components (notably BlockZ backpacks) cannot fall back
+      // to the vanilla grey rarity after RarityCore's automatic pass.
+      loadItemFallbacks(var0.resolve("FinalRarityConfig").resolve("utd_asset_workbench.json"));
       loadNbtRules(var0.resolve("nbt_matches"));
    }
 

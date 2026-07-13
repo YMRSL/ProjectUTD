@@ -6,6 +6,7 @@ import {
   validateBlockTransformIdInput
 } from "../src/domain/authoringInputs";
 import { candidateCoreFiles } from "../src/domain/candidateCore";
+import { itemPropertyIntegrationFiles } from "../src/domain/itemProperties";
 import {
   applyLocalDraft,
   draftIdentityFor,
@@ -132,6 +133,67 @@ describe("item property publication guardrails", () => {
       blockz: { width: 2, height: 2, capacityWidth: null, capacityHeight: null }
     });
     expect(edited.itemProperties.find((entry) => entry.itemKey === item.itemKey)?.enabled).toBe(true);
+  });
+
+  it("updates TaCZ's effective damage curve and script-backed reload values", () => {
+    const project = structuredClone(sampleProject);
+    project.itemProperties.push({
+      itemKey: "test:ak47",
+      registryId: "tacz:modern_kinetic_gun",
+      variantDiscriminator: "GunId=tacz:ak47",
+      enabled: true,
+      rarity: null,
+      blockz: null,
+      food: null,
+      baseCatalogHash: "a".repeat(16),
+      updatedAt: "2026-07-13T14:00:00.000Z",
+      tacz: {
+        gunId: "tacz:ak47",
+        sourcePack: "tacz_default_gun",
+        sourceNamespace: "tacz",
+        sourceDataId: "tacz:ak47_data",
+        sourceData: {
+          ammo_amount: 30,
+          extended_mag_ammo_amount: [34, 37, 40],
+          bullet: {
+            damage: 9,
+            extra_damage: { armor_ignore: 0.25, damage_adjust: [
+              { damage: 9, distance: 30 }, { damage: 7.5, distance: 60 }, { damage: 6, distance: "infinite" }
+            ] }
+          },
+          reload: { feed: { tactical: 1.55, empty: 2.25 }, cooldown: { tactical: 2, empty: 2.6 } },
+          script_param: { reload_feed: 1.55, reload_cooldown: 2, empty_feed: 2.25, empty_cooldown: 2.6 }
+        },
+        damage: 18,
+        ammoAmount: 40,
+        rpm: 600,
+        reloadTacticalFeed: 1.2,
+        reloadTacticalCooldown: 1.6,
+        reloadEmptyFeed: 1.8,
+        reloadEmptyCooldown: 2.1,
+        inaccuracyStand: 4.5,
+        inaccuracyMove: 5,
+        inaccuracySneak: 2.5,
+        inaccuracyLie: 1.5,
+        inaccuracyAim: 0.15,
+        armorIgnore: 0.25,
+        pierce: 1,
+        bulletSpeed: 250,
+        gravity: 0.15
+      }
+    });
+    const file = itemPropertyIntegrationFiles(project).find((entry) => entry.filename.endsWith("ak47_data.json"))!;
+    const output = JSON.parse(file.content);
+    expect(output.bullet.damage).toBe(18);
+    expect(output.bullet.extra_damage.damage_adjust.map((entry: { damage: number }) => entry.damage))
+      .toEqual([18, 15, 12]);
+    expect(output.extended_mag_ammo_amount).toEqual([44, 47, 50]);
+    expect(output.script_param).toMatchObject({
+      reload_feed: 1.2,
+      reload_cooldown: 1.6,
+      empty_feed: 1.8,
+      empty_cooldown: 2.1
+    });
   });
 });
 

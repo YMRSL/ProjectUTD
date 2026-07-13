@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.minecraft.core.registries.BuiltInRegistries;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +30,7 @@ public final class FoodTooltipEvents {
     private FoodTooltipEvents() {
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onItemTooltip(ItemTooltipEvent event) {
         if (ModItems.PACK_FOOD == null || !ModItems.PACK_FOOD.isBound()) {
             return;
@@ -38,6 +39,7 @@ public final class FoodTooltipEvents {
         if (stack.isEmpty() || !stack.is(ModItems.PACK_FOOD.get())) {
             return;
         }
+        FoodStackData.synchronizeVanillaFoodComponent(stack);
 
         ResourceLocation foodId = FoodStackData.getFoodId(stack).orElse(null);
         if (foodId == null) {
