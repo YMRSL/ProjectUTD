@@ -12,6 +12,7 @@ import com.yitianys.BlockZ.init.ModItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -72,7 +73,7 @@ public class ItemSizeManager {
                         if (nbtKey == null || nbtValue == null) {
                             continue;
                         }
-                        if (tag.contains(nbtKey) && nbtValue.equals(tag.getString(nbtKey))) {
+                        if (nbtValue.equals(readStringPath(tag, nbtKey))) {
                             return new ItemSize(rule.width(), rule.height());
                         }
                     }
@@ -80,6 +81,20 @@ public class ItemSizeManager {
             }
         }
         return SIZES.getOrDefault(stack.getItem(), new ItemSize(1, 1));
+    }
+
+    /** Supports both legacy top-level keys and dotted paths inside 1.21 custom-data compounds. */
+    static String readStringPath(CompoundTag root, String path) {
+        if (root == null || path == null || path.isBlank()) return "";
+        String[] segments = path.split("\\.");
+        CompoundTag current = root;
+        for (int index = 0; index < segments.length - 1; index++) {
+            String segment = segments[index];
+            if (!current.contains(segment, Tag.TAG_COMPOUND)) return "";
+            current = current.getCompound(segment);
+        }
+        String leaf = segments[segments.length - 1];
+        return current.contains(leaf, Tag.TAG_STRING) ? current.getString(leaf) : "";
     }
 
     public record ItemSize(int width, int height) {}

@@ -72,6 +72,11 @@ public final class AssetTooltipEvents {
                 + "  loot_level: " + status.lootLevel()).withStyle(status.lootEnabled() ? ChatFormatting.GOLD : ChatFormatting.DARK_GRAY));
         tooltip.add(Component.literal("sync_state: " + status.syncState().name().toLowerCase()
                 + "  stale: " + status.stale()).withStyle(status.needsSync() ? ChatFormatting.YELLOW : ChatFormatting.GREEN));
+        ItemPropertyStatusRepository.PropertyStatus propertyStatus = ItemPropertyStatusRepository.get().resolve(record);
+        if (propertyStatus.managed()) {
+            tooltip.add(Component.literal("property_managed: " + propertyStatus.summary())
+                    .withStyle(ChatFormatting.AQUA));
+        }
         tooltip.add(Component.literal("issues: " + status.issues().size()).withStyle(status.issues().isEmpty()
                 ? ChatFormatting.DARK_GRAY : ChatFormatting.RED));
         if (!"zh_cn".equalsIgnoreCase(record.capturedLocale)) {

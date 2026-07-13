@@ -157,7 +157,7 @@ describe("candidate core download set", () => {
     });
     const files = candidateCoreFiles(changed);
     const names = files.map((file) => file.filename);
-    expect(names).toContain("integrations/raritycore/FinalRarity.utd-overrides.json");
+    expect(names).toContain("integrations/raritycore/FinalRarityConfig/utd_asset_workbench.json");
     expect(names).toContain("integrations/blockz/grid_items.utd-overrides.json");
     const rarity = JSON.parse(files.find((file) => file.filename.includes("FinalRarity"))!.content);
     const blockz = JSON.parse(files.find((file) => file.filename.includes("grid_items"))!.content);

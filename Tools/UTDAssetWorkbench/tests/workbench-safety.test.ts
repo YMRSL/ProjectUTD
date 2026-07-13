@@ -102,16 +102,16 @@ describe("local draft v2 safety", () => {
     expect(loadLocalDraft(storage, identity)).not.toBeNull();
   });
 
-  it("keeps the real 890/960/798 project projection comfortably below 2 MB", () => {
+  it("keeps the current 830/930/775 project projection comfortably below 2 MB", () => {
     const project: unknown = JSON.parse(readFileSync(new URL("../public/data/workbench.json", import.meta.url), "utf8"));
     assertWorkbenchProject(project);
-    expect([project.items.length, project.recipes.length, project.lootPolicies.length]).toEqual([890, 960, 798]);
+    expect([project.items.length, project.recipes.length, project.lootPolicies.length]).toEqual([830, 930, 775]);
     const storage = new MemoryStorage();
     const identity = draftIdentityFor(project);
     const document = saveLocalDraft(storage, identity, project, "2026-07-12T13:00:00.000Z");
     const raw = storage.getItem(draftStorageKey(identity))!;
-    expect(document.recipe_edits).toHaveLength(960);
-    expect(document.loot_edits).toHaveLength(798);
+    expect(document.recipe_edits).toHaveLength(930);
+    expect(document.loot_edits).toHaveLength(775);
     expect(new TextEncoder().encode(raw).byteLength).toBeLessThan(MAX_LOCAL_DRAFT_BYTES);
     expect(new TextEncoder().encode(raw).byteLength).toBeLessThan(600_000);
   });

@@ -41,6 +41,7 @@ public final class AssetManagerScreen extends Screen {
     private final Screen previous;
     private final AssetRepository repository = AssetRepository.get();
     private final PresentationDraftRepository presentationRepository = PresentationDraftRepository.get();
+    private final ItemPropertyStatusRepository propertyStatusRepository = ItemPropertyStatusRepository.get();
     private final List<AssetRecord> visible = new ArrayList<>();
     private final Map<String, ItemStack> iconStacks = new LinkedHashMap<>();
     private final Map<String, String> localizedBaseNames = new LinkedHashMap<>();
@@ -482,6 +483,8 @@ public final class AssetManagerScreen extends Screen {
         y = statusLineIfFits(graphics, "Loot 掉落", status.lootEnabled(), "L" + status.lootLevel(), x, y);
         boolean syncOk = status.syncState() == SyncState.SYNCED && !status.stale();
         y = statusLineIfFits(graphics, "同步状态", syncOk, status.syncState().name().toLowerCase(), x, y);
+        ItemPropertyStatusRepository.PropertyStatus propertyStatus = propertyStatusRepository.resolve(record);
+        y = statusLineIfFits(graphics, "属性纳管", propertyStatus.managed(), propertyStatus.summary(), x, y);
         y = statusLineIfFits(graphics, "异常", status.issues().isEmpty(), Integer.toString(status.issues().size()), x, y);
         if (status.needsSync()) {
             int pulse = 100 + (int) (90 * (0.5 + 0.5 * Math.sin(System.currentTimeMillis() / 220.0)));

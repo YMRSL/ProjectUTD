@@ -29,6 +29,11 @@ import { mergeSnapshotEvidence } from "../src/domain/snapshotMerge";
 import { enrichPropertiesFromRuntime } from "./runtimeProperties";
 import { itemPropertyIntegrationFiles } from "../src/domain/itemProperties";
 import { cleanIdentityCatalog } from "../src/domain/identityCleanup";
+import {
+  deployPropertyCandidate,
+  loadPropertyCandidate,
+  rollbackPropertyDeployment
+} from "./propertyDeployment";
 
 if (isDirectExecution()) {
   await runCli(process.argv.slice(2));
@@ -41,6 +46,8 @@ export async function runCli([command = "help", ...argv]: string[]): Promise<voi
     else if (command === "merge-snapshot") await mergeSnapshot(argv);
     else if (command === "enrich-properties") await enrichProperties(argv);
     else if (command === "cleanup-identities") await cleanupIdentities(argv);
+    else if (command === "deploy-properties") await deployProperties(argv);
+    else if (command === "rollback-properties") await rollbackProperties(argv);
     else if (command === "validate") await validateProject(argv);
     else if (command === "diff-block-transforms") await diffBlockTransforms(argv);
     else if (command === "help" || command === "--help" || command === "-h") printHelp();
@@ -49,6 +56,33 @@ export async function runCli([command = "help", ...argv]: string[]): Promise<voi
     console.error(`\n[UTD Asset Workbench] ${error instanceof Error ? error.message : String(error)}\n`);
     process.exitCode = 1;
   }
+}
+
+async function deployProperties(argv: string[]): Promise<void> {
+  const options = parseOptions(argv);
+  const candidatePath = path.resolve(required(options, "candidate"));
+  const instancePath = path.resolve(required(options, "instance"));
+  const dryRun = booleanOption(options, "dry-run");
+  const loaded = await loadPropertyCandidate(candidatePath);
+  const result = await deployPropertyCandidate(loaded, instancePath, { dryRun });
+  console.log(`Property candidate: ${loaded.source}`);
+  console.log(`Candidate sha256: ${loaded.sha256}`);
+  console.log(`Property deployment${dryRun ? " preview" : ""}: enabled=${result.plan.counts.enabled} rarity=${result.plan.counts.rarity} blockz=${result.plan.counts.blockz} tacz=${result.plan.counts.tacz} food=${result.plan.counts.food}`);
+  console.log(`Files: write=${result.plan.writes.length} delete=${result.plan.deletes.length}`);
+  if (result.manifest) {
+    console.log(`Deployment id: ${result.manifest.deployment_id}`);
+    console.log("Restart Minecraft (or the server) before testing RarityCore, BlockZ and TaCZ changes.");
+  }
+}
+
+async function rollbackProperties(argv: string[]): Promise<void> {
+  const options = parseOptions(argv);
+  const instancePath = path.resolve(required(options, "instance"));
+  const dryRun = booleanOption(options, "dry-run");
+  const force = booleanOption(options, "force");
+  const result = await rollbackPropertyDeployment(instancePath, { dryRun, force });
+  console.log(`Property rollback${dryRun ? " preview" : ""}: deployment=${result.deploymentId} files=${result.restored.length}`);
+  if (!dryRun) console.log("The previous runtime files were restored. Restart Minecraft (or the server) before testing.");
 }
 
 async function cleanupIdentities(argv: string[]): Promise<void> {
@@ -448,6 +482,14 @@ function required(options: Record<string, string>, key: string): string {
   return value;
 }
 
+function booleanOption(options: Record<string, string>, key: string): boolean {
+  const value = options[key];
+  if (value === undefined) return false;
+  if (value === "true" || value === "1" || value === "yes") return true;
+  if (value === "false" || value === "0" || value === "no") return false;
+  throw new Error(`--${key} must be true or false.`);
+}
+
 function sha256(text: string): string {
   return createHash("sha256").update(text, "utf8").digest("hex");
 }
@@ -478,6 +520,13 @@ Merge the latest game export icons into a canonical web directory:
 
 Enrich a web project with current RarityCore, BlockZ, TaCZ and FPE values:
   npm run cli -- enrich-properties --project <workbench.json> --instance <game-instance-root> --out <web-workbench.json>
+
+Deploy an audited browser candidate ZIP (or workbench.json) into one game instance:
+  npm run cli -- deploy-properties --candidate <project.candidate.zip|workbench.json> \\
+    --instance <game-instance-root> [--dry-run true]
+
+Roll back the latest property deployment from its verified backup:
+  npm run cli -- rollback-properties --instance <game-instance-root> [--dry-run true] [--force true]
 
 Apply confirmed retired-item decisions and merge logical TaCZ gun aliases:
   npm run cli -- cleanup-identities --project <workbench.json> \\

@@ -226,7 +226,7 @@ function PropertyPanel({ item, property, onChange }: {
       <PanelKicker>RUNTIME INTEGRATIONS</PanelKicker>
       <h2>{item.clientNameZhCn}</h2>
       <p className="mono inspector-id">{item.variantDiscriminator || item.registryId}</p>
-      <p className="panel-note">这里只生成带哈希的候选属性，不直接改第三方 JAR。关闭总开关会保留草稿但不参与晋升。</p>
+      <p className="panel-note">这里只编辑带哈希的候选属性，不改第三方 JAR。导出候选包后可用“部署UTD属性候选包”安全应用，并随时回滚。</p>
       <label className="switch presentation-switch">
         <input type="checkbox" checked={property.enabled} disabled={!editable} onChange={(event) => onChange({ enabled: event.target.checked })} />
         <i />

@@ -11,7 +11,7 @@
 - FPE、TaCZ 等变体先按 `asset_key` 精确匹配，再按单一 `variant_discriminator` 匹配；变体绝不退化为 base registry id 匹配。
 - 游戏导出的 `clientNameZhCn / translationKey` 是只读观察证据；改名和物品介绍写入独立的 `presentations[]` 草稿，不覆盖原始档案。
 - 方块右键替换制造使用独立的 `blockTransforms[]` 草稿；工作台只生成审核文件，不直接改运行目录。
-- “属性”页使用独立的 `itemProperties[]` 草稿；启动器自动读取 RarityCore、BlockZ、TaCZ 枪包与 FPE 当前值，候选包按原生协议生成覆盖文件，不修改第三方 JAR。
+- “属性”页使用独立的 `itemProperties[]` 草稿；启动器自动读取 RarityCore、BlockZ、TaCZ 枪包与 FPE 当前值，候选包按原生协议生成覆盖文件，不修改第三方 JAR；独立部署器负责哈希校验、备份、应用与回滚。
 - Excel 目前是单向审阅接口 JSON；实际 `.xlsx` 由上层导出器生成，Excel 不是权威源。
 - 分类权威映射位于 `data/utd_item_categories.json`，由 `ItemNameCatch分类汇总_合成设计方案_v1.xlsx` 的“汇总”表机械提取；未命中的新物品明确显示“未分类”，不会按模组名猜测。
 
@@ -49,6 +49,27 @@ npm.cmd run preview
 
 启用但不完整、重复 ID、创造模式策略错误，或相同目标状态与优先级冲突的规则都会阻止 ZIP 生成。单项导出按钮仍保留给诊断使用，但正式发布必须保留 ZIP、规范项目和差异报告。
 
+### 属性部署与回滚
+
+属性候选包导出后，先完全退出游戏，再双击 `部署UTD属性候选包.cmd`。部署器会自动选择下载目录里最新的 `.candidate.zip`（没有时打开选择窗口），随后执行：
+
+1. 校验 ZIP 清单中每个文件的 SHA-256 与字节数；
+2. 预览 RarityCore、BlockZ、TaCZ 与食品的启用数量及写入文件数；
+3. 在 `config/utd_asset_manager/property_backups/` 制作逐文件备份；
+4. 原子写入运行文件，并生成 `property_deployment.json` 部署账本。
+
+双击 `回滚最近一次UTD属性部署.cmd` 可以恢复部署前的逐文件快照。若运行文件在部署后又被其他工具修改，普通回滚会停止，避免覆盖后来的人工调整。
+
+实际运行目标为：
+
+- RarityCore 普通物品：`config/raritycore/FinalRarityConfig/utd_asset_workbench.json`；
+- RarityCore 组件变体：`config/raritycore/item_data_matches/utd_asset_workbench/*.json`；
+- BlockZ/DayZ：合并写入 `config/blockz/grid_items.json`，保留非 UTD 条目；
+- TaCZ：只覆盖 `tacz/utd_workbench_pack/data/*/data/guns/*.json`，保留工作台模型和其它枪包资源；
+- FPE 食品：`config/firstpersonfoodeating/utd_food_overrides.json`，运行时每秒检查一次变化。
+
+TaCZ、RarityCore 和 BlockZ 改动需要重启客户端/服务器；FPE 食品属性支持热加载。游戏内 O 界面检查器会把已部署的四类属性显示为 `R/B/T/F`。
+
 ## 从真实运行数据导入
 
 CLI 能直接解析纯 JSON，也能安全抽取当前约 3 MB 的 KJS 赋值格式，例如 `global.UTD... utd.recipeData = { ... };`。
@@ -76,6 +97,14 @@ npm.cmd run cli -- import `
 ```powershell
 npm.cmd run cli -- export --project "artifacts\current\workbench.json" --out "artifacts\regenerated"
 npm.cmd run cli -- validate --project "artifacts\regenerated\workbench.json"
+```
+
+属性候选也可以通过命令行预览、部署和回滚：
+
+```powershell
+npm.cmd run cli -- deploy-properties --candidate "utd-assets.candidate.zip" --instance "D:\path\to\instance" --dry-run true
+npm.cmd run cli -- deploy-properties --candidate "utd-assets.candidate.zip" --instance "D:\path\to\instance"
+npm.cmd run cli -- rollback-properties --instance "D:\path\to\instance"
 ```
 
 正式发布方块替换规则时，可以只让这一类规则的 `error` 决定校验退出码；历史配方循环等其它内容问题仍会保留在项目中，但不会阻断本次规则发布：
@@ -243,7 +272,7 @@ block_entity_policy=reject, priority=100
 npm.cmd run check
 ```
 
-当前 53 项测试覆盖：Mod 平铺/旧包络 snapshot、canonical/SNBT 无损保留、SHA-key plain 捕获与 base 配方语义合并、组件变体不降级、FPE/TaCZ 同 registry id 变体隔离、56 条 FPE partial-NBT 回收配方、Loot SNBT 合并、显示覆盖/语言键、Java 方块替换协议往返与严格差异、v1 增量字段兼容、轻量草稿恢复/上限保护、候选 ZIP 哈希、输出路径保护、Windows 原子写回退、全量状态目录、一层过滤图、Tag 不展开、循环检测、冻结状态字段和 KJS 往返解析。
+当前 62 项测试覆盖：Mod 平铺/旧包络 snapshot、canonical/SNBT 无损保留、SHA-key plain 捕获与 base 配方语义合并、组件变体不降级、FPE/TaCZ 同 registry id 变体隔离、56 条 FPE partial-NBT 回收配方、Loot SNBT 合并、显示覆盖/语言键、Java 方块替换协议往返与严格差异、v1 增量字段兼容、轻量草稿恢复/上限保护、候选 ZIP 哈希、属性部署/回滚、输出路径保护、Windows 原子写回退、全量状态目录、一层过滤图、Tag 不展开、循环检测、冻结状态字段和 KJS 往返解析。
 
 ## 目录
 

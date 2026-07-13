@@ -67,6 +67,9 @@ export function validateItemProperties(rows: ItemPropertyOverride[]): Validation
       if (capacityValues.some((value) => value !== null) && !capacityValues.every((value) => value !== null && positiveInteger(value, 30))) {
         add("item_property_blockz_capacity", "BlockZ capacity width and height must both be blank or integers from 1 to 30.");
       }
+      if (row.variantDiscriminator && capacityValues.some((value) => value !== null)) {
+        add("item_property_blockz_variant_capacity", "BlockZ backpack capacity is registry-wide; variant rows may only override occupied width and height.");
+      }
     }
     if (row.tacz) validateTacz(row.tacz, add);
     if (row.food) {
@@ -154,8 +157,21 @@ export function exportItemPropertiesJson(project: WorkbenchProject): string {
 
 export function toBlockZGridDocument(project: WorkbenchProject): JsonObject {
   const items: JsonObject = {};
+  const nbtItems: JsonObject[] = [];
   for (const entry of project.itemProperties.filter((row) => row.enabled && row.blockz)) {
     const blockz = entry.blockz!;
+    if (entry.variantDiscriminator) {
+      const [key, value] = splitDiscriminator(entry.variantDiscriminator);
+      if (!key || !value) continue;
+      nbtItems.push({
+        id: entry.registryId,
+        nbt_key: customDataPath(key),
+        nbt_value: value,
+        width: blockz.width,
+        height: blockz.height
+      });
+      continue;
+    }
     items[entry.registryId] = {
       width: blockz.width,
       height: blockz.height,
@@ -164,7 +180,10 @@ export function toBlockZGridDocument(project: WorkbenchProject): JsonObject {
         : {})
     };
   }
-  return { items };
+  return {
+    items,
+    ...(nbtItems.length ? { nbt_items: nbtItems } : {})
+  };
 }
 
 export interface ItemPropertyIntegrationFile {
@@ -184,7 +203,7 @@ export function itemPropertyIntegrationFiles(project: WorkbenchProject): ItemPro
     }
     const [key, value] = splitDiscriminator(entry.variantDiscriminator);
     if (!key || !value) continue;
-    const path = `components.minecraft:custom_data.${key}`;
+    const path = `components.minecraft:custom_data.${customDataPath(key)}`;
     files.push(jsonFile(`integrations/raritycore/item_data_matches/${safeFile(entry.itemKey)}.json`, {
       item_id: entry.registryId,
       conditions: [{ path, type: "equals", value }],
@@ -196,7 +215,7 @@ export function itemPropertyIntegrationFiles(project: WorkbenchProject): ItemPro
     }));
   }
   if (Object.keys(baseRarity).length) {
-    files.push(jsonFile("integrations/raritycore/FinalRarity.utd-overrides.json", baseRarity));
+    files.push(jsonFile("integrations/raritycore/FinalRarityConfig/utd_asset_workbench.json", baseRarity));
   }
   if (enabled.some((entry) => entry.blockz)) {
     files.push(jsonFile("integrations/blockz/grid_items.utd-overrides.json", toBlockZGridDocument(project)));
@@ -251,7 +270,7 @@ export function itemPropertyIntegrationFiles(project: WorkbenchProject): ItemPro
     }))
   }));
   if (foods.length) {
-    files.push(jsonFile("integrations/food/food_overrides.json", {
+    files.push(jsonFile("integrations/firstpersonfoodeating/utd_food_overrides.json", {
       schema_version: "utd-food-property-overrides/v1",
       foods
     }));
@@ -359,6 +378,11 @@ function ensureObject(parent: JsonObject, key: string): JsonObject {
 function splitDiscriminator(value: string): [string, string] {
   const separator = value.indexOf("=");
   return separator > 0 ? [value.slice(0, separator), value.slice(separator + 1)] : ["", ""];
+}
+
+/** Maps stable Workbench discriminators onto their actual custom-data location. */
+export function customDataPath(key: string): string {
+  return key === "food_id" ? "firstpersonfoodeating_profile.food_id" : key;
 }
 
 function splitResource(value: string): [string, string] {

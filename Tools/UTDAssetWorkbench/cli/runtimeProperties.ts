@@ -1,7 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
-import { defaultItemProperty } from "../src/domain/itemProperties";
-import type { ItemPropertyOverride, JsonObject, TaczGunProperty, WorkbenchProject } from "../src/domain/schema";
+import { customDataPath, defaultItemProperty } from "../src/domain/itemProperties";
+import type { FoodProperty, ItemPropertyOverride, JsonObject, TaczGunProperty, WorkbenchProject } from "../src/domain/schema";
 
 export interface RuntimePropertyScanSummary {
   rarity: number;
@@ -16,32 +16,38 @@ export async function enrichPropertiesFromRuntime(
   instanceRoot: string
 ): Promise<{ project: WorkbenchProject; summary: RuntimePropertyScanSummary }> {
   const next = structuredClone(project);
-  const rarity = await readJsonObject(path.join(instanceRoot, "config", "raritycore", "FinalRarity.json"));
+  const rarity = await scanRarityBase(path.join(instanceRoot, "config", "raritycore"));
+  const rarityVariants = await scanRarityVariants(path.join(instanceRoot, "config", "raritycore", "item_data_matches"));
   const blockzRoot = await readJsonObject(path.join(instanceRoot, "config", "blockz", "grid_items.json"));
   const blockzItems = objectOr(blockzRoot.items);
   const guns = await scanTaczGuns(path.join(instanceRoot, "tacz"));
+  const foodOverrides = await scanFoodOverrides(path.join(instanceRoot, "config", "firstpersonfoodeating", "utd_food_overrides.json"));
   const existing = new Map(next.itemProperties.map((entry) => [entry.itemKey, entry]));
   const summary: RuntimePropertyScanSummary = { rarity: 0, blockz: 0, tacz: 0, food: 0, unresolvedGuns: [] };
 
   for (const item of next.items.filter((entry) => entry.managed && entry.ownership === "utd")) {
     const row = existing.get(item.itemKey) ?? defaultItemProperty(item);
     let observed = existing.has(item.itemKey);
-    const rarityValue = finiteNumber(rarity[item.registryId]);
+    const rarityValue = finiteNumber(rarityVariants.get(`${item.registryId}\u0000${item.variantDiscriminator}`) ?? rarity[item.registryId]);
     if (rarityValue !== null && Number.isInteger(rarityValue) && rarityValue >= 1 && rarityValue <= 7) {
-      row.rarity ??= { value: rarityValue };
+      if (!row.enabled || !row.rarity) row.rarity = { value: rarityValue };
       summary.rarity += 1;
       observed = true;
     }
-    const blockz = objectOr(blockzItems[item.registryId]);
+    const blockz = findBlockZVariant(blockzRoot, item.registryId, item.variantDiscriminator)
+      ?? objectOr(blockzItems[item.registryId]);
     const width = finiteNumber(blockz.width);
     const height = finiteNumber(blockz.height);
     if (width !== null && height !== null) {
-      row.blockz ??= {
-        width,
-        height,
-        capacityWidth: finiteNumber(blockz.cap_width),
-        capacityHeight: finiteNumber(blockz.cap_height)
-      };
+      if (!row.enabled || !row.blockz) {
+        const baseBlockz = objectOr(blockzItems[item.registryId]);
+        row.blockz = {
+          width,
+          height,
+          capacityWidth: finiteNumber(baseBlockz.cap_width),
+          capacityHeight: finiteNumber(baseBlockz.cap_height)
+        };
+      }
       summary.blockz += 1;
       observed = true;
     }
@@ -49,13 +55,16 @@ export async function enrichPropertiesFromRuntime(
     if (gunId) {
       const gun = guns.get(gunId);
       if (gun) {
-        row.tacz = mergeTacz(row.tacz, gun);
+        row.tacz = row.enabled ? mergeTacz(row.tacz, gun) : gun;
         summary.tacz += 1;
         observed = true;
       } else {
         summary.unresolvedGuns.push(gunId);
       }
     }
+    const foodId = discriminator(item.variantDiscriminator, "food_id");
+    const food = foodOverrides.get(foodId || item.registryId);
+    if (food && (!row.enabled || !row.food)) row.food = food;
     if (row.food) {
       summary.food += 1;
       observed = true;
@@ -69,10 +78,12 @@ export async function enrichPropertiesFromRuntime(
 
 async function scanTaczGuns(taczRoot: string): Promise<Map<string, TaczGunProperty>> {
   const result = new Map<string, TaczGunProperty>();
+  const dataFiles = new Map<string, { pack: string; namespace: string; data: JsonObject }>();
+  const indices = new Map<string, { pack: string; dataId: string }>();
   let packs: string[];
   try {
     packs = (await readdir(taczRoot, { withFileTypes: true }))
-      .filter((entry) => entry.isDirectory() && entry.name !== "utd_workbench_pack")
+      .filter((entry) => entry.isDirectory())
       .map((entry) => entry.name)
       .sort((left, right) => left.localeCompare(right, "en"));
   } catch {
@@ -81,6 +92,13 @@ async function scanTaczGuns(taczRoot: string): Promise<Map<string, TaczGunProper
   for (const pack of packs) {
     const packRoot = path.join(taczRoot, pack);
     const files = await walkJson(packRoot);
+    for (const dataFile of files.filter((file) => normalized(file).includes("/data/guns/"))) {
+      const relative = normalized(path.relative(packRoot, dataFile));
+      const match = /^data\/([^/]+)\/data\/guns\/(.+)\.json$/i.exec(relative);
+      if (!match) continue;
+      const data = await readJsonObject(dataFile);
+      if (Object.keys(data).length) dataFiles.set(`${match[1]}:${match[2]}`, { pack, namespace: match[1], data });
+    }
     for (const indexPath of files.filter((file) => normalized(file).includes("/index/guns/"))) {
       const relative = normalized(path.relative(packRoot, indexPath));
       const match = /^data\/([^/]+)\/index\/guns\/(.+)\.json$/i.exec(relative);
@@ -88,15 +106,81 @@ async function scanTaczGuns(taczRoot: string): Promise<Map<string, TaczGunProper
       const gunId = `${match[1]}:${match[2]}`;
       const index = await readJsonObject(indexPath);
       const dataId = typeof index.data === "string" ? index.data : "";
-      const [dataNamespace, dataPath] = splitResource(dataId);
-      if (!dataNamespace || !dataPath) continue;
-      const dataFile = path.join(packRoot, "data", dataNamespace, "data", "guns", ...dataPath.split("/")) + ".json";
-      const data = await readJsonObject(dataFile);
-      if (!Object.keys(data).length) continue;
-      result.set(gunId, gunFromData(gunId, pack, dataNamespace, dataId, data));
+      if (splitResource(dataId).every(Boolean)) indices.set(gunId, { pack, dataId });
     }
   }
+  for (const [gunId, index] of indices) {
+    const data = dataFiles.get(index.dataId);
+    if (data) result.set(gunId, gunFromData(gunId, index.pack, data.namespace, index.dataId, data.data));
+  }
   return result;
+}
+
+async function scanRarityBase(root: string): Promise<JsonObject> {
+  const merged = await readJsonObject(path.join(root, "FinalRarity.json"));
+  const folder = path.join(root, "FinalRarityConfig");
+  for (const file of (await walkJson(folder)).sort((left, right) => left.localeCompare(right, "en"))) {
+    Object.assign(merged, await readJsonObject(file));
+  }
+  return merged;
+}
+
+async function scanRarityVariants(root: string): Promise<Map<string, number>> {
+  const result = new Map<string, number>();
+  for (const file of (await walkJson(root)).sort((left, right) => left.localeCompare(right, "en"))) {
+    const rule = await readJsonObject(file);
+    const itemId = typeof rule.item_id === "string" ? rule.item_id : "";
+    const rarity = finiteNumber(rule.rarity);
+    const conditions = Array.isArray(rule.conditions) ? rule.conditions.filter(isObject) : [];
+    const condition = conditions.find((entry) => entry.type === "equals" && typeof entry.path === "string");
+    if (!itemId || rarity === null || !condition) continue;
+    const prefix = "components.minecraft:custom_data.";
+    const conditionPath = String(condition.path);
+    if (!conditionPath.startsWith(prefix)) continue;
+    const key = discriminatorKeyFromPath(conditionPath.slice(prefix.length));
+    const value = typeof condition.value === "string" ? condition.value : "";
+    if (key && value) result.set(`${itemId}\u0000${key}=${value}`, rarity);
+  }
+  return result;
+}
+
+async function scanFoodOverrides(file: string): Promise<Map<string, FoodProperty>> {
+  const root = await readJsonObject(file);
+  const result = new Map<string, FoodProperty>();
+  const foods = Array.isArray(root.foods) ? root.foods.filter(isObject) : [];
+  for (const row of foods) {
+    const foodId = typeof row.food_id === "string" ? row.food_id : "";
+    if (!foodId) continue;
+    const effects = Array.isArray(row.effects) ? row.effects.filter(isObject).map((effect) => ({
+      id: typeof effect.id === "string" ? effect.id : "",
+      durationTicks: Math.trunc(numberOr(effect.duration_ticks, 0)),
+      amplifier: Math.trunc(numberOr(effect.amplifier, 0)),
+      chance: numberOr(effect.chance, 1)
+    })).filter((effect) => effect.id) : [];
+    result.set(foodId, {
+      foodId,
+      nutrition: Math.trunc(numberOr(row.nutrition, 0)),
+      saturation: numberOr(row.saturation, 0),
+      thirstDelta: Math.trunc(numberOr(row.thirst_delta, 0)),
+      waterDelta: Math.trunc(numberOr(row.water_delta, 0)),
+      thirstMode: row.thirst_mode === "only" ? "only" : "always",
+      effects
+    });
+  }
+  return result;
+}
+
+function findBlockZVariant(root: JsonObject, registryId: string, variantDiscriminator: string): JsonObject | null {
+  const separator = variantDiscriminator.indexOf("=");
+  if (separator <= 0) return null;
+  const expectedKey = customDataPath(variantDiscriminator.slice(0, separator));
+  const expectedValue = variantDiscriminator.slice(separator + 1);
+  const rules = Array.isArray(root.nbt_items) ? root.nbt_items.filter(isObject) : [];
+  return rules.find((entry) => entry.id === registryId && entry.nbt_key === expectedKey && entry.nbt_value === expectedValue) ?? null;
+}
+
+function discriminatorKeyFromPath(value: string): string {
+  return value === "firstpersonfoodeating_profile.food_id" ? "food_id" : value;
 }
 
 function gunFromData(gunId: string, pack: string, namespace: string, dataId: string, data: JsonObject): TaczGunProperty {
@@ -174,6 +258,10 @@ async function walkJson(root: string): Promise<string[]> {
 
 function objectOr(value: unknown): JsonObject {
   return value !== null && typeof value === "object" && !Array.isArray(value) ? value as JsonObject : {};
+}
+
+function isObject(value: unknown): value is JsonObject {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
 function finiteNumber(value: unknown): number | null {
