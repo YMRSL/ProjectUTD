@@ -76,6 +76,8 @@ class AssetManagerScreenContractTest {
         assertTrue(codec.contains("\"food_id\".equals(component[0])"));
         assertTrue(codec.contains("DataComponents.CUSTOM_DATA"));
         assertTrue(codec.contains("!\"{}\".equals(itemStackSnbt)"));
+        assertTrue(codec.contains("isDataComponentMap(parsedComponents)"));
+        assertTrue(codec.contains("components.getAllKeys()"));
     }
 
     @Test

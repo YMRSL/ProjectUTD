@@ -85,13 +85,16 @@ public final class AssetStackCodec {
         String componentsSnbt = record.componentsSnbt == null ? "" : record.componentsSnbt.trim();
         if (!componentsSnbt.isBlank() && !"{}".equals(componentsSnbt)) {
             try {
-                CompoundTag full = new CompoundTag();
-                full.putString("id", record.registryId);
-                full.putInt("count", 1);
-                full.put("components", TagParser.parseTag(componentsSnbt));
-                ItemStack restored = ItemStack.parse(minecraft.level.registryAccess(), full).orElse(ItemStack.EMPTY);
-                if (!restored.isEmpty()) {
-                    return restored;
+                CompoundTag parsedComponents = TagParser.parseTag(componentsSnbt);
+                if (isDataComponentMap(parsedComponents)) {
+                    CompoundTag full = new CompoundTag();
+                    full.putString("id", record.registryId);
+                    full.putInt("count", 1);
+                    full.put("components", parsedComponents);
+                    ItemStack restored = ItemStack.parse(minecraft.level.registryAccess(), full).orElse(ItemStack.EMPTY);
+                    if (!restored.isEmpty()) {
+                        return restored;
+                    }
                 }
             } catch (Exception ignored) {
                 // Invalid or obsolete component evidence must not prevent a
@@ -110,6 +113,19 @@ public final class AssetStackCodec {
         } catch (Exception invalidId) {
             return ItemStack.EMPTY;
         }
+    }
+
+    private static boolean isDataComponentMap(CompoundTag components) {
+        if (components.isEmpty()) {
+            return false;
+        }
+        for (String key : components.getAllKeys()) {
+            int separator = key.indexOf(':');
+            if (separator <= 0 || separator == key.length() - 1 || ResourceLocation.tryParse(key) == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static boolean supportsVariantPreview(AssetRecord record) {
