@@ -82,6 +82,23 @@ public final class AssetIdentity {
         return value.isBlank() ? "" : "food_id=" + value;
     }
 
+    public static String[] previewComponent(String variantDiscriminator) {
+        String discriminator = variantDiscriminator == null ? "" : variantDiscriminator.trim();
+        int separator = discriminator.indexOf('=');
+        if (separator <= 0 || separator == discriminator.length() - 1) {
+            return null;
+        }
+        String key = discriminator.substring(0, separator).trim();
+        String value = discriminator.substring(separator + 1).trim();
+        if (value.isBlank()) {
+            return null;
+        }
+        return switch (key) {
+            case "GunId", "AmmoId", "AttachmentId", "food_id" -> new String[]{key, value};
+            default -> null;
+        };
+    }
+
     private static String firstGroup(Pattern pattern, String value) {
         Matcher matcher = pattern.matcher(value);
         return matcher.find() ? matcher.group(1) : "";

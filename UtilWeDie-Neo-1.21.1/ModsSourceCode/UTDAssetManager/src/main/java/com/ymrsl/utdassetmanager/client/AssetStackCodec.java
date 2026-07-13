@@ -104,7 +104,7 @@ public final class AssetStackCodec {
                 return ItemStack.EMPTY;
             }
             if (supportsVariantPreview(record)) {
-                applyFoodPreview(base, record);
+                applyVariantPreview(base, record);
             }
             return base;
         } catch (Exception invalidId) {
@@ -118,19 +118,23 @@ public final class AssetStackCodec {
         String components = record.componentsSnbt == null ? "" : record.componentsSnbt.trim();
         return (!full.isBlank() && !"{}".equals(full))
                 || (!components.isBlank() && !"{}".equals(components))
-                || ("firstpersonfoodeating:pack_food".equals(record.registryId)
-                && foodId(record).contains(":"));
+                || previewComponent(record) != null;
     }
 
-    private static void applyFoodPreview(ItemStack stack, AssetRecord record) {
+    private static void applyVariantPreview(ItemStack stack, AssetRecord record) {
+        String[] component = previewComponent(record);
+        if (component == null) {
+            return;
+        }
         CompoundTag customData = parseCustomData(record.componentsSnbt);
-        String foodId = foodId(record);
-        customData.putString("food_id", foodId);
-        CompoundTag profile = customData.contains("firstpersonfoodeating_profile", Tag.TAG_COMPOUND)
-                ? customData.getCompound("firstpersonfoodeating_profile")
-                : new CompoundTag();
-        profile.putString("food_id", foodId);
-        customData.put("firstpersonfoodeating_profile", profile);
+        customData.putString(component[0], component[1]);
+        if ("food_id".equals(component[0])) {
+            CompoundTag profile = customData.contains("firstpersonfoodeating_profile", Tag.TAG_COMPOUND)
+                    ? customData.getCompound("firstpersonfoodeating_profile")
+                    : new CompoundTag();
+            profile.putString("food_id", component[1]);
+            customData.put("firstpersonfoodeating_profile", profile);
+        }
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(customData));
     }
 
@@ -150,12 +154,8 @@ public final class AssetStackCodec {
         }
     }
 
-    private static String foodId(AssetRecord record) {
-        String discriminator = record == null || record.variantDiscriminator == null
-                ? ""
-                : record.variantDiscriminator.trim();
-        String prefix = "food_id=";
-        return discriminator.startsWith(prefix) ? discriminator.substring(prefix.length()).trim() : "";
+    static String[] previewComponent(AssetRecord record) {
+        return AssetIdentity.previewComponent(record == null ? "" : record.variantDiscriminator);
     }
 
     public static String localizedBaseName(String registryId) {

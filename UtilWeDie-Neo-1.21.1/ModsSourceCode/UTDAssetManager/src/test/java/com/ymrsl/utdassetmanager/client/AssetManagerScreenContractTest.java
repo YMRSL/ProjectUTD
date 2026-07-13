@@ -73,7 +73,7 @@ class AssetManagerScreenContractTest {
         assertTrue(screen.contains("search.setMaxLength(512)"));
         assertTrue(screen.contains("compactDiscriminator(record.variantDiscriminator)"));
         assertTrue(screen.contains("AssetStackCodec.supportsVariantPreview(record)"));
-        assertTrue(codec.contains("firstpersonfoodeating:pack_food"));
+        assertTrue(codec.contains("\"food_id\".equals(component[0])"));
         assertTrue(codec.contains("DataComponents.CUSTOM_DATA"));
         assertTrue(codec.contains("!\"{}\".equals(itemStackSnbt)"));
     }
@@ -108,4 +108,5 @@ class AssetManagerScreenContractTest {
         assertTrue(source.contains("repository.allManifestDirectory()"));
         assertTrue(source.contains("repository.exportSnapshot(iconExportRecords"));
     }
+
 }

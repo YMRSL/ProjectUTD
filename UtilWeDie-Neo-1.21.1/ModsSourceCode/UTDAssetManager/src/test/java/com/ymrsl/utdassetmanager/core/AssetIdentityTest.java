@@ -1,7 +1,9 @@
 package com.ymrsl.utdassetmanager.core;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -62,6 +64,20 @@ final class AssetIdentityTest {
         String foodB = AssetIdentity.identityComponentsCanonical("ignored", "food_id=firstpersonfoodeating:i_bang_b");
         assertNotEquals(ak, m4);
         assertNotEquals(foodA, foodB);
+    }
+
+    @Test
+    void knownVariantDiscriminatorsCanRebuildPreviewComponents() {
+        assertArrayEquals(
+                new String[]{"GunId", "tacz:m107"},
+                AssetIdentity.previewComponent("GunId=tacz:m107"));
+        assertArrayEquals(
+                new String[]{"AmmoId", "tacz:50bmg"},
+                AssetIdentity.previewComponent("AmmoId=tacz:50bmg"));
+        assertArrayEquals(
+                new String[]{"food_id", "firstpersonfoodeating:i_bang_a"},
+                AssetIdentity.previewComponent("food_id=firstpersonfoodeating:i_bang_a"));
+        assertNull(AssetIdentity.previewComponent("unknown=value"));
     }
 
     @Test
